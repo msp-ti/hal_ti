@@ -1,0 +1,28 @@
+#include <zephyr/dt-bindings/pinctrl/mspm0-pinctrl.h>
+
+&pinctrl {
+
+    i2c1_scl_default : {
+		port = <MSP_PORT_INDEX_BY_NAME("PORTB")>;
+		pin = <3>;
+		pinFunction = <4>;
+	};
+
+	i2c1_sda_default : {
+		port = <MSP_PORT_INDEX_BY_NAME("PORTB")>;
+		pin = <2>;
+		pinFunction = <4>;
+	};
+
+	i2c1_scl_bsl : {
+		port = <MSP_PORT_INDEX_BY_NAME("PORTA")>;
+		pin = <28>;
+		pinFunction = <3>;
+	};
+
+	i2c1_sda_bsl : {
+		port = <MSP_PORT_INDEX_BY_NAME("PORTA")>;
+		pin = <31>;
+		pinFunction = <3>;
+	};
+};
