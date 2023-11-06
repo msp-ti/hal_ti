@@ -1,28 +1,73 @@
-#include <zephyr/dt-bindings/pinctrl/mspm0-pinctrl.h>
+#include <dt-bindings/pinctrl/mspm0-pinctrl.h>
 
 &pinctrl {
 
-    i2c1_scl_default : {
-		port = <MSP_PORT_INDEX_BY_NAME("PORTB")>;
-		pin = <3>;
-		pinFunction = <4>;
+	i2c1_scl_pb2_pull_up: i2c1_scl_pb2_pull_up {
+		pinmux = <MSP_PINMUX(15,I2C1_SCL)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
 	};
 
-	i2c1_sda_default : {
-		port = <MSP_PORT_INDEX_BY_NAME("PORTB")>;
-		pin = <2>;
-		pinFunction = <4>;
+	i2c1_sda_pb3_pull_up: i2c1_sda_pb3_pull_up {
+		pinmux = <MSP_PINMUX(16,I2C1_SDA)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
 	};
 
-	i2c1_scl_bsl : {
-		port = <MSP_PORT_INDEX_BY_NAME("PORTA")>;
-		pin = <28>;
-		pinFunction = <3>;
+	i2c1_scl_pb2_floating: i2c1_scl_pb2_floating {
+		pinmux = <MSP_PINMUX(15,I2C1_SCL)>;
+		input-enable;
+		drive-open-drain;
 	};
 
-	i2c1_sda_bsl : {
-		port = <MSP_PORT_INDEX_BY_NAME("PORTA")>;
-		pin = <31>;
-		pinFunction = <3>;
+	i2c1_sda_pb3_floating: i2c1_sda_pb3_floating {
+		pinmux = <MSP_PINMUX(16,I2C1_SDA)>;
+		input-enable;
+		drive-open-drain;
 	};
+
+	i2c1_scl_pa11_pull_up: i2c1_scl_pa11_pull_up {
+		pinmux = <MSP_PINMUX(22,I2C1_SCL)>;
+		input-enable;
+		bias-pull-up; 
+		drive-open-drain;
+	};
+
+	i2c1_sda_pa10_pull_up: i2c1_sda_pa10_pull_up {
+		pinmux = <MSP_PINMUX(21, I2C1_SDA)>;
+		input-enable;
+		bias-pull-up; 
+		drive-open-drain;
+	};
+
+	i2c1_sda_pa16_pull_up: i2c1_sda_pa16_pull_up {
+		pinmux = <MSP_PINMUX(38,I2C1_SDA)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
+	};
+
+	i2c1_scl_pa17_pull_up: i2c1_scl_pa17_pull_up {
+		pinmux = <MSP_PINMUX(39,I2C1_SCL)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
+	};
+
+	i2c1_scl_pa29_pull_up: i2c1_scl_pa29_pull_up {
+		pinmux = <MSP_PINMUX(4,I2C1_SCL)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
+	};
+
+	i2c1_sda_pa30_pull_up: i2c1_sda_pa30_pull_up {
+		pinmux = <MSP_PINMUX(5,I2C1_SDA)>;
+		input-enable;
+		bias-pull-up;
+		drive-open-drain;
+	};
+
 };
