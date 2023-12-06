@@ -70,4 +70,13 @@
 		drive-open-drain;
 	};
 
+	uart0_tx_pa10: uart_tx_pa10 {
+		pinmux = <MSP_PINMUX(21,UART0_TX)>;
+	};
+
+	uart0_rx_pa11: uart_rx_pa11 {
+		pinmux = <MSP_PINMUX(22,UART0_RX)>;
+		input-enable;
+	};
+
 };
