@@ -172,8 +172,6 @@ typedef enum {
     DL_DAC12_FIFO_TRIGGER_SAMPLETIMER = DAC12_CTL2_FIFOTRIGSEL_STIM,
     /*!  DAC FIFO read trigger sourced from the hardware trigger 0 event fabric */
     DL_DAC12_FIFO_TRIGGER_HWTRIG0 = DAC12_CTL2_FIFOTRIGSEL_TRIG0,
-    /*!  DAC FIFO read trigger sourced from the hardware trigger 1 event fabric */
-    DL_DAC12_FIFO_TRIGGER_HWTRIG1 = DAC12_CTL2_FIFOTRIGSEL_TRIG1,
 } DL_DAC12_FIFO_TRIGGER;
 
 /** @enum DL_DAC12_DMA_TRIGGER */
@@ -201,38 +199,38 @@ typedef enum {
 /*!
  *  @brief Interrupt raised when the module ready event has occurred
  */
-#define DL_DAC12_INTERRUPT_MODULE_READY             (DAC12_IMASK_MODRDYIFG_SET)
+#define DL_DAC12_INTERRUPT_MODULE_READY             (DAC12_GEN_EVENT_IMASK_MODRDYIFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is empty
  */
-#define DL_DAC12_INTERRUPT_FIFO_EMPTY            (DAC12_IMASK_FIFOEMPTYIFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_EMPTY            (DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is 3/4th empty
  */
-#define DL_DAC12_INTERRUPT_FIFO_THREE_QTRS_EMPTY   (DAC12_IMASK_FIFO3B4IFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_THREE_QTRS_EMPTY   (DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is 2/4ths empty
  */
-#define DL_DAC12_INTERRUPT_FIFO_TWO_QTRS_EMPTY     (DAC12_IMASK_FIFO1B2IFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_TWO_QTRS_EMPTY     (DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is 1/4th empty
  */
-#define DL_DAC12_INTERRUPT_FIFO_ONE_QTR_EMPTY      (DAC12_IMASK_FIFO1B4IFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_ONE_QTR_EMPTY      (DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is full
  */
-#define DL_DAC12_INTERRUPT_FIFO_FULL              (DAC12_IMASK_FIFOFULLIFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_FULL              (DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_SET)
 
 /*!
  *  @brief Interrupt raised when the FIFO is underrun
  *         (tried to read from an empty FIFO)
  */
-#define DL_DAC12_INTERRUPT_FIFO_UNDERRUN          (DAC12_IMASK_FIFOURUNIFG_SET)
+#define DL_DAC12_INTERRUPT_FIFO_UNDERRUN          (DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_SET)
 
 /*!
  *  @brief Interrupt raised as an Acknowledgement to the DMA completing a
@@ -244,7 +242,7 @@ typedef enum {
  *  nonzero status, and the DMA is done sending information, the DMATrigger will
  *  be disabled and this interrupt will be asserted.
  */
-#define DL_DAC12_INTERRUPT_DMA_DONE                (DAC12_IMASK_DMADONEIFG_SET)
+#define DL_DAC12_INTERRUPT_DMA_DONE                (DAC12_GEN_EVENT_IMASK_DMADONEIFG_SET)
 
 /** @}*/
 
@@ -255,38 +253,38 @@ typedef enum {
 /*!
  *  @brief Event raised when the module ready event has occurred
  */
-#define DL_DAC12_EVENT_MODULE_READY             (DAC12_IMASK_MODRDYIFG_SET)
+#define DL_DAC12_EVENT_MODULE_READY             (DAC12_GEN_EVENT_IMASK_MODRDYIFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is empty
  */
-#define DL_DAC12_EVENT_FIFO_EMPTY            (DAC12_IMASK_FIFOEMPTYIFG_SET)
+#define DL_DAC12_EVENT_FIFO_EMPTY            (DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is 3/4th empty
  */
-#define DL_DAC12_EVENT_FIFO_THREE_QTRS_EMPTY   (DAC12_IMASK_FIFO3B4IFG_SET)
+#define DL_DAC12_EVENT_FIFO_THREE_QTRS_EMPTY   (DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is 2/4ths empty
  */
-#define DL_DAC12_EVENT_FIFO_TWO_QTRS_EMPTY     (DAC12_IMASK_FIFO1B2IFG_SET)
+#define DL_DAC12_EVENT_FIFO_TWO_QTRS_EMPTY     (DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is 1/4th empty
  */
-#define DL_DAC12_EVENT_FIFO_ONE_QTR_EMPTY      (DAC12_IMASK_FIFO1B4IFG_SET)
+#define DL_DAC12_EVENT_FIFO_ONE_QTR_EMPTY      (DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is full
  */
-#define DL_DAC12_EVENT_FIFO_FULL              (DAC12_IMASK_FIFOFULLIFG_SET)
+#define DL_DAC12_EVENT_FIFO_FULL              (DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_SET)
 
 /*!
  *  @brief Event raised when the FIFO is underrun
  *         (tried to read from an empty FIFO)
  */
-#define DL_DAC12_EVENT_FIFO_UNDERRUN          (DAC12_IMASK_FIFOURUNIFG_SET)
+#define DL_DAC12_EVENT_FIFO_UNDERRUN          (DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_SET)
 
 /*!
  *  @brief Event raised as an Acknowledgement to the DMA completing a
@@ -298,7 +296,7 @@ typedef enum {
  *  nonzero status, and the DMA is done sending information, the DMATrigger will
  *  be disabled and this interrupt will be asserted.
  */
-#define DL_DAC12_EVENT_DMA_DONE                (DAC12_IMASK_DMADONEIFG_SET)
+#define DL_DAC12_EVENT_DMA_DONE                (DAC12_GEN_EVENT_IMASK_DMADONEIFG_SET)
 
 /** @}*/
 
@@ -307,31 +305,29 @@ typedef enum {
 /*! @enum DL_DAC12_IIDX */
 typedef enum {
     /*! DAC interrupt index for no interrupt pending */
-    DL_DAC12_IIDX_NO_INT = DAC12_IIDX_STAT_NO_INTR,
+    DL_DAC12_IIDX_NO_INT = DAC12_CPU_INT_IIDX_STAT_NO_INTR,
     /*! DAC interrupt index when module is ready */
-    DL_DAC12_IIDX_MODULE_READY = DAC12_IIDX_STAT_MODRDYIFG,
+    DL_DAC12_IIDX_MODULE_READY = DAC12_CPU_INT_IIDX_STAT_MODRDYIFG,
     /*! DAC interrupt index when FIFO is full */
-    DL_DAC12_IIDX_FIFO_FULL = DAC12_IIDX_STAT_FIFOFULLIFG,
+    DL_DAC12_IIDX_FIFO_FULL = DAC12_CPU_INT_IIDX_STAT_FIFOFULLIFG,
     /*! DAC interrupt index when FIFO is 1/4 empty */
-    DL_DAC12_IIDX_FIFO_1_4_EMPTY = DAC12_IIDX_STAT_FIFO1B4IFG,
+    DL_DAC12_IIDX_FIFO_1_4_EMPTY = DAC12_CPU_INT_IIDX_STAT_FIFO1B4IFG,
     /*! DAC interrupt index when FIFO is 1/2 empty */
-    DL_DAC12_IIDX_FIFO_1_2_EMPTY = DAC12_IIDX_STAT_FIFO1B2IFG,
+    DL_DAC12_IIDX_FIFO_1_2_EMPTY = DAC12_CPU_INT_IIDX_STAT_FIFO1B2IFG,
     /*! DAC interrupt index when FIFO is 3/4 empty */
-    DL_DAC12_IIDX_FIFO_3_4_EMPTY = DAC12_IIDX_STAT_FIFO3B4IFG,
+    DL_DAC12_IIDX_FIFO_3_4_EMPTY = DAC12_CPU_INT_IIDX_STAT_FIFO3B4IFG,
     /*! DAC interrupt index when FIFO is empty */
-    DL_DAC12_IIDX_FIFO_EMPTY = DAC12_IIDX_STAT_FIFOEMPTYIFG,
+    DL_DAC12_IIDX_FIFO_EMPTY = DAC12_CPU_INT_IIDX_STAT_FIFOEMPTYIFG,
     /*! DAC interrupt index if there is FIFO underrun */
-    DL_DAC12_IIDX_FIFO_UNDERRUN = DAC12_IIDX_STAT_FIFOURUNIFG,
+    DL_DAC12_IIDX_FIFO_UNDERRUN = DAC12_CPU_INT_IIDX_STAT_FIFOURUNIFG,
     /*! DAC interrupt index for DMA transfer done */
-    DL_DAC12_IIDX_DMA_DONE = DAC12_IIDX_STAT_DMADONEIFG
+    DL_DAC12_IIDX_DMA_DONE = DAC12_CPU_INT_IIDX_STAT_DMADONEIFG
 } DL_DAC12_IIDX;
 
 /*! @enum DL_DAC12_SUBSCRIBER_INDEX */
 typedef enum {
     /*! DAC12 Subscriber index 0 */
     DL_DAC12_SUBSCRIBER_INDEX_0 = 0,
-    /*! DAC12 Subscriber index 1 */
-    DL_DAC12_SUBSCRIBER_INDEX_1 = 1
 } DL_DAC12_SUBSCRIBER_INDEX;
 
 /*! @enum DL_DAC12_EVENT_ROUTE */
@@ -1052,7 +1048,7 @@ void DL_DAC12_outputBlocking12(DAC12_Regs *dac12, uint16_t data);
 __STATIC_INLINE uint32_t DL_DAC12_getInterruptStatus(
     DAC12_Regs *dac12, uint32_t interruptMask)
 {
-    return (dac12->INT_EVENT[0].RIS & interruptMask);
+    return (dac12->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -1069,7 +1065,7 @@ __STATIC_INLINE uint32_t DL_DAC12_getInterruptStatus(
 __STATIC_INLINE void DL_DAC12_clearInterruptStatus(
     DAC12_Regs *dac12, uint32_t interruptMask)
 {
-    dac12->INT_EVENT[0].ICLR = interruptMask;
+    dac12->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -1084,7 +1080,7 @@ __STATIC_INLINE void DL_DAC12_clearInterruptStatus(
 __STATIC_INLINE void DL_DAC12_enableInterrupt(
     DAC12_Regs *dac12, uint32_t interruptMask)
 {
-    dac12->INT_EVENT[0].IMASK |= interruptMask;
+    dac12->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -1099,7 +1095,7 @@ __STATIC_INLINE void DL_DAC12_enableInterrupt(
 __STATIC_INLINE void DL_DAC12_disableInterrupt(
     DAC12_Regs *dac12, uint32_t interruptMask)
 {
-    dac12->INT_EVENT[0].IMASK &= ~interruptMask;
+    dac12->CPU_INT.IMASK &= ~interruptMask;
 }
 
 /**
@@ -1119,7 +1115,7 @@ __STATIC_INLINE void DL_DAC12_disableInterrupt(
  */
 __STATIC_INLINE DL_DAC12_IIDX DL_DAC12_getPendingInterrupt(DAC12_Regs *dac12)
 {
-    return ((DL_DAC12_IIDX) dac12->INT_EVENT[0].IIDX);
+    return ((DL_DAC12_IIDX) dac12->CPU_INT.IIDX);
 }
 
 /**
@@ -1213,7 +1209,7 @@ __STATIC_INLINE uint8_t DL_DAC12_getSubscriberChanID(
 __STATIC_INLINE void DL_DAC12_enableEvent(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    dac12->INT_EVENT[1].IMASK |= (eventMask);
+    dac12->GEN_EVENT.IMASK |= (eventMask);
 }
 
 /**
@@ -1226,7 +1222,7 @@ __STATIC_INLINE void DL_DAC12_enableEvent(
 __STATIC_INLINE void DL_DAC12_disableEvent(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    dac12->INT_EVENT[1].IMASK &= ~(eventMask);
+    dac12->GEN_EVENT.IMASK &= ~(eventMask);
 }
 
 /**
@@ -1243,7 +1239,7 @@ __STATIC_INLINE void DL_DAC12_disableEvent(
 __STATIC_INLINE uint32_t DL_DAC12_getEnabledEvents(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    return ((dac12->INT_EVENT[1].IMASK) & (eventMask));
+    return ((dac12->GEN_EVENT.IMASK) & (eventMask));
 }
 
 /**
@@ -1265,7 +1261,7 @@ __STATIC_INLINE uint32_t DL_DAC12_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_DAC12_getEnabledEventStatus(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    return ((dac12->INT_EVENT[1].MIS) & eventMask);
+    return ((dac12->GEN_EVENT.MIS) & eventMask);
 }
 
 /**
@@ -1285,7 +1281,7 @@ __STATIC_INLINE uint32_t DL_DAC12_getEnabledEventStatus(
 __STATIC_INLINE uint32_t DL_DAC12_getRawEventsStatus(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    return ((dac12->INT_EVENT[1].RIS) & eventMask);
+    return ((dac12->GEN_EVENT.RIS) & eventMask);
 }
 
 /**
@@ -1298,7 +1294,7 @@ __STATIC_INLINE uint32_t DL_DAC12_getRawEventsStatus(
 __STATIC_INLINE void DL_DAC12_clearEventsStatus(
     DAC12_Regs *dac12, uint32_t eventMask)
 {
-    dac12->INT_EVENT[1].ICLR |= (eventMask);
+    dac12->GEN_EVENT.ICLR |= (eventMask);
 }
 
 #ifdef __cplusplus

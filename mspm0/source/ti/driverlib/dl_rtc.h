@@ -71,32 +71,32 @@ extern "C" {
 /**
  * @brief RTC alarm 1 interrupt
  */
-#define DL_RTC_INTERRUPT_CALENDAR_ALARM1        (RTC_INT_EVENT0_IMASK_RTCA1_SET)
+#define DL_RTC_INTERRUPT_CALENDAR_ALARM1        (RTC_CPU_INT_IMASK_RTCA1_SET)
 
 /**
  * @brief RTC alarm 2 interrupt
  */
-#define DL_RTC_INTERRUPT_CALENDAR_ALARM2        (RTC_INT_EVENT0_IMASK_RTCA2_SET)
+#define DL_RTC_INTERRUPT_CALENDAR_ALARM2        (RTC_CPU_INT_IMASK_RTCA2_SET)
 
 /**
  * @brief RTC prescaler 0 interrupt
  */
-#define DL_RTC_INTERRUPT_PRESCALER0             (RTC_INT_EVENT0_IMASK_RT0PS_SET)
+#define DL_RTC_INTERRUPT_PRESCALER0             (RTC_CPU_INT_IMASK_RT0PS_SET)
 
 /**
  * @brief RTC prescaler 1 interrupt
  */
-#define DL_RTC_INTERRUPT_PRESCALER1             (RTC_INT_EVENT0_IMASK_RT1PS_SET)
+#define DL_RTC_INTERRUPT_PRESCALER1             (RTC_CPU_INT_IMASK_RT1PS_SET)
 
 /**
  * @brief RTC interval timer interrupt
  */
-#define DL_RTC_INTERRUPT_INTERVAL_ALARM        (RTC_INT_EVENT0_IMASK_RTCTEV_SET)
+#define DL_RTC_INTERRUPT_INTERVAL_ALARM        (RTC_CPU_INT_IMASK_RTCTEV_SET)
 
 /**
  * @brief RTC ready interrupt
  */
-#define DL_RTC_INTERRUPT_READY                 (RTC_INT_EVENT0_IMASK_RTCRDY_SET)
+#define DL_RTC_INTERRUPT_READY                 (RTC_CPU_INT_IMASK_RTCRDY_SET)
 
 /** @}*/
 
@@ -107,32 +107,32 @@ extern "C" {
 /**
  * @brief RTC alarm 1 event
  */
-#define DL_RTC_EVENT_CALENDAR_ALARM1            (RTC_INT_EVENT1_IMASK_RTCA1_SET)
+#define DL_RTC_EVENT_CALENDAR_ALARM1            (RTC_GEN_EVENT_IMASK_RTCA1_SET)
 
 /**
  * @brief RTC alarm 2 event
  */
-#define DL_RTC_EVENT_CALENDAR_ALARM2            (RTC_INT_EVENT1_IMASK_RTCA2_SET)
+#define DL_RTC_EVENT_CALENDAR_ALARM2            (RTC_GEN_EVENT_IMASK_RTCA2_SET)
 
 /**
  * @brief RTC prescaler 0 event
  */
-#define DL_RTC_EVENT_PRESCALER0                 (RTC_INT_EVENT1_IMASK_RT0PS_SET)
+#define DL_RTC_EVENT_PRESCALER0                 (RTC_GEN_EVENT_IMASK_RT0PS_SET)
 
 /**
  * @brief RTC prescaler 1 event
  */
-#define DL_RTC_EVENT_PRESCALER1                 (RTC_INT_EVENT1_IMASK_RT1PS_SET)
+#define DL_RTC_EVENT_PRESCALER1                 (RTC_GEN_EVENT_IMASK_RT1PS_SET)
 
 /**
  * @brief RTC interval timer event
  */
-#define DL_RTC_EVENT_INTERVAL_ALARM            (RTC_INT_EVENT1_IMASK_RTCTEV_SET)
+#define DL_RTC_EVENT_INTERVAL_ALARM            (RTC_GEN_EVENT_IMASK_RTCTEV_SET)
 
 /**
  * @brief RTC ready event
  */
-#define DL_RTC_EVENT_READY                     (RTC_INT_EVENT1_IMASK_RTCRDY_SET)
+#define DL_RTC_EVENT_READY                     (RTC_GEN_EVENT_IMASK_RTCRDY_SET)
 
 
 /** @}*/
@@ -248,17 +248,17 @@ typedef enum {
 /*! @enum DL_RTC_IIDX */
 typedef enum {
     /*! RTC interrupt index for alarm 1 */
-    DL_RTC_IIDX_ALARM1 = RTC_INT_EVENT0_IIDX_STAT_RTCA1,
+    DL_RTC_IIDX_ALARM1 = RTC_CPU_INT_IIDX_STAT_RTCA1,
     /*! RTC interrupt index for alarm 2 */
-    DL_RTC_IIDX_ALARM2 = RTC_INT_EVENT0_IIDX_STAT_RTCA2,
+    DL_RTC_IIDX_ALARM2 = RTC_CPU_INT_IIDX_STAT_RTCA2,
     /*! RTC interrupt index for prescaler 0 */
-    DL_RTC_IIDX_PRESCALER0 = RTC_INT_EVENT0_IIDX_STAT_RT0PS,
+    DL_RTC_IIDX_PRESCALER0 = RTC_CPU_INT_IIDX_STAT_RT0PS,
     /*! RTC interrupt index for prescaler 1 */
-    DL_RTC_IIDX_PRESCALER1 = RTC_INT_EVENT0_IIDX_STAT_RT1PS,
+    DL_RTC_IIDX_PRESCALER1 = RTC_CPU_INT_IIDX_STAT_RT1PS,
     /*! RTC interrupt index for interval timer */
-    DL_RTC_IIDX_INTERVAL_TIMER = RTC_INT_EVENT0_IIDX_STAT_RTCTEV,
+    DL_RTC_IIDX_INTERVAL_TIMER = RTC_CPU_INT_IIDX_STAT_RTCTEV,
     /*! RTC interrupt index for RTC ready */
-    DL_RTC_IIDX_READY = RTC_INT_EVENT0_IIDX_STAT_RTCRDY
+    DL_RTC_IIDX_READY = RTC_CPU_INT_IIDX_STAT_RTCRDY
 } DL_RTC_IIDX;
 
 /* clang-format on */
@@ -2119,7 +2119,7 @@ __STATIC_INLINE DL_RTC_PRESCALER1_DIVIDE DL_RTC_getPrescaler1(RTC_Regs *rtc)
 __STATIC_INLINE void DL_RTC_enableInterrupt(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    rtc->INT_EVENT0.IMASK |= interruptMask;
+    rtc->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -2133,7 +2133,7 @@ __STATIC_INLINE void DL_RTC_enableInterrupt(
 __STATIC_INLINE void DL_RTC_disableInterrupt(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    rtc->INT_EVENT0.IMASK &= ~(interruptMask);
+    rtc->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -2151,7 +2151,7 @@ __STATIC_INLINE void DL_RTC_disableInterrupt(
 __STATIC_INLINE uint32_t DL_RTC_getEnabledInterrupts(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    return (rtc->INT_EVENT0.IMASK & interruptMask);
+    return (rtc->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -2174,7 +2174,7 @@ __STATIC_INLINE uint32_t DL_RTC_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_RTC_getEnabledInterruptStatus(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    return (rtc->INT_EVENT0.MIS & interruptMask);
+    return (rtc->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -2195,7 +2195,7 @@ __STATIC_INLINE uint32_t DL_RTC_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_RTC_getRawInterruptStatus(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    return (rtc->INT_EVENT0.RIS & interruptMask);
+    return (rtc->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -2212,7 +2212,7 @@ __STATIC_INLINE uint32_t DL_RTC_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_RTC_IIDX DL_RTC_getPendingInterrupt(RTC_Regs *rtc)
 {
-    return (DL_RTC_IIDX)(rtc->INT_EVENT0.IIDX);
+    return (DL_RTC_IIDX)(rtc->CPU_INT.IIDX);
 }
 
 /**
@@ -2226,7 +2226,7 @@ __STATIC_INLINE DL_RTC_IIDX DL_RTC_getPendingInterrupt(RTC_Regs *rtc)
 __STATIC_INLINE void DL_RTC_clearInterruptStatus(
     RTC_Regs *rtc, uint32_t interruptMask)
 {
-    rtc->INT_EVENT0.ICLR = interruptMask;
+    rtc->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -2238,7 +2238,7 @@ __STATIC_INLINE void DL_RTC_clearInterruptStatus(
  */
 __STATIC_INLINE void DL_RTC_enableEvent(RTC_Regs *rtc, uint32_t eventMask)
 {
-    rtc->INT_EVENT1.IMASK |= (eventMask);
+    rtc->GEN_EVENT.IMASK |= (eventMask);
 }
 
 /**
@@ -2250,7 +2250,7 @@ __STATIC_INLINE void DL_RTC_enableEvent(RTC_Regs *rtc, uint32_t eventMask)
  */
 __STATIC_INLINE void DL_RTC_disableEvent(RTC_Regs *rtc, uint32_t eventMask)
 {
-    rtc->INT_EVENT1.IMASK &= ~(eventMask);
+    rtc->GEN_EVENT.IMASK &= ~(eventMask);
 }
 
 /**
@@ -2267,7 +2267,7 @@ __STATIC_INLINE void DL_RTC_disableEvent(RTC_Regs *rtc, uint32_t eventMask)
 __STATIC_INLINE uint32_t DL_RTC_getEnabledEvents(
     RTC_Regs *rtc, uint32_t eventMask)
 {
-    return ((rtc->INT_EVENT1.IMASK) & (eventMask));
+    return ((rtc->GEN_EVENT.IMASK) & (eventMask));
 }
 
 /**
@@ -2289,7 +2289,7 @@ __STATIC_INLINE uint32_t DL_RTC_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_RTC_getEnabledEventStatus(
     RTC_Regs *rtc, uint32_t eventMask)
 {
-    return ((rtc->INT_EVENT1.MIS) & eventMask);
+    return ((rtc->GEN_EVENT.MIS) & eventMask);
 }
 
 /**
@@ -2309,7 +2309,7 @@ __STATIC_INLINE uint32_t DL_RTC_getEnabledEventStatus(
 __STATIC_INLINE uint32_t DL_RTC_getRawEventsStatus(
     RTC_Regs *rtc, uint32_t eventMask)
 {
-    return ((rtc->INT_EVENT1.RIS) & eventMask);
+    return ((rtc->GEN_EVENT.RIS) & eventMask);
 }
 
 /**
@@ -2322,7 +2322,7 @@ __STATIC_INLINE uint32_t DL_RTC_getRawEventsStatus(
 __STATIC_INLINE void DL_RTC_clearEventsStatus(
     RTC_Regs *rtc, uint32_t eventMask)
 {
-    rtc->INT_EVENT1.ICLR |= (eventMask);
+    rtc->GEN_EVENT.ICLR |= (eventMask);
 }
 
 /**

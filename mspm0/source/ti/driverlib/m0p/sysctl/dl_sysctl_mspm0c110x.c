@@ -33,20 +33,23 @@
 #include <stdint.h>
 #include <ti/devices/DeviceFamily.h>
 
-#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0L11XX_L13XX)
+#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0C110X)
 
-#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0l11xx_l13xx.h>
+#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0c110x.h>
 
 void DL_SYSCTL_switchMCLKfromSYSOSCtoLFCLK(bool disableSYSOSC)
 {
+    // Set SYSOSC back to base frequency if left enabled
     if (disableSYSOSC == false) {
-        // Set SYSOSC back to base frequency if left enabled
         DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ_BASE);
+        // Do not set both bits
         SYSCTL->SOCLOCK.SYSOSCCFG &= ~SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
+        SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
     } else {
+        // Do not set both bits
+        SYSCTL->SOCLOCK.MCLKCFG &= ~SYSCTL_MCLKCFG_USELFCLK_ENABLE;
         SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
     }
-    SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
 
     // Verify LFCLK -> MCLK
     while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) !=
@@ -66,6 +69,30 @@ void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void)
     // Verify SYSOSC -> MCLK
     while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) ==
            DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_LFCLK) {
+        ;
+    }
+}
+
+void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(void)
+{
+    // Switch MCLK to HSCLK
+    SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USEHSCLK_ENABLE;
+
+    // Verify HSCLK -> MCLK
+    while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_HSCLKMUX_MASK) !=
+           DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_HSCLK) {
+        ;
+    }
+}
+
+void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void)
+{
+    // Switch MCLK to SYSOSC
+    SYSCTL->SOCLOCK.MCLKCFG &= ~SYSCTL_MCLKCFG_USEHSCLK_ENABLE;
+
+    // Verify SYSOSC -> MCLK
+    while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_HSCLKMUX_MASK) ==
+           DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_HSCLK) {
         ;
     }
 }
@@ -101,12 +128,8 @@ DL_SYSCTL_POWER_POLICY_STOP DL_SYSCTL_getPowerPolicySTOP(void)
     if ((SYSCTL->SOCLOCK.PMODECFG == SYSCTL_PMODECFG_DSLEEP_STOP) &&
         (SCB->SCR & SCB_SCR_SLEEPDEEP_Msk) == SCB_SCR_SLEEPDEEP_Msk) {
         // Check which policy is enabled
-        if ((SYSCTL->SOCLOCK.SYSOSCCFG & SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK) ==
-            SYSCTL_SYSOSCCFG_USE4MHZSTOP_ENABLE) {
-            policy = DL_SYSCTL_POWER_POLICY_STOP1;
-        } else if ((SYSCTL->SOCLOCK.SYSOSCCFG &
-                       SYSCTL_SYSOSCCFG_DISABLESTOP_MASK) ==
-                   SYSCTL_SYSOSCCFG_DISABLESTOP_ENABLE) {
+        if ((SYSCTL->SOCLOCK.SYSOSCCFG & SYSCTL_SYSOSCCFG_DISABLESTOP_MASK) ==
+            SYSCTL_SYSOSCCFG_DISABLESTOP_ENABLE) {
             policy = DL_SYSCTL_POWER_POLICY_STOP2;
         } else {
             policy = DL_SYSCTL_POWER_POLICY_STOP0;
@@ -143,4 +166,4 @@ void DL_SYSCTL_configFCC(DL_SYSCTL_FCC_TRIG_TYPE trigLvl,
             SYSCTL_GENCLKCFG_FCCSELCLK_MASK);
 }
 
-#endif /* DeviceFamily_PARENT_MSPM0L11XX_L13XX */
+#endif /* DeviceFamily_PARENT_MSPM0C110X */

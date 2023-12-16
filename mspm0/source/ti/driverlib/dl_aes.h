@@ -67,22 +67,22 @@ extern "C" {
 /*!
  * @brief AES Ready interrupt
  */
-#define DL_AES_INTERRUPT_AES_READY            (AES_INT_EVENT0_IMASK_AESRDY_MASK)
+#define DL_AES_INTERRUPT_AES_READY            (AES_CPU_INT_IMASK_AESRDY_MASK)
 
 /*!
  * @brief DMA Trigger Event 0
  */
-#define DL_AES_EVENT_AES_DMA_TRIGGER0           (AES_INT_EVENT1_IMASK_DMA0_MASK)
+#define DL_AES_EVENT_AES_DMA_TRIGGER0           (AES_DMA_TRIG0_IMASK_DMA0_MASK)
 
 /*!
  * @brief DMA Trigger Event 1
  */
-#define DL_AES_EVENT_AES_DMA_TRIGGER1            (AES_INT_EVENT2_IMASK_DMA1_SET)
+#define DL_AES_EVENT_AES_DMA_TRIGGER1            (AES_DMA_TRIG1_IMASK_DMA1_SET)
 
 /*!
  * @brief DMA Trigger Event 2
  */
-#define DL_AES_EVENT_AES_DMA_TRIGGER2            (AES_INT_EVENT3_IMASK_DMA2_SET)
+#define DL_AES_EVENT_AES_DMA_TRIGGER2            (AES_DMA_TRIG2_IMASK_DMA2_SET)
 
 /* clang-format on */
 
@@ -156,13 +156,13 @@ typedef enum {
 /*! @enum DL_AES_IIDX */
 typedef enum {
     /*! AES interrupt index for AES module ready */
-    DL_AES_IIDX_AES_READY = AES_INT_EVENT0_IIDX_STAT_AESRDY,
+    DL_AES_IIDX_AES_READY = AES_CPU_INT_IIDX_STAT_AESRDY,
     /*! AES interrupt index for enabling DMA trigger event 0 */
-    DL_AES_IIDX_AES_DMA_TRIGGER0 = AES_INT_EVENT1_IIDX_STAT_DMA0,
+    DL_AES_IIDX_AES_DMA_TRIGGER0 = AES_DMA_TRIG0_IIDX_STAT_DMA0,
     /*! AES interrupt index for enabling DMA trigger event 1 */
-    DL_AES_IIDX_AES_DMA_TRIGGER1 = AES_INT_EVENT2_IIDX_STAT_DMA1,
+    DL_AES_IIDX_AES_DMA_TRIGGER1 = AES_DMA_TRIG1_IIDX_STAT_DMA1,
     /*! AES interrupt index for enabling DMA trigger event 2 */
-    DL_AES_IIDX_AES_DMA_TRIGGER2 = AES_INT_EVENT3_IIDX_STAT_DMA2
+    DL_AES_IIDX_AES_DMA_TRIGGER2 = AES_DMA_TRIG2_IIDX_STAT_DMA2
 } DL_AES_IIDX;
 
 /*! @enum DL_AES_OPERATION */
@@ -779,7 +779,7 @@ void DL_AES_loadXORDataInWithoutTriggerAligned(
  */
 __STATIC_INLINE void DL_AES_enableInterrupt(AES_Regs *aes)
 {
-    aes->INT_EVENT0.IMASK |= DL_AES_INTERRUPT_AES_READY;
+    aes->CPU_INT.IMASK |= DL_AES_INTERRUPT_AES_READY;
 }
 
 /**
@@ -790,7 +790,7 @@ __STATIC_INLINE void DL_AES_enableInterrupt(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_enableDMATrigger0Interrupt(AES_Regs *aes)
 {
-    aes->INT_EVENT1.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER0;
+    aes->DMA_TRIG0.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER0;
 }
 
 /**
@@ -801,7 +801,7 @@ __STATIC_INLINE void DL_AES_enableDMATrigger0Interrupt(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_enableDMATrigger1Interrupt(AES_Regs *aes)
 {
-    aes->INT_EVENT2.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER1;
+    aes->DMA_TRIG1.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER1;
 }
 
 /**
@@ -812,7 +812,7 @@ __STATIC_INLINE void DL_AES_enableDMATrigger1Interrupt(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_enableDMATrigger2Interrupt(AES_Regs *aes)
 {
-    aes->INT_EVENT3.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER2;
+    aes->DMA_TRIG2.IMASK |= DL_AES_EVENT_AES_DMA_TRIGGER2;
 }
 
 /**
@@ -823,7 +823,7 @@ __STATIC_INLINE void DL_AES_enableDMATrigger2Interrupt(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_disableInterrupt(AES_Regs *aes)
 {
-    aes->INT_EVENT0.IMASK &= ~(AES_INT_EVENT0_IMASK_AESRDY_MASK);
+    aes->CPU_INT.IMASK &= ~(AES_CPU_INT_IMASK_AESRDY_MASK);
 }
 
 /**
@@ -834,7 +834,7 @@ __STATIC_INLINE void DL_AES_disableInterrupt(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_disableDMATrigger0Event(AES_Regs *aes)
 {
-    aes->INT_EVENT1.IMASK &= ~(AES_INT_EVENT1_IMASK_DMA0_MASK);
+    aes->DMA_TRIG0.IMASK &= ~(AES_DMA_TRIG0_IMASK_DMA0_MASK);
 }
 
 /**
@@ -845,7 +845,7 @@ __STATIC_INLINE void DL_AES_disableDMATrigger0Event(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_disableDMATrigger1Event(AES_Regs *aes)
 {
-    aes->INT_EVENT2.IMASK &= ~(AES_INT_EVENT2_IMASK_DMA1_MASK);
+    aes->DMA_TRIG1.IMASK &= ~(AES_DMA_TRIG1_IMASK_DMA1_MASK);
 }
 
 /**
@@ -856,7 +856,7 @@ __STATIC_INLINE void DL_AES_disableDMATrigger1Event(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_disableDMATrigger2Event(AES_Regs *aes)
 {
-    aes->INT_EVENT3.IMASK &= ~(AES_INT_EVENT3_IMASK_DMA2_MASK);
+    aes->DMA_TRIG2.IMASK &= ~(AES_DMA_TRIG2_IMASK_DMA2_MASK);
 }
 
 /**
@@ -872,7 +872,7 @@ __STATIC_INLINE void DL_AES_disableDMATrigger2Event(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledInterrupts(AES_Regs *aes)
 {
-    return (aes->INT_EVENT0.IMASK & AES_INT_EVENT0_IMASK_AESRDY_MASK);
+    return (aes->CPU_INT.IMASK & AES_CPU_INT_IMASK_AESRDY_MASK);
 }
 
 /**
@@ -888,7 +888,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledInterrupts(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger0Event(AES_Regs *aes)
 {
-    return (aes->INT_EVENT1.IMASK & AES_INT_EVENT1_IMASK_DMA0_MASK);
+    return (aes->DMA_TRIG0.IMASK & AES_DMA_TRIG0_IMASK_DMA0_MASK);
 }
 
 /**
@@ -904,7 +904,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger0Event(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger1Event(AES_Regs *aes)
 {
-    return (aes->INT_EVENT2.IMASK & AES_INT_EVENT2_IMASK_DMA1_MASK);
+    return (aes->DMA_TRIG1.IMASK & AES_DMA_TRIG1_IMASK_DMA1_MASK);
 }
 
 /**
@@ -920,7 +920,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger1Event(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger2Event(AES_Regs *aes)
 {
-    return (aes->INT_EVENT3.IMASK & AES_INT_EVENT3_IMASK_DMA2_MASK);
+    return (aes->DMA_TRIG2.IMASK & AES_DMA_TRIG2_IMASK_DMA2_MASK);
 }
 
 /**
@@ -940,7 +940,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger2Event(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledInterruptStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT0.MIS & AES_INT_EVENT0_IMASK_AESRDY_MASK);
+    return (aes->CPU_INT.MIS & AES_CPU_INT_IMASK_AESRDY_MASK);
 }
 
 /**
@@ -960,7 +960,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledInterruptStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger0EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT1.MIS & AES_INT_EVENT1_IMASK_DMA0_MASK);
+    return (aes->DMA_TRIG0.MIS & AES_DMA_TRIG0_IMASK_DMA0_MASK);
 }
 
 /**
@@ -980,7 +980,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger0EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger1EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT2.MIS & AES_INT_EVENT2_IMASK_DMA1_MASK);
+    return (aes->DMA_TRIG1.MIS & AES_DMA_TRIG1_IMASK_DMA1_MASK);
 }
 
 /**
@@ -1000,7 +1000,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger1EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger2EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT3.MIS & AES_INT_EVENT3_IMASK_DMA2_MASK);
+    return (aes->DMA_TRIG2.MIS & AES_DMA_TRIG2_IMASK_DMA2_MASK);
 }
 
 /**
@@ -1019,7 +1019,7 @@ __STATIC_INLINE uint32_t DL_AES_getEnabledDMATrigger2EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getRawInterruptStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT0.RIS & AES_INT_EVENT0_IMASK_AESRDY_MASK);
+    return (aes->CPU_INT.RIS & AES_CPU_INT_IMASK_AESRDY_MASK);
 }
 
 /**
@@ -1038,7 +1038,7 @@ __STATIC_INLINE uint32_t DL_AES_getRawInterruptStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger0EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT1.RIS & AES_INT_EVENT1_IMASK_DMA0_MASK);
+    return (aes->DMA_TRIG0.RIS & AES_DMA_TRIG0_IMASK_DMA0_MASK);
 }
 
 /**
@@ -1057,7 +1057,7 @@ __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger0EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger1EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT2.RIS & AES_INT_EVENT2_IMASK_DMA1_MASK);
+    return (aes->DMA_TRIG1.RIS & AES_DMA_TRIG1_IMASK_DMA1_MASK);
 }
 
 /**
@@ -1076,7 +1076,7 @@ __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger1EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger2EventStatus(AES_Regs *aes)
 {
-    return (aes->INT_EVENT3.RIS & AES_INT_EVENT3_IMASK_DMA2_MASK);
+    return (aes->DMA_TRIG2.RIS & AES_DMA_TRIG2_IMASK_DMA2_MASK);
 }
 
 /**
@@ -1092,7 +1092,7 @@ __STATIC_INLINE uint32_t DL_AES_getRawDMATrigger2EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingInterrupt(AES_Regs *aes)
 {
-    uint32_t interruptIdx = (uint32_t) aes->INT_EVENT0.IIDX;
+    uint32_t interruptIdx = (uint32_t) aes->CPU_INT.IIDX;
 
     return (DL_AES_IIDX) interruptIdx;
 }
@@ -1110,7 +1110,7 @@ __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingInterrupt(AES_Regs *aes)
  */
 __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger0Event(AES_Regs *aes)
 {
-    uint32_t eventIdx = (uint32_t) aes->INT_EVENT1.IIDX;
+    uint32_t eventIdx = (uint32_t) aes->DMA_TRIG0.IIDX;
 
     return (DL_AES_IIDX) eventIdx;
 }
@@ -1128,7 +1128,7 @@ __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger0Event(AES_Regs *aes)
  */
 __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger1Event(AES_Regs *aes)
 {
-    uint32_t eventIdx = (uint32_t) aes->INT_EVENT2.IIDX;
+    uint32_t eventIdx = (uint32_t) aes->DMA_TRIG1.IIDX;
 
     return (DL_AES_IIDX) eventIdx;
 }
@@ -1146,7 +1146,7 @@ __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger1Event(AES_Regs *aes)
  */
 __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger2Event(AES_Regs *aes)
 {
-    uint32_t eventIdx = (uint32_t) aes->INT_EVENT3.IIDX;
+    uint32_t eventIdx = (uint32_t) aes->DMA_TRIG2.IIDX;
 
     return (DL_AES_IIDX) eventIdx;
 }
@@ -1159,7 +1159,7 @@ __STATIC_INLINE DL_AES_IIDX DL_AES_getPendingDMATrigger2Event(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_clearInterruptStatus(AES_Regs *aes)
 {
-    aes->INT_EVENT0.ICLR |= AES_INT_EVENT0_IMASK_AESRDY_MASK;
+    aes->CPU_INT.ICLR |= AES_CPU_INT_IMASK_AESRDY_MASK;
 }
 
 /**
@@ -1170,7 +1170,7 @@ __STATIC_INLINE void DL_AES_clearInterruptStatus(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_clearDMATrigger0EventStatus(AES_Regs *aes)
 {
-    aes->INT_EVENT1.ICLR |= AES_INT_EVENT1_IMASK_DMA0_MASK;
+    aes->DMA_TRIG0.ICLR |= AES_DMA_TRIG0_IMASK_DMA0_MASK;
 }
 
 /**
@@ -1181,7 +1181,7 @@ __STATIC_INLINE void DL_AES_clearDMATrigger0EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_clearDMATrigger1EventStatus(AES_Regs *aes)
 {
-    aes->INT_EVENT2.ICLR |= AES_INT_EVENT2_IMASK_DMA1_MASK;
+    aes->DMA_TRIG1.ICLR |= AES_DMA_TRIG1_IMASK_DMA1_MASK;
 }
 
 /**
@@ -1192,7 +1192,7 @@ __STATIC_INLINE void DL_AES_clearDMATrigger1EventStatus(AES_Regs *aes)
  */
 __STATIC_INLINE void DL_AES_clearDMATrigger2EventStatus(AES_Regs *aes)
 {
-    aes->INT_EVENT3.ICLR |= AES_INT_EVENT3_IMASK_DMA2_MASK;
+    aes->DMA_TRIG2.ICLR |= AES_DMA_TRIG2_IMASK_DMA2_MASK;
 }
 
 /**

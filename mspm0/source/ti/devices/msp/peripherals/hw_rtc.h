@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_rtc__include
 #define ti_devices_msp_peripherals_hw_rtc__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65msprtc */
-/* MMR revision: 462cbea70b8847b262cd101dd1f9f88ba0a5bce2 */
-/* Generator revision: 8206aa5ca67149a420880693bda2a63a2d40875c
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_rtc.h */
+/* Revised: 2023-06-19 17:05:03 */
+/* Revision: dd7206add1cc10c98f9dc73f8babf5e8e190c73f */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,12 +68,12 @@
 /******************************************************************************
 * RTC Registers
 ******************************************************************************/
-#define RTC_INT_EVENT1_OFS                       ((uint32_t)0x00001050U)
-#define RTC_INT_EVENT0_OFS                       ((uint32_t)0x00001020U)
+#define RTC_GEN_EVENT_OFS                        ((uint32_t)0x00001050U)
+#define RTC_CPU_INT_OFS                          ((uint32_t)0x00001020U)
 #define RTC_GPRCM_OFS                            ((uint32_t)0x00000800U)
 
 
-/** @addtogroup RTC_INT_EVENT1
+/** @addtogroup RTC_GEN_EVENT
   @{
 */
 
@@ -91,11 +89,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} RTC_INT_EVENT1_Regs;
+} RTC_GEN_EVENT_Regs;
 
-/*@}*/ /* end of group RTC_INT_EVENT1 */
+/*@}*/ /* end of group RTC_GEN_EVENT */
 
-/** @addtogroup RTC_INT_EVENT0
+/** @addtogroup RTC_CPU_INT
   @{
 */
 
@@ -111,9 +109,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} RTC_INT_EVENT0_Regs;
+} RTC_CPU_INT_Regs;
 
-/*@}*/ /* end of group RTC_INT_EVENT0 */
+/*@}*/ /* end of group RTC_CPU_INT */
 
 /** @addtogroup RTC_GPRCM
   @{
@@ -141,9 +139,9 @@ typedef struct {
        uint32_t RESERVED2[507];
   __I  uint32_t CLKSEL;                            /* !< (@ 0x00001004) Clock Select for Ultra Low Power peripherals */
        uint32_t RESERVED3[6];
-  RTC_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  RTC_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED4;
-  RTC_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  RTC_GEN_EVENT_Regs  GEN_EVENT;                         /* !< (@ 0x00001050) */
        uint32_t RESERVED5[25];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
        uint32_t RESERVED6[6];
@@ -193,361 +191,361 @@ typedef struct {
 * RTC Register Control Bits
 ******************************************************************************/
 
-/* RTC_INT_EVENT1_IIDX Bits */
-/* RTC_INT_EVENT1_IIDX[STAT] Bits */
-#define RTC_INT_EVENT1_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define RTC_INT_EVENT1_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define RTC_INT_EVENT1_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define RTC_INT_EVENT1_IIDX_STAT_RTCRDY          ((uint32_t)0x00000001U)         /* !< RTC-Ready interrupt; Interrupt
+/* RTC_GEN_EVENT_IIDX Bits */
+/* RTC_GEN_EVENT_IIDX[STAT] Bits */
+#define RTC_GEN_EVENT_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define RTC_GEN_EVENT_IIDX_STAT_MASK             ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define RTC_GEN_EVENT_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define RTC_GEN_EVENT_IIDX_STAT_RTCRDY           ((uint32_t)0x00000001U)         /* !< RTC-Ready interrupt; Interrupt
                                                                                     flag: RTCRDY */
-#define RTC_INT_EVENT1_IIDX_STAT_RTCTEV          ((uint32_t)0x00000002U)         /* !< Time-Event interrupt; Interrupt
+#define RTC_GEN_EVENT_IIDX_STAT_RTCTEV           ((uint32_t)0x00000002U)         /* !< Time-Event interrupt; Interrupt
                                                                                     flag: RTCTEV */
-#define RTC_INT_EVENT1_IIDX_STAT_RTCA1           ((uint32_t)0x00000003U)         /* !< Alarm-1 interrupt; Interrupt flag:
+#define RTC_GEN_EVENT_IIDX_STAT_RTCA1            ((uint32_t)0x00000003U)         /* !< Alarm-1 interrupt; Interrupt flag:
                                                                                     RTCA1 */
-#define RTC_INT_EVENT1_IIDX_STAT_RTCA2           ((uint32_t)0x00000004U)         /* !< Alarm-2 interrupt; Interrupt flag:
+#define RTC_GEN_EVENT_IIDX_STAT_RTCA2            ((uint32_t)0x00000004U)         /* !< Alarm-2 interrupt; Interrupt flag:
                                                                                     RTCA2 */
-#define RTC_INT_EVENT1_IIDX_STAT_RT0PS           ((uint32_t)0x00000005U)         /* !< Prescaler-0 interrupt; Interrupt
+#define RTC_GEN_EVENT_IIDX_STAT_RT0PS            ((uint32_t)0x00000005U)         /* !< Prescaler-0 interrupt; Interrupt
                                                                                     flag: RT0PS */
-#define RTC_INT_EVENT1_IIDX_STAT_RT1PS           ((uint32_t)0x00000006U)         /* !< Prescaler-1 interrupt; Interrupt
+#define RTC_GEN_EVENT_IIDX_STAT_RT1PS            ((uint32_t)0x00000006U)         /* !< Prescaler-1 interrupt; Interrupt
                                                                                     flag: RT1PS */
 
-/* RTC_INT_EVENT1_IMASK Bits */
-/* RTC_INT_EVENT1_IMASK[RTCA2] Bits */
-#define RTC_INT_EVENT1_IMASK_RTCA2_OFS           (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT1_IMASK_RTCA2_MASK          ((uint32_t)0x00000008U)         /* !< Enable Alarm-2 interrupt */
-#define RTC_INT_EVENT1_IMASK_RTCA2_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RTCA2_SET           ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_IMASK[RT0PS] Bits */
-#define RTC_INT_EVENT1_IMASK_RT0PS_OFS           (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT1_IMASK_RT0PS_MASK          ((uint32_t)0x00000010U)         /* !< Enable Prescaler-0 interrupt */
-#define RTC_INT_EVENT1_IMASK_RT0PS_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RT0PS_SET           ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_IMASK[RT1PS] Bits */
-#define RTC_INT_EVENT1_IMASK_RT1PS_OFS           (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT1_IMASK_RT1PS_MASK          ((uint32_t)0x00000020U)         /* !< Enable Prescaler-1 interrupt */
-#define RTC_INT_EVENT1_IMASK_RT1PS_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RT1PS_SET           ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_IMASK[RTCTEV] Bits */
-#define RTC_INT_EVENT1_IMASK_RTCTEV_OFS          (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT1_IMASK_RTCTEV_MASK         ((uint32_t)0x00000002U)         /* !< Enable Time-Event interrupt */
-#define RTC_INT_EVENT1_IMASK_RTCTEV_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RTCTEV_SET          ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_IMASK[RTCRDY] Bits */
-#define RTC_INT_EVENT1_IMASK_RTCRDY_OFS          (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT1_IMASK_RTCRDY_MASK         ((uint32_t)0x00000001U)         /* !< Enable RTC-Ready interrupt */
-#define RTC_INT_EVENT1_IMASK_RTCRDY_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RTCRDY_SET          ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_IMASK[RTCA1] Bits */
-#define RTC_INT_EVENT1_IMASK_RTCA1_OFS           (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT1_IMASK_RTCA1_MASK          ((uint32_t)0x00000004U)         /* !< Enable Alarm-1 interrupt */
-#define RTC_INT_EVENT1_IMASK_RTCA1_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_IMASK_RTCA1_SET           ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK Bits */
+/* RTC_GEN_EVENT_IMASK[RTCA2] Bits */
+#define RTC_GEN_EVENT_IMASK_RTCA2_OFS            (3)                             /* !< RTCA2 Offset */
+#define RTC_GEN_EVENT_IMASK_RTCA2_MASK           ((uint32_t)0x00000008U)         /* !< Enable Alarm-2 interrupt */
+#define RTC_GEN_EVENT_IMASK_RTCA2_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RTCA2_SET            ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK[RT0PS] Bits */
+#define RTC_GEN_EVENT_IMASK_RT0PS_OFS            (4)                             /* !< RT0PS Offset */
+#define RTC_GEN_EVENT_IMASK_RT0PS_MASK           ((uint32_t)0x00000010U)         /* !< Enable Prescaler-0 interrupt */
+#define RTC_GEN_EVENT_IMASK_RT0PS_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RT0PS_SET            ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK[RT1PS] Bits */
+#define RTC_GEN_EVENT_IMASK_RT1PS_OFS            (5)                             /* !< RT1PS Offset */
+#define RTC_GEN_EVENT_IMASK_RT1PS_MASK           ((uint32_t)0x00000020U)         /* !< Enable Prescaler-1 interrupt */
+#define RTC_GEN_EVENT_IMASK_RT1PS_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RT1PS_SET            ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK[RTCTEV] Bits */
+#define RTC_GEN_EVENT_IMASK_RTCTEV_OFS           (1)                             /* !< RTCTEV Offset */
+#define RTC_GEN_EVENT_IMASK_RTCTEV_MASK          ((uint32_t)0x00000002U)         /* !< Enable Time-Event interrupt */
+#define RTC_GEN_EVENT_IMASK_RTCTEV_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RTCTEV_SET           ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK[RTCRDY] Bits */
+#define RTC_GEN_EVENT_IMASK_RTCRDY_OFS           (0)                             /* !< RTCRDY Offset */
+#define RTC_GEN_EVENT_IMASK_RTCRDY_MASK          ((uint32_t)0x00000001U)         /* !< Enable RTC-Ready interrupt */
+#define RTC_GEN_EVENT_IMASK_RTCRDY_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RTCRDY_SET           ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_IMASK[RTCA1] Bits */
+#define RTC_GEN_EVENT_IMASK_RTCA1_OFS            (2)                             /* !< RTCA1 Offset */
+#define RTC_GEN_EVENT_IMASK_RTCA1_MASK           ((uint32_t)0x00000004U)         /* !< Enable Alarm-1 interrupt */
+#define RTC_GEN_EVENT_IMASK_RTCA1_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_IMASK_RTCA1_SET            ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
 
-/* RTC_INT_EVENT1_RIS Bits */
-/* RTC_INT_EVENT1_RIS[RTCRDY] Bits */
-#define RTC_INT_EVENT1_RIS_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT1_RIS_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Raw RTC-Ready interrupts status */
-#define RTC_INT_EVENT1_RIS_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_RIS[RTCTEV] Bits */
-#define RTC_INT_EVENT1_RIS_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT1_RIS_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Raw Time-Event interrupt status */
-#define RTC_INT_EVENT1_RIS_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_RIS[RTCA1] Bits */
-#define RTC_INT_EVENT1_RIS_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT1_RIS_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Raw Alarm-1 interrupt status */
-#define RTC_INT_EVENT1_RIS_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_RIS[RTCA2] Bits */
-#define RTC_INT_EVENT1_RIS_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT1_RIS_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Raw Alarm-2 interrupts status */
-#define RTC_INT_EVENT1_RIS_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_RIS[RT0PS] Bits */
-#define RTC_INT_EVENT1_RIS_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT1_RIS_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Raw Prescaler-0 interrupt status */
-#define RTC_INT_EVENT1_RIS_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_RIS[RT1PS] Bits */
-#define RTC_INT_EVENT1_RIS_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT1_RIS_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Raw Prescaler-1 interrupt status */
-#define RTC_INT_EVENT1_RIS_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_RIS_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS Bits */
+/* RTC_GEN_EVENT_RIS[RTCRDY] Bits */
+#define RTC_GEN_EVENT_RIS_RTCRDY_OFS             (0)                             /* !< RTCRDY Offset */
+#define RTC_GEN_EVENT_RIS_RTCRDY_MASK            ((uint32_t)0x00000001U)         /* !< Raw RTC-Ready interrupts status */
+#define RTC_GEN_EVENT_RIS_RTCRDY_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RTCRDY_SET             ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS[RTCTEV] Bits */
+#define RTC_GEN_EVENT_RIS_RTCTEV_OFS             (1)                             /* !< RTCTEV Offset */
+#define RTC_GEN_EVENT_RIS_RTCTEV_MASK            ((uint32_t)0x00000002U)         /* !< Raw Time-Event interrupt status */
+#define RTC_GEN_EVENT_RIS_RTCTEV_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RTCTEV_SET             ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS[RTCA1] Bits */
+#define RTC_GEN_EVENT_RIS_RTCA1_OFS              (2)                             /* !< RTCA1 Offset */
+#define RTC_GEN_EVENT_RIS_RTCA1_MASK             ((uint32_t)0x00000004U)         /* !< Raw Alarm-1 interrupt status */
+#define RTC_GEN_EVENT_RIS_RTCA1_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RTCA1_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS[RTCA2] Bits */
+#define RTC_GEN_EVENT_RIS_RTCA2_OFS              (3)                             /* !< RTCA2 Offset */
+#define RTC_GEN_EVENT_RIS_RTCA2_MASK             ((uint32_t)0x00000008U)         /* !< Raw Alarm-2 interrupts status */
+#define RTC_GEN_EVENT_RIS_RTCA2_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RTCA2_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS[RT0PS] Bits */
+#define RTC_GEN_EVENT_RIS_RT0PS_OFS              (4)                             /* !< RT0PS Offset */
+#define RTC_GEN_EVENT_RIS_RT0PS_MASK             ((uint32_t)0x00000010U)         /* !< Raw Prescaler-0 interrupt status */
+#define RTC_GEN_EVENT_RIS_RT0PS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RT0PS_SET              ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_RIS[RT1PS] Bits */
+#define RTC_GEN_EVENT_RIS_RT1PS_OFS              (5)                             /* !< RT1PS Offset */
+#define RTC_GEN_EVENT_RIS_RT1PS_MASK             ((uint32_t)0x00000020U)         /* !< Raw Prescaler-1 interrupt status */
+#define RTC_GEN_EVENT_RIS_RT1PS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_RIS_RT1PS_SET              ((uint32_t)0x00000020U)         /* !< Interrupt occured */
 
-/* RTC_INT_EVENT1_MIS Bits */
-/* RTC_INT_EVENT1_MIS[RTCRDY] Bits */
-#define RTC_INT_EVENT1_MIS_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT1_MIS_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Masked RTC-Ready interrupt status */
-#define RTC_INT_EVENT1_MIS_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_MIS[RTCTEV] Bits */
-#define RTC_INT_EVENT1_MIS_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT1_MIS_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Masked Time-Event interrupt status */
-#define RTC_INT_EVENT1_MIS_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_MIS[RTCA1] Bits */
-#define RTC_INT_EVENT1_MIS_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT1_MIS_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Masked Alarm-1 interrupt status */
-#define RTC_INT_EVENT1_MIS_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_MIS[RTCA2] Bits */
-#define RTC_INT_EVENT1_MIS_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT1_MIS_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Masked Alarm-2 interrupt status */
-#define RTC_INT_EVENT1_MIS_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_MIS[RT0PS] Bits */
-#define RTC_INT_EVENT1_MIS_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT1_MIS_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Masked Prescaler-0 interrupt status */
-#define RTC_INT_EVENT1_MIS_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT1_MIS[RT1PS] Bits */
-#define RTC_INT_EVENT1_MIS_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT1_MIS_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Masked Prescaler-1 interrupt status */
-#define RTC_INT_EVENT1_MIS_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT1_MIS_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS Bits */
+/* RTC_GEN_EVENT_MIS[RTCRDY] Bits */
+#define RTC_GEN_EVENT_MIS_RTCRDY_OFS             (0)                             /* !< RTCRDY Offset */
+#define RTC_GEN_EVENT_MIS_RTCRDY_MASK            ((uint32_t)0x00000001U)         /* !< Masked RTC-Ready interrupt status */
+#define RTC_GEN_EVENT_MIS_RTCRDY_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RTCRDY_SET             ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS[RTCTEV] Bits */
+#define RTC_GEN_EVENT_MIS_RTCTEV_OFS             (1)                             /* !< RTCTEV Offset */
+#define RTC_GEN_EVENT_MIS_RTCTEV_MASK            ((uint32_t)0x00000002U)         /* !< Masked Time-Event interrupt status */
+#define RTC_GEN_EVENT_MIS_RTCTEV_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RTCTEV_SET             ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS[RTCA1] Bits */
+#define RTC_GEN_EVENT_MIS_RTCA1_OFS              (2)                             /* !< RTCA1 Offset */
+#define RTC_GEN_EVENT_MIS_RTCA1_MASK             ((uint32_t)0x00000004U)         /* !< Masked Alarm-1 interrupt status */
+#define RTC_GEN_EVENT_MIS_RTCA1_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RTCA1_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS[RTCA2] Bits */
+#define RTC_GEN_EVENT_MIS_RTCA2_OFS              (3)                             /* !< RTCA2 Offset */
+#define RTC_GEN_EVENT_MIS_RTCA2_MASK             ((uint32_t)0x00000008U)         /* !< Masked Alarm-2 interrupt status */
+#define RTC_GEN_EVENT_MIS_RTCA2_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RTCA2_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS[RT0PS] Bits */
+#define RTC_GEN_EVENT_MIS_RT0PS_OFS              (4)                             /* !< RT0PS Offset */
+#define RTC_GEN_EVENT_MIS_RT0PS_MASK             ((uint32_t)0x00000010U)         /* !< Masked Prescaler-0 interrupt status */
+#define RTC_GEN_EVENT_MIS_RT0PS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RT0PS_SET              ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* RTC_GEN_EVENT_MIS[RT1PS] Bits */
+#define RTC_GEN_EVENT_MIS_RT1PS_OFS              (5)                             /* !< RT1PS Offset */
+#define RTC_GEN_EVENT_MIS_RT1PS_MASK             ((uint32_t)0x00000020U)         /* !< Masked Prescaler-1 interrupt status */
+#define RTC_GEN_EVENT_MIS_RT1PS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_GEN_EVENT_MIS_RT1PS_SET              ((uint32_t)0x00000020U)         /* !< Interrupt occured */
 
-/* RTC_INT_EVENT1_ISET Bits */
-/* RTC_INT_EVENT1_ISET[RTCRDY] Bits */
-#define RTC_INT_EVENT1_ISET_RTCRDY_OFS           (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT1_ISET_RTCRDY_MASK          ((uint32_t)0x00000001U)         /* !< Set RTC-Ready interrupt */
-#define RTC_INT_EVENT1_ISET_RTCRDY_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RTCRDY_SET           ((uint32_t)0x00000001U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT1_ISET[RTCTEV] Bits */
-#define RTC_INT_EVENT1_ISET_RTCTEV_OFS           (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT1_ISET_RTCTEV_MASK          ((uint32_t)0x00000002U)         /* !< Set Time-Event interrupt */
-#define RTC_INT_EVENT1_ISET_RTCTEV_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RTCTEV_SET           ((uint32_t)0x00000002U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT1_ISET[RTCA1] Bits */
-#define RTC_INT_EVENT1_ISET_RTCA1_OFS            (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT1_ISET_RTCA1_MASK           ((uint32_t)0x00000004U)         /* !< Set Alarm-1 interrupt */
-#define RTC_INT_EVENT1_ISET_RTCA1_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RTCA1_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT1_ISET[RTCA2] Bits */
-#define RTC_INT_EVENT1_ISET_RTCA2_OFS            (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT1_ISET_RTCA2_MASK           ((uint32_t)0x00000008U)         /* !< Set Alarm-2 interrupt */
-#define RTC_INT_EVENT1_ISET_RTCA2_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RTCA2_SET            ((uint32_t)0x00000008U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT1_ISET[RT0PS] Bits */
-#define RTC_INT_EVENT1_ISET_RT0PS_OFS            (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT1_ISET_RT0PS_MASK           ((uint32_t)0x00000010U)         /* !< Set Prescaler-0 interrupt */
-#define RTC_INT_EVENT1_ISET_RT0PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RT0PS_SET            ((uint32_t)0x00000010U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT1_ISET[RT1PS] Bits */
-#define RTC_INT_EVENT1_ISET_RT1PS_OFS            (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT1_ISET_RT1PS_MASK           ((uint32_t)0x00000020U)         /* !< Set Prescaler-1 interrupt */
-#define RTC_INT_EVENT1_ISET_RT1PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT1_ISET_RT1PS_SET            ((uint32_t)0x00000020U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET Bits */
+/* RTC_GEN_EVENT_ISET[RTCRDY] Bits */
+#define RTC_GEN_EVENT_ISET_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
+#define RTC_GEN_EVENT_ISET_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Set RTC-Ready interrupt */
+#define RTC_GEN_EVENT_ISET_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET[RTCTEV] Bits */
+#define RTC_GEN_EVENT_ISET_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
+#define RTC_GEN_EVENT_ISET_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Set Time-Event interrupt */
+#define RTC_GEN_EVENT_ISET_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET[RTCA1] Bits */
+#define RTC_GEN_EVENT_ISET_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
+#define RTC_GEN_EVENT_ISET_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Set Alarm-1 interrupt */
+#define RTC_GEN_EVENT_ISET_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET[RTCA2] Bits */
+#define RTC_GEN_EVENT_ISET_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
+#define RTC_GEN_EVENT_ISET_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Set Alarm-2 interrupt */
+#define RTC_GEN_EVENT_ISET_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET[RT0PS] Bits */
+#define RTC_GEN_EVENT_ISET_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
+#define RTC_GEN_EVENT_ISET_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Set Prescaler-0 interrupt */
+#define RTC_GEN_EVENT_ISET_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Set Interrupt */
+/* RTC_GEN_EVENT_ISET[RT1PS] Bits */
+#define RTC_GEN_EVENT_ISET_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
+#define RTC_GEN_EVENT_ISET_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Set Prescaler-1 interrupt */
+#define RTC_GEN_EVENT_ISET_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_GEN_EVENT_ISET_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Set Interrupt */
 
-/* RTC_INT_EVENT1_ICLR Bits */
-/* RTC_INT_EVENT1_ICLR[RTCRDY] Bits */
-#define RTC_INT_EVENT1_ICLR_RTCRDY_OFS           (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT1_ICLR_RTCRDY_MASK          ((uint32_t)0x00000001U)         /* !< Clear RTC-Ready interrupt */
-#define RTC_INT_EVENT1_ICLR_RTCRDY_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RTCRDY_SET           ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT1_ICLR[RTCTEV] Bits */
-#define RTC_INT_EVENT1_ICLR_RTCTEV_OFS           (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT1_ICLR_RTCTEV_MASK          ((uint32_t)0x00000002U)         /* !< Clear Time-Event interrupt */
-#define RTC_INT_EVENT1_ICLR_RTCTEV_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RTCTEV_SET           ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_ICLR[RTCA1] Bits */
-#define RTC_INT_EVENT1_ICLR_RTCA1_OFS            (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT1_ICLR_RTCA1_MASK           ((uint32_t)0x00000004U)         /* !< Clear Alarm-1 interrupt */
-#define RTC_INT_EVENT1_ICLR_RTCA1_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RTCA1_SET            ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_ICLR[RTCA2] Bits */
-#define RTC_INT_EVENT1_ICLR_RTCA2_OFS            (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT1_ICLR_RTCA2_MASK           ((uint32_t)0x00000008U)         /* !< Clear Alarm-2 interrupt */
-#define RTC_INT_EVENT1_ICLR_RTCA2_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RTCA2_SET            ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_ICLR[RT0PS] Bits */
-#define RTC_INT_EVENT1_ICLR_RT0PS_OFS            (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT1_ICLR_RT0PS_MASK           ((uint32_t)0x00000010U)         /* !< Clear Prescaler-0 interrupt */
-#define RTC_INT_EVENT1_ICLR_RT0PS_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RT0PS_SET            ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT1_ICLR[RT1PS] Bits */
-#define RTC_INT_EVENT1_ICLR_RT1PS_OFS            (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT1_ICLR_RT1PS_MASK           ((uint32_t)0x00000020U)         /* !< Clear Prescaler-1 interrupt */
-#define RTC_INT_EVENT1_ICLR_RT1PS_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT1_ICLR_RT1PS_SET            ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_ICLR Bits */
+/* RTC_GEN_EVENT_ICLR[RTCRDY] Bits */
+#define RTC_GEN_EVENT_ICLR_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
+#define RTC_GEN_EVENT_ICLR_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Clear RTC-Ready interrupt */
+#define RTC_GEN_EVENT_ICLR_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+/* RTC_GEN_EVENT_ICLR[RTCTEV] Bits */
+#define RTC_GEN_EVENT_ICLR_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
+#define RTC_GEN_EVENT_ICLR_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Clear Time-Event interrupt */
+#define RTC_GEN_EVENT_ICLR_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_ICLR[RTCA1] Bits */
+#define RTC_GEN_EVENT_ICLR_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
+#define RTC_GEN_EVENT_ICLR_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Clear Alarm-1 interrupt */
+#define RTC_GEN_EVENT_ICLR_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_ICLR[RTCA2] Bits */
+#define RTC_GEN_EVENT_ICLR_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
+#define RTC_GEN_EVENT_ICLR_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Clear Alarm-2 interrupt */
+#define RTC_GEN_EVENT_ICLR_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_ICLR[RT0PS] Bits */
+#define RTC_GEN_EVENT_ICLR_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
+#define RTC_GEN_EVENT_ICLR_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Clear Prescaler-0 interrupt */
+#define RTC_GEN_EVENT_ICLR_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
+/* RTC_GEN_EVENT_ICLR[RT1PS] Bits */
+#define RTC_GEN_EVENT_ICLR_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
+#define RTC_GEN_EVENT_ICLR_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Clear Prescaler-1 interrupt */
+#define RTC_GEN_EVENT_ICLR_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_GEN_EVENT_ICLR_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
 
-/* RTC_INT_EVENT0_IIDX Bits */
-/* RTC_INT_EVENT0_IIDX[STAT] Bits */
-#define RTC_INT_EVENT0_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define RTC_INT_EVENT0_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define RTC_INT_EVENT0_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define RTC_INT_EVENT0_IIDX_STAT_RTCRDY          ((uint32_t)0x00000001U)         /* !< RTC-Ready interrupt; Interrupt
+/* RTC_CPU_INT_IIDX Bits */
+/* RTC_CPU_INT_IIDX[STAT] Bits */
+#define RTC_CPU_INT_IIDX_STAT_OFS                (0)                             /* !< STAT Offset */
+#define RTC_CPU_INT_IIDX_STAT_MASK               ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define RTC_CPU_INT_IIDX_STAT_NO_INTR            ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define RTC_CPU_INT_IIDX_STAT_RTCRDY             ((uint32_t)0x00000001U)         /* !< RTC-Ready interrupt; Interrupt
                                                                                     flag: RTCRDY */
-#define RTC_INT_EVENT0_IIDX_STAT_RTCTEV          ((uint32_t)0x00000002U)         /* !< Time-Event interrupt; Interrupt
+#define RTC_CPU_INT_IIDX_STAT_RTCTEV             ((uint32_t)0x00000002U)         /* !< Time-Event interrupt; Interrupt
                                                                                     flag: RTCTEV */
-#define RTC_INT_EVENT0_IIDX_STAT_RTCA1           ((uint32_t)0x00000003U)         /* !< Alarm-1 interrupt; Interrupt flag:
+#define RTC_CPU_INT_IIDX_STAT_RTCA1              ((uint32_t)0x00000003U)         /* !< Alarm-1 interrupt; Interrupt flag:
                                                                                     RTCA1 */
-#define RTC_INT_EVENT0_IIDX_STAT_RTCA2           ((uint32_t)0x00000004U)         /* !< Alarm-2 interrupt; Interrupt flag:
+#define RTC_CPU_INT_IIDX_STAT_RTCA2              ((uint32_t)0x00000004U)         /* !< Alarm-2 interrupt; Interrupt flag:
                                                                                     RTCA2 */
-#define RTC_INT_EVENT0_IIDX_STAT_RT0PS           ((uint32_t)0x00000005U)         /* !< Prescaler-0 interrupt; Interrupt
+#define RTC_CPU_INT_IIDX_STAT_RT0PS              ((uint32_t)0x00000005U)         /* !< Prescaler-0 interrupt; Interrupt
                                                                                     flag: RT0PS */
-#define RTC_INT_EVENT0_IIDX_STAT_RT1PS           ((uint32_t)0x00000006U)         /* !< Prescaler-1 interrupt; Interrupt
+#define RTC_CPU_INT_IIDX_STAT_RT1PS              ((uint32_t)0x00000006U)         /* !< Prescaler-1 interrupt; Interrupt
                                                                                     flag: RT1PS */
 
-/* RTC_INT_EVENT0_IMASK Bits */
-/* RTC_INT_EVENT0_IMASK[RTCA2] Bits */
-#define RTC_INT_EVENT0_IMASK_RTCA2_OFS           (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT0_IMASK_RTCA2_MASK          ((uint32_t)0x00000008U)         /* !< Enable Alarm-2 interrupt */
-#define RTC_INT_EVENT0_IMASK_RTCA2_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RTCA2_SET           ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT0_IMASK[RT0PS] Bits */
-#define RTC_INT_EVENT0_IMASK_RT0PS_OFS           (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT0_IMASK_RT0PS_MASK          ((uint32_t)0x00000010U)         /* !< Enable Prescaler-0 interrupt */
-#define RTC_INT_EVENT0_IMASK_RT0PS_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RT0PS_SET           ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT0_IMASK[RT1PS] Bits */
-#define RTC_INT_EVENT0_IMASK_RT1PS_OFS           (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT0_IMASK_RT1PS_MASK          ((uint32_t)0x00000020U)         /* !< Enable Prescaler-1 interrupt */
-#define RTC_INT_EVENT0_IMASK_RT1PS_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RT1PS_SET           ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT0_IMASK[RTCTEV] Bits */
-#define RTC_INT_EVENT0_IMASK_RTCTEV_OFS          (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT0_IMASK_RTCTEV_MASK         ((uint32_t)0x00000002U)         /* !< Enable Time-Event interrupt */
-#define RTC_INT_EVENT0_IMASK_RTCTEV_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RTCTEV_SET          ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT0_IMASK[RTCRDY] Bits */
-#define RTC_INT_EVENT0_IMASK_RTCRDY_OFS          (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT0_IMASK_RTCRDY_MASK         ((uint32_t)0x00000001U)         /* !< Enable RTC-Ready interrupt */
-#define RTC_INT_EVENT0_IMASK_RTCRDY_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RTCRDY_SET          ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
-/* RTC_INT_EVENT0_IMASK[RTCA1] Bits */
-#define RTC_INT_EVENT0_IMASK_RTCA1_OFS           (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT0_IMASK_RTCA1_MASK          ((uint32_t)0x00000004U)         /* !< Enable Alarm-1 interrupt */
-#define RTC_INT_EVENT0_IMASK_RTCA1_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define RTC_INT_EVENT0_IMASK_RTCA1_SET           ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK Bits */
+/* RTC_CPU_INT_IMASK[RTCA2] Bits */
+#define RTC_CPU_INT_IMASK_RTCA2_OFS              (3)                             /* !< RTCA2 Offset */
+#define RTC_CPU_INT_IMASK_RTCA2_MASK             ((uint32_t)0x00000008U)         /* !< Enable Alarm-2 interrupt */
+#define RTC_CPU_INT_IMASK_RTCA2_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RTCA2_SET              ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK[RT0PS] Bits */
+#define RTC_CPU_INT_IMASK_RT0PS_OFS              (4)                             /* !< RT0PS Offset */
+#define RTC_CPU_INT_IMASK_RT0PS_MASK             ((uint32_t)0x00000010U)         /* !< Enable Prescaler-0 interrupt */
+#define RTC_CPU_INT_IMASK_RT0PS_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RT0PS_SET              ((uint32_t)0x00000010U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK[RT1PS] Bits */
+#define RTC_CPU_INT_IMASK_RT1PS_OFS              (5)                             /* !< RT1PS Offset */
+#define RTC_CPU_INT_IMASK_RT1PS_MASK             ((uint32_t)0x00000020U)         /* !< Enable Prescaler-1 interrupt */
+#define RTC_CPU_INT_IMASK_RT1PS_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RT1PS_SET              ((uint32_t)0x00000020U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK[RTCTEV] Bits */
+#define RTC_CPU_INT_IMASK_RTCTEV_OFS             (1)                             /* !< RTCTEV Offset */
+#define RTC_CPU_INT_IMASK_RTCTEV_MASK            ((uint32_t)0x00000002U)         /* !< Enable Time-Event interrupt */
+#define RTC_CPU_INT_IMASK_RTCTEV_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RTCTEV_SET             ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK[RTCRDY] Bits */
+#define RTC_CPU_INT_IMASK_RTCRDY_OFS             (0)                             /* !< RTCRDY Offset */
+#define RTC_CPU_INT_IMASK_RTCRDY_MASK            ((uint32_t)0x00000001U)         /* !< Enable RTC-Ready interrupt */
+#define RTC_CPU_INT_IMASK_RTCRDY_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RTCRDY_SET             ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
+/* RTC_CPU_INT_IMASK[RTCA1] Bits */
+#define RTC_CPU_INT_IMASK_RTCA1_OFS              (2)                             /* !< RTCA1 Offset */
+#define RTC_CPU_INT_IMASK_RTCA1_MASK             ((uint32_t)0x00000004U)         /* !< Enable Alarm-1 interrupt */
+#define RTC_CPU_INT_IMASK_RTCA1_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define RTC_CPU_INT_IMASK_RTCA1_SET              ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
 
-/* RTC_INT_EVENT0_RIS Bits */
-/* RTC_INT_EVENT0_RIS[RTCRDY] Bits */
-#define RTC_INT_EVENT0_RIS_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT0_RIS_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Raw RTC-Ready interrupts status */
-#define RTC_INT_EVENT0_RIS_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_RIS[RTCTEV] Bits */
-#define RTC_INT_EVENT0_RIS_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT0_RIS_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Raw Time-Event interrupt status */
-#define RTC_INT_EVENT0_RIS_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_RIS[RTCA1] Bits */
-#define RTC_INT_EVENT0_RIS_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT0_RIS_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Raw Alarm-1 interrupt status */
-#define RTC_INT_EVENT0_RIS_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_RIS[RTCA2] Bits */
-#define RTC_INT_EVENT0_RIS_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT0_RIS_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Raw Alarm-2 interrupts status */
-#define RTC_INT_EVENT0_RIS_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_RIS[RT0PS] Bits */
-#define RTC_INT_EVENT0_RIS_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT0_RIS_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Raw Prescaler-0 interrupt status */
-#define RTC_INT_EVENT0_RIS_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_RIS[RT1PS] Bits */
-#define RTC_INT_EVENT0_RIS_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT0_RIS_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Raw Prescaler-1 interrupt status */
-#define RTC_INT_EVENT0_RIS_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_RIS_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS Bits */
+/* RTC_CPU_INT_RIS[RTCRDY] Bits */
+#define RTC_CPU_INT_RIS_RTCRDY_OFS               (0)                             /* !< RTCRDY Offset */
+#define RTC_CPU_INT_RIS_RTCRDY_MASK              ((uint32_t)0x00000001U)         /* !< Raw RTC-Ready interrupts status */
+#define RTC_CPU_INT_RIS_RTCRDY_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RTCRDY_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS[RTCTEV] Bits */
+#define RTC_CPU_INT_RIS_RTCTEV_OFS               (1)                             /* !< RTCTEV Offset */
+#define RTC_CPU_INT_RIS_RTCTEV_MASK              ((uint32_t)0x00000002U)         /* !< Raw Time-Event interrupt status */
+#define RTC_CPU_INT_RIS_RTCTEV_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RTCTEV_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS[RTCA1] Bits */
+#define RTC_CPU_INT_RIS_RTCA1_OFS                (2)                             /* !< RTCA1 Offset */
+#define RTC_CPU_INT_RIS_RTCA1_MASK               ((uint32_t)0x00000004U)         /* !< Raw Alarm-1 interrupt status */
+#define RTC_CPU_INT_RIS_RTCA1_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RTCA1_SET                ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS[RTCA2] Bits */
+#define RTC_CPU_INT_RIS_RTCA2_OFS                (3)                             /* !< RTCA2 Offset */
+#define RTC_CPU_INT_RIS_RTCA2_MASK               ((uint32_t)0x00000008U)         /* !< Raw Alarm-2 interrupts status */
+#define RTC_CPU_INT_RIS_RTCA2_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RTCA2_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS[RT0PS] Bits */
+#define RTC_CPU_INT_RIS_RT0PS_OFS                (4)                             /* !< RT0PS Offset */
+#define RTC_CPU_INT_RIS_RT0PS_MASK               ((uint32_t)0x00000010U)         /* !< Raw Prescaler-0 interrupt status */
+#define RTC_CPU_INT_RIS_RT0PS_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RT0PS_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_RIS[RT1PS] Bits */
+#define RTC_CPU_INT_RIS_RT1PS_OFS                (5)                             /* !< RT1PS Offset */
+#define RTC_CPU_INT_RIS_RT1PS_MASK               ((uint32_t)0x00000020U)         /* !< Raw Prescaler-1 interrupt status */
+#define RTC_CPU_INT_RIS_RT1PS_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_RIS_RT1PS_SET                ((uint32_t)0x00000020U)         /* !< Interrupt occured */
 
-/* RTC_INT_EVENT0_MIS Bits */
-/* RTC_INT_EVENT0_MIS[RTCRDY] Bits */
-#define RTC_INT_EVENT0_MIS_RTCRDY_OFS            (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT0_MIS_RTCRDY_MASK           ((uint32_t)0x00000001U)         /* !< Masked RTC-Ready interrupt status */
-#define RTC_INT_EVENT0_MIS_RTCRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RTCRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_MIS[RTCTEV] Bits */
-#define RTC_INT_EVENT0_MIS_RTCTEV_OFS            (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT0_MIS_RTCTEV_MASK           ((uint32_t)0x00000002U)         /* !< Masked Time-Event interrupt status */
-#define RTC_INT_EVENT0_MIS_RTCTEV_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RTCTEV_SET            ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_MIS[RTCA1] Bits */
-#define RTC_INT_EVENT0_MIS_RTCA1_OFS             (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT0_MIS_RTCA1_MASK            ((uint32_t)0x00000004U)         /* !< Masked Alarm-1 interrupt status */
-#define RTC_INT_EVENT0_MIS_RTCA1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RTCA1_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_MIS[RTCA2] Bits */
-#define RTC_INT_EVENT0_MIS_RTCA2_OFS             (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT0_MIS_RTCA2_MASK            ((uint32_t)0x00000008U)         /* !< Masked Alarm-2 interrupt status */
-#define RTC_INT_EVENT0_MIS_RTCA2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RTCA2_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_MIS[RT0PS] Bits */
-#define RTC_INT_EVENT0_MIS_RT0PS_OFS             (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT0_MIS_RT0PS_MASK            ((uint32_t)0x00000010U)         /* !< Masked Prescaler-0 interrupt status */
-#define RTC_INT_EVENT0_MIS_RT0PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RT0PS_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* RTC_INT_EVENT0_MIS[RT1PS] Bits */
-#define RTC_INT_EVENT0_MIS_RT1PS_OFS             (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT0_MIS_RT1PS_MASK            ((uint32_t)0x00000020U)         /* !< Masked Prescaler-1 interrupt status */
-#define RTC_INT_EVENT0_MIS_RT1PS_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define RTC_INT_EVENT0_MIS_RT1PS_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS Bits */
+/* RTC_CPU_INT_MIS[RTCRDY] Bits */
+#define RTC_CPU_INT_MIS_RTCRDY_OFS               (0)                             /* !< RTCRDY Offset */
+#define RTC_CPU_INT_MIS_RTCRDY_MASK              ((uint32_t)0x00000001U)         /* !< Masked RTC-Ready interrupt status */
+#define RTC_CPU_INT_MIS_RTCRDY_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RTCRDY_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS[RTCTEV] Bits */
+#define RTC_CPU_INT_MIS_RTCTEV_OFS               (1)                             /* !< RTCTEV Offset */
+#define RTC_CPU_INT_MIS_RTCTEV_MASK              ((uint32_t)0x00000002U)         /* !< Masked Time-Event interrupt status */
+#define RTC_CPU_INT_MIS_RTCTEV_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RTCTEV_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS[RTCA1] Bits */
+#define RTC_CPU_INT_MIS_RTCA1_OFS                (2)                             /* !< RTCA1 Offset */
+#define RTC_CPU_INT_MIS_RTCA1_MASK               ((uint32_t)0x00000004U)         /* !< Masked Alarm-1 interrupt status */
+#define RTC_CPU_INT_MIS_RTCA1_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RTCA1_SET                ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS[RTCA2] Bits */
+#define RTC_CPU_INT_MIS_RTCA2_OFS                (3)                             /* !< RTCA2 Offset */
+#define RTC_CPU_INT_MIS_RTCA2_MASK               ((uint32_t)0x00000008U)         /* !< Masked Alarm-2 interrupt status */
+#define RTC_CPU_INT_MIS_RTCA2_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RTCA2_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS[RT0PS] Bits */
+#define RTC_CPU_INT_MIS_RT0PS_OFS                (4)                             /* !< RT0PS Offset */
+#define RTC_CPU_INT_MIS_RT0PS_MASK               ((uint32_t)0x00000010U)         /* !< Masked Prescaler-0 interrupt status */
+#define RTC_CPU_INT_MIS_RT0PS_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RT0PS_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* RTC_CPU_INT_MIS[RT1PS] Bits */
+#define RTC_CPU_INT_MIS_RT1PS_OFS                (5)                             /* !< RT1PS Offset */
+#define RTC_CPU_INT_MIS_RT1PS_MASK               ((uint32_t)0x00000020U)         /* !< Masked Prescaler-1 interrupt status */
+#define RTC_CPU_INT_MIS_RT1PS_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define RTC_CPU_INT_MIS_RT1PS_SET                ((uint32_t)0x00000020U)         /* !< Interrupt occured */
 
-/* RTC_INT_EVENT0_ISET Bits */
-/* RTC_INT_EVENT0_ISET[RTCRDY] Bits */
-#define RTC_INT_EVENT0_ISET_RTCRDY_OFS           (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT0_ISET_RTCRDY_MASK          ((uint32_t)0x00000001U)         /* !< Set RTC-Ready interrupt */
-#define RTC_INT_EVENT0_ISET_RTCRDY_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RTCRDY_SET           ((uint32_t)0x00000001U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT0_ISET[RTCTEV] Bits */
-#define RTC_INT_EVENT0_ISET_RTCTEV_OFS           (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT0_ISET_RTCTEV_MASK          ((uint32_t)0x00000002U)         /* !< Set Time-Event interrupt */
-#define RTC_INT_EVENT0_ISET_RTCTEV_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RTCTEV_SET           ((uint32_t)0x00000002U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT0_ISET[RTCA1] Bits */
-#define RTC_INT_EVENT0_ISET_RTCA1_OFS            (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT0_ISET_RTCA1_MASK           ((uint32_t)0x00000004U)         /* !< Set Alarm-1 interrupt */
-#define RTC_INT_EVENT0_ISET_RTCA1_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RTCA1_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT0_ISET[RTCA2] Bits */
-#define RTC_INT_EVENT0_ISET_RTCA2_OFS            (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT0_ISET_RTCA2_MASK           ((uint32_t)0x00000008U)         /* !< Set Alarm-2 interrupt */
-#define RTC_INT_EVENT0_ISET_RTCA2_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RTCA2_SET            ((uint32_t)0x00000008U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT0_ISET[RT0PS] Bits */
-#define RTC_INT_EVENT0_ISET_RT0PS_OFS            (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT0_ISET_RT0PS_MASK           ((uint32_t)0x00000010U)         /* !< Set Prescaler-0 interrupt */
-#define RTC_INT_EVENT0_ISET_RT0PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RT0PS_SET            ((uint32_t)0x00000010U)         /* !< Set Interrupt */
-/* RTC_INT_EVENT0_ISET[RT1PS] Bits */
-#define RTC_INT_EVENT0_ISET_RT1PS_OFS            (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT0_ISET_RT1PS_MASK           ((uint32_t)0x00000020U)         /* !< Set Prescaler-1 interrupt */
-#define RTC_INT_EVENT0_ISET_RT1PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ISET_RT1PS_SET            ((uint32_t)0x00000020U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET Bits */
+/* RTC_CPU_INT_ISET[RTCRDY] Bits */
+#define RTC_CPU_INT_ISET_RTCRDY_OFS              (0)                             /* !< RTCRDY Offset */
+#define RTC_CPU_INT_ISET_RTCRDY_MASK             ((uint32_t)0x00000001U)         /* !< Set RTC-Ready interrupt */
+#define RTC_CPU_INT_ISET_RTCRDY_CLR              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RTCRDY_SET              ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET[RTCTEV] Bits */
+#define RTC_CPU_INT_ISET_RTCTEV_OFS              (1)                             /* !< RTCTEV Offset */
+#define RTC_CPU_INT_ISET_RTCTEV_MASK             ((uint32_t)0x00000002U)         /* !< Set Time-Event interrupt */
+#define RTC_CPU_INT_ISET_RTCTEV_CLR              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RTCTEV_SET              ((uint32_t)0x00000002U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET[RTCA1] Bits */
+#define RTC_CPU_INT_ISET_RTCA1_OFS               (2)                             /* !< RTCA1 Offset */
+#define RTC_CPU_INT_ISET_RTCA1_MASK              ((uint32_t)0x00000004U)         /* !< Set Alarm-1 interrupt */
+#define RTC_CPU_INT_ISET_RTCA1_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RTCA1_SET               ((uint32_t)0x00000004U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET[RTCA2] Bits */
+#define RTC_CPU_INT_ISET_RTCA2_OFS               (3)                             /* !< RTCA2 Offset */
+#define RTC_CPU_INT_ISET_RTCA2_MASK              ((uint32_t)0x00000008U)         /* !< Set Alarm-2 interrupt */
+#define RTC_CPU_INT_ISET_RTCA2_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RTCA2_SET               ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET[RT0PS] Bits */
+#define RTC_CPU_INT_ISET_RT0PS_OFS               (4)                             /* !< RT0PS Offset */
+#define RTC_CPU_INT_ISET_RT0PS_MASK              ((uint32_t)0x00000010U)         /* !< Set Prescaler-0 interrupt */
+#define RTC_CPU_INT_ISET_RT0PS_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RT0PS_SET               ((uint32_t)0x00000010U)         /* !< Set Interrupt */
+/* RTC_CPU_INT_ISET[RT1PS] Bits */
+#define RTC_CPU_INT_ISET_RT1PS_OFS               (5)                             /* !< RT1PS Offset */
+#define RTC_CPU_INT_ISET_RT1PS_MASK              ((uint32_t)0x00000020U)         /* !< Set Prescaler-1 interrupt */
+#define RTC_CPU_INT_ISET_RT1PS_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ISET_RT1PS_SET               ((uint32_t)0x00000020U)         /* !< Set Interrupt */
 
-/* RTC_INT_EVENT0_ICLR Bits */
-/* RTC_INT_EVENT0_ICLR[RTCRDY] Bits */
-#define RTC_INT_EVENT0_ICLR_RTCRDY_OFS           (0)                             /* !< RTCRDY Offset */
-#define RTC_INT_EVENT0_ICLR_RTCRDY_MASK          ((uint32_t)0x00000001U)         /* !< Clear RTC-Ready interrupt */
-#define RTC_INT_EVENT0_ICLR_RTCRDY_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RTCRDY_SET           ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT0_ICLR[RTCTEV] Bits */
-#define RTC_INT_EVENT0_ICLR_RTCTEV_OFS           (1)                             /* !< RTCTEV Offset */
-#define RTC_INT_EVENT0_ICLR_RTCTEV_MASK          ((uint32_t)0x00000002U)         /* !< Clear Time-Event interrupt */
-#define RTC_INT_EVENT0_ICLR_RTCTEV_CLR           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RTCTEV_SET           ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT0_ICLR[RTCA1] Bits */
-#define RTC_INT_EVENT0_ICLR_RTCA1_OFS            (2)                             /* !< RTCA1 Offset */
-#define RTC_INT_EVENT0_ICLR_RTCA1_MASK           ((uint32_t)0x00000004U)         /* !< Clear Alarm-1 interrupt */
-#define RTC_INT_EVENT0_ICLR_RTCA1_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RTCA1_SET            ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT0_ICLR[RTCA2] Bits */
-#define RTC_INT_EVENT0_ICLR_RTCA2_OFS            (3)                             /* !< RTCA2 Offset */
-#define RTC_INT_EVENT0_ICLR_RTCA2_MASK           ((uint32_t)0x00000008U)         /* !< Clear Alarm-2 interrupt */
-#define RTC_INT_EVENT0_ICLR_RTCA2_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RTCA2_SET            ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT0_ICLR[RT0PS] Bits */
-#define RTC_INT_EVENT0_ICLR_RT0PS_OFS            (4)                             /* !< RT0PS Offset */
-#define RTC_INT_EVENT0_ICLR_RT0PS_MASK           ((uint32_t)0x00000010U)         /* !< Clear Prescaler-0 interrupt */
-#define RTC_INT_EVENT0_ICLR_RT0PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RT0PS_SET            ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
-/* RTC_INT_EVENT0_ICLR[RT1PS] Bits */
-#define RTC_INT_EVENT0_ICLR_RT1PS_OFS            (5)                             /* !< RT1PS Offset */
-#define RTC_INT_EVENT0_ICLR_RT1PS_MASK           ((uint32_t)0x00000020U)         /* !< Clear Prescaler-1 interrupt */
-#define RTC_INT_EVENT0_ICLR_RT1PS_CLR            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define RTC_INT_EVENT0_ICLR_RT1PS_SET            ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR Bits */
+/* RTC_CPU_INT_ICLR[RTCRDY] Bits */
+#define RTC_CPU_INT_ICLR_RTCRDY_OFS              (0)                             /* !< RTCRDY Offset */
+#define RTC_CPU_INT_ICLR_RTCRDY_MASK             ((uint32_t)0x00000001U)         /* !< Clear RTC-Ready interrupt */
+#define RTC_CPU_INT_ICLR_RTCRDY_CLR              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RTCRDY_SET              ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR[RTCTEV] Bits */
+#define RTC_CPU_INT_ICLR_RTCTEV_OFS              (1)                             /* !< RTCTEV Offset */
+#define RTC_CPU_INT_ICLR_RTCTEV_MASK             ((uint32_t)0x00000002U)         /* !< Clear Time-Event interrupt */
+#define RTC_CPU_INT_ICLR_RTCTEV_CLR              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RTCTEV_SET              ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR[RTCA1] Bits */
+#define RTC_CPU_INT_ICLR_RTCA1_OFS               (2)                             /* !< RTCA1 Offset */
+#define RTC_CPU_INT_ICLR_RTCA1_MASK              ((uint32_t)0x00000004U)         /* !< Clear Alarm-1 interrupt */
+#define RTC_CPU_INT_ICLR_RTCA1_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RTCA1_SET               ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR[RTCA2] Bits */
+#define RTC_CPU_INT_ICLR_RTCA2_OFS               (3)                             /* !< RTCA2 Offset */
+#define RTC_CPU_INT_ICLR_RTCA2_MASK              ((uint32_t)0x00000008U)         /* !< Clear Alarm-2 interrupt */
+#define RTC_CPU_INT_ICLR_RTCA2_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RTCA2_SET               ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR[RT0PS] Bits */
+#define RTC_CPU_INT_ICLR_RT0PS_OFS               (4)                             /* !< RT0PS Offset */
+#define RTC_CPU_INT_ICLR_RT0PS_MASK              ((uint32_t)0x00000010U)         /* !< Clear Prescaler-0 interrupt */
+#define RTC_CPU_INT_ICLR_RT0PS_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RT0PS_SET               ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
+/* RTC_CPU_INT_ICLR[RT1PS] Bits */
+#define RTC_CPU_INT_ICLR_RT1PS_OFS               (5)                             /* !< RT1PS Offset */
+#define RTC_CPU_INT_ICLR_RT1PS_MASK              ((uint32_t)0x00000020U)         /* !< Clear Prescaler-1 interrupt */
+#define RTC_CPU_INT_ICLR_RT1PS_CLR               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define RTC_CPU_INT_ICLR_RT1PS_SET               ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
 
 /* RTC_PWREN Bits */
 /* RTC_PWREN[ENABLE] Bits */

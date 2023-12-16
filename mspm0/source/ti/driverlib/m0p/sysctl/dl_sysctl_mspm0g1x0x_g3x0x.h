@@ -34,7 +34,7 @@
  *  @brief      System Control (SysCtl)
  *  @defgroup   SYSCTL_MSPM0G1X0X_G3X0X MSPM0G1X0X_G3X0X System Control (SYSCTL)
  *
- *  @anchor ti_dl_m0p_dl_mspm0g_sysctl_Overview
+ *  @anchor ti_dl_m0p_dl_mspm0g1x0x_g3x0x_sysctl_Overview
  *  # Overview
  *
  *  The System Control (SysCtl) module enables control over system wide
@@ -500,7 +500,7 @@ typedef enum {
     /*! Divide MCLK frequency by 7 */
     DL_SYSCTL_MCLK_DIVIDER_7 = 0x6,
     /*! Divide MCLK frequency by 8 */
-    DL_SYSCTL_MCLK_DIVIDER_8 = 0x6,
+    DL_SYSCTL_MCLK_DIVIDER_8 = 0x7,
     /*! Divide MCLK frequency by 9 */
     DL_SYSCTL_MCLK_DIVIDER_9 = 0x8,
     /*! Divide MCLK frequency by 10 */
@@ -824,11 +824,11 @@ typedef enum {
     /*! Shutdown Storage Byte 0 */
     DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_0 = 0x0,
     /*! Shutdown Storage Byte 1 */
-    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_1 = 0x4,
+    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_1 = 0x1,
     /*! Shutdown Storage Byte 2 */
-    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_2 = 0x8,
+    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_2 = 0x2,
     /*! Shutdown Storage Byte 3 */
-    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_3 = 0xC,
+    DL_SYSCTL_SHUTDOWN_STORAGE_BYTE_3 = 0x3,
 } DL_SYSCTL_SHUTDOWN_STORAGE_BYTE;
 
 /** @enum DL_SYSCTL_RESET_CAUSE */
@@ -1950,6 +1950,38 @@ void DL_SYSCTL_setHFCLKSourceHFXTParams(
     DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable);
 
 /**
+ *  @brief      Disable the SYSPLL
+ *
+ *  If SYSPLL is already enabled, application software should not disable the
+ *  SYSPLL until the SYSPLLGOOD or SYSPLOFF bit is set in the CLKSTATUS
+ *  register, indicating that the SYSPLL transitioned to a stable active or a
+ *  stable dead state.
+ *
+ *  @sa DL_SYSCTL_getClockStatus
+ */
+__STATIC_INLINE void DL_SYSCTL_disableSYSPLL(void)
+{
+    SYSCTL->SOCLOCK.HSCLKEN &= ~(SYSCTL_HSCLKEN_SYSPLLEN_MASK);
+}
+
+/**
+ *  @brief      Disable the HFXT
+ *
+ *  If HFXT is already enabled, application software must verify that either an
+ *  HFCLKGOOD indication or an HFCLKOFF (off/dead) indication in the CLKSTATUS
+ *  register was asserted by hardware before attempting to disable the HFXT
+ *  by clearing HFXTEN. When disabling the HFXT by clearing HFXTEN, the HFXT
+ *  must not be re-enabled again until the HFCLKOFF bit in the CLKSTATUS
+ *  register is set by hardware.
+ *
+ *  @sa DL_SYSCTL_getClockStatus
+ */
+__STATIC_INLINE void DL_SYSCTL_disableHFXT(void)
+{
+    SYSCTL->SOCLOCK.HSCLKEN &= ~(SYSCTL_HSCLKEN_HFXTEN_MASK);
+}
+
+/**
  *  @brief Change HFCLK source to external digital HFCLK_IN
  *
  * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
@@ -1964,6 +1996,11 @@ void DL_SYSCTL_setHFCLKSourceHFXTParams(
  */
 __STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
 {
+    /* Some crystal configurations are retained in lower reset levels. Set
+     * default behavior of HFXT to keep a consistent behavior regardless of
+     * reset level. */
+    DL_SYSCTL_disableHFXT();
+
     SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
 }
 
@@ -2662,6 +2699,30 @@ __STATIC_INLINE uint32_t DL_SYSCTL_getTempCalibrationConstant(void)
 {
     // TODO replace hard coded temp cal address once available in device header file
     return (*((uint32_t *) 0x41C4003C));
+}
+
+/**
+ *  @brief  Checks if Flash Bank swapping is enabled
+ *
+ *  @return Whether Flash Bank swap is enabled
+ *
+ *  @retval  false  This is not a multi-bank device
+ */
+__STATIC_INLINE bool DL_SYSCTL_isFlashBankSwapEnabled(void)
+{
+    return false;
+}
+
+/**
+ *  @brief  Checks if executing from upper flash bank
+ *
+ *  @return Whether executing from upper flash bank
+ *
+ *  @retval  false  This is not a multi-bank device.
+ */
+__STATIC_INLINE bool DL_SYSCTL_isExecuteFromUpperFlashBank(void)
+{
+    return false;
 }
 
 #ifdef __cplusplus

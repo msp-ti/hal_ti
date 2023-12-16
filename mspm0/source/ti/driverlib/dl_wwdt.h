@@ -459,7 +459,7 @@ __STATIC_INLINE DL_WWDT_CLOCK_DIVIDE DL_WWDT_getClockDivider(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE void DL_WWDT_enableInterrupt(WWDT_Regs *wwdt)
 {
-    wwdt->INT_EVENT.IMASK = WWDT_IMASK_INTTIM_SET;
+    wwdt->CPU_INT.IMASK = WWDT_IMASK_INTTIM_SET;
 }
 
 /**
@@ -469,7 +469,7 @@ __STATIC_INLINE void DL_WWDT_enableInterrupt(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE void DL_WWDT_disableInterrupt(WWDT_Regs *wwdt)
 {
-    wwdt->INT_EVENT.IMASK = WWDT_IMASK_INTTIM_CLR;
+    wwdt->CPU_INT.IMASK = WWDT_IMASK_INTTIM_CLR;
 }
 
 /**
@@ -484,7 +484,7 @@ __STATIC_INLINE void DL_WWDT_disableInterrupt(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE bool DL_WWDT_isInterruptEnabled(WWDT_Regs *wwdt)
 {
-    return ((wwdt->INT_EVENT.IMASK & WWDT_IMASK_INTTIM_SET) ==
+    return ((wwdt->CPU_INT.IMASK & WWDT_IMASK_INTTIM_SET) ==
             WWDT_IMASK_INTTIM_SET);
 }
 
@@ -504,8 +504,7 @@ __STATIC_INLINE bool DL_WWDT_isInterruptEnabled(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE bool DL_WWDT_getEnabledInterruptStatus(WWDT_Regs *wwdt)
 {
-    return (
-        (wwdt->INT_EVENT.MIS & WWDT_MIS_INTTIM_SET) == WWDT_MIS_INTTIM_SET);
+    return ((wwdt->CPU_INT.MIS & WWDT_MIS_INTTIM_SET) == WWDT_MIS_INTTIM_SET);
 }
 
 /**
@@ -523,7 +522,7 @@ __STATIC_INLINE bool DL_WWDT_getEnabledInterruptStatus(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE uint32_t DL_WWDT_getRawInterruptStatus(WWDT_Regs *wwdt)
 {
-    return (wwdt->INT_EVENT.RIS & WWDT_RIS_INTTIM_SET);
+    return (wwdt->CPU_INT.RIS & WWDT_RIS_INTTIM_SET);
 }
 
 /**
@@ -540,7 +539,7 @@ __STATIC_INLINE uint32_t DL_WWDT_getRawInterruptStatus(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE DL_WWDT_IIDX DL_WWDT_getPendingInterrupt(WWDT_Regs *wwdt)
 {
-    return (DL_WWDT_IIDX)(wwdt->INT_EVENT.IIDX);
+    return (DL_WWDT_IIDX)(wwdt->CPU_INT.IIDX);
 }
 
 /**
@@ -550,7 +549,7 @@ __STATIC_INLINE DL_WWDT_IIDX DL_WWDT_getPendingInterrupt(WWDT_Regs *wwdt)
  */
 __STATIC_INLINE void DL_WWDT_clearInterruptStatus(WWDT_Regs *wwdt)
 {
-    wwdt->INT_EVENT.ICLR = WWDT_ICLR_INTTIM_CLR;
+    wwdt->CPU_INT.ICLR = WWDT_ICLR_INTTIM_CLR;
 }
 
 #ifdef __cplusplus

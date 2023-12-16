@@ -1,33 +1,33 @@
 /*****************************************************************************
 
-  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/ 
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
-  Redistribution and use in source and binary forms, with or without 
-  modification, are permitted provided that the following conditions 
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
   are met:
 
-   Redistributions of source code must retain the above copyright 
+   Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
 
    Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the 
-   documentation and/or other materials provided with the   
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
    distribution.
 
    Neither the name of Texas Instruments Incorporated nor the names of
    its contributors may be used to endorse or promote products derived
    from this software without specific prior written permission.
 
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 *****************************************************************************/
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_spi__include
 #define ti_devices_msp_peripherals_hw_spi__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspspi */
-/* MMR revision: d6d1171f9d2921f15a97f0298569e64f6737c647 */
-/* Generator revision: 0dcf0875a203393ad013f81195ab9f8aaeaf8615
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_spi.h */
+/* Revised: 2023-05-01 11:44:28 */
+/* Revision: e59cc9a0a7fab62c1b5a05a01c0efbbc96c33ec7 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,13 +68,13 @@
 /******************************************************************************
 * SPI Registers
 ******************************************************************************/
-#define SPI_INT_EVENT2_OFS                       ((uint32_t)0x00001080U)
-#define SPI_INT_EVENT1_OFS                       ((uint32_t)0x00001050U)
-#define SPI_INT_EVENT0_OFS                       ((uint32_t)0x00001020U)
+#define SPI_DMA_TRIG_TX_OFS                      ((uint32_t)0x00001080U)
+#define SPI_DMA_TRIG_RX_OFS                      ((uint32_t)0x00001050U)
+#define SPI_CPU_INT_OFS                          ((uint32_t)0x00001020U)
 #define SPI_GPRCM_OFS                            ((uint32_t)0x00000800U)
 
 
-/** @addtogroup SPI_INT_EVENT2
+/** @addtogroup SPI_DMA_TRIG_TX
   @{
 */
 
@@ -92,11 +90,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear */
-} SPI_INT_EVENT2_Regs;
+} SPI_DMA_TRIG_TX_Regs;
 
-/*@}*/ /* end of group SPI_INT_EVENT2 */
+/*@}*/ /* end of group SPI_DMA_TRIG_TX */
 
-/** @addtogroup SPI_INT_EVENT1
+/** @addtogroup SPI_DMA_TRIG_RX
   @{
 */
 
@@ -112,11 +110,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} SPI_INT_EVENT1_Regs;
+} SPI_DMA_TRIG_RX_Regs;
 
-/*@}*/ /* end of group SPI_INT_EVENT1 */
+/*@}*/ /* end of group SPI_DMA_TRIG_RX */
 
-/** @addtogroup SPI_INT_EVENT0
+/** @addtogroup SPI_CPU_INT
   @{
 */
 
@@ -132,9 +130,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} SPI_INT_EVENT0_Regs;
+} SPI_CPU_INT_Regs;
 
-/*@}*/ /* end of group SPI_INT_EVENT0 */
+/*@}*/ /* end of group SPI_CPU_INT */
 
 /** @addtogroup SPI_GPRCM
   @{
@@ -163,11 +161,11 @@ typedef struct {
        uint32_t RESERVED2[4];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED3;
-  SPI_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  SPI_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED4;
-  SPI_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  SPI_DMA_TRIG_RX_Regs  DMA_TRIG_RX;                       /* !< (@ 0x00001050) */
        uint32_t RESERVED5;
-  SPI_INT_EVENT2_Regs  INT_EVENT2;                        /* !< (@ 0x00001080) */
+  SPI_DMA_TRIG_TX_Regs  DMA_TRIG_TX;                       /* !< (@ 0x00001080) */
        uint32_t RESERVED6[13];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
   __IO uint32_t INTCTL;                            /* !< (@ 0x000010E4) Interrupt control register */
@@ -175,7 +173,7 @@ typedef struct {
   __IO uint32_t CTL0;                              /* !< (@ 0x00001100) SPI control register 0 */
   __IO uint32_t CTL1;                              /* !< (@ 0x00001104) SPI control register 1 */
   __IO uint32_t CLKCTL;                            /* !< (@ 0x00001108) Clock prescaler and divider register. */
-  __IO uint32_t IFLS;                              /* !< (@ 0x0000110C) UART Interrupt FIFO Level Select Register */
+  __IO uint32_t IFLS;                              /* !< (@ 0x0000110C) Interrupt FIFO Level Select Register */
   __I  uint32_t STAT;                              /* !< (@ 0x00001110) Status Register */
        uint32_t RESERVED8[7];
   __I  uint32_t RXDATA;                            /* !< (@ 0x00001130) RXDATA Register */
@@ -195,24 +193,24 @@ typedef struct {
 * SPI Register Control Bits
 ******************************************************************************/
 
-/* SPI_INT_EVENT2_IIDX Bits */
-/* SPI_INT_EVENT2_IIDX[STAT] Bits */
-#define SPI_INT_EVENT2_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define SPI_INT_EVENT2_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define SPI_INT_EVENT2_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define SPI_INT_EVENT2_IIDX_STAT_TX_EVT          ((uint32_t)0x00000005U)         /* !< Transmit Event/interrupt pending */
+/* SPI_DMA_TRIG_TX_IIDX Bits */
+/* SPI_DMA_TRIG_TX_IIDX[STAT] Bits */
+#define SPI_DMA_TRIG_TX_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define SPI_DMA_TRIG_TX_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define SPI_DMA_TRIG_TX_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define SPI_DMA_TRIG_TX_IIDX_STAT_TX_EVT         ((uint32_t)0x00000005U)         /* !< Transmit Event/interrupt pending */
 
-/* SPI_INT_EVENT2_IMASK Bits */
-/* SPI_INT_EVENT2_IMASK[TX] Bits */
-#define SPI_INT_EVENT2_IMASK_TX_OFS              (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT2_IMASK_TX_MASK             ((uint32_t)0x00000010U)         /* !< Transmit FIFO event mask. */
-#define SPI_INT_EVENT2_IMASK_TX_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT2_IMASK_TX_SET              ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_TX_IMASK Bits */
+/* SPI_DMA_TRIG_TX_IMASK[TX] Bits */
+#define SPI_DMA_TRIG_TX_IMASK_TX_OFS             (4)                             /* !< TX Offset */
+#define SPI_DMA_TRIG_TX_IMASK_TX_MASK            ((uint32_t)0x00000010U)         /* !< Transmit FIFO event mask. */
+#define SPI_DMA_TRIG_TX_IMASK_TX_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_DMA_TRIG_TX_IMASK_TX_SET             ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT2_RIS Bits */
-/* SPI_INT_EVENT2_RIS[TX] Bits */
-#define SPI_INT_EVENT2_RIS_TX_OFS                (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT2_RIS_TX_MASK               ((uint32_t)0x00000010U)         /* !< Transmit FIFO event: A read returns
+/* SPI_DMA_TRIG_TX_RIS Bits */
+/* SPI_DMA_TRIG_TX_RIS[TX] Bits */
+#define SPI_DMA_TRIG_TX_RIS_TX_OFS               (4)                             /* !< TX Offset */
+#define SPI_DMA_TRIG_TX_RIS_TX_MASK              ((uint32_t)0x00000010U)         /* !< Transmit FIFO event: A read returns
                                                                                     the current mask for transmit FIFO
                                                                                     interrupt. On a write of 1, the mask
                                                                                     for transmit FIFO interrupt is set
@@ -221,438 +219,438 @@ typedef struct {
                                                                                     0 clears the mask which means
                                                                                     MIS.TXMIS will not reflect the
                                                                                     interrupt. */
-#define SPI_INT_EVENT2_RIS_TX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT2_RIS_TX_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+#define SPI_DMA_TRIG_TX_RIS_TX_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_DMA_TRIG_TX_RIS_TX_SET               ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
 
-/* SPI_INT_EVENT2_MIS Bits */
-/* SPI_INT_EVENT2_MIS[TX] Bits */
-#define SPI_INT_EVENT2_MIS_TX_OFS                (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT2_MIS_TX_MASK               ((uint32_t)0x00000010U)         /* !< Masked Transmit FIFO event */
-#define SPI_INT_EVENT2_MIS_TX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT2_MIS_TX_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* SPI_DMA_TRIG_TX_MIS Bits */
+/* SPI_DMA_TRIG_TX_MIS[TX] Bits */
+#define SPI_DMA_TRIG_TX_MIS_TX_OFS               (4)                             /* !< TX Offset */
+#define SPI_DMA_TRIG_TX_MIS_TX_MASK              ((uint32_t)0x00000010U)         /* !< Masked Transmit FIFO event */
+#define SPI_DMA_TRIG_TX_MIS_TX_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_DMA_TRIG_TX_MIS_TX_SET               ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
 
-/* SPI_INT_EVENT2_ISET Bits */
-/* SPI_INT_EVENT2_ISET[TX] Bits */
-#define SPI_INT_EVENT2_ISET_TX_OFS               (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT2_ISET_TX_MASK              ((uint32_t)0x00000010U)         /* !< Set Transmit FIFO event. */
-#define SPI_INT_EVENT2_ISET_TX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT2_ISET_TX_SET               ((uint32_t)0x00000010U)         /* !< Set Interrupt */
+/* SPI_DMA_TRIG_TX_ISET Bits */
+/* SPI_DMA_TRIG_TX_ISET[TX] Bits */
+#define SPI_DMA_TRIG_TX_ISET_TX_OFS              (4)                             /* !< TX Offset */
+#define SPI_DMA_TRIG_TX_ISET_TX_MASK             ((uint32_t)0x00000010U)         /* !< Set Transmit FIFO event. */
+#define SPI_DMA_TRIG_TX_ISET_TX_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_TX_ISET_TX_SET              ((uint32_t)0x00000010U)         /* !< Set Interrupt */
 
-/* SPI_INT_EVENT2_ICLR Bits */
-/* SPI_INT_EVENT2_ICLR[TX] Bits */
-#define SPI_INT_EVENT2_ICLR_TX_OFS               (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT2_ICLR_TX_MASK              ((uint32_t)0x00000010U)         /* !< Clear Transmit FIFO event. */
-#define SPI_INT_EVENT2_ICLR_TX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT2_ICLR_TX_CLR               ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
+/* SPI_DMA_TRIG_TX_ICLR Bits */
+/* SPI_DMA_TRIG_TX_ICLR[TX] Bits */
+#define SPI_DMA_TRIG_TX_ICLR_TX_OFS              (4)                             /* !< TX Offset */
+#define SPI_DMA_TRIG_TX_ICLR_TX_MASK             ((uint32_t)0x00000010U)         /* !< Clear Transmit FIFO event. */
+#define SPI_DMA_TRIG_TX_ICLR_TX_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_TX_ICLR_TX_CLR              ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
 
-/* SPI_INT_EVENT1_IIDX Bits */
-/* SPI_INT_EVENT1_IIDX[STAT] Bits */
-#define SPI_INT_EVENT1_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define SPI_INT_EVENT1_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define SPI_INT_EVENT1_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define SPI_INT_EVENT1_IIDX_STAT_RTOUT_EVT       ((uint32_t)0x00000003U)         /* !< SPI receive time-out interrupt */
-#define SPI_INT_EVENT1_IIDX_STAT_RX_EVT          ((uint32_t)0x00000004U)         /* !< Receive Event/interrupt pending */
+/* SPI_DMA_TRIG_RX_IIDX Bits */
+/* SPI_DMA_TRIG_RX_IIDX[STAT] Bits */
+#define SPI_DMA_TRIG_RX_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define SPI_DMA_TRIG_RX_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define SPI_DMA_TRIG_RX_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define SPI_DMA_TRIG_RX_IIDX_STAT_RTOUT_EVT      ((uint32_t)0x00000003U)         /* !< SPI receive time-out interrupt */
+#define SPI_DMA_TRIG_RX_IIDX_STAT_RX_EVT         ((uint32_t)0x00000004U)         /* !< Receive Event/interrupt pending */
 
-/* SPI_INT_EVENT1_IMASK Bits */
-/* SPI_INT_EVENT1_IMASK[RX] Bits */
-#define SPI_INT_EVENT1_IMASK_RX_OFS              (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT1_IMASK_RX_MASK             ((uint32_t)0x00000008U)         /* !< Receive FIFO event mask. */
-#define SPI_INT_EVENT1_IMASK_RX_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT1_IMASK_RX_SET              ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT1_IMASK[RTOUT] Bits */
-#define SPI_INT_EVENT1_IMASK_RTOUT_OFS           (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT1_IMASK_RTOUT_MASK          ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event mask. */
-#define SPI_INT_EVENT1_IMASK_RTOUT_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT1_IMASK_RTOUT_SET           ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_RX_IMASK Bits */
+/* SPI_DMA_TRIG_RX_IMASK[RX] Bits */
+#define SPI_DMA_TRIG_RX_IMASK_RX_OFS             (3)                             /* !< RX Offset */
+#define SPI_DMA_TRIG_RX_IMASK_RX_MASK            ((uint32_t)0x00000008U)         /* !< Receive FIFO event mask. */
+#define SPI_DMA_TRIG_RX_IMASK_RX_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_DMA_TRIG_RX_IMASK_RX_SET             ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_RX_IMASK[RTOUT] Bits */
+#define SPI_DMA_TRIG_RX_IMASK_RTOUT_OFS          (2)                             /* !< RTOUT Offset */
+#define SPI_DMA_TRIG_RX_IMASK_RTOUT_MASK         ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event mask. */
+#define SPI_DMA_TRIG_RX_IMASK_RTOUT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_DMA_TRIG_RX_IMASK_RTOUT_SET          ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT1_RIS Bits */
-/* SPI_INT_EVENT1_RIS[RX] Bits */
-#define SPI_INT_EVENT1_RIS_RX_OFS                (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT1_RIS_RX_MASK               ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
+/* SPI_DMA_TRIG_RX_RIS Bits */
+/* SPI_DMA_TRIG_RX_RIS[RX] Bits */
+#define SPI_DMA_TRIG_RX_RIS_RX_OFS               (3)                             /* !< RX Offset */
+#define SPI_DMA_TRIG_RX_RIS_RX_MASK              ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
                                                                                     is set if the selected Receive FIFO
                                                                                     level has been reached */
-#define SPI_INT_EVENT1_RIS_RX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT1_RIS_RX_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT1_RIS[RTOUT] Bits */
-#define SPI_INT_EVENT1_RIS_RTOUT_OFS             (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT1_RIS_RTOUT_MASK            ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out Event. */
-#define SPI_INT_EVENT1_RIS_RTOUT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT1_RIS_RTOUT_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+#define SPI_DMA_TRIG_RX_RIS_RX_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_DMA_TRIG_RX_RIS_RX_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* SPI_DMA_TRIG_RX_RIS[RTOUT] Bits */
+#define SPI_DMA_TRIG_RX_RIS_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
+#define SPI_DMA_TRIG_RX_RIS_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out Event. */
+#define SPI_DMA_TRIG_RX_RIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_DMA_TRIG_RX_RIS_RTOUT_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT1_MIS Bits */
-/* SPI_INT_EVENT1_MIS[RX] Bits */
-#define SPI_INT_EVENT1_MIS_RX_OFS                (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT1_MIS_RX_MASK               ((uint32_t)0x00000008U)         /* !< Receive FIFO event mask. */
-#define SPI_INT_EVENT1_MIS_RX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT1_MIS_RX_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT1_MIS[RTOUT] Bits */
-#define SPI_INT_EVENT1_MIS_RTOUT_OFS             (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT1_MIS_RTOUT_MASK            ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event mask. */
-#define SPI_INT_EVENT1_MIS_RTOUT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT1_MIS_RTOUT_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_RX_MIS Bits */
+/* SPI_DMA_TRIG_RX_MIS[RX] Bits */
+#define SPI_DMA_TRIG_RX_MIS_RX_OFS               (3)                             /* !< RX Offset */
+#define SPI_DMA_TRIG_RX_MIS_RX_MASK              ((uint32_t)0x00000008U)         /* !< Receive FIFO event mask. */
+#define SPI_DMA_TRIG_RX_MIS_RX_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_DMA_TRIG_RX_MIS_RX_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* SPI_DMA_TRIG_RX_MIS[RTOUT] Bits */
+#define SPI_DMA_TRIG_RX_MIS_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
+#define SPI_DMA_TRIG_RX_MIS_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event mask. */
+#define SPI_DMA_TRIG_RX_MIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_DMA_TRIG_RX_MIS_RTOUT_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT1_ISET Bits */
-/* SPI_INT_EVENT1_ISET[RX] Bits */
-#define SPI_INT_EVENT1_ISET_RX_OFS               (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT1_ISET_RX_MASK              ((uint32_t)0x00000008U)         /* !< Set Receive FIFO event. */
-#define SPI_INT_EVENT1_ISET_RX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT1_ISET_RX_SET               ((uint32_t)0x00000008U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT1_ISET[RTOUT] Bits */
-#define SPI_INT_EVENT1_ISET_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT1_ISET_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< Set SPI Receive Time-Out event. */
-#define SPI_INT_EVENT1_ISET_RTOUT_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT1_ISET_RTOUT_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_RX_ISET Bits */
+/* SPI_DMA_TRIG_RX_ISET[RX] Bits */
+#define SPI_DMA_TRIG_RX_ISET_RX_OFS              (3)                             /* !< RX Offset */
+#define SPI_DMA_TRIG_RX_ISET_RX_MASK             ((uint32_t)0x00000008U)         /* !< Set Receive FIFO event. */
+#define SPI_DMA_TRIG_RX_ISET_RX_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_RX_ISET_RX_SET              ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* SPI_DMA_TRIG_RX_ISET[RTOUT] Bits */
+#define SPI_DMA_TRIG_RX_ISET_RTOUT_OFS           (2)                             /* !< RTOUT Offset */
+#define SPI_DMA_TRIG_RX_ISET_RTOUT_MASK          ((uint32_t)0x00000004U)         /* !< Set SPI Receive Time-Out event. */
+#define SPI_DMA_TRIG_RX_ISET_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_RX_ISET_RTOUT_SET           ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT1_ICLR Bits */
-/* SPI_INT_EVENT1_ICLR[RX] Bits */
-#define SPI_INT_EVENT1_ICLR_RX_OFS               (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT1_ICLR_RX_MASK              ((uint32_t)0x00000008U)         /* !< Clear Receive FIFO event. */
-#define SPI_INT_EVENT1_ICLR_RX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT1_ICLR_RX_CLR               ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT1_ICLR[RTOUT] Bits */
-#define SPI_INT_EVENT1_ICLR_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT1_ICLR_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< Clear SPI Receive Time-Out event. */
-#define SPI_INT_EVENT1_ICLR_RTOUT_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT1_ICLR_RTOUT_CLR            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_DMA_TRIG_RX_ICLR Bits */
+/* SPI_DMA_TRIG_RX_ICLR[RX] Bits */
+#define SPI_DMA_TRIG_RX_ICLR_RX_OFS              (3)                             /* !< RX Offset */
+#define SPI_DMA_TRIG_RX_ICLR_RX_MASK             ((uint32_t)0x00000008U)         /* !< Clear Receive FIFO event. */
+#define SPI_DMA_TRIG_RX_ICLR_RX_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_RX_ICLR_RX_CLR              ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
+/* SPI_DMA_TRIG_RX_ICLR[RTOUT] Bits */
+#define SPI_DMA_TRIG_RX_ICLR_RTOUT_OFS           (2)                             /* !< RTOUT Offset */
+#define SPI_DMA_TRIG_RX_ICLR_RTOUT_MASK          ((uint32_t)0x00000004U)         /* !< Clear SPI Receive Time-Out event. */
+#define SPI_DMA_TRIG_RX_ICLR_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_DMA_TRIG_RX_ICLR_RTOUT_CLR           ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT0_IIDX Bits */
-/* SPI_INT_EVENT0_IIDX[STAT] Bits */
-#define SPI_INT_EVENT0_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define SPI_INT_EVENT0_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define SPI_INT_EVENT0_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_RXFIFO_OFV_EVT  ((uint32_t)0x00000001U)         /* !< RX FIFO Overflow Event/interrupt
+/* SPI_CPU_INT_IIDX Bits */
+/* SPI_CPU_INT_IIDX[STAT] Bits */
+#define SPI_CPU_INT_IIDX_STAT_OFS                (0)                             /* !< STAT Offset */
+#define SPI_CPU_INT_IIDX_STAT_MASK               ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define SPI_CPU_INT_IIDX_STAT_NO_INTR            ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define SPI_CPU_INT_IIDX_STAT_RXFIFO_OFV_EVT     ((uint32_t)0x00000001U)         /* !< RX FIFO Overflow Event/interrupt
                                                                                     pending */
-#define SPI_INT_EVENT0_IIDX_STAT_PER_EVT         ((uint32_t)0x00000002U)         /* !< Transmit Parity Event/interrupt
+#define SPI_CPU_INT_IIDX_STAT_PER_EVT            ((uint32_t)0x00000002U)         /* !< Transmit Parity Event/interrupt
                                                                                     pending */
-#define SPI_INT_EVENT0_IIDX_STAT_RTOUT_EVT       ((uint32_t)0x00000003U)         /* !< SPI receive time-out interrupt */
-#define SPI_INT_EVENT0_IIDX_STAT_RX_EVT          ((uint32_t)0x00000004U)         /* !< Receive Event/interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_TX_EVT          ((uint32_t)0x00000005U)         /* !< Transmit Event/interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_TX_EMPTY        ((uint32_t)0x00000006U)         /* !< Transmit Buffer Empty
+#define SPI_CPU_INT_IIDX_STAT_RTOUT_EVT          ((uint32_t)0x00000003U)         /* !< SPI receive time-out interrupt */
+#define SPI_CPU_INT_IIDX_STAT_RX_EVT             ((uint32_t)0x00000004U)         /* !< Receive Event/interrupt pending */
+#define SPI_CPU_INT_IIDX_STAT_TX_EVT             ((uint32_t)0x00000005U)         /* !< Transmit Event/interrupt pending */
+#define SPI_CPU_INT_IIDX_STAT_TX_EMPTY           ((uint32_t)0x00000006U)         /* !< Transmit Buffer Empty
                                                                                     Event/interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_IDLE_EVT        ((uint32_t)0x00000007U)         /* !< End of Transmit Event/interrupt
+#define SPI_CPU_INT_IIDX_STAT_IDLE_EVT           ((uint32_t)0x00000007U)         /* !< End of Transmit Event/interrupt
                                                                                     pending */
-#define SPI_INT_EVENT0_IIDX_STAT_DMA_DONE_RX_EVT ((uint32_t)0x00000008U)         /* !< DMA Done for Receive
+#define SPI_CPU_INT_IIDX_STAT_DMA_DONE_RX_EVT    ((uint32_t)0x00000008U)         /* !< DMA Done for Receive
                                                                                     Event/interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_DMA_DONE_TX_EVT ((uint32_t)0x00000009U)         /* !< DMA Done for Transmit
+#define SPI_CPU_INT_IIDX_STAT_DMA_DONE_TX_EVT    ((uint32_t)0x00000009U)         /* !< DMA Done for Transmit
                                                                                     Event/interrupt pending */
-#define SPI_INT_EVENT0_IIDX_STAT_TXFIFO_UNF_EVT  ((uint32_t)0x0000000AU)         /* !< TX FIFO underflow interrupt */
-#define SPI_INT_EVENT0_IIDX_STAT_RXFULL_EVT      ((uint32_t)0x0000000BU)         /* !< RX FIFO Full Interrupt */
+#define SPI_CPU_INT_IIDX_STAT_TXFIFO_UNF_EVT     ((uint32_t)0x0000000AU)         /* !< TX FIFO underflow interrupt */
+#define SPI_CPU_INT_IIDX_STAT_RXFULL_EVT         ((uint32_t)0x0000000BU)         /* !< RX FIFO Full Interrupt */
 
-/* SPI_INT_EVENT0_IMASK Bits */
-/* SPI_INT_EVENT0_IMASK[RX] Bits */
-#define SPI_INT_EVENT0_IMASK_RX_OFS              (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT0_IMASK_RX_MASK             ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
+/* SPI_CPU_INT_IMASK Bits */
+/* SPI_CPU_INT_IMASK[RX] Bits */
+#define SPI_CPU_INT_IMASK_RX_OFS                 (3)                             /* !< RX Offset */
+#define SPI_CPU_INT_IMASK_RX_MASK                ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
                                                                                     is set if the selected Receive FIFO
                                                                                     level has been reached */
-#define SPI_INT_EVENT0_IMASK_RX_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_RX_SET              ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[TX] Bits */
-#define SPI_INT_EVENT0_IMASK_TX_OFS              (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT0_IMASK_TX_MASK             ((uint32_t)0x00000010U)         /* !< Transmit FIFO event mask. */
-#define SPI_INT_EVENT0_IMASK_TX_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_TX_SET              ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[TXEMPTY] Bits */
-#define SPI_INT_EVENT0_IMASK_TXEMPTY_OFS         (5)                             /* !< TXEMPTY Offset */
-#define SPI_INT_EVENT0_IMASK_TXEMPTY_MASK        ((uint32_t)0x00000020U)         /* !< Transmit FIFO Empty event mask. */
-#define SPI_INT_EVENT0_IMASK_TXEMPTY_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_TXEMPTY_SET         ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[PER] Bits */
-#define SPI_INT_EVENT0_IMASK_PER_OFS             (1)                             /* !< PER Offset */
-#define SPI_INT_EVENT0_IMASK_PER_MASK            ((uint32_t)0x00000002U)         /* !< Parity error event mask. */
-#define SPI_INT_EVENT0_IMASK_PER_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_PER_SET             ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[DMA_DONE_RX] Bits */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_RX_OFS     (7)                             /* !< DMA_DONE_RX Offset */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_RX_MASK    ((uint32_t)0x00000080U)         /* !< DMA Done 1 event for RX event mask. */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_RX_CLR     ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_RX_SET     ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[RXFIFO_OVF] Bits */
-#define SPI_INT_EVENT0_IMASK_RXFIFO_OVF_OFS      (0)                             /* !< RXFIFO_OVF Offset */
-#define SPI_INT_EVENT0_IMASK_RXFIFO_OVF_MASK     ((uint32_t)0x00000001U)         /* !< RXFIFO overflow event mask. */
-#define SPI_INT_EVENT0_IMASK_RXFIFO_OVF_CLR      ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_RXFIFO_OVF_SET      ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[DMA_DONE_TX] Bits */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_TX_OFS     (8)                             /* !< DMA_DONE_TX Offset */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_TX_MASK    ((uint32_t)0x00000100U)         /* !< DMA Done 1 event for TX event mask. */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_TX_CLR     ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_DMA_DONE_TX_SET     ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[IDLE] Bits */
-#define SPI_INT_EVENT0_IMASK_IDLE_OFS            (6)                             /* !< IDLE Offset */
-#define SPI_INT_EVENT0_IMASK_IDLE_MASK           ((uint32_t)0x00000040U)         /* !< SPI Idle event mask. */
-#define SPI_INT_EVENT0_IMASK_IDLE_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_IDLE_SET            ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[RTOUT] Bits */
-#define SPI_INT_EVENT0_IMASK_RTOUT_OFS           (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT0_IMASK_RTOUT_MASK          ((uint32_t)0x00000004U)         /* !< Enable SPI Receive Time-Out event
+#define SPI_CPU_INT_IMASK_RX_CLR                 ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RX_SET                 ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[TX] Bits */
+#define SPI_CPU_INT_IMASK_TX_OFS                 (4)                             /* !< TX Offset */
+#define SPI_CPU_INT_IMASK_TX_MASK                ((uint32_t)0x00000010U)         /* !< Transmit FIFO event mask. */
+#define SPI_CPU_INT_IMASK_TX_CLR                 ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_TX_SET                 ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[TXEMPTY] Bits */
+#define SPI_CPU_INT_IMASK_TXEMPTY_OFS            (5)                             /* !< TXEMPTY Offset */
+#define SPI_CPU_INT_IMASK_TXEMPTY_MASK           ((uint32_t)0x00000020U)         /* !< Transmit FIFO Empty event mask. */
+#define SPI_CPU_INT_IMASK_TXEMPTY_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_TXEMPTY_SET            ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[PER] Bits */
+#define SPI_CPU_INT_IMASK_PER_OFS                (1)                             /* !< PER Offset */
+#define SPI_CPU_INT_IMASK_PER_MASK               ((uint32_t)0x00000002U)         /* !< Parity error event mask. */
+#define SPI_CPU_INT_IMASK_PER_CLR                ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_PER_SET                ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[DMA_DONE_RX] Bits */
+#define SPI_CPU_INT_IMASK_DMA_DONE_RX_OFS        (7)                             /* !< DMA_DONE_RX Offset */
+#define SPI_CPU_INT_IMASK_DMA_DONE_RX_MASK       ((uint32_t)0x00000080U)         /* !< DMA Done 1 event for RX event mask. */
+#define SPI_CPU_INT_IMASK_DMA_DONE_RX_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_DMA_DONE_RX_SET        ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[RXFIFO_OVF] Bits */
+#define SPI_CPU_INT_IMASK_RXFIFO_OVF_OFS         (0)                             /* !< RXFIFO_OVF Offset */
+#define SPI_CPU_INT_IMASK_RXFIFO_OVF_MASK        ((uint32_t)0x00000001U)         /* !< RXFIFO overflow event mask. */
+#define SPI_CPU_INT_IMASK_RXFIFO_OVF_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RXFIFO_OVF_SET         ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[DMA_DONE_TX] Bits */
+#define SPI_CPU_INT_IMASK_DMA_DONE_TX_OFS        (8)                             /* !< DMA_DONE_TX Offset */
+#define SPI_CPU_INT_IMASK_DMA_DONE_TX_MASK       ((uint32_t)0x00000100U)         /* !< DMA Done 1 event for TX event mask. */
+#define SPI_CPU_INT_IMASK_DMA_DONE_TX_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_DMA_DONE_TX_SET        ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[IDLE] Bits */
+#define SPI_CPU_INT_IMASK_IDLE_OFS               (6)                             /* !< IDLE Offset */
+#define SPI_CPU_INT_IMASK_IDLE_MASK              ((uint32_t)0x00000040U)         /* !< SPI Idle event mask. */
+#define SPI_CPU_INT_IMASK_IDLE_CLR               ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_IDLE_SET               ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[RTOUT] Bits */
+#define SPI_CPU_INT_IMASK_RTOUT_OFS              (2)                             /* !< RTOUT Offset */
+#define SPI_CPU_INT_IMASK_RTOUT_MASK             ((uint32_t)0x00000004U)         /* !< Enable SPI Receive Time-Out event
                                                                                     mask. */
-#define SPI_INT_EVENT0_IMASK_RTOUT_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_RTOUT_SET           ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[RXFULL] Bits */
-#define SPI_INT_EVENT0_IMASK_RXFULL_OFS          (10)                            /* !< RXFULL Offset */
-#define SPI_INT_EVENT0_IMASK_RXFULL_MASK         ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_RXFULL_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_RXFULL_SET          ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_IMASK[TXFIFO_UNF] Bits */
-#define SPI_INT_EVENT0_IMASK_TXFIFO_UNF_OFS      (9)                             /* !< TXFIFO_UNF Offset */
-#define SPI_INT_EVENT0_IMASK_TXFIFO_UNF_MASK     ((uint32_t)0x00000200U)         /* !< TX FIFO underflow interrupt mask */
-#define SPI_INT_EVENT0_IMASK_TXFIFO_UNF_CLR      ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_IMASK_TXFIFO_UNF_SET      ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RTOUT_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RTOUT_SET              ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[RXFULL] Bits */
+#define SPI_CPU_INT_IMASK_RXFULL_OFS             (10)                            /* !< RXFULL Offset */
+#define SPI_CPU_INT_IMASK_RXFULL_MASK            ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RXFULL_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_RXFULL_SET             ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_IMASK[TXFIFO_UNF] Bits */
+#define SPI_CPU_INT_IMASK_TXFIFO_UNF_OFS         (9)                             /* !< TXFIFO_UNF Offset */
+#define SPI_CPU_INT_IMASK_TXFIFO_UNF_MASK        ((uint32_t)0x00000200U)         /* !< TX FIFO underflow interrupt mask */
+#define SPI_CPU_INT_IMASK_TXFIFO_UNF_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_IMASK_TXFIFO_UNF_SET         ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
 
-/* SPI_INT_EVENT0_RIS Bits */
-/* SPI_INT_EVENT0_RIS[RX] Bits */
-#define SPI_INT_EVENT0_RIS_RX_OFS                (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT0_RIS_RX_MASK               ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
+/* SPI_CPU_INT_RIS Bits */
+/* SPI_CPU_INT_RIS[RX] Bits */
+#define SPI_CPU_INT_RIS_RX_OFS                   (3)                             /* !< RX Offset */
+#define SPI_CPU_INT_RIS_RX_MASK                  ((uint32_t)0x00000008U)         /* !< Receive FIFO event.This interrupt
                                                                                     is set if the selected Receive FIFO
                                                                                     level has been reached */
-#define SPI_INT_EVENT0_RIS_RX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_RX_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[TX] Bits */
-#define SPI_INT_EVENT0_RIS_TX_OFS                (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT0_RIS_TX_MASK               ((uint32_t)0x00000010U)         /* !< Transmit FIFO event..This interrupt
+#define SPI_CPU_INT_RIS_RX_CLR                   ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_RX_SET                   ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[TX] Bits */
+#define SPI_CPU_INT_RIS_TX_OFS                   (4)                             /* !< TX Offset */
+#define SPI_CPU_INT_RIS_TX_MASK                  ((uint32_t)0x00000010U)         /* !< Transmit FIFO event..This interrupt
                                                                                     is set if the selected Transmit FIFO
                                                                                     level has been reached. */
-#define SPI_INT_EVENT0_RIS_TX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_TX_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[TXEMPTY] Bits */
-#define SPI_INT_EVENT0_RIS_TXEMPTY_OFS           (5)                             /* !< TXEMPTY Offset */
-#define SPI_INT_EVENT0_RIS_TXEMPTY_MASK          ((uint32_t)0x00000020U)         /* !< Transmit FIFO Empty interrupt mask.
+#define SPI_CPU_INT_RIS_TX_CLR                   ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_TX_SET                   ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[TXEMPTY] Bits */
+#define SPI_CPU_INT_RIS_TXEMPTY_OFS              (5)                             /* !< TXEMPTY Offset */
+#define SPI_CPU_INT_RIS_TXEMPTY_MASK             ((uint32_t)0x00000020U)         /* !< Transmit FIFO Empty interrupt mask.
                                                                                     This interrupt is set if all data in
                                                                                     the Transmit FIFO have been move to
                                                                                     the shift register. */
-#define SPI_INT_EVENT0_RIS_TXEMPTY_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_TXEMPTY_SET           ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[PER] Bits */
-#define SPI_INT_EVENT0_RIS_PER_OFS               (1)                             /* !< PER Offset */
-#define SPI_INT_EVENT0_RIS_PER_MASK              ((uint32_t)0x00000002U)         /* !< Parity error event: this bit is set
+#define SPI_CPU_INT_RIS_TXEMPTY_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_TXEMPTY_SET              ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[PER] Bits */
+#define SPI_CPU_INT_RIS_PER_OFS                  (1)                             /* !< PER Offset */
+#define SPI_CPU_INT_RIS_PER_MASK                 ((uint32_t)0x00000002U)         /* !< Parity error event: this bit is set
                                                                                     if a Parity error has been detected */
-#define SPI_INT_EVENT0_RIS_PER_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_PER_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[DMA_DONE_RX] Bits */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_RX_OFS       (7)                             /* !< DMA_DONE_RX Offset */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_RX_MASK      ((uint32_t)0x00000080U)         /* !< DMA Done 1 event for RX. This
+#define SPI_CPU_INT_RIS_PER_CLR                  ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_PER_SET                  ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[DMA_DONE_RX] Bits */
+#define SPI_CPU_INT_RIS_DMA_DONE_RX_OFS          (7)                             /* !< DMA_DONE_RX Offset */
+#define SPI_CPU_INT_RIS_DMA_DONE_RX_MASK         ((uint32_t)0x00000080U)         /* !< DMA Done 1 event for RX. This
                                                                                     interrupt is set if the RX DMA
                                                                                     channel sends the DONE signal. This
                                                                                     allows the handling of the DMA event
                                                                                     inside the mapped peripheral. */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_RX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_RX_SET       ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[RXFIFO_OVF] Bits */
-#define SPI_INT_EVENT0_RIS_RXFIFO_OVF_OFS        (0)                             /* !< RXFIFO_OVF Offset */
-#define SPI_INT_EVENT0_RIS_RXFIFO_OVF_MASK       ((uint32_t)0x00000001U)         /* !< RXFIFO overflow event. This
+#define SPI_CPU_INT_RIS_DMA_DONE_RX_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_DMA_DONE_RX_SET          ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[RXFIFO_OVF] Bits */
+#define SPI_CPU_INT_RIS_RXFIFO_OVF_OFS           (0)                             /* !< RXFIFO_OVF Offset */
+#define SPI_CPU_INT_RIS_RXFIFO_OVF_MASK          ((uint32_t)0x00000001U)         /* !< RXFIFO overflow event. This
                                                                                     interrupt is set if an RX FIFO
                                                                                     overflow has been detected. */
-#define SPI_INT_EVENT0_RIS_RXFIFO_OVF_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_RXFIFO_OVF_SET        ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[DMA_DONE_TX] Bits */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_TX_OFS       (8)                             /* !< DMA_DONE_TX Offset */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_TX_MASK      ((uint32_t)0x00000100U)         /* !< DMA Done 1 event for TX. This
+#define SPI_CPU_INT_RIS_RXFIFO_OVF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_RXFIFO_OVF_SET           ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[DMA_DONE_TX] Bits */
+#define SPI_CPU_INT_RIS_DMA_DONE_TX_OFS          (8)                             /* !< DMA_DONE_TX Offset */
+#define SPI_CPU_INT_RIS_DMA_DONE_TX_MASK         ((uint32_t)0x00000100U)         /* !< DMA Done 1 event for TX. This
                                                                                     interrupt is set if the TX DMA
                                                                                     channel sends the DONE signal. This
                                                                                     allows the handling of the DMA event
                                                                                     inside the mapped peripheral. */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_TX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_DMA_DONE_TX_SET       ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[IDLE] Bits */
-#define SPI_INT_EVENT0_RIS_IDLE_OFS              (6)                             /* !< IDLE Offset */
-#define SPI_INT_EVENT0_RIS_IDLE_MASK             ((uint32_t)0x00000040U)         /* !< SPI has done finished transfers and
+#define SPI_CPU_INT_RIS_DMA_DONE_TX_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_DMA_DONE_TX_SET          ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[IDLE] Bits */
+#define SPI_CPU_INT_RIS_IDLE_OFS                 (6)                             /* !< IDLE Offset */
+#define SPI_CPU_INT_RIS_IDLE_MASK                ((uint32_t)0x00000040U)         /* !< SPI has done finished transfers and
                                                                                     changed into IDLE mode. This bit is
                                                                                     set when BUSY goes low. */
-#define SPI_INT_EVENT0_RIS_IDLE_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_IDLE_SET              ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[RTOUT] Bits */
-#define SPI_INT_EVENT0_RIS_RTOUT_OFS             (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT0_RIS_RTOUT_MASK            ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event. */
-#define SPI_INT_EVENT0_RIS_RTOUT_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_RTOUT_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[TXFIFO_UNF] Bits */
-#define SPI_INT_EVENT0_RIS_TXFIFO_UNF_OFS        (9)                             /* !< TXFIFO_UNF Offset */
-#define SPI_INT_EVENT0_RIS_TXFIFO_UNF_MASK       ((uint32_t)0x00000200U)         /* !< TX FIFO Underflow Interrupt */
-#define SPI_INT_EVENT0_RIS_TXFIFO_UNF_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_TXFIFO_UNF_SET        ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_RIS[RXFULL] Bits */
-#define SPI_INT_EVENT0_RIS_RXFULL_OFS            (10)                            /* !< RXFULL Offset */
-#define SPI_INT_EVENT0_RIS_RXFULL_MASK           ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt */
-#define SPI_INT_EVENT0_RIS_RXFULL_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_RIS_RXFULL_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+#define SPI_CPU_INT_RIS_IDLE_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_IDLE_SET                 ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[RTOUT] Bits */
+#define SPI_CPU_INT_RIS_RTOUT_OFS                (2)                             /* !< RTOUT Offset */
+#define SPI_CPU_INT_RIS_RTOUT_MASK               ((uint32_t)0x00000004U)         /* !< SPI Receive Time-Out event. */
+#define SPI_CPU_INT_RIS_RTOUT_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_RTOUT_SET                ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[TXFIFO_UNF] Bits */
+#define SPI_CPU_INT_RIS_TXFIFO_UNF_OFS           (9)                             /* !< TXFIFO_UNF Offset */
+#define SPI_CPU_INT_RIS_TXFIFO_UNF_MASK          ((uint32_t)0x00000200U)         /* !< TX FIFO Underflow Interrupt */
+#define SPI_CPU_INT_RIS_TXFIFO_UNF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_TXFIFO_UNF_SET           ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_RIS[RXFULL] Bits */
+#define SPI_CPU_INT_RIS_RXFULL_OFS               (10)                            /* !< RXFULL Offset */
+#define SPI_CPU_INT_RIS_RXFULL_MASK              ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt */
+#define SPI_CPU_INT_RIS_RXFULL_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_RIS_RXFULL_SET               ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
 
-/* SPI_INT_EVENT0_MIS Bits */
-/* SPI_INT_EVENT0_MIS[RX] Bits */
-#define SPI_INT_EVENT0_MIS_RX_OFS                (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT0_MIS_RX_MASK               ((uint32_t)0x00000008U)         /* !< Masked receive FIFO event.This
+/* SPI_CPU_INT_MIS Bits */
+/* SPI_CPU_INT_MIS[RX] Bits */
+#define SPI_CPU_INT_MIS_RX_OFS                   (3)                             /* !< RX Offset */
+#define SPI_CPU_INT_MIS_RX_MASK                  ((uint32_t)0x00000008U)         /* !< Masked receive FIFO event.This
                                                                                     interrupt is set if the selected
                                                                                     Receive FIFO level has been reached */
-#define SPI_INT_EVENT0_MIS_RX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_RX_SET                ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[TX] Bits */
-#define SPI_INT_EVENT0_MIS_TX_OFS                (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT0_MIS_TX_MASK               ((uint32_t)0x00000010U)         /* !< Masked Transmit FIFO event. This
+#define SPI_CPU_INT_MIS_RX_CLR                   ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_RX_SET                   ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[TX] Bits */
+#define SPI_CPU_INT_MIS_TX_OFS                   (4)                             /* !< TX Offset */
+#define SPI_CPU_INT_MIS_TX_MASK                  ((uint32_t)0x00000010U)         /* !< Masked Transmit FIFO event. This
                                                                                     interrupt is set if the selected
                                                                                     Transmit FIFO level has been reached. */
-#define SPI_INT_EVENT0_MIS_TX_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_TX_SET                ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[TXEMPTY] Bits */
-#define SPI_INT_EVENT0_MIS_TXEMPTY_OFS           (5)                             /* !< TXEMPTY Offset */
-#define SPI_INT_EVENT0_MIS_TXEMPTY_MASK          ((uint32_t)0x00000020U)         /* !< Masked Transmit FIFO Empty event. */
-#define SPI_INT_EVENT0_MIS_TXEMPTY_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_TXEMPTY_SET           ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[PER] Bits */
-#define SPI_INT_EVENT0_MIS_PER_OFS               (1)                             /* !< PER Offset */
-#define SPI_INT_EVENT0_MIS_PER_MASK              ((uint32_t)0x00000002U)         /* !< Masked Parity error event: this bit
+#define SPI_CPU_INT_MIS_TX_CLR                   ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_TX_SET                   ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[TXEMPTY] Bits */
+#define SPI_CPU_INT_MIS_TXEMPTY_OFS              (5)                             /* !< TXEMPTY Offset */
+#define SPI_CPU_INT_MIS_TXEMPTY_MASK             ((uint32_t)0x00000020U)         /* !< Masked Transmit FIFO Empty event. */
+#define SPI_CPU_INT_MIS_TXEMPTY_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_TXEMPTY_SET              ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[PER] Bits */
+#define SPI_CPU_INT_MIS_PER_OFS                  (1)                             /* !< PER Offset */
+#define SPI_CPU_INT_MIS_PER_MASK                 ((uint32_t)0x00000002U)         /* !< Masked Parity error event: this bit
                                                                                     if a Parity error has been detected */
-#define SPI_INT_EVENT0_MIS_PER_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_PER_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[DMA_DONE_RX] Bits */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_RX_OFS       (7)                             /* !< DMA_DONE_RX Offset */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_RX_MASK      ((uint32_t)0x00000080U)         /* !< Masked DMA Done 1 event for RX. */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_RX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_RX_SET       ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[RXFIFO_OVF] Bits */
-#define SPI_INT_EVENT0_MIS_RXFIFO_OVF_OFS        (0)                             /* !< RXFIFO_OVF Offset */
-#define SPI_INT_EVENT0_MIS_RXFIFO_OVF_MASK       ((uint32_t)0x00000001U)         /* !< Masked RXFIFO overflow event. This
+#define SPI_CPU_INT_MIS_PER_CLR                  ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_PER_SET                  ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[DMA_DONE_RX] Bits */
+#define SPI_CPU_INT_MIS_DMA_DONE_RX_OFS          (7)                             /* !< DMA_DONE_RX Offset */
+#define SPI_CPU_INT_MIS_DMA_DONE_RX_MASK         ((uint32_t)0x00000080U)         /* !< Masked DMA Done 1 event for RX. */
+#define SPI_CPU_INT_MIS_DMA_DONE_RX_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_DMA_DONE_RX_SET          ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[RXFIFO_OVF] Bits */
+#define SPI_CPU_INT_MIS_RXFIFO_OVF_OFS           (0)                             /* !< RXFIFO_OVF Offset */
+#define SPI_CPU_INT_MIS_RXFIFO_OVF_MASK          ((uint32_t)0x00000001U)         /* !< Masked RXFIFO overflow event. This
                                                                                     interrupt is set if an RX FIFO
                                                                                     overflow has been detected. */
-#define SPI_INT_EVENT0_MIS_RXFIFO_OVF_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_RXFIFO_OVF_SET        ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[DMA_DONE_TX] Bits */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_TX_OFS       (8)                             /* !< DMA_DONE_TX Offset */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_TX_MASK      ((uint32_t)0x00000100U)         /* !< Masked DMA Done 1 event for TX. */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_TX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_DMA_DONE_TX_SET       ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[IDLE] Bits */
-#define SPI_INT_EVENT0_MIS_IDLE_OFS              (6)                             /* !< IDLE Offset */
-#define SPI_INT_EVENT0_MIS_IDLE_MASK             ((uint32_t)0x00000040U)         /* !< Masked SPI IDLE mode event. */
-#define SPI_INT_EVENT0_MIS_IDLE_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_IDLE_SET              ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[RTOUT] Bits */
-#define SPI_INT_EVENT0_MIS_RTOUT_OFS             (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT0_MIS_RTOUT_MASK            ((uint32_t)0x00000004U)         /* !< Masked SPI Receive Time-Out
+#define SPI_CPU_INT_MIS_RXFIFO_OVF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_RXFIFO_OVF_SET           ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[DMA_DONE_TX] Bits */
+#define SPI_CPU_INT_MIS_DMA_DONE_TX_OFS          (8)                             /* !< DMA_DONE_TX Offset */
+#define SPI_CPU_INT_MIS_DMA_DONE_TX_MASK         ((uint32_t)0x00000100U)         /* !< Masked DMA Done 1 event for TX. */
+#define SPI_CPU_INT_MIS_DMA_DONE_TX_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_DMA_DONE_TX_SET          ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[IDLE] Bits */
+#define SPI_CPU_INT_MIS_IDLE_OFS                 (6)                             /* !< IDLE Offset */
+#define SPI_CPU_INT_MIS_IDLE_MASK                ((uint32_t)0x00000040U)         /* !< Masked SPI IDLE mode event. */
+#define SPI_CPU_INT_MIS_IDLE_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_IDLE_SET                 ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[RTOUT] Bits */
+#define SPI_CPU_INT_MIS_RTOUT_OFS                (2)                             /* !< RTOUT Offset */
+#define SPI_CPU_INT_MIS_RTOUT_MASK               ((uint32_t)0x00000004U)         /* !< Masked SPI Receive Time-Out
                                                                                     Interrupt. */
-#define SPI_INT_EVENT0_MIS_RTOUT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define SPI_INT_EVENT0_MIS_RTOUT_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_MIS[RXFULL] Bits */
-#define SPI_INT_EVENT0_MIS_RXFULL_OFS            (10)                            /* !< RXFULL Offset */
-#define SPI_INT_EVENT0_MIS_RXFULL_MASK           ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt */
-#define SPI_INT_EVENT0_MIS_RXFULL_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_RXFULL_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
-/* SPI_INT_EVENT0_MIS[TXFIFO_UNF] Bits */
-#define SPI_INT_EVENT0_MIS_TXFIFO_UNF_OFS        (9)                             /* !< TXFIFO_UNF Offset */
-#define SPI_INT_EVENT0_MIS_TXFIFO_UNF_MASK       ((uint32_t)0x00000200U)         /* !< TX FIFO underflow interrupt */
-#define SPI_INT_EVENT0_MIS_TXFIFO_UNF_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define SPI_INT_EVENT0_MIS_TXFIFO_UNF_SET        ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+#define SPI_CPU_INT_MIS_RTOUT_CLR                ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define SPI_CPU_INT_MIS_RTOUT_SET                ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_MIS[RXFULL] Bits */
+#define SPI_CPU_INT_MIS_RXFULL_OFS               (10)                            /* !< RXFULL Offset */
+#define SPI_CPU_INT_MIS_RXFULL_MASK              ((uint32_t)0x00000400U)         /* !< RX FIFO Full Interrupt */
+#define SPI_CPU_INT_MIS_RXFULL_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_RXFULL_SET               ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+/* SPI_CPU_INT_MIS[TXFIFO_UNF] Bits */
+#define SPI_CPU_INT_MIS_TXFIFO_UNF_OFS           (9)                             /* !< TXFIFO_UNF Offset */
+#define SPI_CPU_INT_MIS_TXFIFO_UNF_MASK          ((uint32_t)0x00000200U)         /* !< TX FIFO underflow interrupt */
+#define SPI_CPU_INT_MIS_TXFIFO_UNF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define SPI_CPU_INT_MIS_TXFIFO_UNF_SET           ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
 
-/* SPI_INT_EVENT0_ISET Bits */
-/* SPI_INT_EVENT0_ISET[RX] Bits */
-#define SPI_INT_EVENT0_ISET_RX_OFS               (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT0_ISET_RX_MASK              ((uint32_t)0x00000008U)         /* !< Set Receive FIFO event. */
-#define SPI_INT_EVENT0_ISET_RX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_RX_SET               ((uint32_t)0x00000008U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[TX] Bits */
-#define SPI_INT_EVENT0_ISET_TX_OFS               (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT0_ISET_TX_MASK              ((uint32_t)0x00000010U)         /* !< Set Transmit FIFO event. */
-#define SPI_INT_EVENT0_ISET_TX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_TX_SET               ((uint32_t)0x00000010U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[TXEMPTY] Bits */
-#define SPI_INT_EVENT0_ISET_TXEMPTY_OFS          (5)                             /* !< TXEMPTY Offset */
-#define SPI_INT_EVENT0_ISET_TXEMPTY_MASK         ((uint32_t)0x00000020U)         /* !< Set Transmit FIFO Empty event. */
-#define SPI_INT_EVENT0_ISET_TXEMPTY_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_TXEMPTY_SET          ((uint32_t)0x00000020U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[PER] Bits */
-#define SPI_INT_EVENT0_ISET_PER_OFS              (1)                             /* !< PER Offset */
-#define SPI_INT_EVENT0_ISET_PER_MASK             ((uint32_t)0x00000002U)         /* !< Set Parity error event. */
-#define SPI_INT_EVENT0_ISET_PER_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_PER_SET              ((uint32_t)0x00000002U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[DMA_DONE_RX] Bits */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_RX_OFS      (7)                             /* !< DMA_DONE_RX Offset */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_RX_MASK     ((uint32_t)0x00000080U)         /* !< Set DMA Done 1 event for RX. */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_RX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_RX_SET      ((uint32_t)0x00000080U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[RXFIFO_OVF] Bits */
-#define SPI_INT_EVENT0_ISET_RXFIFO_OVF_OFS       (0)                             /* !< RXFIFO_OVF Offset */
-#define SPI_INT_EVENT0_ISET_RXFIFO_OVF_MASK      ((uint32_t)0x00000001U)         /* !< Set RXFIFO overflow event. */
-#define SPI_INT_EVENT0_ISET_RXFIFO_OVF_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_RXFIFO_OVF_SET       ((uint32_t)0x00000001U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[DMA_DONE_TX] Bits */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_TX_OFS      (8)                             /* !< DMA_DONE_TX Offset */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_TX_MASK     ((uint32_t)0x00000100U)         /* !< Set DMA Done 1 event for TX. */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_TX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_DMA_DONE_TX_SET      ((uint32_t)0x00000100U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[IDLE] Bits */
-#define SPI_INT_EVENT0_ISET_IDLE_OFS             (6)                             /* !< IDLE Offset */
-#define SPI_INT_EVENT0_ISET_IDLE_MASK            ((uint32_t)0x00000040U)         /* !< Set SPI IDLE mode event. */
-#define SPI_INT_EVENT0_ISET_IDLE_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_IDLE_SET             ((uint32_t)0x00000040U)         /* !< Set Interrupt */
-/* SPI_INT_EVENT0_ISET[RTOUT] Bits */
-#define SPI_INT_EVENT0_ISET_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT0_ISET_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< Set SPI Receive Time-Out Event. */
-#define SPI_INT_EVENT0_ISET_RTOUT_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ISET_RTOUT_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_ISET[TXFIFO_UNF] Bits */
-#define SPI_INT_EVENT0_ISET_TXFIFO_UNF_OFS       (9)                             /* !< TXFIFO_UNF Offset */
-#define SPI_INT_EVENT0_ISET_TXFIFO_UNF_MASK      ((uint32_t)0x00000200U)         /* !< Set TX FIFO Underflow Event */
-#define SPI_INT_EVENT0_ISET_TXFIFO_UNF_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing has no effect */
-#define SPI_INT_EVENT0_ISET_TXFIFO_UNF_SET       ((uint32_t)0x00000200U)         /* !< Set interrupt */
-/* SPI_INT_EVENT0_ISET[RXFULL] Bits */
-#define SPI_INT_EVENT0_ISET_RXFULL_OFS           (10)                            /* !< RXFULL Offset */
-#define SPI_INT_EVENT0_ISET_RXFULL_MASK          ((uint32_t)0x00000400U)         /* !< Set RX FIFO Full Event */
-#define SPI_INT_EVENT0_ISET_RXFULL_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing has no effect */
-#define SPI_INT_EVENT0_ISET_RXFULL_SET           ((uint32_t)0x00000400U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET Bits */
+/* SPI_CPU_INT_ISET[RX] Bits */
+#define SPI_CPU_INT_ISET_RX_OFS                  (3)                             /* !< RX Offset */
+#define SPI_CPU_INT_ISET_RX_MASK                 ((uint32_t)0x00000008U)         /* !< Set Receive FIFO event. */
+#define SPI_CPU_INT_ISET_RX_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_RX_SET                  ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[TX] Bits */
+#define SPI_CPU_INT_ISET_TX_OFS                  (4)                             /* !< TX Offset */
+#define SPI_CPU_INT_ISET_TX_MASK                 ((uint32_t)0x00000010U)         /* !< Set Transmit FIFO event. */
+#define SPI_CPU_INT_ISET_TX_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_TX_SET                  ((uint32_t)0x00000010U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[TXEMPTY] Bits */
+#define SPI_CPU_INT_ISET_TXEMPTY_OFS             (5)                             /* !< TXEMPTY Offset */
+#define SPI_CPU_INT_ISET_TXEMPTY_MASK            ((uint32_t)0x00000020U)         /* !< Set Transmit FIFO Empty event. */
+#define SPI_CPU_INT_ISET_TXEMPTY_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_TXEMPTY_SET             ((uint32_t)0x00000020U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[PER] Bits */
+#define SPI_CPU_INT_ISET_PER_OFS                 (1)                             /* !< PER Offset */
+#define SPI_CPU_INT_ISET_PER_MASK                ((uint32_t)0x00000002U)         /* !< Set Parity error event. */
+#define SPI_CPU_INT_ISET_PER_NO_EFFECT           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_PER_SET                 ((uint32_t)0x00000002U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[DMA_DONE_RX] Bits */
+#define SPI_CPU_INT_ISET_DMA_DONE_RX_OFS         (7)                             /* !< DMA_DONE_RX Offset */
+#define SPI_CPU_INT_ISET_DMA_DONE_RX_MASK        ((uint32_t)0x00000080U)         /* !< Set DMA Done 1 event for RX. */
+#define SPI_CPU_INT_ISET_DMA_DONE_RX_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_DMA_DONE_RX_SET         ((uint32_t)0x00000080U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[RXFIFO_OVF] Bits */
+#define SPI_CPU_INT_ISET_RXFIFO_OVF_OFS          (0)                             /* !< RXFIFO_OVF Offset */
+#define SPI_CPU_INT_ISET_RXFIFO_OVF_MASK         ((uint32_t)0x00000001U)         /* !< Set RXFIFO overflow event. */
+#define SPI_CPU_INT_ISET_RXFIFO_OVF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_RXFIFO_OVF_SET          ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[DMA_DONE_TX] Bits */
+#define SPI_CPU_INT_ISET_DMA_DONE_TX_OFS         (8)                             /* !< DMA_DONE_TX Offset */
+#define SPI_CPU_INT_ISET_DMA_DONE_TX_MASK        ((uint32_t)0x00000100U)         /* !< Set DMA Done 1 event for TX. */
+#define SPI_CPU_INT_ISET_DMA_DONE_TX_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_DMA_DONE_TX_SET         ((uint32_t)0x00000100U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[IDLE] Bits */
+#define SPI_CPU_INT_ISET_IDLE_OFS                (6)                             /* !< IDLE Offset */
+#define SPI_CPU_INT_ISET_IDLE_MASK               ((uint32_t)0x00000040U)         /* !< Set SPI IDLE mode event. */
+#define SPI_CPU_INT_ISET_IDLE_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_IDLE_SET                ((uint32_t)0x00000040U)         /* !< Set Interrupt */
+/* SPI_CPU_INT_ISET[RTOUT] Bits */
+#define SPI_CPU_INT_ISET_RTOUT_OFS               (2)                             /* !< RTOUT Offset */
+#define SPI_CPU_INT_ISET_RTOUT_MASK              ((uint32_t)0x00000004U)         /* !< Set SPI Receive Time-Out Event. */
+#define SPI_CPU_INT_ISET_RTOUT_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ISET_RTOUT_SET               ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_ISET[TXFIFO_UNF] Bits */
+#define SPI_CPU_INT_ISET_TXFIFO_UNF_OFS          (9)                             /* !< TXFIFO_UNF Offset */
+#define SPI_CPU_INT_ISET_TXFIFO_UNF_MASK         ((uint32_t)0x00000200U)         /* !< Set TX FIFO Underflow Event */
+#define SPI_CPU_INT_ISET_TXFIFO_UNF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing has no effect */
+#define SPI_CPU_INT_ISET_TXFIFO_UNF_SET          ((uint32_t)0x00000200U)         /* !< Set interrupt */
+/* SPI_CPU_INT_ISET[RXFULL] Bits */
+#define SPI_CPU_INT_ISET_RXFULL_OFS              (10)                            /* !< RXFULL Offset */
+#define SPI_CPU_INT_ISET_RXFULL_MASK             ((uint32_t)0x00000400U)         /* !< Set RX FIFO Full Event */
+#define SPI_CPU_INT_ISET_RXFULL_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing has no effect */
+#define SPI_CPU_INT_ISET_RXFULL_SET              ((uint32_t)0x00000400U)         /* !< Set Interrupt */
 
-/* SPI_INT_EVENT0_ICLR Bits */
-/* SPI_INT_EVENT0_ICLR[RX] Bits */
-#define SPI_INT_EVENT0_ICLR_RX_OFS               (3)                             /* !< RX Offset */
-#define SPI_INT_EVENT0_ICLR_RX_MASK              ((uint32_t)0x00000008U)         /* !< Clear Receive FIFO event. */
-#define SPI_INT_EVENT0_ICLR_RX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_RX_CLR               ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[TX] Bits */
-#define SPI_INT_EVENT0_ICLR_TX_OFS               (4)                             /* !< TX Offset */
-#define SPI_INT_EVENT0_ICLR_TX_MASK              ((uint32_t)0x00000010U)         /* !< Clear Transmit FIFO event. */
-#define SPI_INT_EVENT0_ICLR_TX_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_TX_CLR               ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[TXEMPTY] Bits */
-#define SPI_INT_EVENT0_ICLR_TXEMPTY_OFS          (5)                             /* !< TXEMPTY Offset */
-#define SPI_INT_EVENT0_ICLR_TXEMPTY_MASK         ((uint32_t)0x00000020U)         /* !< Clear Transmit FIFO Empty event. */
-#define SPI_INT_EVENT0_ICLR_TXEMPTY_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_TXEMPTY_CLR          ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[PER] Bits */
-#define SPI_INT_EVENT0_ICLR_PER_OFS              (1)                             /* !< PER Offset */
-#define SPI_INT_EVENT0_ICLR_PER_MASK             ((uint32_t)0x00000002U)         /* !< Clear Parity error event. */
-#define SPI_INT_EVENT0_ICLR_PER_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_PER_CLR              ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[DMA_DONE_RX] Bits */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_RX_OFS      (7)                             /* !< DMA_DONE_RX Offset */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_RX_MASK     ((uint32_t)0x00000080U)         /* !< Clear DMA Done 1 event for RX. */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_RX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_RX_CLR      ((uint32_t)0x00000080U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[RXFIFO_OVF] Bits */
-#define SPI_INT_EVENT0_ICLR_RXFIFO_OVF_OFS       (0)                             /* !< RXFIFO_OVF Offset */
-#define SPI_INT_EVENT0_ICLR_RXFIFO_OVF_MASK      ((uint32_t)0x00000001U)         /* !< Clear RXFIFO overflow event. */
-#define SPI_INT_EVENT0_ICLR_RXFIFO_OVF_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_RXFIFO_OVF_CLR       ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[DMA_DONE_TX] Bits */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_TX_OFS      (8)                             /* !< DMA_DONE_TX Offset */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_TX_MASK     ((uint32_t)0x00000100U)         /* !< Clear DMA Done 1 event for TX. */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_TX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_DMA_DONE_TX_CLR      ((uint32_t)0x00000100U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[IDLE] Bits */
-#define SPI_INT_EVENT0_ICLR_IDLE_OFS             (6)                             /* !< IDLE Offset */
-#define SPI_INT_EVENT0_ICLR_IDLE_MASK            ((uint32_t)0x00000040U)         /* !< Clear SPI IDLE mode event. */
-#define SPI_INT_EVENT0_ICLR_IDLE_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_IDLE_CLR             ((uint32_t)0x00000040U)         /* !< Clear Interrupt */
-/* SPI_INT_EVENT0_ICLR[RTOUT] Bits */
-#define SPI_INT_EVENT0_ICLR_RTOUT_OFS            (2)                             /* !< RTOUT Offset */
-#define SPI_INT_EVENT0_ICLR_RTOUT_MASK           ((uint32_t)0x00000004U)         /* !< Clear SPI Receive Time-Out Event. */
-#define SPI_INT_EVENT0_ICLR_RTOUT_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define SPI_INT_EVENT0_ICLR_RTOUT_CLR            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
-/* SPI_INT_EVENT0_ICLR[TXFIFO_UNF] Bits */
-#define SPI_INT_EVENT0_ICLR_TXFIFO_UNF_OFS       (9)                             /* !< TXFIFO_UNF Offset */
-#define SPI_INT_EVENT0_ICLR_TXFIFO_UNF_MASK      ((uint32_t)0x00000200U)         /* !< Clear TXFIFO underflow event */
-#define SPI_INT_EVENT0_ICLR_TXFIFO_UNF_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing has no effect */
-#define SPI_INT_EVENT0_ICLR_TXFIFO_UNF_CLR       ((uint32_t)0x00000200U)         /* !< Clear interrupt */
-/* SPI_INT_EVENT0_ICLR[RXFULL] Bits */
-#define SPI_INT_EVENT0_ICLR_RXFULL_OFS           (10)                            /* !< RXFULL Offset */
-#define SPI_INT_EVENT0_ICLR_RXFULL_MASK          ((uint32_t)0x00000400U)         /* !< Clear RX FIFO underflow event */
-#define SPI_INT_EVENT0_ICLR_RXFULL_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing has no effect */
-#define SPI_INT_EVENT0_ICLR_RXFULL_CLR           ((uint32_t)0x00000400U)         /* !< Clear interrupt */
+/* SPI_CPU_INT_ICLR Bits */
+/* SPI_CPU_INT_ICLR[RX] Bits */
+#define SPI_CPU_INT_ICLR_RX_OFS                  (3)                             /* !< RX Offset */
+#define SPI_CPU_INT_ICLR_RX_MASK                 ((uint32_t)0x00000008U)         /* !< Clear Receive FIFO event. */
+#define SPI_CPU_INT_ICLR_RX_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_RX_CLR                  ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[TX] Bits */
+#define SPI_CPU_INT_ICLR_TX_OFS                  (4)                             /* !< TX Offset */
+#define SPI_CPU_INT_ICLR_TX_MASK                 ((uint32_t)0x00000010U)         /* !< Clear Transmit FIFO event. */
+#define SPI_CPU_INT_ICLR_TX_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_TX_CLR                  ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[TXEMPTY] Bits */
+#define SPI_CPU_INT_ICLR_TXEMPTY_OFS             (5)                             /* !< TXEMPTY Offset */
+#define SPI_CPU_INT_ICLR_TXEMPTY_MASK            ((uint32_t)0x00000020U)         /* !< Clear Transmit FIFO Empty event. */
+#define SPI_CPU_INT_ICLR_TXEMPTY_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_TXEMPTY_CLR             ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[PER] Bits */
+#define SPI_CPU_INT_ICLR_PER_OFS                 (1)                             /* !< PER Offset */
+#define SPI_CPU_INT_ICLR_PER_MASK                ((uint32_t)0x00000002U)         /* !< Clear Parity error event. */
+#define SPI_CPU_INT_ICLR_PER_NO_EFFECT           ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_PER_CLR                 ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[DMA_DONE_RX] Bits */
+#define SPI_CPU_INT_ICLR_DMA_DONE_RX_OFS         (7)                             /* !< DMA_DONE_RX Offset */
+#define SPI_CPU_INT_ICLR_DMA_DONE_RX_MASK        ((uint32_t)0x00000080U)         /* !< Clear DMA Done 1 event for RX. */
+#define SPI_CPU_INT_ICLR_DMA_DONE_RX_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_DMA_DONE_RX_CLR         ((uint32_t)0x00000080U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[RXFIFO_OVF] Bits */
+#define SPI_CPU_INT_ICLR_RXFIFO_OVF_OFS          (0)                             /* !< RXFIFO_OVF Offset */
+#define SPI_CPU_INT_ICLR_RXFIFO_OVF_MASK         ((uint32_t)0x00000001U)         /* !< Clear RXFIFO overflow event. */
+#define SPI_CPU_INT_ICLR_RXFIFO_OVF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_RXFIFO_OVF_CLR          ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[DMA_DONE_TX] Bits */
+#define SPI_CPU_INT_ICLR_DMA_DONE_TX_OFS         (8)                             /* !< DMA_DONE_TX Offset */
+#define SPI_CPU_INT_ICLR_DMA_DONE_TX_MASK        ((uint32_t)0x00000100U)         /* !< Clear DMA Done 1 event for TX. */
+#define SPI_CPU_INT_ICLR_DMA_DONE_TX_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_DMA_DONE_TX_CLR         ((uint32_t)0x00000100U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[IDLE] Bits */
+#define SPI_CPU_INT_ICLR_IDLE_OFS                (6)                             /* !< IDLE Offset */
+#define SPI_CPU_INT_ICLR_IDLE_MASK               ((uint32_t)0x00000040U)         /* !< Clear SPI IDLE mode event. */
+#define SPI_CPU_INT_ICLR_IDLE_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_IDLE_CLR                ((uint32_t)0x00000040U)         /* !< Clear Interrupt */
+/* SPI_CPU_INT_ICLR[RTOUT] Bits */
+#define SPI_CPU_INT_ICLR_RTOUT_OFS               (2)                             /* !< RTOUT Offset */
+#define SPI_CPU_INT_ICLR_RTOUT_MASK              ((uint32_t)0x00000004U)         /* !< Clear SPI Receive Time-Out Event. */
+#define SPI_CPU_INT_ICLR_RTOUT_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define SPI_CPU_INT_ICLR_RTOUT_CLR               ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* SPI_CPU_INT_ICLR[TXFIFO_UNF] Bits */
+#define SPI_CPU_INT_ICLR_TXFIFO_UNF_OFS          (9)                             /* !< TXFIFO_UNF Offset */
+#define SPI_CPU_INT_ICLR_TXFIFO_UNF_MASK         ((uint32_t)0x00000200U)         /* !< Clear TXFIFO underflow event */
+#define SPI_CPU_INT_ICLR_TXFIFO_UNF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing has no effect */
+#define SPI_CPU_INT_ICLR_TXFIFO_UNF_CLR          ((uint32_t)0x00000200U)         /* !< Clear interrupt */
+/* SPI_CPU_INT_ICLR[RXFULL] Bits */
+#define SPI_CPU_INT_ICLR_RXFULL_OFS              (10)                            /* !< RXFULL Offset */
+#define SPI_CPU_INT_ICLR_RXFULL_MASK             ((uint32_t)0x00000400U)         /* !< Clear RX FIFO underflow event */
+#define SPI_CPU_INT_ICLR_RXFULL_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing has no effect */
+#define SPI_CPU_INT_ICLR_RXFULL_CLR              ((uint32_t)0x00000400U)         /* !< Clear interrupt */
 
 /* SPI_PWREN Bits */
 /* SPI_PWREN[ENABLE] Bits */
@@ -847,7 +845,6 @@ typedef struct {
 #define SPI_CTL0_DSS_DSS_14                      ((uint32_t)0x0000000DU)         /* !< Data Size Select bits: 14 */
 #define SPI_CTL0_DSS_DSS_15                      ((uint32_t)0x0000000EU)         /* !< Data Size Select bits: 15 */
 #define SPI_CTL0_DSS_DSS_16                      ((uint32_t)0x0000000FU)         /* !< Data Size Select bits: 16 */
-#define SPI_CTL0_DSS_DSS_32                      ((uint32_t)0x0000001FU)         /* !< Data Size Select bits: 32 */
 /* SPI_CTL0[FRF] Bits */
 #define SPI_CTL0_FRF_OFS                         (5)                             /* !< FRF Offset */
 #define SPI_CTL0_FRF_MASK                        ((uint32_t)0x00000060U)         /* !< Frame format Select */
@@ -923,19 +920,14 @@ typedef struct {
 #define SPI_CTL1_POD_OFS                         (3)                             /* !< POD Offset */
 #define SPI_CTL1_POD_MASK                        ((uint32_t)0x00000008U)         /* !< Peripheral-mode: Data output
                                                                                     disabled This bit is relevant only in
-                                                                                    the peripheral mode, CTL1.CP=1. In
-                                                                                    multiple-peripheral systems, it is
-                                                                                    possible for an SPI controller to
+                                                                                    Peripheral mode. In
+                                                                                    multiple-peripheral system
+                                                                                    topologies, SPI controller can
                                                                                     broadcast a message to all
-                                                                                    peripherals in the system while
-                                                                                    ensuring that only one peripheral
-                                                                                    drives data onto its serial output
-                                                                                    line. In such systems the MISO lines
-                                                                                    from multiple peripherals could be
-                                                                                    tied together. To operate in such
-                                                                                    systems, this bitfield can be set if
-                                                                                    the SPI peripheral is not supposed to
-                                                                                    drive the MISO line: */
+                                                                                    peripherals, while only one
+                                                                                    peripheral drives the line.  POD can
+                                                                                    be used by the SPI peripheral to
+                                                                                    disable driving data on the line. */
 #define SPI_CTL1_POD_DISABLE                     ((uint32_t)0x00000000U)         /* !< SPI can drive the MISO output in
                                                                                     peripheral mode. */
 #define SPI_CTL1_POD_ENABLE                      ((uint32_t)0x00000008U)         /* !< SPI cannot drive the MISO output in
@@ -1179,4 +1171,3 @@ typedef struct {
 #endif
 
 #endif /* ti_devices_msp_peripherals_hw_spi__include */
-

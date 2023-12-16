@@ -38,10 +38,8 @@ DL_OPA_GAIN DL_OPA_increaseGain(OA_Regs *opa)
 {
     DL_OPA_GAIN currentGain = DL_OPA_getGain(opa);
 
-    /* if CFG.GAIN is 0x0 or 0x5 do nothing */
-    if (currentGain == DL_OPA_GAIN_N0_P1) {
-        return DL_OPA_GAIN_N0_P1;
-    } else if (currentGain == DL_OPA_GAIN_N31_P32) {
+    /* if CFG.GAIN 0x5 do nothing */
+    if (currentGain == DL_OPA_GAIN_N31_P32) {
         return DL_OPA_GAIN_N31_P32;
     } else {
         DL_OPA_setGain(opa,
@@ -54,10 +52,8 @@ DL_OPA_GAIN DL_OPA_decreaseGain(OA_Regs *opa)
 {
     DL_OPA_GAIN currentGain = DL_OPA_getGain(opa);
 
-    /* if CFG.GAIN is 0x0 or 0x1 do nothing */
-    if (currentGain == DL_OPA_GAIN_N0_P1) {
-        return DL_OPA_GAIN_N0_P1;
-    } else if (currentGain == DL_OPA_GAIN_N1_P2) {
+    /* if CFG.GAIN is 0x1 do nothing */
+    if (currentGain == DL_OPA_GAIN_N1_P2) {
         return DL_OPA_GAIN_N1_P2;
     } else {
         DL_OPA_setGain(opa,

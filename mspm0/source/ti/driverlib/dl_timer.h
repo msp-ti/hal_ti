@@ -876,50 +876,100 @@ extern "C" {
  */
 
 /*!
+ * @brief Repeat Counter interrupt
+ */
+#define DL_TIMER_INTERRUPT_REPC_EVENT           (GPTIMER_CPU_INT_IMASK_REPC_SET)
+
+/*!
+ * @brief Fault interrupt
+ */
+#define DL_TIMER_INTERRUPT_FAULT_EVENT             (GPTIMER_CPU_INT_IMASK_F_SET)
+
+/*!
  * @brief Timer zero interrupt
  */
-#define DL_TIMER_INTERRUPT_ZERO_EVENT                      (GPTIMER_IMASK_Z_SET)
+#define DL_TIMER_INTERRUPT_ZERO_EVENT                      (GPTIMER_CPU_INT_IMASK_Z_SET)
 
 /*!
 * @brief Timer load interrupt
 */
-#define DL_TIMER_INTERRUPT_LOAD_EVENT                      (GPTIMER_IMASK_L_SET)
+#define DL_TIMER_INTERRUPT_LOAD_EVENT                      (GPTIMER_CPU_INT_IMASK_L_SET)
 
 /*!
 * @brief Timer capture for compare 0 down interrupt
 */
-#define DL_TIMER_INTERRUPT_CC0_DN_EVENT                 (GPTIMER_IMASK_CCD0_SET)
+#define DL_TIMER_INTERRUPT_CC0_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD0_SET)
 
 /*!
 * @brief Timer capture for compare 1 down interrupt
 */
-#define DL_TIMER_INTERRUPT_CC1_DN_EVENT                 (GPTIMER_IMASK_CCD1_SET)
+#define DL_TIMER_INTERRUPT_CC1_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD1_SET)
+
+/*!
+* @brief Timer capture for compare 2 down interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC2_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD2_SET)
+
+/*!
+* @brief Timer capture for compare 3 down interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC3_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD3_SET)
+
+/*!
+* @brief Timer capture for compare 4 down interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC4_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD4_SET)
+
+/*!
+* @brief Timer capture for compare 5 down interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC5_DN_EVENT                 (GPTIMER_CPU_INT_IMASK_CCD5_SET)
 
 /*!
 * @brief Timer capture for compare 0 up interrupt
 */
-#define DL_TIMER_INTERRUPT_CC0_UP_EVENT                 (GPTIMER_IMASK_CCU0_SET)
+#define DL_TIMER_INTERRUPT_CC0_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU0_SET)
 
 /*!
 * @brief Timer capture for compare 1 up interrupt
 */
-#define DL_TIMER_INTERRUPT_CC1_UP_EVENT                 (GPTIMER_IMASK_CCU1_SET)
+#define DL_TIMER_INTERRUPT_CC1_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU1_SET)
+
+/*!
+* @brief Timer capture for compare 2 up interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC2_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU2_SET)
+
+/*!
+* @brief Timer capture for compare 3 up interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC3_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU3_SET)
+
+/*!
+* @brief Timer capture for compare 4 up interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC4_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU4_SET)
+
+/*!
+* @brief Timer capture for compare 5 up interrupt
+*/
+#define DL_TIMER_INTERRUPT_CC5_UP_EVENT                 (GPTIMER_CPU_INT_IMASK_CCU5_SET)
 
 /*!
 * @brief Timer over flow interrupt
 */
-#define DL_TIMER_INTERRUPT_OVERFLOW_EVENT                (GPTIMER_IMASK_TOV_SET)
+#define DL_TIMER_INTERRUPT_OVERFLOW_EVENT                (GPTIMER_CPU_INT_IMASK_TOV_SET)
 
 /*!
 * @brief Timer QEI mode direction change event
 */
-#define DL_TIMER_INTERRUPT_DC_EVENT                       (GPTIMER_IMASK_DC_SET)
+#define DL_TIMER_INTERRUPT_DC_EVENT                       (GPTIMER_CPU_INT_IMASK_DC_SET)
 
 
 /*!
 * @brief Timer QEI mode transition error
 */
-#define DL_TIMER_INTERRUPT_QEIERR_EVENT               (GPTIMER_IMASK_QEIERR_SET)
+#define DL_TIMER_INTERRUPT_QEIERR_EVENT               (GPTIMER_CPU_INT_IMASK_QEIERR_SET)
 
 
 /** @}*/
@@ -929,50 +979,100 @@ extern "C" {
  */
 
 /*!
+ * @brief Repeat Counter event
+ */
+#define DL_TIMER_EVENT_REPC_EVENT            (GPTIMER_GEN_EVENT0_IMASK_REPC_SET)
+
+/*!
+ * @brief Fault event
+ */
+#define DL_TIMER_EVENT_FAULT_EVENT              (GPTIMER_GEN_EVENT0_IMASK_F_SET)
+
+/*!
  * @brief Timer zero event
  */
-#define DL_TIMER_EVENT_ZERO_EVENT                          (GPTIMER_IMASK_Z_SET)
+#define DL_TIMER_EVENT_ZERO_EVENT                          (GPTIMER_GEN_EVENT0_IMASK_Z_SET)
 
 /*!
 * @brief Timer load event
 */
-#define DL_TIMER_EVENT_LOAD_EVENT                          (GPTIMER_IMASK_L_SET)
+#define DL_TIMER_EVENT_LOAD_EVENT                          (GPTIMER_GEN_EVENT0_IMASK_L_SET)
 
 /*!
 * @brief Timer capture for compare 0 down event
 */
-#define DL_TIMER_EVENT_CC0_DN_EVENT                     (GPTIMER_IMASK_CCD0_SET)
+#define DL_TIMER_EVENT_CC0_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD0_SET)
 
 /*!
 * @brief Timer capture for compare 1 down event
 */
-#define DL_TIMER_EVENT_CC1_DN_EVENT                     (GPTIMER_IMASK_CCD1_SET)
+#define DL_TIMER_EVENT_CC1_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD1_SET)
+
+/*!
+* @brief Timer capture for compare 2 down interrupt
+*/
+#define DL_TIMER_EVENT_CC2_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD2_SET)
+
+/*!
+* @brief Timer capture for compare 3 down event
+*/
+#define DL_TIMER_EVENT_CC3_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD3_SET)
+
+/*!
+* @brief Timer capture for compare 4 down event
+*/
+#define DL_TIMER_EVENT_CC4_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD4_SET)
+
+/*!
+* @brief Timer capture for compare 5 down event
+*/
+#define DL_TIMER_EVENT_CC5_DN_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCD5_SET)
 
 /*!
 * @brief Timer capture for compare 0 up event
 */
-#define DL_TIMER_EVENT_CC0_UP_EVENT                     (GPTIMER_IMASK_CCU0_SET)
+#define DL_TIMER_EVENT_CC0_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU0_SET)
 
 /*!
 * @brief Timer capture for compare 1 up event
 */
-#define DL_TIMER_EVENT_CC1_UP_EVENT                     (GPTIMER_IMASK_CCU1_SET)
+#define DL_TIMER_EVENT_CC1_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU1_SET)
+
+/*!
+* @brief Timer capture for compare 2 up event
+*/
+#define DL_TIMER_EVENT_CC2_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU2_SET)
+
+/*!
+* @brief Timer capture for compare 3 up event
+*/
+#define DL_TIMER_EVENT_CC3_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU3_SET)
+
+/*!
+* @brief Timer capture for compare 4 up event
+*/
+#define DL_TIMER_EVENT_CC4_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU4_SET)
+
+/*!
+event
+*/
+#define DL_TIMER_EVENT_CC5_UP_EVENT                     (GPTIMER_GEN_EVENT0_IMASK_CCU5_SET)
 
 /*!
 * @brief Timer over flow event
 */
-#define DL_TIMER_EVENT_OVERFLOW_EVENT                    (GPTIMER_IMASK_TOV_SET)
+#define DL_TIMER_EVENT_OVERFLOW_EVENT                    (GPTIMER_GEN_EVENT0_IMASK_TOV_SET)
 
 /*!
 * @brief Timer qei mode direction change event
 */
-#define DL_TIMER_EVENT_DC_EVENT                           (GPTIMER_IMASK_DC_SET)
+#define DL_TIMER_EVENT_DC_EVENT                           (GPTIMER_GEN_EVENT0_IMASK_DC_SET)
 
 
 /*!
 * @brief Timer qei mode transition error
 */
-#define DL_TIMER_EVENT_QEIERR_EVENT                   (GPTIMER_IMASK_QEIERR_SET)
+#define DL_TIMER_EVENT_QEIERR_EVENT                   (GPTIMER_GEN_EVENT0_IMASK_QEIERR_SET)
 
 
 /** @}*/
@@ -1076,9 +1176,10 @@ typedef enum {
 
 /*! @enum  DL_TIMER_CCP_DIS_OUT */
 typedef enum {
-    /*! CCP output is forced low when timer is disabled */
+    /*! CCP output source is disabled and driven low before conditional
+     * inversion */
     DL_TIMER_CCP_DIS_OUT_LOW = GPTIMER_ODIS_C0CCP0_CCP_OUTPUT_LOW,
-    /*! CCP output is set by the OCTL when timer is disabled */
+    /*! CCP output source is not disabled */
     DL_TIMER_CCP_DIS_OUT_SET_BY_OCTL = GPTIMER_ODIS_C0CCP0_CCP_OUTPUT_OCTL,
 } DL_TIMER_CCP_DIS_OUT;
 
@@ -1142,32 +1243,69 @@ typedef enum {
 
 /*! @enum  DL_TIMER_TIMER_MODE */
 typedef enum {
-    /*! Configures Timer in one shot mode */
-    DL_TIMER_TIMER_MODE_ONE_SHOT = GPTIMER_CTRCTL_REPEAT_REPEAT_0,
-    /*! Configures Timer in periodic mode */
-    DL_TIMER_TIMER_MODE_PERIODIC = GPTIMER_CTRCTL_REPEAT_REPEAT_1,
+    /*! Configures Timer in one shot mode in DOWN COUNTING mode */
+    DL_TIMER_TIMER_MODE_ONE_SHOT =
+        (GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_0),
+    /*! Configures Timer in periodic mode in DOWN COUNTING mode */
+    DL_TIMER_TIMER_MODE_PERIODIC =
+        (GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1),
+    /*! Configures Timer in one shot mode in UP COUNTING mode */
+    DL_TIMER_TIMER_MODE_ONE_SHOT_UP =
+        (GPTIMER_CTRCTL_CM_UP | GPTIMER_CTRCTL_REPEAT_REPEAT_0),
+    /*! Configures Timer in periodic mode in UP COUNTING mode */
+    DL_TIMER_TIMER_MODE_PERIODIC_UP =
+        (GPTIMER_CTRCTL_CM_UP | GPTIMER_CTRCTL_REPEAT_REPEAT_1),
+    /*! Configures Timer in one shot mode in UP/DOWN COUNTING mode */
+    DL_TIMER_TIMER_MODE_ONE_SHOT_UP_DOWN =
+        (GPTIMER_CTRCTL_CM_UP_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_0),
+    /*! Configures Timer in periodic mode in UP/DOWN COUNTING mode */
+    DL_TIMER_TIMER_MODE_PERIODIC_UP_DOWN =
+        (GPTIMER_CTRCTL_CM_UP_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1),
 } DL_TIMER_TIMER_MODE;
 
 /*! @enum  DL_TIMER_CAPTURE_MODE */
 typedef enum {
-    /*! Configures Timer in edge time capture mode */
+    /*! Configures Timer in edge time capture mode and timer is configured
+     *! in down counting mode */
     DL_TIMER_CAPTURE_MODE_EDGE_TIME,
-    /*! Configures Timer in period capture mode */
+    /*! Configures Timer in period capture mode and timer is configured
+     *! in down counting mode */
     DL_TIMER_CAPTURE_MODE_PERIOD_CAPTURE,
-    /*! Configures Timer in pulse width capture mode */
+    /*! Configures Timer in pulse width capture mode and timer is configured
+     *! in down counting mode */
     DL_TIMER_CAPTURE_MODE_PULSE_WIDTH,
+    /*! Configures Timer in edge time capture mode and timer is configured
+     *! in up counting mode */
+    DL_TIMER_CAPTURE_MODE_EDGE_TIME_UP,
+    /*! Configures Timer in period capture mode and timer is configured
+     *! in up counting mode */
+    DL_TIMER_CAPTURE_MODE_PERIOD_CAPTURE_UP,
+    /*! Configures Timer in pulse width capture mode and timer is configured
+     *! in up counting mode */
+    DL_TIMER_CAPTURE_MODE_PULSE_WIDTH_UP,
 } DL_TIMER_CAPTURE_MODE;
 
 /*! @enum  DL_TIMER_CAPTURE_COMBINED_MODE */
 typedef enum {
-    /*! Configures Timer in pulse width and period mode */
+    /*! Configures Timer in pulse width and period mode and timer is configured
+     *! in down counting mode */
     DL_TIMER_CAPTURE_COMBINED_MODE_PULSE_WIDTH_AND_PERIOD,
+    /*! Configures Timer in pulse width and period mode and timer is configured
+     *! in up counting mode */
+    DL_TIMER_CAPTURE_COMBINED_MODE_PULSE_WIDTH_AND_PERIOD_UP,
 } DL_TIMER_CAPTURE_COMBINED_MODE;
 
 /*! @enum  DL_TIMER_COMPARE_MODE */
 typedef enum {
-    /*! Configures Timer in edge count mode */
+    /*! Configures Timer in edge count mode and timer is configured
+     *! in down counting mode */
     DL_TIMER_COMPARE_MODE_EDGE_COUNT,
+    /*! Configures Timer in edge count mode and timer is configured
+     *! in up counting mode */
+    DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP,
+    /*! Configures Timer in edge count mode and timer is configured
+     *! in up/down counting mode */
+    DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP_DOWN,
 } DL_TIMER_COMPARE_MODE;
 
 /*! @enum  DL_TIMER_COUNT_MODE */
@@ -1223,9 +1361,11 @@ typedef enum {
 
 /*! @enum DL_TIMER_PWM_MODE */
 typedef enum {
-    /*! Configured Timer for PWM in edge aling mode */
+    /*! Configured Timer for PWM in edge align mode */
     DL_TIMER_PWM_MODE_EDGE_ALIGN = GPTIMER_CTRCTL_CM_DOWN,
-    /*! Configured Timer for PWM in center aling mode */
+    /*! Configured Timer for PWM in edge align mode */
+    DL_TIMER_PWM_MODE_EDGE_ALIGN_UP = GPTIMER_CTRCTL_CM_UP,
+    /*! Configured Timer for PWM in center align mode */
     DL_TIMER_PWM_MODE_CENTER_ALIGN = GPTIMER_CTRCTL_CM_UP_DOWN,
 } DL_TIMER_PWM_MODE;
 
@@ -1335,47 +1475,47 @@ typedef enum {
 /*! @enum DL_TIMER_IIDX */
 typedef enum {
     /*! Timer interrupt index for zero interrupt */
-    DL_TIMER_IIDX_ZERO = GPTIMER_IIDX_STAT_Z,
+    DL_TIMER_IIDX_ZERO = GPTIMER_CPU_INT_IIDX_STAT_Z,
     /*! Timer interrupt index for load interrupt */
-    DL_TIMER_IIDX_LOAD = GPTIMER_IIDX_STAT_L,
+    DL_TIMER_IIDX_LOAD = GPTIMER_CPU_INT_IIDX_STAT_L,
     /*! Timer interrupt index for compare 0 down interrupt */
-    DL_TIMER_IIDX_CC0_DN = GPTIMER_IIDX_STAT_CCD0,
+    DL_TIMER_IIDX_CC0_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD0,
     /*! Timer interrupt index for compare 1 down interrupt */
-    DL_TIMER_IIDX_CC1_DN = GPTIMER_IIDX_STAT_CCD1,
+    DL_TIMER_IIDX_CC1_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD1,
     /*! Timer interrupt index for compare 2 down interrupt */
-    DL_TIMER_IIDX_CC2_DN = GPTIMER_IIDX_STAT_CCD2,
+    DL_TIMER_IIDX_CC2_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD2,
     /*! Timer interrupt index for compare 3 down interrupt */
-    DL_TIMER_IIDX_CC3_DN = GPTIMER_IIDX_STAT_CCD3,
+    DL_TIMER_IIDX_CC3_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD3,
     /*! Timer interrupt index for compare 0 up interrupt */
-    DL_TIMER_IIDX_CC0_UP = GPTIMER_IIDX_STAT_CCU0,
+    DL_TIMER_IIDX_CC0_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU0,
     /*! Timer interrupt index for compare 1 up interrupt */
-    DL_TIMER_IIDX_CC1_UP = GPTIMER_IIDX_STAT_CCU1,
+    DL_TIMER_IIDX_CC1_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU1,
     /*! Timer interrupt index for compare 2 up interrupt */
-    DL_TIMER_IIDX_CC2_UP = GPTIMER_IIDX_STAT_CCU2,
+    DL_TIMER_IIDX_CC2_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU2,
     /*! Timer interrupt index for compare 3 up interrupt */
-    DL_TIMER_IIDX_CC3_UP = GPTIMER_IIDX_STAT_CCU3,
+    DL_TIMER_IIDX_CC3_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU3,
 
     /*! Timer interrupt index for compare 4 down interrupt */
-    DL_TIMER_IIDX_CC4_DN = GPTIMER_IIDX_STAT_CCD4,
+    DL_TIMER_IIDX_CC4_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD4,
     /*! Timer interrupt index for compare 5 down interrupt */
-    DL_TIMER_IIDX_CC5_DN = GPTIMER_IIDX_STAT_CCD5,
+    DL_TIMER_IIDX_CC5_DN = GPTIMER_CPU_INT_IIDX_STAT_CCD5,
     /*! Timer interrupt index for compare 4 up interrupt */
-    DL_TIMER_IIDX_CC4_UP = GPTIMER_IIDX_STAT_CCU4,
+    DL_TIMER_IIDX_CC4_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU4,
     /*! Timer interrupt index for compare 5 up interrupt */
-    DL_TIMER_IIDX_CC5_UP = GPTIMER_IIDX_STAT_CCU5,
+    DL_TIMER_IIDX_CC5_UP = GPTIMER_CPU_INT_IIDX_STAT_CCU5,
 
     /*! Timer interrupt index for fault interrupt */
-    DL_TIMER_IIDX_FAULT = GPTIMER_IIDX_STAT_F,
+    DL_TIMER_IIDX_FAULT = GPTIMER_CPU_INT_IIDX_STAT_F,
     /*! Timer interrupt index for timer overflow interrupt */
-    DL_TIMER_IIDX_OVERFLOW = GPTIMER_IIDX_STAT_TOV,
+    DL_TIMER_IIDX_OVERFLOW = GPTIMER_CPU_INT_IIDX_STAT_TOV,
     /*! Timer interrupt index for repeat counter
      * @note <b> This is a Timer A specific interrupt. </b>
      */
-    DL_TIMER_IIDX_REPEAT_COUNT = GPTIMER_IIDX_STAT_REPC,
+    DL_TIMER_IIDX_REPEAT_COUNT = GPTIMER_CPU_INT_IIDX_STAT_REPC,
     /*! Timer interrupt index for direction change interrupt
      * @note <b> Please refer the Timer TRM to determine TIMG instances which
      * support this feature. </b> */
-    DL_TIMER_IIDX_DIR_CHANGE = GPTIMER_IIDX_STAT_DC,
+    DL_TIMER_IIDX_DIR_CHANGE = GPTIMER_CPU_INT_IIDX_STAT_DC,
 } DL_TIMER_IIDX;
 
 /*! @enum DL_TIMER_PUBLISHER_INDEX */
@@ -1642,6 +1782,21 @@ typedef enum {
 
 } DL_TIMER_FORCE_CMPL_OUT;
 
+/*! @enum  DL_TIMER_CORE_HALT */
+typedef enum {
+    /*! Timer will halt immediately, even if the resultant state will result in
+        corruption if the system is restarted */
+    DL_TIMER_CORE_HALT_IMMEDIATE =
+        (GPTIMER_PDBGCTL_FREE_STOP | GPTIMER_PDBGCTL_SOFT_IMMEDIATE),
+    /*! Timer blocks the debug freeze until it has reached a boundary where it
+        can resume without corruption */
+    DL_TIMER_CORE_HALT_DELAYED =
+        (GPTIMER_PDBGCTL_FREE_STOP | GPTIMER_PDBGCTL_SOFT_DELAYED),
+    /*! Timer ignores the state of the Core Halted input */
+    DL_TIMER_CORE_HALT_FREE_RUN =
+        (GPTIMER_PDBGCTL_FREE_RUN | GPTIMER_PDBGCTL_SOFT_DELAYED),
+} DL_TIMER_CORE_HALT;
+
 /*!
  *  @brief  Configuration struct for @ref DL_Timer_setClockConfig.
  */
@@ -1714,6 +1869,8 @@ typedef struct {
  * @brief Configuration struct for @ref DL_Timer_initCaptureCombinedMode.
  */
 typedef struct {
+    /*! Selects capture mode. One of @ref DL_TIMER_CAPTURE_COMBINED_MODE */
+    DL_TIMER_CAPTURE_COMBINED_MODE captureMode;
     /*! Specifies the capture period. period_actual=(period +1)T_TIMCLK
      * where T_TIMCLK is the period of the timer source clock. */
     uint32_t period;
@@ -1973,14 +2130,21 @@ __STATIC_INLINE uint32_t DL_Timer_getCCPDirection(GPTIMER_Regs *gptimer)
 }
 
 /**
- *  @brief      Sets CCP Output configuration when timer is disabled
+ *  @brief      Forces the output of the timer low via the ODIS register.
+ *              This can be useful during shutdown or configuring the timer.
+ *              The output pin still passes through the inversion (INV) bit.
+ *              See figure "Output connection for TIMG" in Technical
+ *              Reference Manual (TRM) for diagram.
+ *              DL_Timer_overrideCCPOut() can be used for for similar
+ *              functionality, where independent overrride settings for the
+ *              output and complementary output channels can be configured.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
- *  @param[in]  ccp0Config     Output Configuration for CCP0 when timer is
- *                             disabled @ref DL_TIMER_CCP_DIS_OUT
- *  @param[in]  ccp1Config     Output Configuration for CCP1.
- *                             disabled @ref DL_TIMER_CCP_DIS_OUT
+ *  @param[in]  ccp0Config     Output Configuration for CCP0. One of @ref
+ *                             DL_TIMER_CCP_DIS_OUT
+ *  @param[in]  ccp1Config     Output Configuration for CCP1. One of @ref
+ *                             DL_TIMER_CCP_DIS_OUT
  */
 __STATIC_INLINE void DL_Timer_setCCPOutputDisabled(GPTIMER_Regs *gptimer,
     DL_TIMER_CCP_DIS_OUT ccp0Config, DL_TIMER_CCP_DIS_OUT ccp1Config)
@@ -1992,8 +2156,9 @@ __STATIC_INLINE void DL_Timer_setCCPOutputDisabled(GPTIMER_Regs *gptimer,
 }
 
 /**
- *  @brief      Sets CCP Output configuration when timer is disabled for timer
- *              instances with more than two CCP channels
+ *  @brief      Sets CCP Output configuration for timer instances with more than
+ *  two CCP channels via the ODIS register. The output pin still passes through
+ *  the inversion (INV) bit.
  *
  *  @note Refer to device datasheet to determine if timer instance supports
  *  this feature. Only Timer instance which supports more than two CCP channels
@@ -2001,8 +2166,7 @@ __STATIC_INLINE void DL_Timer_setCCPOutputDisabled(GPTIMER_Regs *gptimer,
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
- *  @param[in]  ccpOdisConfig  Output Configuration for CCP channels when timer
- *                              is disabled. Bitwise OR
+ *  @param[in]  ccpOdisConfig  Output Configuration for CCP channels. Bitwise OR
  *                             @ref DL_TIMER_CCP0_DIS_OUT_ADV,
  *                             @ref DL_TIMER_CCP1_DIS_OUT_ADV,
  *                             @ref DL_TIMER_CCP2_DIS_OUT_ADV,
@@ -2259,12 +2423,14 @@ __STATIC_INLINE void DL_Timer_disableShadowFeatures(GPTIMER_Regs *gptimer)
 }
 
 /**
- *  @brief      Sets timer load register value
+ *  @brief      Sets timer LOAD register value
  *
  *  @param[in]  gptimer      Pointer to the register overlay for the
  *                           peripheral
- *  @param[in]  value        Value to be loaded to timer counter
- *                           register
+ *  @param[in]  value        Value to be loaded to timer LOAD
+ *                           register. Refer to the device datasheet to
+ *                           determine the bit width of the counter for
+ *                           the selected Timer instance.
  *
  */
 __STATIC_INLINE void DL_Timer_setLoadValue(
@@ -2279,7 +2445,7 @@ __STATIC_INLINE void DL_Timer_setLoadValue(
  *  @param[in]  gptimer      Pointer to the register overlay for the
  *                           peripheral
  *
- *  @return     Returns the timer's load register value
+ *  @return     Returns the timer's LOAD register value.
  *
  */
 __STATIC_INLINE uint32_t DL_Timer_getLoadValue(GPTIMER_Regs *gptimer)
@@ -2574,6 +2740,9 @@ __STATIC_INLINE DL_TIMER_REPEAT_MODE DL_Timer_getCounterRepeatMode(
 
 /**
  *  @brief      Configure timer in one shot or periodic timer mode
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Timer mode. Any other custom configuration can be done after calling
+ *  this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2587,6 +2756,9 @@ void DL_Timer_initTimerMode(
 /**
  *  @brief      Configure timer in edge count, period capture, edge time or
  *              pulse-width capture mode
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Capture mode. Any other custom configuration can be done after
+ *  calling this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2600,6 +2772,9 @@ void DL_Timer_initCaptureMode(
 /**
  *  @brief      Configure timer in edge count, period capture, edge time or
  *              pulse-width capture mode using the trigger as input source
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Capture mode. Any other custom configuration can be done after
+ *  calling this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2612,6 +2787,9 @@ void DL_Timer_initCaptureTriggerMode(
 
 /**
  *  @brief      Configure timer in combined pulse-width and period capture
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Capture mode. Any other custom configuration can be done after
+ *  calling this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2624,6 +2802,9 @@ void DL_Timer_initCaptureCombinedMode(
 
 /**
  *  @brief      Configure timer in edge count compare mode
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Compare mode. Any other custom configuration can be done after
+ *  calling this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2637,6 +2818,9 @@ void DL_Timer_initCompareMode(
 /**
  *  @brief      Configure timer in edge count compare mode using the trigger as
  *              input source
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in Compare mode. Any other custom configuration can be done after
+ *  calling this API.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
@@ -2649,6 +2833,9 @@ void DL_Timer_initCompareTriggerMode(
 
 /**
  * @brief Configure timer in Pulse Width Modulation Mode
+ *  Initializes all the common configurable options for the TIMx peripheral when
+ *  used in PWM mode. Any other custom configuration can be done after calling
+ *  this API.
  *
  * @param gptimer              Pointer to the register overlay for the
  *                             peripheral
@@ -3212,7 +3399,7 @@ __STATIC_INLINE bool DL_Timer_isExternalTriggerEnabled(GPTIMER_Regs *gptimer)
  *  @brief     Sets repeat counter value. Repeat counter feature is used to
  *             reduce interupt overhead.
  *  @note      <b>This feature is not supported by all TimerA instances.</b>
- *             Please refer to the "Different TIM Configurations" table in the
+ *             Please refer to the "TIMx Configurations" table in the
  *             device specific datasheet to determine TimerA instances which
  *             support "Repeat Counter" configuration.
  *
@@ -3231,7 +3418,7 @@ __STATIC_INLINE void DL_Timer_setRepeatCounter(
 /**
  *  @brief     Gets repeat counter value.
  *  @note      <b>This feature is not supported by all TimerA instances.</b>
- *             Please refer to the "Different TIM Configurations" table in the
+ *             Please refer to the "TIMx Configurations" table in the
  *             device specific datasheet to determine TimerA instances which
  *             support "Repeat Counter" configuration.
  *
@@ -3359,10 +3546,15 @@ __STATIC_INLINE bool DL_Timer_isRunning(GPTIMER_Regs *gptimer)
 /**
  *  @brief      Configure Quadrature Encoder Interface (QEI)
  *
+ *  @post User should call @ref DL_Timer_setLoadValue and
+ *  @ref DL_Timer_startCounter to complete the QEI Configuration.
+ *  Refer to Timer TRM for more details.
+ *
  *  @param[in]  gptimer        Pointer to the register overlay for the
  *                             peripheral
  *  @param[in]  mode           Choose QEI input mode. One of @ref DL_TIMER_QEI_MODE
- *  @param[in]  invert         Control whether selected input is inverted. One of @ref DL_TIMER_CC_INPUT_INV
+ *  @param[in]  invert         Control whether selected input is inverted.
+ *                             One of @ref DL_TIMER_CC_INPUT_INV
  *  @param[in]  ccIndex        Index associated to capture compare register
  *                             @ref DL_TIMER_CC_INDEX.
  */
@@ -3375,9 +3567,23 @@ __STATIC_INLINE void DL_Timer_configQEI(GPTIMER_Regs *gptimer,
         GPTIMER_IFCTL_01_ISEL_CCPX_INPUT | invert;
     gptimer->COUNTERREGS.CTRCTL =
         (uint32_t) mode | GPTIMER_CTRCTL_CVAE_NOCHANGE |
-        GPTIMER_CTRCTL_CM_UP_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
-        GPTIMER_CTRCTL_EN_ENABLED;
+        GPTIMER_CTRCTL_CM_UP_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1;
 }
+
+/**
+ *  @brief      Configure Hall Input Mode
+ *
+ *  @note Refer to device datasheet to determine if timer instance supports
+ *  this feature. Only TIMGx instances with QEI support should use this API.
+ *
+ *  @post User should call @ref DL_Timer_setLoadValue and
+ *  @ref DL_Timer_startCounter to complete the Hall Input Mode Configuration.
+ *  Refer to Timer TRM for more details.
+ *
+ *  @param[in]  gptimer        Pointer to the register overlay for the
+ *                             peripheral
+ */
+void DL_Timer_configQEIHallInputMode(GPTIMER_Regs *gptimer);
 
 /**
  *  @brief      Get direction of Quadrature Encoder Interface (QEI) count
@@ -3612,7 +3818,7 @@ __STATIC_INLINE void DL_Timer_configFaultCounter(GPTIMER_Regs *gptimer,
 __STATIC_INLINE void DL_Timer_enableInterrupt(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    gptimer->INT_EVENT[0].IMASK |= interruptMask;
+    gptimer->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -3626,7 +3832,7 @@ __STATIC_INLINE void DL_Timer_enableInterrupt(
 __STATIC_INLINE void DL_Timer_disableInterrupt(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    gptimer->INT_EVENT[0].IMASK &= ~(interruptMask);
+    gptimer->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -3644,7 +3850,7 @@ __STATIC_INLINE void DL_Timer_disableInterrupt(
 __STATIC_INLINE uint32_t DL_Timer_getEnabledInterrupts(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    return (gptimer->INT_EVENT[0].IMASK & interruptMask);
+    return (gptimer->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -3667,13 +3873,13 @@ __STATIC_INLINE uint32_t DL_Timer_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_Timer_getEnabledInterruptStatus(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    return (gptimer->INT_EVENT[0].MIS & interruptMask);
+    return (gptimer->CPU_INT.MIS & interruptMask);
 }
 
 /**
  *  @brief      Check interrupt flag of any timer interrupt
  *
- *  Checks if any of the UART interrupts are pending. Interrupts do not have to
+ *  Checks if any of the timer interrupts are pending. Interrupts do not have to
  *  be previously enabled.
  *
  *  @param[in]  gptimer        Pointer to the register overlay for the
@@ -3688,7 +3894,7 @@ __STATIC_INLINE uint32_t DL_Timer_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_Timer_getRawInterruptStatus(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    return (gptimer->INT_EVENT[0].RIS & interruptMask);
+    return (gptimer->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -3706,7 +3912,7 @@ __STATIC_INLINE uint32_t DL_Timer_getRawInterruptStatus(
 __STATIC_INLINE DL_TIMER_IIDX DL_Timer_getPendingInterrupt(
     GPTIMER_Regs *gptimer)
 {
-    return ((DL_TIMER_IIDX) gptimer->INT_EVENT[0].IIDX);
+    return ((DL_TIMER_IIDX) gptimer->CPU_INT.IIDX);
 }
 
 /**
@@ -3720,7 +3926,7 @@ __STATIC_INLINE DL_TIMER_IIDX DL_Timer_getPendingInterrupt(
 __STATIC_INLINE void DL_Timer_clearInterruptStatus(
     GPTIMER_Regs *gptimer, uint32_t interruptMask)
 {
-    gptimer->INT_EVENT[0].ICLR = interruptMask;
+    gptimer->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -3808,8 +4014,7 @@ __STATIC_INLINE uint8_t DL_Timer_getSubscriberChanID(
 __STATIC_INLINE void DL_Timer_enableEvent(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
-    volatile uint32_t *pReg =
-        (volatile uint32_t *) &gptimer->INT_EVENT[1].IMASK;
+    volatile uint32_t *pReg = (volatile uint32_t *) &gptimer->GEN_EVENT0.IMASK;
 
     *(pReg + (uint32_t) index) |= (eventMask);
 }
@@ -3827,8 +4032,7 @@ __STATIC_INLINE void DL_Timer_enableEvent(
 __STATIC_INLINE void DL_Timer_disableEvent(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
-    volatile uint32_t *pReg =
-        (volatile uint32_t *) &gptimer->INT_EVENT[1].IMASK;
+    volatile uint32_t *pReg = (volatile uint32_t *) &gptimer->GEN_EVENT0.IMASK;
 
     *(pReg + (uint32_t) index) &= ~(eventMask);
 }
@@ -3850,8 +4054,7 @@ __STATIC_INLINE void DL_Timer_disableEvent(
 __STATIC_INLINE uint32_t DL_Timer_getEnabledEvents(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
-    volatile uint32_t *pReg =
-        (volatile uint32_t *) &gptimer->INT_EVENT[1].IMASK;
+    volatile uint32_t *pReg = (volatile uint32_t *) &gptimer->GEN_EVENT0.IMASK;
 
     return ((*(pReg + (uint32_t) index) & eventMask));
 }
@@ -3879,7 +4082,7 @@ __STATIC_INLINE uint32_t DL_Timer_getEnabledEventStatus(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
     const volatile uint32_t *pReg =
-        (const volatile uint32_t *) &gptimer->INT_EVENT[1].MIS;
+        (const volatile uint32_t *) &gptimer->GEN_EVENT0.MIS;
 
     return ((*(pReg + (uint32_t) index) & eventMask));
 }
@@ -3905,7 +4108,7 @@ __STATIC_INLINE uint32_t DL_Timer_getRawEventsStatus(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
     const volatile uint32_t *pReg =
-        (const volatile uint32_t *) &gptimer->INT_EVENT[1].RIS;
+        (const volatile uint32_t *) &gptimer->GEN_EVENT0.RIS;
 
     return ((*(pReg + (uint32_t) index) & eventMask));
 }
@@ -3923,8 +4126,7 @@ __STATIC_INLINE uint32_t DL_Timer_getRawEventsStatus(
 __STATIC_INLINE void DL_Timer_clearEventsStatus(
     GPTIMER_Regs *gptimer, DL_TIMER_EVENT_ROUTE index, uint32_t eventMask)
 {
-    volatile uint32_t *pReg =
-        (volatile uint32_t *) &gptimer->INT_EVENT[1].ICLR;
+    volatile uint32_t *pReg = (volatile uint32_t *) &gptimer->GEN_EVENT0.ICLR;
 
     *(pReg + (uint32_t) index) |= (eventMask);
 }
@@ -3965,6 +4167,39 @@ bool DL_Timer_saveConfiguration(
  */
 bool DL_Timer_restoreConfiguration(
     GPTIMER_Regs *gptimer, DL_Timer_backupConfig *ptr, bool restoreCounter);
+
+/**
+ *  @brief      Configures timer behavior when the core is halted.
+ *
+ *  @param[in]  gptimer  Pointer to the register overlay for the peripheral
+ *
+ *  @param[in]  haltMode Timer halt behavvior. One of @ref DL_TIMER_CORE_HALT.
+ *
+ */
+__STATIC_INLINE void DL_Timer_setCoreHaltBehavior(
+    GPTIMER_Regs *gptimer, DL_TIMER_CORE_HALT haltMode)
+{
+    gptimer->PDBGCTL = ((uint32_t) haltMode & (GPTIMER_PDBGCTL_FREE_MASK |
+                                                  GPTIMER_PDBGCTL_SOFT_MASK));
+}
+
+/**
+ *  @brief      Get timer behavior when the core is halted.
+ *
+ *  @param[in]  gptimer  Pointer to the register overlay for the peripheral
+ *
+ *  @return     Timer bahvior when core is halted. One of
+ *              @ref DL_TIMER_CORE_HALT
+ *
+ */
+__STATIC_INLINE DL_TIMER_CORE_HALT DL_Timer_getCoreHaltBehavior(
+    GPTIMER_Regs *gptimer)
+{
+    uint32_t haltMode = (gptimer->PDBGCTL & (GPTIMER_PDBGCTL_FREE_MASK |
+                                                GPTIMER_PDBGCTL_SOFT_MASK));
+
+    return (DL_TIMER_CORE_HALT)(haltMode);
+}
 
 #ifdef __cplusplus
 }

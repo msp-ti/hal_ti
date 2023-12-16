@@ -266,9 +266,9 @@ bool DL_SPI_saveConfiguration(SPI_Regs *spi, DL_SPI_backupConfig *ptr)
         ptr->clockSel                     = spi->CLKSEL;
         ptr->divideRatio                  = spi->CLKDIV;
         ptr->interruptFifoLevelSelectWord = spi->IFLS;
-        ptr->interruptMask0               = spi->INT_EVENT0.IMASK;
-        ptr->interruptMask1               = spi->INT_EVENT1.IMASK;
-        ptr->interruptMask2               = spi->INT_EVENT2.IMASK;
+        ptr->interruptMask0               = spi->CPU_INT.IMASK;
+        ptr->interruptMask1               = spi->DMA_TRIG_RX.IMASK;
+        ptr->interruptMask2               = spi->DMA_TRIG_TX.IMASK;
         ptr->backupRdy                    = true;
     }
     return stateSaved;
@@ -279,15 +279,15 @@ bool DL_SPI_restoreConfiguration(SPI_Regs *spi, DL_SPI_backupConfig *ptr)
     bool stateRestored = ptr->backupRdy;
     if (stateRestored) {
         /* Set CTL1.ENABLE=0 during initialization */
-        spi->CTL1             = ptr->controlWord1 & ~(SPI_CTL1_ENABLE_MASK);
-        spi->CTL0             = ptr->controlWord0;
-        spi->CLKCTL           = ptr->clockControl;
-        spi->CLKSEL           = ptr->clockSel;
-        spi->CLKDIV           = ptr->divideRatio;
-        spi->IFLS             = ptr->interruptFifoLevelSelectWord;
-        spi->INT_EVENT0.IMASK = ptr->interruptMask0;
-        spi->INT_EVENT1.IMASK = ptr->interruptMask1;
-        spi->INT_EVENT2.IMASK = ptr->interruptMask2;
+        spi->CTL1              = ptr->controlWord1 & ~(SPI_CTL1_ENABLE_MASK);
+        spi->CTL0              = ptr->controlWord0;
+        spi->CLKCTL            = ptr->clockControl;
+        spi->CLKSEL            = ptr->clockSel;
+        spi->CLKDIV            = ptr->divideRatio;
+        spi->IFLS              = ptr->interruptFifoLevelSelectWord;
+        spi->CPU_INT.IMASK     = ptr->interruptMask0;
+        spi->DMA_TRIG_RX.IMASK = ptr->interruptMask1;
+        spi->DMA_TRIG_TX.IMASK = ptr->interruptMask2;
 
         /* Re-enable SPI if it was originally enabled */
         if ((ptr->controlWord1 & SPI_CTL1_ENABLE_MASK) ==

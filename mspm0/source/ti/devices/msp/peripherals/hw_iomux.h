@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_iomux__include
 #define ti_devices_msp_peripherals_hw_iomux__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspiomux */
-/* MMR revision: b494f3176fdafcc5221ea4126ed3b9da121628bb */
-/* Generator revision: 7e31351413044923941fe6d9efb8629cf8fa2f74
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_iomux.h */
+/* Revised: 2023-05-10 21:32:43 */
+/* Revision: ccc8d5592eceba00f0e63b10bdaec9c7cd64733b */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -107,7 +105,7 @@ typedef struct {
 /* IOMUX_PINCM Bits */
 /* IOMUX_PINCM[PF] Bits */
 #define IOMUX_PINCM_PF_OFS                       (0)                             /* !< PF Offset */
-#define IOMUX_PINCM_PF_MASK                      ((uint32_t)0x0000003FU)         /* !< P channel Function selection bits */
+#define IOMUX_PINCM_PF_MASK                      ((uint32_t)0x0000003FU)         /* !< Peripheral Function selection bits */
 #define IOMUX_PINCM_PF_MINIMUM                   ((uint32_t)0x00000000U)         /* !< Reserved as unconnected */
 #define IOMUX_PINCM_PF_MAXIMUM                   ((uint32_t)0x0000003FU)         /* !< An encoding per function that can
                                                                                     be connected to this pin. */
@@ -143,7 +141,7 @@ typedef struct {
 #define IOMUX_PINCM_INENA_ENABLE                 ((uint32_t)0x00040000U)         /* !< Input enable is enabled. */
 /* IOMUX_PINCM[HYSTEN] Bits */
 #define IOMUX_PINCM_HYSTEN_OFS                   (19)                            /* !< HYSTEN Offset */
-#define IOMUX_PINCM_HYSTEN_MASK                  ((uint32_t)0x00080000U)         /* !< Hystersis Enable Control Selection */
+#define IOMUX_PINCM_HYSTEN_MASK                  ((uint32_t)0x00080000U)         /* !< Hysteresis Enable Control Selection */
 #define IOMUX_PINCM_HYSTEN_DISABLE               ((uint32_t)0x00000000U)         /* !< hysteresis is disabled. */
 #define IOMUX_PINCM_HYSTEN_ENABLE                ((uint32_t)0x00080000U)         /* !< hysteresis is enabled */
 /* IOMUX_PINCM[DRV] Bits */

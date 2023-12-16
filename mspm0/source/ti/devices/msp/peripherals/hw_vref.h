@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_vref__include
 #define ti_devices_msp_peripherals_hw_vref__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspvref */
-/* MMR revision: 576f02d2093a58e8e2d7cdc3b05bec1e3cf43a60 */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_vref.h */
+/* Revised: 2023-05-10 21:34:47 */
+/* Revision: 346daa750fb9270ab4d9c503b44addb19c7cc8cc */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -196,6 +194,11 @@ typedef struct {
                                                                                     mode */
 #define VREF_CTL0_SHMODE_DISABLE                 ((uint32_t)0x00000000U)         /* !< Sample and hold mode is disable */
 #define VREF_CTL0_SHMODE_ENABLE                  ((uint32_t)0x00000100U)         /* !< Sample and hold mode is enable */
+/* VREF_CTL0[COMP_VREF_ENABLE] Bits */
+#define VREF_CTL0_COMP_VREF_ENABLE_OFS           (1)                             /* !< COMP_VREF_ENABLE Offset */
+#define VREF_CTL0_COMP_VREF_ENABLE_MASK          ((uint32_t)0x00000002U)         /* !< Comparator Vref Enable */
+#define VREF_CTL0_COMP_VREF_ENABLE_DISABLE       ((uint32_t)0x00000000U)         /* !< COMP VREF is disabled */
+#define VREF_CTL0_COMP_VREF_ENABLE_ENABLE        ((uint32_t)0x00000002U)         /* !< COMP VREF is enabled */
 
 /* VREF_CTL1 Bits */
 /* VREF_CTL1[READY] Bits */

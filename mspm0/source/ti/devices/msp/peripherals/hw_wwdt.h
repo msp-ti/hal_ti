@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_wwdt__include
 #define ti_devices_msp_peripherals_hw_wwdt__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspwwdt */
-/* MMR revision: 5b673ead9a3d33d47387fcac2028d2f25b362298 */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_wwdt.h */
+/* Revised: 2023-05-10 21:36:51 */
+/* Revision: 662977591cca7f583e1df6fe4b402c6c07949212 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,11 +68,11 @@
 /******************************************************************************
 * WWDT Registers
 ******************************************************************************/
-#define WWDT_INT_EVENT_OFS                       ((uint32_t)0x00001020U)
+#define WWDT_CPU_INT_OFS                         ((uint32_t)0x00001020U)
 #define WWDT_GPRCM_OFS                           ((uint32_t)0x00000800U)
 
 
-/** @addtogroup WWDT_INT_EVENT
+/** @addtogroup WWDT_CPU_INT
   @{
 */
 
@@ -90,9 +88,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} WWDT_INT_EVENT_Regs;
+} WWDT_CPU_INT_Regs;
 
-/*@}*/ /* end of group WWDT_INT_EVENT */
+/*@}*/ /* end of group WWDT_CPU_INT */
 
 /** @addtogroup WWDT_GPRCM
   @{
@@ -117,7 +115,7 @@ typedef struct {
        uint32_t RESERVED1[512];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED2;
-  WWDT_INT_EVENT_Regs  INT_EVENT;                         /* !< (@ 0x00001020) */
+  WWDT_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED3[37];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
        uint32_t RESERVED4[6];
@@ -250,7 +248,7 @@ typedef struct {
 #define WWDT_EVT_MODE_INT0_CFG_OFS               (0)                             /* !< INT0_CFG Offset */
 #define WWDT_EVT_MODE_INT0_CFG_MASK              ((uint32_t)0x00000003U)         /* !< Event line mode select for event
                                                                                     corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT][0] */
+                                                                                    [IPSTANDARD.CPU_INT][0] */
 #define WWDT_EVT_MODE_INT0_CFG_DISABLE           ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define WWDT_EVT_MODE_INT0_CFG_SOFTWARE          ((uint32_t)0x00000001U)         /* !< The interrupt or event line is in

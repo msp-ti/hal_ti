@@ -76,136 +76,136 @@ extern "C" {
 /*!
  * @brief DMA channel 0 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL0                        (DMA_IMASK_DMACH0_SET)
+#define DL_DMA_INTERRUPT_CHANNEL0                        (DMA_CPU_INT_IMASK_DMACH0_SET)
 
 /*!
  * @brief DMA channel 1 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL1                        (DMA_IMASK_DMACH1_SET)
+#define DL_DMA_INTERRUPT_CHANNEL1                        (DMA_CPU_INT_IMASK_DMACH1_SET)
 
 /*!
  * @brief DMA channel 2 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL2                        (DMA_IMASK_DMACH2_SET)
+#define DL_DMA_INTERRUPT_CHANNEL2                        (DMA_CPU_INT_IMASK_DMACH2_SET)
 
 /*!
  * @brief DMA channel 3 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL3                        (DMA_IMASK_DMACH3_SET)
+#define DL_DMA_INTERRUPT_CHANNEL3                        (DMA_CPU_INT_IMASK_DMACH3_SET)
 
 /*!
  * @brief DMA channel 4 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL4                        (DMA_IMASK_DMACH4_SET)
+#define DL_DMA_INTERRUPT_CHANNEL4                        (DMA_CPU_INT_IMASK_DMACH4_SET)
 
 /*!
  * @brief DMA channel 5 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL5                        (DMA_IMASK_DMACH5_SET)
+#define DL_DMA_INTERRUPT_CHANNEL5                        (DMA_CPU_INT_IMASK_DMACH5_SET)
 
 /*!
  * @brief DMA channel 6 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL6                        (DMA_IMASK_DMACH6_SET)
+#define DL_DMA_INTERRUPT_CHANNEL6                        (DMA_CPU_INT_IMASK_DMACH6_SET)
 
 /*!
  * @brief DMA channel 7 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL7                        (DMA_IMASK_DMACH7_SET)
+#define DL_DMA_INTERRUPT_CHANNEL7                        (DMA_CPU_INT_IMASK_DMACH7_SET)
 
 /*!
  * @brief DMA channel 8 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL8                        (DMA_IMASK_DMACH8_SET)
+#define DL_DMA_INTERRUPT_CHANNEL8                        (DMA_CPU_INT_IMASK_DMACH8_SET)
 
 /*!
  * @brief DMA channel 9 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL9                        (DMA_IMASK_DMACH9_SET)
+#define DL_DMA_INTERRUPT_CHANNEL9                        (DMA_CPU_INT_IMASK_DMACH9_SET)
 
 /*!
  * @brief DMA channel 10 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL10                      (DMA_IMASK_DMACH10_SET)
+#define DL_DMA_INTERRUPT_CHANNEL10                      (DMA_CPU_INT_IMASK_DMACH10_SET)
 
 /*!
  * @brief DMA channel 12 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL12                      (DMA_IMASK_DMACH12_SET)
+#define DL_DMA_INTERRUPT_CHANNEL12                      (DMA_CPU_INT_IMASK_DMACH12_SET)
 
 /*!
  * @brief DMA channel 13 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL13                      (DMA_IMASK_DMACH13_SET)
+#define DL_DMA_INTERRUPT_CHANNEL13                      (DMA_CPU_INT_IMASK_DMACH13_SET)
 
 /*!
  * @brief DMA channel 14 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL14                      (DMA_IMASK_DMACH14_SET)
+#define DL_DMA_INTERRUPT_CHANNEL14                      (DMA_CPU_INT_IMASK_DMACH14_SET)
 
 /*!
  * @brief DMA channel 15 interrupt
  */
-#define DL_DMA_INTERRUPT_CHANNEL15                      (DMA_IMASK_DMACH15_SET)
+#define DL_DMA_INTERRUPT_CHANNEL15                      (DMA_CPU_INT_IMASK_DMACH15_SET)
 
 #ifdef DEVICE_HAS_DMA_FULL_CHANNEL
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 0 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL0        (DMA_IMASK_PREIRQCH0_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL0        (DMA_CPU_INT_IMASK_PREIRQCH0_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 1 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL1        (DMA_IMASK_PREIRQCH1_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL1        (DMA_CPU_INT_IMASK_PREIRQCH1_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 2 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL2        (DMA_IMASK_PREIRQCH2_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL2        (DMA_CPU_INT_IMASK_PREIRQCH2_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 3 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL3        (DMA_IMASK_PREIRQCH3_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL3        (DMA_CPU_INT_IMASK_PREIRQCH3_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 4 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL4        (DMA_IMASK_PREIRQCH4_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL4        (DMA_CPU_INT_IMASK_PREIRQCH4_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 5 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL5        (DMA_IMASK_PREIRQCH5_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL5        (DMA_CPU_INT_IMASK_PREIRQCH5_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 6 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL6        (DMA_IMASK_PREIRQCH6_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL6        (DMA_CPU_INT_IMASK_PREIRQCH6_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 7 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL7        (DMA_IMASK_PREIRQCH7_SET)
+#define DL_DMA_FULL_CH_INTERRUPT_EARLY_CHANNEL7        (DMA_CPU_INT_IMASK_PREIRQCH7_SET)
 #endif /* DEVICE_HAS_DMA_FULL_CHANNEL */
 
 /*!
  * @brief DMA address error, source address not reachable
  */
-#define DL_DMA_INTERRUPT_ADDR_ERROR                      (DMA_IMASK_ADDRERR_SET)
+#define DL_DMA_INTERRUPT_ADDR_ERROR                      (DMA_CPU_INT_IMASK_ADDRERR_SET)
 /*!
  * @brief DMA data error, source data might be corrupted (PAR or ECC error)
  */
-#define DL_DMA_INTERRUPT_DATA_ERROR                      (DMA_IMASK_DATAERR_SET)
+#define DL_DMA_INTERRUPT_DATA_ERROR                      (DMA_CPU_INT_IMASK_DATAERR_SET)
 
 /** @}*/
 
@@ -215,136 +215,136 @@ extern "C" {
 /*!
  * @brief DMA channel 0 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL0                             (DMA_IMASK_DMACH0_SET)
+#define DL_DMA_EVENT_CHANNEL0                             (DMA_GEN_EVENT_IMASK_DMACH0_SET)
 
 /*!
  * @brief DMA channel 1 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL1                             (DMA_IMASK_DMACH1_SET)
+#define DL_DMA_EVENT_CHANNEL1                             (DMA_GEN_EVENT_IMASK_DMACH1_SET)
 
 /*!
  * @brief DMA channel 2 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL2                             (DMA_IMASK_DMACH2_SET)
+#define DL_DMA_EVENT_CHANNEL2                             (DMA_GEN_EVENT_IMASK_DMACH2_SET)
 
 /*!
  * @brief DMA channel 3 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL3                             (DMA_IMASK_DMACH3_SET)
+#define DL_DMA_EVENT_CHANNEL3                             (DMA_GEN_EVENT_IMASK_DMACH3_SET)
 
 /*!
  * @brief DMA channel 4 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL4                             (DMA_IMASK_DMACH4_SET)
+#define DL_DMA_EVENT_CHANNEL4                             (DMA_GEN_EVENT_IMASK_DMACH4_SET)
 
 /*!
  * @brief DMA channel 5 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL5                             (DMA_IMASK_DMACH5_SET)
+#define DL_DMA_EVENT_CHANNEL5                             (DMA_GEN_EVENT_IMASK_DMACH5_SET)
 
 /*!
  * @brief DMA channel 6 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL6                             (DMA_IMASK_DMACH6_SET)
+#define DL_DMA_EVENT_CHANNEL6                             (DMA_GEN_EVENT_IMASK_DMACH6_SET)
 
 /*!
  * @brief DMA channel 7 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL7                             (DMA_IMASK_DMACH7_SET)
+#define DL_DMA_EVENT_CHANNEL7                             (DMA_GEN_EVENT_IMASK_DMACH7_SET)
 
 /*!
  * @brief DMA channel 8 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL8                             (DMA_IMASK_DMACH8_SET)
+#define DL_DMA_EVENT_CHANNEL8                             (DMA_GEN_EVENT_IMASK_DMACH8_SET)
 
 /*!
  * @brief DMA channel 9 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL9                             (DMA_IMASK_DMACH9_SET)
+#define DL_DMA_EVENT_CHANNEL9                             (DMA_GEN_EVENT_IMASK_DMACH9_SET)
 
 /*!
  * @brief DMA channel 10 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL10                           (DMA_IMASK_DMACH10_SET)
+#define DL_DMA_EVENT_CHANNEL10                           (DMA_GEN_EVENT_IMASK_DMACH10_SET)
 
 /*!
  * @brief DMA channel 12 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL12                           (DMA_IMASK_DMACH12_SET)
+#define DL_DMA_EVENT_CHANNEL12                           (DMA_GEN_EVENT_IMASK_DMACH12_SET)
 
 /*!
  * @brief DMA channel 13 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL13                           (DMA_IMASK_DMACH13_SET)
+#define DL_DMA_EVENT_CHANNEL13                           (DMA_GEN_EVENT_IMASK_DMACH13_SET)
 
 /*!
  * @brief DMA channel 14 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL14                           (DMA_IMASK_DMACH14_SET)
+#define DL_DMA_EVENT_CHANNEL14                           (DMA_GEN_EVENT_IMASK_DMACH14_SET)
 
 /*!
  * @brief DMA channel 15 interrupt
  */
-#define DL_DMA_EVENT_CHANNEL15                           (DMA_IMASK_DMACH15_SET)
+#define DL_DMA_EVENT_CHANNEL15                           (DMA_GEN_EVENT_IMASK_DMACH15_SET)
 
 #ifdef DEVICE_HAS_DMA_FULL_CHANNEL
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 0 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL0            (DMA_IMASK_PREIRQCH0_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL0            (DMA_GEN_EVENT_IMASK_PREIRQCH0_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 1 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL1            (DMA_IMASK_PREIRQCH1_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL1            (DMA_GEN_EVENT_IMASK_PREIRQCH1_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 2 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL2            (DMA_IMASK_PREIRQCH2_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL2            (DMA_GEN_EVENT_IMASK_PREIRQCH2_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 3 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL3            (DMA_IMASK_PREIRQCH3_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL3            (DMA_GEN_EVENT_IMASK_PREIRQCH3_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 4 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL4            (DMA_IMASK_PREIRQCH4_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL4            (DMA_GEN_EVENT_IMASK_PREIRQCH4_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 5 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL5            (DMA_IMASK_PREIRQCH5_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL5            (DMA_GEN_EVENT_IMASK_PREIRQCH5_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 6 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL6            (DMA_IMASK_PREIRQCH6_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL6            (DMA_GEN_EVENT_IMASK_PREIRQCH6_SET)
 
 /*!
  * @brief Available for FULL-channel configuration only. Early IRQ for DMA
  * channel 7 interrupt. Size counter has reached early IRQ threshold.
  */
-#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL7            (DMA_IMASK_PREIRQCH7_SET)
+#define DL_DMA_FULL_CH_EVENT_EARLY_CHANNEL7            (DMA_GEN_EVENT_IMASK_PREIRQCH7_SET)
 #endif /* DEVICE_HAS_DMA_FULL_CHANNEL */
 
 /*!
  * @brief DMA address error, source address not reachable
  */
-#define DL_DMA_EVENT_ADDR_ERROR                     (DMA_IMASK_ADDRERR_SET)
+#define DL_DMA_EVENT_ADDR_ERROR                     (DMA_GEN_EVENT_IMASK_ADDRERR_SET)
 /*!
  * @brief DMA data error, source data might be corrupted (PAR or ECC error)
  */
-#define DL_DMA_EVENT_DATA_ERROR                     (DMA_IMASK_DATAERR_SET)
+#define DL_DMA_EVENT_DATA_ERROR                     (DMA_GEN_EVENT_IMASK_DATAERR_SET)
 
 /** @}*/
 
@@ -469,70 +469,70 @@ typedef enum {
 /*! @enum DL_DMA_EVENT_IIDX */
 typedef enum {
     /*! Enum to indicate that no DMA event has taken place */
-    DL_DMA_EVENT_IIDX_NO_INTR = DMA_IIDX_STAT_NO_INTR,
+    DL_DMA_EVENT_IIDX_NO_INTR = DMA_GEN_EVENT_IIDX_STAT_NO_INTR,
     /*! Enum to indicate that the channel 0 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH0 = DMA_IIDX_STAT_DMACH0,
+    DL_DMA_EVENT_IIDX_DMACH0 = DMA_GEN_EVENT_IIDX_STAT_DMACH0,
     /*! Enum to indicate that the channel 1 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH1 = DMA_IIDX_STAT_DMACH1,
+    DL_DMA_EVENT_IIDX_DMACH1 = DMA_GEN_EVENT_IIDX_STAT_DMACH1,
     /*! Enum to indicate that the channel 2 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH2 = DMA_IIDX_STAT_DMACH2,
+    DL_DMA_EVENT_IIDX_DMACH2 = DMA_GEN_EVENT_IIDX_STAT_DMACH2,
     /*! Enum to indicate that the channel 3 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH3 = DMA_IIDX_STAT_DMACH3,
+    DL_DMA_EVENT_IIDX_DMACH3 = DMA_GEN_EVENT_IIDX_STAT_DMACH3,
     /*! Enum to indicate that the channel 4 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH4 = DMA_IIDX_STAT_DMACH4,
+    DL_DMA_EVENT_IIDX_DMACH4 = DMA_GEN_EVENT_IIDX_STAT_DMACH4,
     /*! Enum to indicate that the channel 5 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH5 = DMA_IIDX_STAT_DMACH5,
+    DL_DMA_EVENT_IIDX_DMACH5 = DMA_GEN_EVENT_IIDX_STAT_DMACH5,
     /*! Enum to indicate that the channel 6 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH6 = DMA_IIDX_STAT_DMACH6,
+    DL_DMA_EVENT_IIDX_DMACH6 = DMA_GEN_EVENT_IIDX_STAT_DMACH6,
     /*! Enum to indicate that the channel 7 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH7 = DMA_IIDX_STAT_DMACH7,
+    DL_DMA_EVENT_IIDX_DMACH7 = DMA_GEN_EVENT_IIDX_STAT_DMACH7,
     /*! Enum to indicate that the channel 8 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH8 = DMA_IIDX_STAT_DMACH8,
+    DL_DMA_EVENT_IIDX_DMACH8 = DMA_GEN_EVENT_IIDX_STAT_DMACH8,
     /*! Enum to indicate that the channel 9 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH9 = DMA_IIDX_STAT_DMACH9,
+    DL_DMA_EVENT_IIDX_DMACH9 = DMA_GEN_EVENT_IIDX_STAT_DMACH9,
     /*! Enum to indicate that the channel 10 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH10 = DMA_IIDX_STAT_DMACH10,
+    DL_DMA_EVENT_IIDX_DMACH10 = DMA_GEN_EVENT_IIDX_STAT_DMACH10,
     /*! Enum to indicate that the channel 11 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH11 = DMA_IIDX_STAT_DMACH11,
+    DL_DMA_EVENT_IIDX_DMACH11 = DMA_GEN_EVENT_IIDX_STAT_DMACH11,
     /*! Enum to indicate that the channel 12 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH12 = DMA_IIDX_STAT_DMACH12,
+    DL_DMA_EVENT_IIDX_DMACH12 = DMA_GEN_EVENT_IIDX_STAT_DMACH12,
     /*! Enum to indicate that the channel 13 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH13 = DMA_IIDX_STAT_DMACH13,
+    DL_DMA_EVENT_IIDX_DMACH13 = DMA_GEN_EVENT_IIDX_STAT_DMACH13,
     /*! Enum to indicate that the channel 14 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH14 = DMA_IIDX_STAT_DMACH14,
+    DL_DMA_EVENT_IIDX_DMACH14 = DMA_GEN_EVENT_IIDX_STAT_DMACH14,
     /*! Enum to indicate that the channel 15 interrupt has fired */
-    DL_DMA_EVENT_IIDX_DMACH15 = DMA_IIDX_STAT_DMACH15,
+    DL_DMA_EVENT_IIDX_DMACH15 = DMA_GEN_EVENT_IIDX_STAT_DMACH15,
 #ifdef DEVICE_HAS_DMA_FULL_CHANNEL
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 0 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH0 = DMA_IIDX_STAT_PREIRQCH0,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH0 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH0,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 1 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH1 = DMA_IIDX_STAT_PREIRQCH1,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH1 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH1,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 2 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH2 = DMA_IIDX_STAT_PREIRQCH2,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH2 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH2,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 3 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH3 = DMA_IIDX_STAT_PREIRQCH3,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH3 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH3,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 4 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH4 = DMA_IIDX_STAT_PREIRQCH4,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH4 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH4,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 5 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH5 = DMA_IIDX_STAT_PREIRQCH5,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH5 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH5,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 6 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH6 = DMA_IIDX_STAT_PREIRQCH6,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH6 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH6,
     /*! Available for FULL-channel configuration only. Enum to indicate that the
      *  early interrupt event for channel 7 interrupt has fired */
-    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH7 = DMA_IIDX_STAT_PREIRQCH7,
+    DL_DMA_FULL_CH_EVENT_IIDX_EARLY_IRQ_DMACH7 = DMA_GEN_EVENT_IIDX_STAT_PREIRQCH7,
 #endif /* DEVICE_HAS_DMA_FULL_CHANNEL */
     /*! Enum to indicate that a DMA address error has occurred */
-    DL_DMA_EVENT_IIDX_ADDR_ERROR = DMA_IIDX_STAT_ADDRERR,
+    DL_DMA_EVENT_IIDX_ADDR_ERROR = DMA_GEN_EVENT_IIDX_STAT_ADDRERR,
 
     /*! Enum to indicate that a DMA data error has occurred */
-    DL_DMA_EVENT_IIDX_DATA_ERROR = DMA_IIDX_STAT_DATAERR
+    DL_DMA_EVENT_IIDX_DATA_ERROR = DMA_GEN_EVENT_IIDX_STAT_DATAERR
 } DL_DMA_EVENT_IIDX;
 
 /*! @enum DL_DMA_PUBLISHER_INDEX */
@@ -1273,7 +1273,7 @@ DL_DMA_Full_Ch_getEarlyInterruptThreshold(DMA_Regs *dma, uint8_t channelNum)
 __STATIC_INLINE void DL_DMA_enableInterrupt(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    dma->INT_EVENT[0].IMASK |= interruptMask;
+    dma->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -1287,7 +1287,7 @@ __STATIC_INLINE void DL_DMA_enableInterrupt(
 __STATIC_INLINE void DL_DMA_disableInterrupt(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    dma->INT_EVENT[0].IMASK &= ~(interruptMask);
+    dma->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -1305,7 +1305,7 @@ __STATIC_INLINE void DL_DMA_disableInterrupt(
 __STATIC_INLINE uint32_t DL_DMA_getEnabledInterrupts(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    return (dma->INT_EVENT[0].IMASK & interruptMask);
+    return (dma->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -1328,7 +1328,7 @@ __STATIC_INLINE uint32_t DL_DMA_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_DMA_getEnabledInterruptStatus(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    return (dma->INT_EVENT[0].MIS & interruptMask);
+    return (dma->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -1349,7 +1349,7 @@ __STATIC_INLINE uint32_t DL_DMA_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_DMA_getRawInterruptStatus(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    return (dma->INT_EVENT[0].RIS & interruptMask);
+    return (dma->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -1367,7 +1367,7 @@ __STATIC_INLINE uint32_t DL_DMA_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_DMA_EVENT_IIDX DL_DMA_getPendingInterrupt(DMA_Regs *dma)
 {
-    return (DL_DMA_EVENT_IIDX) dma->INT_EVENT[0].IIDX;
+    return (DL_DMA_EVENT_IIDX) dma->CPU_INT.IIDX;
 }
 
 /**
@@ -1381,7 +1381,7 @@ __STATIC_INLINE DL_DMA_EVENT_IIDX DL_DMA_getPendingInterrupt(DMA_Regs *dma)
 __STATIC_INLINE void DL_DMA_clearInterruptStatus(
     DMA_Regs *dma, uint32_t interruptMask)
 {
-    dma->INT_EVENT[0].ICLR = interruptMask;
+    dma->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -1464,7 +1464,7 @@ __STATIC_INLINE uint8_t DL_DMA_getSubscriberChanID(
  */
 __STATIC_INLINE void DL_DMA_enableEvent(DMA_Regs *dma, uint32_t eventMask)
 {
-    dma->INT_EVENT[1].IMASK |= (eventMask);
+    dma->GEN_EVENT.IMASK |= (eventMask);
 }
 
 /**
@@ -1477,7 +1477,7 @@ __STATIC_INLINE void DL_DMA_enableEvent(DMA_Regs *dma, uint32_t eventMask)
  */
 __STATIC_INLINE void DL_DMA_disableEvent(DMA_Regs *dma, uint32_t eventMask)
 {
-    dma->INT_EVENT[1].IMASK &= ~(eventMask);
+    dma->GEN_EVENT.IMASK &= ~(eventMask);
 }
 
 /**
@@ -1495,7 +1495,7 @@ __STATIC_INLINE void DL_DMA_disableEvent(DMA_Regs *dma, uint32_t eventMask)
 __STATIC_INLINE uint32_t DL_DMA_getEnabledEvents(
     DMA_Regs *dma, uint32_t eventMask)
 {
-    return (dma->INT_EVENT[1].IMASK & eventMask);
+    return (dma->GEN_EVENT.IMASK & eventMask);
 }
 
 /**
@@ -1518,7 +1518,7 @@ __STATIC_INLINE uint32_t DL_DMA_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_DMA_getEnabledEventStatus(
     DMA_Regs *dma, uint32_t eventMask)
 {
-    return (dma->INT_EVENT[1].MIS & ~(eventMask));
+    return (dma->GEN_EVENT.MIS & ~(eventMask));
 }
 
 /**
@@ -1539,7 +1539,7 @@ __STATIC_INLINE uint32_t DL_DMA_getEnabledEventStatus(
 __STATIC_INLINE uint32_t DL_DMA_getRawEventsStatus(
     DMA_Regs *dma, uint32_t eventMask)
 {
-    return (dma->INT_EVENT[1].RIS & ~(eventMask));
+    return (dma->GEN_EVENT.RIS & ~(eventMask));
 }
 
 /**
@@ -1553,7 +1553,7 @@ __STATIC_INLINE uint32_t DL_DMA_getRawEventsStatus(
 __STATIC_INLINE void DL_DMA_clearEventsStatus(
     DMA_Regs *dma, uint32_t eventMask)
 {
-    dma->INT_EVENT[1].ICLR |= (eventMask);
+    dma->GEN_EVENT.ICLR |= (eventMask);
 }
 
 #ifdef __cplusplus

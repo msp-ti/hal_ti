@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_gpio__include
 #define ti_devices_msp_peripherals_hw_gpio__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspgpio */
-/* MMR revision: f0b479398234481aef9337cfe410908bd0ea926f */
-/* Generator revision: 7e31351413044923941fe6d9efb8629cf8fa2f74
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_gpio.h */
+/* Revised: 2023-05-10 21:28:12 */
+/* Revision: 63b77c412ca552f19fdd3e7971450ee8560270af */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,13 +68,13 @@
 /******************************************************************************
 * GPIO Registers
 ******************************************************************************/
-#define GPIO_INT_EVENT2_OFS                      ((uint32_t)0x00001080U)
-#define GPIO_INT_EVENT1_OFS                      ((uint32_t)0x00001050U)
-#define GPIO_INT_EVENT0_OFS                      ((uint32_t)0x00001020U)
+#define GPIO_GEN_EVENT1_OFS                      ((uint32_t)0x00001080U)
+#define GPIO_GEN_EVENT0_OFS                      ((uint32_t)0x00001050U)
+#define GPIO_CPU_INT_OFS                         ((uint32_t)0x00001020U)
 #define GPIO_GPRCM_OFS                           ((uint32_t)0x00000800U)
 
 
-/** @addtogroup GPIO_INT_EVENT2
+/** @addtogroup GPIO_GEN_EVENT1
   @{
 */
 
@@ -92,11 +90,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear */
-} GPIO_INT_EVENT2_Regs;
+} GPIO_GEN_EVENT1_Regs;
 
-/*@}*/ /* end of group GPIO_INT_EVENT2 */
+/*@}*/ /* end of group GPIO_GEN_EVENT1 */
 
-/** @addtogroup GPIO_INT_EVENT1
+/** @addtogroup GPIO_GEN_EVENT0
   @{
 */
 
@@ -112,11 +110,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} GPIO_INT_EVENT1_Regs;
+} GPIO_GEN_EVENT0_Regs;
 
-/*@}*/ /* end of group GPIO_INT_EVENT1 */
+/*@}*/ /* end of group GPIO_GEN_EVENT0 */
 
-/** @addtogroup GPIO_INT_EVENT0
+/** @addtogroup GPIO_CPU_INT
   @{
 */
 
@@ -132,9 +130,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} GPIO_INT_EVENT0_Regs;
+} GPIO_CPU_INT_Regs;
 
-/*@}*/ /* end of group GPIO_INT_EVENT0 */
+/*@}*/ /* end of group GPIO_CPU_INT */
 
 /** @addtogroup GPIO_GPRCM
   @{
@@ -167,11 +165,11 @@ typedef struct {
        uint32_t RESERVED4;
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED5;
-  GPIO_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  GPIO_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED6;
-  GPIO_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  GPIO_GEN_EVENT0_Regs  GEN_EVENT0;                        /* !< (@ 0x00001050) */
        uint32_t RESERVED7;
-  GPIO_INT_EVENT2_Regs  INT_EVENT2;                        /* !< (@ 0x00001080) */
+  GPIO_GEN_EVENT1_Regs  GEN_EVENT1;                        /* !< (@ 0x00001080) */
        uint32_t RESERVED8[13];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
        uint32_t RESERVED9[6];
@@ -239,1720 +237,1720 @@ typedef struct {
 * GPIO Register Control Bits
 ******************************************************************************/
 
-/* GPIO_INT_EVENT2_IIDX Bits */
-/* GPIO_INT_EVENT2_IIDX[STAT] Bits */
-#define GPIO_INT_EVENT2_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define GPIO_INT_EVENT2_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define GPIO_INT_EVENT2_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* GPIO_GEN_EVENT1_IIDX Bits */
+/* GPIO_GEN_EVENT1_IIDX[STAT] Bits */
+#define GPIO_GEN_EVENT1_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define GPIO_GEN_EVENT1_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPIO_GEN_EVENT1_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO16          ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO17          ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO18          ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO19          ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO20          ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO21          ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO22          ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO23          ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO24          ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO25          ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO26          ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO27          ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO28          ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO29          ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO30          ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
-#define GPIO_INT_EVENT2_IIDX_STAT_DIO31          ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO16          ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO17          ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO18          ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO19          ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO20          ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO21          ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO22          ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO23          ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO24          ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO25          ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO26          ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO27          ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO28          ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO29          ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO30          ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
+#define GPIO_GEN_EVENT1_IIDX_STAT_DIO31          ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
 
-/* GPIO_INT_EVENT2_IMASK Bits */
-/* GPIO_INT_EVENT2_IMASK[DIO16] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO16_OFS          (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO16_MASK         ((uint32_t)0x00010000U)         /* !< DIO16 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO16_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO16_SET          ((uint32_t)0x00010000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO17] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO17_OFS          (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO17_MASK         ((uint32_t)0x00020000U)         /* !< DIO17 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO17_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO17_SET          ((uint32_t)0x00020000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO18] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO18_OFS          (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO18_MASK         ((uint32_t)0x00040000U)         /* !< DIO18 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO18_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO18_SET          ((uint32_t)0x00040000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO19] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO19_OFS          (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO19_MASK         ((uint32_t)0x00080000U)         /* !< DIO19 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO19_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO19_SET          ((uint32_t)0x00080000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO20] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO20_OFS          (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO20_MASK         ((uint32_t)0x00100000U)         /* !< DIO20 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO20_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO20_SET          ((uint32_t)0x00100000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO21] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO21_OFS          (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO21_MASK         ((uint32_t)0x00200000U)         /* !< DIO21 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO21_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO21_SET          ((uint32_t)0x00200000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO22] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO22_OFS          (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO22_MASK         ((uint32_t)0x00400000U)         /* !< DIO22 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO22_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO22_SET          ((uint32_t)0x00400000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO23] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO23_OFS          (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO23_MASK         ((uint32_t)0x00800000U)         /* !< DIO23 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO23_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO23_SET          ((uint32_t)0x00800000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO24] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO24_OFS          (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO24_MASK         ((uint32_t)0x01000000U)         /* !< DIO24 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO24_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO24_SET          ((uint32_t)0x01000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO25] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO25_OFS          (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO25_MASK         ((uint32_t)0x02000000U)         /* !< DIO25 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO25_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO25_SET          ((uint32_t)0x02000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO26] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO26_OFS          (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO26_MASK         ((uint32_t)0x04000000U)         /* !< DIO26 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO26_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO26_SET          ((uint32_t)0x04000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO27] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO27_OFS          (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO27_MASK         ((uint32_t)0x08000000U)         /* !< DIO27 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO27_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO27_SET          ((uint32_t)0x08000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO28] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO28_OFS          (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO28_MASK         ((uint32_t)0x10000000U)         /* !< DIO28 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO28_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO28_SET          ((uint32_t)0x10000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO29] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO29_OFS          (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO29_MASK         ((uint32_t)0x20000000U)         /* !< DIO29 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO29_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO29_SET          ((uint32_t)0x20000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO30] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO30_OFS          (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO30_MASK         ((uint32_t)0x40000000U)         /* !< DIO30 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO30_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO30_SET          ((uint32_t)0x40000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT2_IMASK[DIO31] Bits */
-#define GPIO_INT_EVENT2_IMASK_DIO31_OFS          (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT2_IMASK_DIO31_MASK         ((uint32_t)0x80000000U)         /* !< DIO31 event mask */
-#define GPIO_INT_EVENT2_IMASK_DIO31_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT2_IMASK_DIO31_SET          ((uint32_t)0x80000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK Bits */
+/* GPIO_GEN_EVENT1_IMASK[DIO16] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO16_OFS          (16)                            /* !< DIO16 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO16_MASK         ((uint32_t)0x00010000U)         /* !< DIO16 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO16_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO16_SET          ((uint32_t)0x00010000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO17] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO17_OFS          (17)                            /* !< DIO17 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO17_MASK         ((uint32_t)0x00020000U)         /* !< DIO17 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO17_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO17_SET          ((uint32_t)0x00020000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO18] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO18_OFS          (18)                            /* !< DIO18 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO18_MASK         ((uint32_t)0x00040000U)         /* !< DIO18 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO18_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO18_SET          ((uint32_t)0x00040000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO19] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO19_OFS          (19)                            /* !< DIO19 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO19_MASK         ((uint32_t)0x00080000U)         /* !< DIO19 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO19_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO19_SET          ((uint32_t)0x00080000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO20] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO20_OFS          (20)                            /* !< DIO20 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO20_MASK         ((uint32_t)0x00100000U)         /* !< DIO20 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO20_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO20_SET          ((uint32_t)0x00100000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO21] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO21_OFS          (21)                            /* !< DIO21 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO21_MASK         ((uint32_t)0x00200000U)         /* !< DIO21 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO21_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO21_SET          ((uint32_t)0x00200000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO22] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO22_OFS          (22)                            /* !< DIO22 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO22_MASK         ((uint32_t)0x00400000U)         /* !< DIO22 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO22_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO22_SET          ((uint32_t)0x00400000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO23] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO23_OFS          (23)                            /* !< DIO23 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO23_MASK         ((uint32_t)0x00800000U)         /* !< DIO23 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO23_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO23_SET          ((uint32_t)0x00800000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO24] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO24_OFS          (24)                            /* !< DIO24 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO24_MASK         ((uint32_t)0x01000000U)         /* !< DIO24 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO24_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO24_SET          ((uint32_t)0x01000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO25] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO25_OFS          (25)                            /* !< DIO25 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO25_MASK         ((uint32_t)0x02000000U)         /* !< DIO25 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO25_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO25_SET          ((uint32_t)0x02000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO26] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO26_OFS          (26)                            /* !< DIO26 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO26_MASK         ((uint32_t)0x04000000U)         /* !< DIO26 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO26_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO26_SET          ((uint32_t)0x04000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO27] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO27_OFS          (27)                            /* !< DIO27 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO27_MASK         ((uint32_t)0x08000000U)         /* !< DIO27 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO27_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO27_SET          ((uint32_t)0x08000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO28] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO28_OFS          (28)                            /* !< DIO28 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO28_MASK         ((uint32_t)0x10000000U)         /* !< DIO28 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO28_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO28_SET          ((uint32_t)0x10000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO29] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO29_OFS          (29)                            /* !< DIO29 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO29_MASK         ((uint32_t)0x20000000U)         /* !< DIO29 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO29_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO29_SET          ((uint32_t)0x20000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO30] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO30_OFS          (30)                            /* !< DIO30 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO30_MASK         ((uint32_t)0x40000000U)         /* !< DIO30 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO30_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO30_SET          ((uint32_t)0x40000000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT1_IMASK[DIO31] Bits */
+#define GPIO_GEN_EVENT1_IMASK_DIO31_OFS          (31)                            /* !< DIO31 Offset */
+#define GPIO_GEN_EVENT1_IMASK_DIO31_MASK         ((uint32_t)0x80000000U)         /* !< DIO31 event mask */
+#define GPIO_GEN_EVENT1_IMASK_DIO31_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT1_IMASK_DIO31_SET          ((uint32_t)0x80000000U)         /* !< Event is unmasked */
 
-/* GPIO_INT_EVENT2_RIS Bits */
-/* GPIO_INT_EVENT2_RIS[DIO16] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT2_RIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO17] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT2_RIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO18] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT2_RIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO19] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT2_RIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO20] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT2_RIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO21] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT2_RIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO22] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT2_RIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO23] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT2_RIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO24] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT2_RIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO25] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT2_RIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO26] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT2_RIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO27] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT2_RIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO28] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT2_RIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO29] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT2_RIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO30] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT2_RIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
-/* GPIO_INT_EVENT2_RIS[DIO31] Bits */
-#define GPIO_INT_EVENT2_RIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT2_RIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT2_RIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
-#define GPIO_INT_EVENT2_RIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
+/* GPIO_GEN_EVENT1_RIS Bits */
+/* GPIO_GEN_EVENT1_RIS[DIO16] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_GEN_EVENT1_RIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO17] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_GEN_EVENT1_RIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO18] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_GEN_EVENT1_RIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO19] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_GEN_EVENT1_RIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO20] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_GEN_EVENT1_RIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO21] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_GEN_EVENT1_RIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO22] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_GEN_EVENT1_RIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO23] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_GEN_EVENT1_RIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO24] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_GEN_EVENT1_RIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO25] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_GEN_EVENT1_RIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO26] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_GEN_EVENT1_RIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO27] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_GEN_EVENT1_RIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO28] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_GEN_EVENT1_RIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO29] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_GEN_EVENT1_RIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO30] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_GEN_EVENT1_RIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
+/* GPIO_GEN_EVENT1_RIS[DIO31] Bits */
+#define GPIO_GEN_EVENT1_RIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
+#define GPIO_GEN_EVENT1_RIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_GEN_EVENT1_RIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
+#define GPIO_GEN_EVENT1_RIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
 
-/* GPIO_INT_EVENT2_MIS Bits */
-/* GPIO_INT_EVENT2_MIS[DIO16] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT2_MIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO17] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT2_MIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO18] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT2_MIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO19] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT2_MIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO20] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT2_MIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO21] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT2_MIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO22] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT2_MIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO23] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT2_MIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO24] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT2_MIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO25] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT2_MIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO26] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT2_MIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO27] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT2_MIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO28] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT2_MIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO29] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT2_MIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO30] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT2_MIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
-/* GPIO_INT_EVENT2_MIS[DIO31] Bits */
-#define GPIO_INT_EVENT2_MIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT2_MIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT2_MIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
-#define GPIO_INT_EVENT2_MIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
+/* GPIO_GEN_EVENT1_MIS Bits */
+/* GPIO_GEN_EVENT1_MIS[DIO16] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_GEN_EVENT1_MIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO17] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_GEN_EVENT1_MIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO18] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_GEN_EVENT1_MIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO19] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_GEN_EVENT1_MIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO20] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_GEN_EVENT1_MIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO21] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_GEN_EVENT1_MIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO22] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_GEN_EVENT1_MIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO23] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_GEN_EVENT1_MIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO24] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_GEN_EVENT1_MIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO25] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_GEN_EVENT1_MIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO26] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_GEN_EVENT1_MIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO27] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_GEN_EVENT1_MIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO28] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_GEN_EVENT1_MIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO29] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_GEN_EVENT1_MIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO30] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_GEN_EVENT1_MIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
+/* GPIO_GEN_EVENT1_MIS[DIO31] Bits */
+#define GPIO_GEN_EVENT1_MIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
+#define GPIO_GEN_EVENT1_MIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_GEN_EVENT1_MIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
+#define GPIO_GEN_EVENT1_MIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
 
-/* GPIO_INT_EVENT2_ISET Bits */
-/* GPIO_INT_EVENT2_ISET[DIO16] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO16_OFS           (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT2_ISET_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO16_SET           ((uint32_t)0x00010000U)         /* !< Sets DIO16 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO17] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO17_OFS           (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT2_ISET_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO17_SET           ((uint32_t)0x00020000U)         /* !< Sets DIO17 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO18] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO18_OFS           (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT2_ISET_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO18_SET           ((uint32_t)0x00040000U)         /* !< Sets DIO18 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO19] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO19_OFS           (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT2_ISET_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO19_SET           ((uint32_t)0x00080000U)         /* !< Sets DIO19 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO20] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO20_OFS           (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT2_ISET_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO20_SET           ((uint32_t)0x00100000U)         /* !< Sets DIO20 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO21] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO21_OFS           (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT2_ISET_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO21_SET           ((uint32_t)0x00200000U)         /* !< Sets DIO21 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO22] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO22_OFS           (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT2_ISET_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO22_SET           ((uint32_t)0x00400000U)         /* !< Sets DIO22 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO23] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO23_OFS           (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT2_ISET_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO23_SET           ((uint32_t)0x00800000U)         /* !< Sets DIO23 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO24] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO24_OFS           (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT2_ISET_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO24_SET           ((uint32_t)0x01000000U)         /* !< Sets DIO24 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO25] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO25_OFS           (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT2_ISET_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO25_SET           ((uint32_t)0x02000000U)         /* !< Sets DIO25 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO26] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO26_OFS           (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT2_ISET_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO26_SET           ((uint32_t)0x04000000U)         /* !< Sets DIO26 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO27] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO27_OFS           (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT2_ISET_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO27_SET           ((uint32_t)0x08000000U)         /* !< Sets DIO27 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO28] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO28_OFS           (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT2_ISET_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO28_SET           ((uint32_t)0x10000000U)         /* !< Sets DIO28 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO29] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO29_OFS           (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT2_ISET_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO29_SET           ((uint32_t)0x20000000U)         /* !< Sets DIO29 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO30] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO30_OFS           (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT2_ISET_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO30_SET           ((uint32_t)0x40000000U)         /* !< Sets DIO30 in RIS register */
-/* GPIO_INT_EVENT2_ISET[DIO31] Bits */
-#define GPIO_INT_EVENT2_ISET_DIO31_OFS           (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT2_ISET_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT2_ISET_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ISET_DIO31_SET           ((uint32_t)0x80000000U)         /* !< Sets DIO31 in RIS register */
+/* GPIO_GEN_EVENT1_ISET Bits */
+/* GPIO_GEN_EVENT1_ISET[DIO16] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO16_OFS           (16)                            /* !< DIO16 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_GEN_EVENT1_ISET_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO16_SET           ((uint32_t)0x00010000U)         /* !< Sets DIO16 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO17] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO17_OFS           (17)                            /* !< DIO17 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_GEN_EVENT1_ISET_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO17_SET           ((uint32_t)0x00020000U)         /* !< Sets DIO17 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO18] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO18_OFS           (18)                            /* !< DIO18 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_GEN_EVENT1_ISET_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO18_SET           ((uint32_t)0x00040000U)         /* !< Sets DIO18 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO19] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO19_OFS           (19)                            /* !< DIO19 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_GEN_EVENT1_ISET_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO19_SET           ((uint32_t)0x00080000U)         /* !< Sets DIO19 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO20] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO20_OFS           (20)                            /* !< DIO20 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_GEN_EVENT1_ISET_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO20_SET           ((uint32_t)0x00100000U)         /* !< Sets DIO20 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO21] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO21_OFS           (21)                            /* !< DIO21 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_GEN_EVENT1_ISET_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO21_SET           ((uint32_t)0x00200000U)         /* !< Sets DIO21 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO22] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO22_OFS           (22)                            /* !< DIO22 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_GEN_EVENT1_ISET_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO22_SET           ((uint32_t)0x00400000U)         /* !< Sets DIO22 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO23] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO23_OFS           (23)                            /* !< DIO23 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_GEN_EVENT1_ISET_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO23_SET           ((uint32_t)0x00800000U)         /* !< Sets DIO23 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO24] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO24_OFS           (24)                            /* !< DIO24 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_GEN_EVENT1_ISET_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO24_SET           ((uint32_t)0x01000000U)         /* !< Sets DIO24 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO25] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO25_OFS           (25)                            /* !< DIO25 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_GEN_EVENT1_ISET_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO25_SET           ((uint32_t)0x02000000U)         /* !< Sets DIO25 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO26] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO26_OFS           (26)                            /* !< DIO26 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_GEN_EVENT1_ISET_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO26_SET           ((uint32_t)0x04000000U)         /* !< Sets DIO26 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO27] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO27_OFS           (27)                            /* !< DIO27 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_GEN_EVENT1_ISET_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO27_SET           ((uint32_t)0x08000000U)         /* !< Sets DIO27 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO28] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO28_OFS           (28)                            /* !< DIO28 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_GEN_EVENT1_ISET_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO28_SET           ((uint32_t)0x10000000U)         /* !< Sets DIO28 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO29] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO29_OFS           (29)                            /* !< DIO29 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_GEN_EVENT1_ISET_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO29_SET           ((uint32_t)0x20000000U)         /* !< Sets DIO29 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO30] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO30_OFS           (30)                            /* !< DIO30 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_GEN_EVENT1_ISET_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO30_SET           ((uint32_t)0x40000000U)         /* !< Sets DIO30 in RIS register */
+/* GPIO_GEN_EVENT1_ISET[DIO31] Bits */
+#define GPIO_GEN_EVENT1_ISET_DIO31_OFS           (31)                            /* !< DIO31 Offset */
+#define GPIO_GEN_EVENT1_ISET_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_GEN_EVENT1_ISET_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ISET_DIO31_SET           ((uint32_t)0x80000000U)         /* !< Sets DIO31 in RIS register */
 
-/* GPIO_INT_EVENT2_ICLR Bits */
-/* GPIO_INT_EVENT2_ICLR[DIO16] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO16_OFS           (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT2_ICLR_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO16_CLR           ((uint32_t)0x00010000U)         /* !< Clears DIO16 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO17] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO17_OFS           (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT2_ICLR_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO17_CLR           ((uint32_t)0x00020000U)         /* !< Clears DIO17 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO18] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO18_OFS           (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT2_ICLR_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO18_CLR           ((uint32_t)0x00040000U)         /* !< Clears DIO18 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO19] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO19_OFS           (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT2_ICLR_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO19_CLR           ((uint32_t)0x00080000U)         /* !< Clears DIO19 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO20] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO20_OFS           (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT2_ICLR_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO20_CLR           ((uint32_t)0x00100000U)         /* !< Clears DIO20 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO21] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO21_OFS           (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT2_ICLR_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO21_CLR           ((uint32_t)0x00200000U)         /* !< Clears DIO21 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO22] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO22_OFS           (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT2_ICLR_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO22_CLR           ((uint32_t)0x00400000U)         /* !< Clears DIO22 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO23] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO23_OFS           (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT2_ICLR_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO23_CLR           ((uint32_t)0x00800000U)         /* !< Clears DIO23 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO24] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO24_OFS           (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT2_ICLR_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO24_CLR           ((uint32_t)0x01000000U)         /* !< Clears DIO24 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO25] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO25_OFS           (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT2_ICLR_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO25_CLR           ((uint32_t)0x02000000U)         /* !< Clears DIO25 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO26] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO26_OFS           (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT2_ICLR_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO26_CLR           ((uint32_t)0x04000000U)         /* !< Clears DIO26 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO27] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO27_OFS           (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT2_ICLR_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO27_CLR           ((uint32_t)0x08000000U)         /* !< Clears DIO27 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO28] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO28_OFS           (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT2_ICLR_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO28_CLR           ((uint32_t)0x10000000U)         /* !< Clears DIO28 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO29] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO29_OFS           (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT2_ICLR_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO29_CLR           ((uint32_t)0x20000000U)         /* !< Clears DIO29 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO30] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO30_OFS           (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT2_ICLR_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO30_CLR           ((uint32_t)0x40000000U)         /* !< Clears DIO30 in RIS register */
-/* GPIO_INT_EVENT2_ICLR[DIO31] Bits */
-#define GPIO_INT_EVENT2_ICLR_DIO31_OFS           (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT2_ICLR_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT2_ICLR_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT2_ICLR_DIO31_CLR           ((uint32_t)0x80000000U)         /* !< Clears DIO31 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR Bits */
+/* GPIO_GEN_EVENT1_ICLR[DIO16] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO16_OFS           (16)                            /* !< DIO16 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO16_CLR           ((uint32_t)0x00010000U)         /* !< Clears DIO16 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO17] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO17_OFS           (17)                            /* !< DIO17 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO17_CLR           ((uint32_t)0x00020000U)         /* !< Clears DIO17 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO18] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO18_OFS           (18)                            /* !< DIO18 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO18_CLR           ((uint32_t)0x00040000U)         /* !< Clears DIO18 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO19] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO19_OFS           (19)                            /* !< DIO19 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO19_CLR           ((uint32_t)0x00080000U)         /* !< Clears DIO19 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO20] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO20_OFS           (20)                            /* !< DIO20 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO20_CLR           ((uint32_t)0x00100000U)         /* !< Clears DIO20 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO21] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO21_OFS           (21)                            /* !< DIO21 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO21_CLR           ((uint32_t)0x00200000U)         /* !< Clears DIO21 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO22] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO22_OFS           (22)                            /* !< DIO22 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO22_CLR           ((uint32_t)0x00400000U)         /* !< Clears DIO22 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO23] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO23_OFS           (23)                            /* !< DIO23 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO23_CLR           ((uint32_t)0x00800000U)         /* !< Clears DIO23 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO24] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO24_OFS           (24)                            /* !< DIO24 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO24_CLR           ((uint32_t)0x01000000U)         /* !< Clears DIO24 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO25] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO25_OFS           (25)                            /* !< DIO25 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO25_CLR           ((uint32_t)0x02000000U)         /* !< Clears DIO25 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO26] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO26_OFS           (26)                            /* !< DIO26 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO26_CLR           ((uint32_t)0x04000000U)         /* !< Clears DIO26 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO27] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO27_OFS           (27)                            /* !< DIO27 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO27_CLR           ((uint32_t)0x08000000U)         /* !< Clears DIO27 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO28] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO28_OFS           (28)                            /* !< DIO28 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO28_CLR           ((uint32_t)0x10000000U)         /* !< Clears DIO28 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO29] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO29_OFS           (29)                            /* !< DIO29 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO29_CLR           ((uint32_t)0x20000000U)         /* !< Clears DIO29 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO30] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO30_OFS           (30)                            /* !< DIO30 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO30_CLR           ((uint32_t)0x40000000U)         /* !< Clears DIO30 in RIS register */
+/* GPIO_GEN_EVENT1_ICLR[DIO31] Bits */
+#define GPIO_GEN_EVENT1_ICLR_DIO31_OFS           (31)                            /* !< DIO31 Offset */
+#define GPIO_GEN_EVENT1_ICLR_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_GEN_EVENT1_ICLR_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT1_ICLR_DIO31_CLR           ((uint32_t)0x80000000U)         /* !< Clears DIO31 in RIS register */
 
-/* GPIO_INT_EVENT1_IIDX Bits */
-/* GPIO_INT_EVENT1_IIDX[STAT] Bits */
-#define GPIO_INT_EVENT1_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define GPIO_INT_EVENT1_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define GPIO_INT_EVENT1_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* GPIO_GEN_EVENT0_IIDX Bits */
+/* GPIO_GEN_EVENT0_IIDX[STAT] Bits */
+#define GPIO_GEN_EVENT0_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define GPIO_GEN_EVENT0_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPIO_GEN_EVENT0_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO0           ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO1           ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO2           ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO3           ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO4           ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO5           ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO6           ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO7           ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO8           ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO9           ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO10          ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO11          ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO12          ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO13          ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO14          ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
-#define GPIO_INT_EVENT1_IIDX_STAT_DIO15          ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO0           ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO1           ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO2           ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO3           ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO4           ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO5           ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO6           ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO7           ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO8           ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO9           ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO10          ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO11          ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO12          ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO13          ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO14          ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
+#define GPIO_GEN_EVENT0_IIDX_STAT_DIO15          ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
 
-/* GPIO_INT_EVENT1_IMASK Bits */
-/* GPIO_INT_EVENT1_IMASK[DIO0] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO0_OFS           (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO0_MASK          ((uint32_t)0x00000001U)         /* !< DIO0 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO0_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO0_SET           ((uint32_t)0x00000001U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO1] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO1_OFS           (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO1_MASK          ((uint32_t)0x00000002U)         /* !< DIO1 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO1_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO1_SET           ((uint32_t)0x00000002U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO2] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO2_OFS           (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO2_MASK          ((uint32_t)0x00000004U)         /* !< DIO2 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO2_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO2_SET           ((uint32_t)0x00000004U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO3] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO3_OFS           (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO3_MASK          ((uint32_t)0x00000008U)         /* !< DIO3 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO3_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO3_SET           ((uint32_t)0x00000008U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO4] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO4_OFS           (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO4_MASK          ((uint32_t)0x00000010U)         /* !< DIO4 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO4_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO4_SET           ((uint32_t)0x00000010U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO5] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO5_OFS           (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO5_MASK          ((uint32_t)0x00000020U)         /* !< DIO5 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO5_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO5_SET           ((uint32_t)0x00000020U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO6] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO6_OFS           (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO6_MASK          ((uint32_t)0x00000040U)         /* !< DIO6 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO6_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO6_SET           ((uint32_t)0x00000040U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO7] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO7_OFS           (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO7_MASK          ((uint32_t)0x00000080U)         /* !< DIO7 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO7_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO7_SET           ((uint32_t)0x00000080U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO8] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO8_OFS           (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO8_MASK          ((uint32_t)0x00000100U)         /* !< DIO8 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO8_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO8_SET           ((uint32_t)0x00000100U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO9] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO9_OFS           (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO9_MASK          ((uint32_t)0x00000200U)         /* !< DIO9 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO9_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO9_SET           ((uint32_t)0x00000200U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO10] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO10_OFS          (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO10_MASK         ((uint32_t)0x00000400U)         /* !< DIO10 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO10_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO10_SET          ((uint32_t)0x00000400U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO11] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO11_OFS          (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO11_MASK         ((uint32_t)0x00000800U)         /* !< DIO11 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO11_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO11_SET          ((uint32_t)0x00000800U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO12] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO12_OFS          (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO12_MASK         ((uint32_t)0x00001000U)         /* !< DIO12 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO12_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO12_SET          ((uint32_t)0x00001000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO13] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO13_OFS          (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO13_MASK         ((uint32_t)0x00002000U)         /* !< DIO13 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO13_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO13_SET          ((uint32_t)0x00002000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO14] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO14_OFS          (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO14_MASK         ((uint32_t)0x00004000U)         /* !< DIO14 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO14_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO14_SET          ((uint32_t)0x00004000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT1_IMASK[DIO15] Bits */
-#define GPIO_INT_EVENT1_IMASK_DIO15_OFS          (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT1_IMASK_DIO15_MASK         ((uint32_t)0x00008000U)         /* !< DIO15 event mask */
-#define GPIO_INT_EVENT1_IMASK_DIO15_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT1_IMASK_DIO15_SET          ((uint32_t)0x00008000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK Bits */
+/* GPIO_GEN_EVENT0_IMASK[DIO0] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO0_OFS           (0)                             /* !< DIO0 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO0_MASK          ((uint32_t)0x00000001U)         /* !< DIO0 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO0_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO0_SET           ((uint32_t)0x00000001U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO1] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO1_OFS           (1)                             /* !< DIO1 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO1_MASK          ((uint32_t)0x00000002U)         /* !< DIO1 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO1_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO1_SET           ((uint32_t)0x00000002U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO2] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO2_OFS           (2)                             /* !< DIO2 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO2_MASK          ((uint32_t)0x00000004U)         /* !< DIO2 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO2_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO2_SET           ((uint32_t)0x00000004U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO3] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO3_OFS           (3)                             /* !< DIO3 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO3_MASK          ((uint32_t)0x00000008U)         /* !< DIO3 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO3_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO3_SET           ((uint32_t)0x00000008U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO4] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO4_OFS           (4)                             /* !< DIO4 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO4_MASK          ((uint32_t)0x00000010U)         /* !< DIO4 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO4_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO4_SET           ((uint32_t)0x00000010U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO5] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO5_OFS           (5)                             /* !< DIO5 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO5_MASK          ((uint32_t)0x00000020U)         /* !< DIO5 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO5_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO5_SET           ((uint32_t)0x00000020U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO6] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO6_OFS           (6)                             /* !< DIO6 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO6_MASK          ((uint32_t)0x00000040U)         /* !< DIO6 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO6_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO6_SET           ((uint32_t)0x00000040U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO7] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO7_OFS           (7)                             /* !< DIO7 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO7_MASK          ((uint32_t)0x00000080U)         /* !< DIO7 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO7_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO7_SET           ((uint32_t)0x00000080U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO8] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO8_OFS           (8)                             /* !< DIO8 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO8_MASK          ((uint32_t)0x00000100U)         /* !< DIO8 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO8_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO8_SET           ((uint32_t)0x00000100U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO9] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO9_OFS           (9)                             /* !< DIO9 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO9_MASK          ((uint32_t)0x00000200U)         /* !< DIO9 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO9_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO9_SET           ((uint32_t)0x00000200U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO10] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO10_OFS          (10)                            /* !< DIO10 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO10_MASK         ((uint32_t)0x00000400U)         /* !< DIO10 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO10_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO10_SET          ((uint32_t)0x00000400U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO11] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO11_OFS          (11)                            /* !< DIO11 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO11_MASK         ((uint32_t)0x00000800U)         /* !< DIO11 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO11_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO11_SET          ((uint32_t)0x00000800U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO12] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO12_OFS          (12)                            /* !< DIO12 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO12_MASK         ((uint32_t)0x00001000U)         /* !< DIO12 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO12_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO12_SET          ((uint32_t)0x00001000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO13] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO13_OFS          (13)                            /* !< DIO13 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO13_MASK         ((uint32_t)0x00002000U)         /* !< DIO13 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO13_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO13_SET          ((uint32_t)0x00002000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO14] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO14_OFS          (14)                            /* !< DIO14 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO14_MASK         ((uint32_t)0x00004000U)         /* !< DIO14 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO14_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO14_SET          ((uint32_t)0x00004000U)         /* !< Event is unmasked */
+/* GPIO_GEN_EVENT0_IMASK[DIO15] Bits */
+#define GPIO_GEN_EVENT0_IMASK_DIO15_OFS          (15)                            /* !< DIO15 Offset */
+#define GPIO_GEN_EVENT0_IMASK_DIO15_MASK         ((uint32_t)0x00008000U)         /* !< DIO15 event mask */
+#define GPIO_GEN_EVENT0_IMASK_DIO15_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_GEN_EVENT0_IMASK_DIO15_SET          ((uint32_t)0x00008000U)         /* !< Event is unmasked */
 
-/* GPIO_INT_EVENT1_RIS Bits */
-/* GPIO_INT_EVENT1_RIS[DIO0] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT1_RIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO1] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT1_RIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO2] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT1_RIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO3] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT1_RIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO4] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT1_RIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO5] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT1_RIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO6] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT1_RIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO7] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT1_RIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO8] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT1_RIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO9] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT1_RIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO10] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT1_RIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO11] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT1_RIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO12] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT1_RIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO13] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT1_RIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO14] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT1_RIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
-/* GPIO_INT_EVENT1_RIS[DIO15] Bits */
-#define GPIO_INT_EVENT1_RIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT1_RIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT1_RIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
-#define GPIO_INT_EVENT1_RIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
+/* GPIO_GEN_EVENT0_RIS Bits */
+/* GPIO_GEN_EVENT0_RIS[DIO0] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_GEN_EVENT0_RIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO1] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_GEN_EVENT0_RIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO2] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_GEN_EVENT0_RIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO3] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_GEN_EVENT0_RIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO4] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_GEN_EVENT0_RIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO5] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_GEN_EVENT0_RIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO6] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_GEN_EVENT0_RIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO7] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_GEN_EVENT0_RIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO8] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_GEN_EVENT0_RIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO9] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_GEN_EVENT0_RIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO10] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_GEN_EVENT0_RIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO11] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_GEN_EVENT0_RIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO12] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_GEN_EVENT0_RIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO13] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_GEN_EVENT0_RIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO14] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_GEN_EVENT0_RIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
+/* GPIO_GEN_EVENT0_RIS[DIO15] Bits */
+#define GPIO_GEN_EVENT0_RIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
+#define GPIO_GEN_EVENT0_RIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_GEN_EVENT0_RIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
+#define GPIO_GEN_EVENT0_RIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
 
-/* GPIO_INT_EVENT1_MIS Bits */
-/* GPIO_INT_EVENT1_MIS[DIO0] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT1_MIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO1] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT1_MIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO2] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT1_MIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO3] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT1_MIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO4] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT1_MIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO5] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT1_MIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO6] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT1_MIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO7] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT1_MIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO8] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT1_MIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO9] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT1_MIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO10] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT1_MIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO11] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT1_MIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO12] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT1_MIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO13] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT1_MIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO14] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT1_MIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
-/* GPIO_INT_EVENT1_MIS[DIO15] Bits */
-#define GPIO_INT_EVENT1_MIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT1_MIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT1_MIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
-#define GPIO_INT_EVENT1_MIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
+/* GPIO_GEN_EVENT0_MIS Bits */
+/* GPIO_GEN_EVENT0_MIS[DIO0] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_GEN_EVENT0_MIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO1] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_GEN_EVENT0_MIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO2] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_GEN_EVENT0_MIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO3] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_GEN_EVENT0_MIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO4] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_GEN_EVENT0_MIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO5] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_GEN_EVENT0_MIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO6] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_GEN_EVENT0_MIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO7] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_GEN_EVENT0_MIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO8] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_GEN_EVENT0_MIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO9] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_GEN_EVENT0_MIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO10] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_GEN_EVENT0_MIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO11] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_GEN_EVENT0_MIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO12] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_GEN_EVENT0_MIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO13] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_GEN_EVENT0_MIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO14] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_GEN_EVENT0_MIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
+/* GPIO_GEN_EVENT0_MIS[DIO15] Bits */
+#define GPIO_GEN_EVENT0_MIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
+#define GPIO_GEN_EVENT0_MIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_GEN_EVENT0_MIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
+#define GPIO_GEN_EVENT0_MIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
 
-/* GPIO_INT_EVENT1_ISET Bits */
-/* GPIO_INT_EVENT1_ISET[DIO0] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO0_OFS            (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT1_ISET_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO0_SET            ((uint32_t)0x00000001U)         /* !< Sets DIO0 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO1] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO1_OFS            (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT1_ISET_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO1_SET            ((uint32_t)0x00000002U)         /* !< Sets DIO1 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO2] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO2_OFS            (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT1_ISET_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO2_SET            ((uint32_t)0x00000004U)         /* !< Sets DIO2 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO3] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO3_OFS            (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT1_ISET_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO3_SET            ((uint32_t)0x00000008U)         /* !< Sets DIO3 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO4] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO4_OFS            (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT1_ISET_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO4_SET            ((uint32_t)0x00000010U)         /* !< Sets DIO4 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO5] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO5_OFS            (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT1_ISET_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO5_SET            ((uint32_t)0x00000020U)         /* !< Sets DIO5 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO6] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO6_OFS            (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT1_ISET_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO6_SET            ((uint32_t)0x00000040U)         /* !< Sets DIO6 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO7] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO7_OFS            (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT1_ISET_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO7_SET            ((uint32_t)0x00000080U)         /* !< Sets DIO7 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO8] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO8_OFS            (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT1_ISET_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO8_SET            ((uint32_t)0x00000100U)         /* !< Sets DIO8 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO9] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO9_OFS            (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT1_ISET_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO9_SET            ((uint32_t)0x00000200U)         /* !< Sets DIO9 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO10] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO10_OFS           (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT1_ISET_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO10_SET           ((uint32_t)0x00000400U)         /* !< Sets DIO10 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO11] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO11_OFS           (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT1_ISET_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO11_SET           ((uint32_t)0x00000800U)         /* !< Sets DIO11 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO12] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO12_OFS           (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT1_ISET_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO12_SET           ((uint32_t)0x00001000U)         /* !< Sets DIO12 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO13] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO13_OFS           (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT1_ISET_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO13_SET           ((uint32_t)0x00002000U)         /* !< Sets DIO13 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO14] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO14_OFS           (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT1_ISET_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO14_SET           ((uint32_t)0x00004000U)         /* !< Sets DIO14 in RIS register */
-/* GPIO_INT_EVENT1_ISET[DIO15] Bits */
-#define GPIO_INT_EVENT1_ISET_DIO15_OFS           (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT1_ISET_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT1_ISET_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ISET_DIO15_SET           ((uint32_t)0x00008000U)         /* !< Sets DIO15 in RIS register */
+/* GPIO_GEN_EVENT0_ISET Bits */
+/* GPIO_GEN_EVENT0_ISET[DIO0] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO0_OFS            (0)                             /* !< DIO0 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_GEN_EVENT0_ISET_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO0_SET            ((uint32_t)0x00000001U)         /* !< Sets DIO0 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO1] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO1_OFS            (1)                             /* !< DIO1 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_GEN_EVENT0_ISET_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO1_SET            ((uint32_t)0x00000002U)         /* !< Sets DIO1 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO2] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO2_OFS            (2)                             /* !< DIO2 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_GEN_EVENT0_ISET_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO2_SET            ((uint32_t)0x00000004U)         /* !< Sets DIO2 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO3] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO3_OFS            (3)                             /* !< DIO3 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_GEN_EVENT0_ISET_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO3_SET            ((uint32_t)0x00000008U)         /* !< Sets DIO3 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO4] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO4_OFS            (4)                             /* !< DIO4 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_GEN_EVENT0_ISET_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO4_SET            ((uint32_t)0x00000010U)         /* !< Sets DIO4 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO5] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO5_OFS            (5)                             /* !< DIO5 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_GEN_EVENT0_ISET_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO5_SET            ((uint32_t)0x00000020U)         /* !< Sets DIO5 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO6] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO6_OFS            (6)                             /* !< DIO6 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_GEN_EVENT0_ISET_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO6_SET            ((uint32_t)0x00000040U)         /* !< Sets DIO6 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO7] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO7_OFS            (7)                             /* !< DIO7 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_GEN_EVENT0_ISET_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO7_SET            ((uint32_t)0x00000080U)         /* !< Sets DIO7 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO8] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO8_OFS            (8)                             /* !< DIO8 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_GEN_EVENT0_ISET_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO8_SET            ((uint32_t)0x00000100U)         /* !< Sets DIO8 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO9] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO9_OFS            (9)                             /* !< DIO9 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_GEN_EVENT0_ISET_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO9_SET            ((uint32_t)0x00000200U)         /* !< Sets DIO9 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO10] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO10_OFS           (10)                            /* !< DIO10 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_GEN_EVENT0_ISET_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO10_SET           ((uint32_t)0x00000400U)         /* !< Sets DIO10 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO11] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO11_OFS           (11)                            /* !< DIO11 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_GEN_EVENT0_ISET_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO11_SET           ((uint32_t)0x00000800U)         /* !< Sets DIO11 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO12] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO12_OFS           (12)                            /* !< DIO12 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_GEN_EVENT0_ISET_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO12_SET           ((uint32_t)0x00001000U)         /* !< Sets DIO12 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO13] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO13_OFS           (13)                            /* !< DIO13 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_GEN_EVENT0_ISET_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO13_SET           ((uint32_t)0x00002000U)         /* !< Sets DIO13 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO14] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO14_OFS           (14)                            /* !< DIO14 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_GEN_EVENT0_ISET_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO14_SET           ((uint32_t)0x00004000U)         /* !< Sets DIO14 in RIS register */
+/* GPIO_GEN_EVENT0_ISET[DIO15] Bits */
+#define GPIO_GEN_EVENT0_ISET_DIO15_OFS           (15)                            /* !< DIO15 Offset */
+#define GPIO_GEN_EVENT0_ISET_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_GEN_EVENT0_ISET_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ISET_DIO15_SET           ((uint32_t)0x00008000U)         /* !< Sets DIO15 in RIS register */
 
-/* GPIO_INT_EVENT1_ICLR Bits */
-/* GPIO_INT_EVENT1_ICLR[DIO0] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO0_OFS            (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT1_ICLR_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO0_CLR            ((uint32_t)0x00000001U)         /* !< Clears DIO0 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO1] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO1_OFS            (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT1_ICLR_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO1_CLR            ((uint32_t)0x00000002U)         /* !< Clears DIO1 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO2] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO2_OFS            (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT1_ICLR_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO2_CLR            ((uint32_t)0x00000004U)         /* !< Clears DIO2 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO3] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO3_OFS            (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT1_ICLR_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO3_CLR            ((uint32_t)0x00000008U)         /* !< Clears DIO3 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO4] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO4_OFS            (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT1_ICLR_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO4_CLR            ((uint32_t)0x00000010U)         /* !< Clears DIO4 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO5] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO5_OFS            (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT1_ICLR_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO5_CLR            ((uint32_t)0x00000020U)         /* !< Clears DIO5 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO6] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO6_OFS            (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT1_ICLR_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO6_CLR            ((uint32_t)0x00000040U)         /* !< Clears DIO6 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO7] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO7_OFS            (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT1_ICLR_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO7_CLR            ((uint32_t)0x00000080U)         /* !< Clears DIO7 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO8] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO8_OFS            (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT1_ICLR_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO8_CLR            ((uint32_t)0x00000100U)         /* !< Clears DIO8 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO9] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO9_OFS            (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT1_ICLR_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO9_CLR            ((uint32_t)0x00000200U)         /* !< Clears DIO9 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO10] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO10_OFS           (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT1_ICLR_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO10_CLR           ((uint32_t)0x00000400U)         /* !< Clears DIO10 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO11] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO11_OFS           (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT1_ICLR_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO11_CLR           ((uint32_t)0x00000800U)         /* !< Clears DIO11 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO12] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO12_OFS           (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT1_ICLR_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO12_CLR           ((uint32_t)0x00001000U)         /* !< Clears DIO12 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO13] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO13_OFS           (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT1_ICLR_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO13_CLR           ((uint32_t)0x00002000U)         /* !< Clears DIO13 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO14] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO14_OFS           (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT1_ICLR_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO14_CLR           ((uint32_t)0x00004000U)         /* !< Clears DIO14 in RIS register */
-/* GPIO_INT_EVENT1_ICLR[DIO15] Bits */
-#define GPIO_INT_EVENT1_ICLR_DIO15_OFS           (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT1_ICLR_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT1_ICLR_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT1_ICLR_DIO15_CLR           ((uint32_t)0x00008000U)         /* !< Clears DIO15 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR Bits */
+/* GPIO_GEN_EVENT0_ICLR[DIO0] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO0_OFS            (0)                             /* !< DIO0 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO0_CLR            ((uint32_t)0x00000001U)         /* !< Clears DIO0 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO1] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO1_OFS            (1)                             /* !< DIO1 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO1_CLR            ((uint32_t)0x00000002U)         /* !< Clears DIO1 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO2] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO2_OFS            (2)                             /* !< DIO2 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO2_CLR            ((uint32_t)0x00000004U)         /* !< Clears DIO2 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO3] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO3_OFS            (3)                             /* !< DIO3 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO3_CLR            ((uint32_t)0x00000008U)         /* !< Clears DIO3 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO4] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO4_OFS            (4)                             /* !< DIO4 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO4_CLR            ((uint32_t)0x00000010U)         /* !< Clears DIO4 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO5] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO5_OFS            (5)                             /* !< DIO5 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO5_CLR            ((uint32_t)0x00000020U)         /* !< Clears DIO5 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO6] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO6_OFS            (6)                             /* !< DIO6 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO6_CLR            ((uint32_t)0x00000040U)         /* !< Clears DIO6 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO7] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO7_OFS            (7)                             /* !< DIO7 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO7_CLR            ((uint32_t)0x00000080U)         /* !< Clears DIO7 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO8] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO8_OFS            (8)                             /* !< DIO8 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO8_CLR            ((uint32_t)0x00000100U)         /* !< Clears DIO8 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO9] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO9_OFS            (9)                             /* !< DIO9 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO9_CLR            ((uint32_t)0x00000200U)         /* !< Clears DIO9 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO10] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO10_OFS           (10)                            /* !< DIO10 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO10_CLR           ((uint32_t)0x00000400U)         /* !< Clears DIO10 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO11] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO11_OFS           (11)                            /* !< DIO11 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO11_CLR           ((uint32_t)0x00000800U)         /* !< Clears DIO11 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO12] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO12_OFS           (12)                            /* !< DIO12 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO12_CLR           ((uint32_t)0x00001000U)         /* !< Clears DIO12 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO13] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO13_OFS           (13)                            /* !< DIO13 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO13_CLR           ((uint32_t)0x00002000U)         /* !< Clears DIO13 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO14] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO14_OFS           (14)                            /* !< DIO14 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO14_CLR           ((uint32_t)0x00004000U)         /* !< Clears DIO14 in RIS register */
+/* GPIO_GEN_EVENT0_ICLR[DIO15] Bits */
+#define GPIO_GEN_EVENT0_ICLR_DIO15_OFS           (15)                            /* !< DIO15 Offset */
+#define GPIO_GEN_EVENT0_ICLR_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_GEN_EVENT0_ICLR_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_GEN_EVENT0_ICLR_DIO15_CLR           ((uint32_t)0x00008000U)         /* !< Clears DIO15 in RIS register */
 
-/* GPIO_INT_EVENT0_IIDX Bits */
-/* GPIO_INT_EVENT0_IIDX[STAT] Bits */
-#define GPIO_INT_EVENT0_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define GPIO_INT_EVENT0_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define GPIO_INT_EVENT0_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* GPIO_CPU_INT_IIDX Bits */
+/* GPIO_CPU_INT_IIDX[STAT] Bits */
+#define GPIO_CPU_INT_IIDX_STAT_OFS               (0)                             /* !< STAT Offset */
+#define GPIO_CPU_INT_IIDX_STAT_MASK              ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPIO_CPU_INT_IIDX_STAT_NO_INTR           ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO0           ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO1           ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO2           ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO3           ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO4           ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO5           ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO6           ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO7           ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO8           ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO9           ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO10          ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO11          ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO12          ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO13          ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO14          ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO15          ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO16          ((uint32_t)0x00000011U)         /* !< DIO16 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO17          ((uint32_t)0x00000012U)         /* !< DIO17 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO18          ((uint32_t)0x00000013U)         /* !< DIO18 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO19          ((uint32_t)0x00000014U)         /* !< DIO19 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO20          ((uint32_t)0x00000015U)         /* !< DIO20 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO21          ((uint32_t)0x00000016U)         /* !< DIO21 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO22          ((uint32_t)0x00000017U)         /* !< DIO22 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO23          ((uint32_t)0x00000018U)         /* !< DIO23 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO24          ((uint32_t)0x00000019U)         /* !< DIO24 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO25          ((uint32_t)0x0000001AU)         /* !< DIO25 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO26          ((uint32_t)0x0000001BU)         /* !< DIO26 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO27          ((uint32_t)0x0000001CU)         /* !< DIO27 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO28          ((uint32_t)0x0000001DU)         /* !< DIO28 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO29          ((uint32_t)0x0000001EU)         /* !< DIO29 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO30          ((uint32_t)0x0000001FU)         /* !< DIO30 interrupt */
-#define GPIO_INT_EVENT0_IIDX_STAT_DIO31          ((uint32_t)0x00000020U)         /* !< DIO31 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO0              ((uint32_t)0x00000001U)         /* !< DIO0 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO1              ((uint32_t)0x00000002U)         /* !< DIO1 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO2              ((uint32_t)0x00000003U)         /* !< DIO2 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO3              ((uint32_t)0x00000004U)         /* !< DIO3 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO4              ((uint32_t)0x00000005U)         /* !< DIO4 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO5              ((uint32_t)0x00000006U)         /* !< DIO5 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO6              ((uint32_t)0x00000007U)         /* !< DIO6 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO7              ((uint32_t)0x00000008U)         /* !< DIO7 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO8              ((uint32_t)0x00000009U)         /* !< DIO8 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO9              ((uint32_t)0x0000000AU)         /* !< DIO9 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO10             ((uint32_t)0x0000000BU)         /* !< DIO10 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO11             ((uint32_t)0x0000000CU)         /* !< DIO11 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO12             ((uint32_t)0x0000000DU)         /* !< DIO12 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO13             ((uint32_t)0x0000000EU)         /* !< DIO13 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO14             ((uint32_t)0x0000000FU)         /* !< DIO14 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO15             ((uint32_t)0x00000010U)         /* !< DIO15 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO16             ((uint32_t)0x00000011U)         /* !< DIO16 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO17             ((uint32_t)0x00000012U)         /* !< DIO17 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO18             ((uint32_t)0x00000013U)         /* !< DIO18 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO19             ((uint32_t)0x00000014U)         /* !< DIO19 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO20             ((uint32_t)0x00000015U)         /* !< DIO20 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO21             ((uint32_t)0x00000016U)         /* !< DIO21 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO22             ((uint32_t)0x00000017U)         /* !< DIO22 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO23             ((uint32_t)0x00000018U)         /* !< DIO23 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO24             ((uint32_t)0x00000019U)         /* !< DIO24 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO25             ((uint32_t)0x0000001AU)         /* !< DIO25 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO26             ((uint32_t)0x0000001BU)         /* !< DIO26 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO27             ((uint32_t)0x0000001CU)         /* !< DIO27 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO28             ((uint32_t)0x0000001DU)         /* !< DIO28 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO29             ((uint32_t)0x0000001EU)         /* !< DIO29 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO30             ((uint32_t)0x0000001FU)         /* !< DIO30 interrupt */
+#define GPIO_CPU_INT_IIDX_STAT_DIO31             ((uint32_t)0x00000020U)         /* !< DIO31 interrupt */
 
-/* GPIO_INT_EVENT0_IMASK Bits */
-/* GPIO_INT_EVENT0_IMASK[DIO0] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO0_OFS           (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO0_MASK          ((uint32_t)0x00000001U)         /* !< DIO0 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO0_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO0_SET           ((uint32_t)0x00000001U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO1] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO1_OFS           (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO1_MASK          ((uint32_t)0x00000002U)         /* !< DIO1 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO1_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO1_SET           ((uint32_t)0x00000002U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO2] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO2_OFS           (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO2_MASK          ((uint32_t)0x00000004U)         /* !< DIO2 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO2_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO2_SET           ((uint32_t)0x00000004U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO3] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO3_OFS           (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO3_MASK          ((uint32_t)0x00000008U)         /* !< DIO3 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO3_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO3_SET           ((uint32_t)0x00000008U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO4] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO4_OFS           (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO4_MASK          ((uint32_t)0x00000010U)         /* !< DIO4 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO4_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO4_SET           ((uint32_t)0x00000010U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO5] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO5_OFS           (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO5_MASK          ((uint32_t)0x00000020U)         /* !< DIO5 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO5_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO5_SET           ((uint32_t)0x00000020U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO6] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO6_OFS           (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO6_MASK          ((uint32_t)0x00000040U)         /* !< DIO6 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO6_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO6_SET           ((uint32_t)0x00000040U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO7] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO7_OFS           (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO7_MASK          ((uint32_t)0x00000080U)         /* !< DIO7 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO7_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO7_SET           ((uint32_t)0x00000080U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO8] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO8_OFS           (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO8_MASK          ((uint32_t)0x00000100U)         /* !< DIO8 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO8_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO8_SET           ((uint32_t)0x00000100U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO9] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO9_OFS           (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO9_MASK          ((uint32_t)0x00000200U)         /* !< DIO9 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO9_CLR           ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO9_SET           ((uint32_t)0x00000200U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO10] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO10_OFS          (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO10_MASK         ((uint32_t)0x00000400U)         /* !< DIO10 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO10_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO10_SET          ((uint32_t)0x00000400U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO11] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO11_OFS          (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO11_MASK         ((uint32_t)0x00000800U)         /* !< DIO11 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO11_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO11_SET          ((uint32_t)0x00000800U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO12] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO12_OFS          (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO12_MASK         ((uint32_t)0x00001000U)         /* !< DIO12 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO12_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO12_SET          ((uint32_t)0x00001000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO13] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO13_OFS          (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO13_MASK         ((uint32_t)0x00002000U)         /* !< DIO13 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO13_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO13_SET          ((uint32_t)0x00002000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO14] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO14_OFS          (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO14_MASK         ((uint32_t)0x00004000U)         /* !< DIO14 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO14_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO14_SET          ((uint32_t)0x00004000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO15] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO15_OFS          (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO15_MASK         ((uint32_t)0x00008000U)         /* !< DIO15 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO15_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO15_SET          ((uint32_t)0x00008000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO16] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO16_OFS          (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO16_MASK         ((uint32_t)0x00010000U)         /* !< DIO16 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO16_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO16_SET          ((uint32_t)0x00010000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO17] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO17_OFS          (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO17_MASK         ((uint32_t)0x00020000U)         /* !< DIO17 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO17_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO17_SET          ((uint32_t)0x00020000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO18] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO18_OFS          (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO18_MASK         ((uint32_t)0x00040000U)         /* !< DIO18 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO18_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO18_SET          ((uint32_t)0x00040000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO19] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO19_OFS          (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO19_MASK         ((uint32_t)0x00080000U)         /* !< DIO19 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO19_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO19_SET          ((uint32_t)0x00080000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO20] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO20_OFS          (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO20_MASK         ((uint32_t)0x00100000U)         /* !< DIO20 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO20_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO20_SET          ((uint32_t)0x00100000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO21] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO21_OFS          (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO21_MASK         ((uint32_t)0x00200000U)         /* !< DIO21 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO21_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO21_SET          ((uint32_t)0x00200000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO22] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO22_OFS          (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO22_MASK         ((uint32_t)0x00400000U)         /* !< DIO22 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO22_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO22_SET          ((uint32_t)0x00400000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO23] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO23_OFS          (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO23_MASK         ((uint32_t)0x00800000U)         /* !< DIO23 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO23_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO23_SET          ((uint32_t)0x00800000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO24] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO24_OFS          (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO24_MASK         ((uint32_t)0x01000000U)         /* !< DIO24 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO24_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO24_SET          ((uint32_t)0x01000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO25] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO25_OFS          (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO25_MASK         ((uint32_t)0x02000000U)         /* !< DIO25 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO25_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO25_SET          ((uint32_t)0x02000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO26] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO26_OFS          (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO26_MASK         ((uint32_t)0x04000000U)         /* !< DIO26 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO26_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO26_SET          ((uint32_t)0x04000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO27] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO27_OFS          (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO27_MASK         ((uint32_t)0x08000000U)         /* !< DIO27 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO27_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO27_SET          ((uint32_t)0x08000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO28] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO28_OFS          (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO28_MASK         ((uint32_t)0x10000000U)         /* !< DIO28 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO28_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO28_SET          ((uint32_t)0x10000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO29] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO29_OFS          (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO29_MASK         ((uint32_t)0x20000000U)         /* !< DIO29 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO29_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO29_SET          ((uint32_t)0x20000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO30] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO30_OFS          (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO30_MASK         ((uint32_t)0x40000000U)         /* !< DIO30 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO30_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO30_SET          ((uint32_t)0x40000000U)         /* !< Event is unmasked */
-/* GPIO_INT_EVENT0_IMASK[DIO31] Bits */
-#define GPIO_INT_EVENT0_IMASK_DIO31_OFS          (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT0_IMASK_DIO31_MASK         ((uint32_t)0x80000000U)         /* !< DIO31 event mask */
-#define GPIO_INT_EVENT0_IMASK_DIO31_CLR          ((uint32_t)0x00000000U)         /* !< Event is masked */
-#define GPIO_INT_EVENT0_IMASK_DIO31_SET          ((uint32_t)0x80000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK Bits */
+/* GPIO_CPU_INT_IMASK[DIO0] Bits */
+#define GPIO_CPU_INT_IMASK_DIO0_OFS              (0)                             /* !< DIO0 Offset */
+#define GPIO_CPU_INT_IMASK_DIO0_MASK             ((uint32_t)0x00000001U)         /* !< DIO0 event mask */
+#define GPIO_CPU_INT_IMASK_DIO0_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO0_SET              ((uint32_t)0x00000001U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO1] Bits */
+#define GPIO_CPU_INT_IMASK_DIO1_OFS              (1)                             /* !< DIO1 Offset */
+#define GPIO_CPU_INT_IMASK_DIO1_MASK             ((uint32_t)0x00000002U)         /* !< DIO1 event mask */
+#define GPIO_CPU_INT_IMASK_DIO1_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO1_SET              ((uint32_t)0x00000002U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO2] Bits */
+#define GPIO_CPU_INT_IMASK_DIO2_OFS              (2)                             /* !< DIO2 Offset */
+#define GPIO_CPU_INT_IMASK_DIO2_MASK             ((uint32_t)0x00000004U)         /* !< DIO2 event mask */
+#define GPIO_CPU_INT_IMASK_DIO2_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO2_SET              ((uint32_t)0x00000004U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO3] Bits */
+#define GPIO_CPU_INT_IMASK_DIO3_OFS              (3)                             /* !< DIO3 Offset */
+#define GPIO_CPU_INT_IMASK_DIO3_MASK             ((uint32_t)0x00000008U)         /* !< DIO3 event mask */
+#define GPIO_CPU_INT_IMASK_DIO3_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO3_SET              ((uint32_t)0x00000008U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO4] Bits */
+#define GPIO_CPU_INT_IMASK_DIO4_OFS              (4)                             /* !< DIO4 Offset */
+#define GPIO_CPU_INT_IMASK_DIO4_MASK             ((uint32_t)0x00000010U)         /* !< DIO4 event mask */
+#define GPIO_CPU_INT_IMASK_DIO4_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO4_SET              ((uint32_t)0x00000010U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO5] Bits */
+#define GPIO_CPU_INT_IMASK_DIO5_OFS              (5)                             /* !< DIO5 Offset */
+#define GPIO_CPU_INT_IMASK_DIO5_MASK             ((uint32_t)0x00000020U)         /* !< DIO5 event mask */
+#define GPIO_CPU_INT_IMASK_DIO5_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO5_SET              ((uint32_t)0x00000020U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO6] Bits */
+#define GPIO_CPU_INT_IMASK_DIO6_OFS              (6)                             /* !< DIO6 Offset */
+#define GPIO_CPU_INT_IMASK_DIO6_MASK             ((uint32_t)0x00000040U)         /* !< DIO6 event mask */
+#define GPIO_CPU_INT_IMASK_DIO6_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO6_SET              ((uint32_t)0x00000040U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO7] Bits */
+#define GPIO_CPU_INT_IMASK_DIO7_OFS              (7)                             /* !< DIO7 Offset */
+#define GPIO_CPU_INT_IMASK_DIO7_MASK             ((uint32_t)0x00000080U)         /* !< DIO7 event mask */
+#define GPIO_CPU_INT_IMASK_DIO7_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO7_SET              ((uint32_t)0x00000080U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO8] Bits */
+#define GPIO_CPU_INT_IMASK_DIO8_OFS              (8)                             /* !< DIO8 Offset */
+#define GPIO_CPU_INT_IMASK_DIO8_MASK             ((uint32_t)0x00000100U)         /* !< DIO8 event mask */
+#define GPIO_CPU_INT_IMASK_DIO8_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO8_SET              ((uint32_t)0x00000100U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO9] Bits */
+#define GPIO_CPU_INT_IMASK_DIO9_OFS              (9)                             /* !< DIO9 Offset */
+#define GPIO_CPU_INT_IMASK_DIO9_MASK             ((uint32_t)0x00000200U)         /* !< DIO9 event mask */
+#define GPIO_CPU_INT_IMASK_DIO9_CLR              ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO9_SET              ((uint32_t)0x00000200U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO10] Bits */
+#define GPIO_CPU_INT_IMASK_DIO10_OFS             (10)                            /* !< DIO10 Offset */
+#define GPIO_CPU_INT_IMASK_DIO10_MASK            ((uint32_t)0x00000400U)         /* !< DIO10 event mask */
+#define GPIO_CPU_INT_IMASK_DIO10_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO10_SET             ((uint32_t)0x00000400U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO11] Bits */
+#define GPIO_CPU_INT_IMASK_DIO11_OFS             (11)                            /* !< DIO11 Offset */
+#define GPIO_CPU_INT_IMASK_DIO11_MASK            ((uint32_t)0x00000800U)         /* !< DIO11 event mask */
+#define GPIO_CPU_INT_IMASK_DIO11_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO11_SET             ((uint32_t)0x00000800U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO12] Bits */
+#define GPIO_CPU_INT_IMASK_DIO12_OFS             (12)                            /* !< DIO12 Offset */
+#define GPIO_CPU_INT_IMASK_DIO12_MASK            ((uint32_t)0x00001000U)         /* !< DIO12 event mask */
+#define GPIO_CPU_INT_IMASK_DIO12_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO12_SET             ((uint32_t)0x00001000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO13] Bits */
+#define GPIO_CPU_INT_IMASK_DIO13_OFS             (13)                            /* !< DIO13 Offset */
+#define GPIO_CPU_INT_IMASK_DIO13_MASK            ((uint32_t)0x00002000U)         /* !< DIO13 event mask */
+#define GPIO_CPU_INT_IMASK_DIO13_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO13_SET             ((uint32_t)0x00002000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO14] Bits */
+#define GPIO_CPU_INT_IMASK_DIO14_OFS             (14)                            /* !< DIO14 Offset */
+#define GPIO_CPU_INT_IMASK_DIO14_MASK            ((uint32_t)0x00004000U)         /* !< DIO14 event mask */
+#define GPIO_CPU_INT_IMASK_DIO14_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO14_SET             ((uint32_t)0x00004000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO15] Bits */
+#define GPIO_CPU_INT_IMASK_DIO15_OFS             (15)                            /* !< DIO15 Offset */
+#define GPIO_CPU_INT_IMASK_DIO15_MASK            ((uint32_t)0x00008000U)         /* !< DIO15 event mask */
+#define GPIO_CPU_INT_IMASK_DIO15_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO15_SET             ((uint32_t)0x00008000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO16] Bits */
+#define GPIO_CPU_INT_IMASK_DIO16_OFS             (16)                            /* !< DIO16 Offset */
+#define GPIO_CPU_INT_IMASK_DIO16_MASK            ((uint32_t)0x00010000U)         /* !< DIO16 event mask */
+#define GPIO_CPU_INT_IMASK_DIO16_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO16_SET             ((uint32_t)0x00010000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO17] Bits */
+#define GPIO_CPU_INT_IMASK_DIO17_OFS             (17)                            /* !< DIO17 Offset */
+#define GPIO_CPU_INT_IMASK_DIO17_MASK            ((uint32_t)0x00020000U)         /* !< DIO17 event mask */
+#define GPIO_CPU_INT_IMASK_DIO17_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO17_SET             ((uint32_t)0x00020000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO18] Bits */
+#define GPIO_CPU_INT_IMASK_DIO18_OFS             (18)                            /* !< DIO18 Offset */
+#define GPIO_CPU_INT_IMASK_DIO18_MASK            ((uint32_t)0x00040000U)         /* !< DIO18 event mask */
+#define GPIO_CPU_INT_IMASK_DIO18_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO18_SET             ((uint32_t)0x00040000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO19] Bits */
+#define GPIO_CPU_INT_IMASK_DIO19_OFS             (19)                            /* !< DIO19 Offset */
+#define GPIO_CPU_INT_IMASK_DIO19_MASK            ((uint32_t)0x00080000U)         /* !< DIO19 event mask */
+#define GPIO_CPU_INT_IMASK_DIO19_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO19_SET             ((uint32_t)0x00080000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO20] Bits */
+#define GPIO_CPU_INT_IMASK_DIO20_OFS             (20)                            /* !< DIO20 Offset */
+#define GPIO_CPU_INT_IMASK_DIO20_MASK            ((uint32_t)0x00100000U)         /* !< DIO20 event mask */
+#define GPIO_CPU_INT_IMASK_DIO20_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO20_SET             ((uint32_t)0x00100000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO21] Bits */
+#define GPIO_CPU_INT_IMASK_DIO21_OFS             (21)                            /* !< DIO21 Offset */
+#define GPIO_CPU_INT_IMASK_DIO21_MASK            ((uint32_t)0x00200000U)         /* !< DIO21 event mask */
+#define GPIO_CPU_INT_IMASK_DIO21_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO21_SET             ((uint32_t)0x00200000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO22] Bits */
+#define GPIO_CPU_INT_IMASK_DIO22_OFS             (22)                            /* !< DIO22 Offset */
+#define GPIO_CPU_INT_IMASK_DIO22_MASK            ((uint32_t)0x00400000U)         /* !< DIO22 event mask */
+#define GPIO_CPU_INT_IMASK_DIO22_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO22_SET             ((uint32_t)0x00400000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO23] Bits */
+#define GPIO_CPU_INT_IMASK_DIO23_OFS             (23)                            /* !< DIO23 Offset */
+#define GPIO_CPU_INT_IMASK_DIO23_MASK            ((uint32_t)0x00800000U)         /* !< DIO23 event mask */
+#define GPIO_CPU_INT_IMASK_DIO23_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO23_SET             ((uint32_t)0x00800000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO24] Bits */
+#define GPIO_CPU_INT_IMASK_DIO24_OFS             (24)                            /* !< DIO24 Offset */
+#define GPIO_CPU_INT_IMASK_DIO24_MASK            ((uint32_t)0x01000000U)         /* !< DIO24 event mask */
+#define GPIO_CPU_INT_IMASK_DIO24_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO24_SET             ((uint32_t)0x01000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO25] Bits */
+#define GPIO_CPU_INT_IMASK_DIO25_OFS             (25)                            /* !< DIO25 Offset */
+#define GPIO_CPU_INT_IMASK_DIO25_MASK            ((uint32_t)0x02000000U)         /* !< DIO25 event mask */
+#define GPIO_CPU_INT_IMASK_DIO25_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO25_SET             ((uint32_t)0x02000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO26] Bits */
+#define GPIO_CPU_INT_IMASK_DIO26_OFS             (26)                            /* !< DIO26 Offset */
+#define GPIO_CPU_INT_IMASK_DIO26_MASK            ((uint32_t)0x04000000U)         /* !< DIO26 event mask */
+#define GPIO_CPU_INT_IMASK_DIO26_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO26_SET             ((uint32_t)0x04000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO27] Bits */
+#define GPIO_CPU_INT_IMASK_DIO27_OFS             (27)                            /* !< DIO27 Offset */
+#define GPIO_CPU_INT_IMASK_DIO27_MASK            ((uint32_t)0x08000000U)         /* !< DIO27 event mask */
+#define GPIO_CPU_INT_IMASK_DIO27_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO27_SET             ((uint32_t)0x08000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO28] Bits */
+#define GPIO_CPU_INT_IMASK_DIO28_OFS             (28)                            /* !< DIO28 Offset */
+#define GPIO_CPU_INT_IMASK_DIO28_MASK            ((uint32_t)0x10000000U)         /* !< DIO28 event mask */
+#define GPIO_CPU_INT_IMASK_DIO28_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO28_SET             ((uint32_t)0x10000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO29] Bits */
+#define GPIO_CPU_INT_IMASK_DIO29_OFS             (29)                            /* !< DIO29 Offset */
+#define GPIO_CPU_INT_IMASK_DIO29_MASK            ((uint32_t)0x20000000U)         /* !< DIO29 event mask */
+#define GPIO_CPU_INT_IMASK_DIO29_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO29_SET             ((uint32_t)0x20000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO30] Bits */
+#define GPIO_CPU_INT_IMASK_DIO30_OFS             (30)                            /* !< DIO30 Offset */
+#define GPIO_CPU_INT_IMASK_DIO30_MASK            ((uint32_t)0x40000000U)         /* !< DIO30 event mask */
+#define GPIO_CPU_INT_IMASK_DIO30_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO30_SET             ((uint32_t)0x40000000U)         /* !< Event is unmasked */
+/* GPIO_CPU_INT_IMASK[DIO31] Bits */
+#define GPIO_CPU_INT_IMASK_DIO31_OFS             (31)                            /* !< DIO31 Offset */
+#define GPIO_CPU_INT_IMASK_DIO31_MASK            ((uint32_t)0x80000000U)         /* !< DIO31 event mask */
+#define GPIO_CPU_INT_IMASK_DIO31_CLR             ((uint32_t)0x00000000U)         /* !< Event is masked */
+#define GPIO_CPU_INT_IMASK_DIO31_SET             ((uint32_t)0x80000000U)         /* !< Event is unmasked */
 
-/* GPIO_INT_EVENT0_RIS Bits */
-/* GPIO_INT_EVENT0_RIS[DIO0] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT0_RIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO1] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT0_RIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO2] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT0_RIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO3] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT0_RIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO4] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT0_RIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO5] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT0_RIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO6] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT0_RIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO7] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT0_RIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO8] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT0_RIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO9] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT0_RIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO10] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT0_RIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO11] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT0_RIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO12] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT0_RIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO13] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT0_RIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO14] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT0_RIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO15] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT0_RIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO16] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT0_RIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO17] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT0_RIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO18] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT0_RIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO19] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT0_RIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO20] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT0_RIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO21] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT0_RIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO22] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT0_RIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO23] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT0_RIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO24] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT0_RIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO25] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT0_RIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO26] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT0_RIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO27] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT0_RIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO28] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT0_RIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO29] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT0_RIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO30] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT0_RIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
-/* GPIO_INT_EVENT0_RIS[DIO31] Bits */
-#define GPIO_INT_EVENT0_RIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT0_RIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT0_RIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
-#define GPIO_INT_EVENT0_RIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
+/* GPIO_CPU_INT_RIS Bits */
+/* GPIO_CPU_INT_RIS[DIO0] Bits */
+#define GPIO_CPU_INT_RIS_DIO0_OFS                (0)                             /* !< DIO0 Offset */
+#define GPIO_CPU_INT_RIS_DIO0_MASK               ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_CPU_INT_RIS_DIO0_CLR                ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO0_SET                ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
+/* GPIO_CPU_INT_RIS[DIO1] Bits */
+#define GPIO_CPU_INT_RIS_DIO1_OFS                (1)                             /* !< DIO1 Offset */
+#define GPIO_CPU_INT_RIS_DIO1_MASK               ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_CPU_INT_RIS_DIO1_CLR                ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO1_SET                ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
+/* GPIO_CPU_INT_RIS[DIO2] Bits */
+#define GPIO_CPU_INT_RIS_DIO2_OFS                (2)                             /* !< DIO2 Offset */
+#define GPIO_CPU_INT_RIS_DIO2_MASK               ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_CPU_INT_RIS_DIO2_CLR                ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO2_SET                ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
+/* GPIO_CPU_INT_RIS[DIO3] Bits */
+#define GPIO_CPU_INT_RIS_DIO3_OFS                (3)                             /* !< DIO3 Offset */
+#define GPIO_CPU_INT_RIS_DIO3_MASK               ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_CPU_INT_RIS_DIO3_CLR                ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO3_SET                ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
+/* GPIO_CPU_INT_RIS[DIO4] Bits */
+#define GPIO_CPU_INT_RIS_DIO4_OFS                (4)                             /* !< DIO4 Offset */
+#define GPIO_CPU_INT_RIS_DIO4_MASK               ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_CPU_INT_RIS_DIO4_CLR                ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO4_SET                ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
+/* GPIO_CPU_INT_RIS[DIO5] Bits */
+#define GPIO_CPU_INT_RIS_DIO5_OFS                (5)                             /* !< DIO5 Offset */
+#define GPIO_CPU_INT_RIS_DIO5_MASK               ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_CPU_INT_RIS_DIO5_CLR                ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO5_SET                ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
+/* GPIO_CPU_INT_RIS[DIO6] Bits */
+#define GPIO_CPU_INT_RIS_DIO6_OFS                (6)                             /* !< DIO6 Offset */
+#define GPIO_CPU_INT_RIS_DIO6_MASK               ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_CPU_INT_RIS_DIO6_CLR                ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO6_SET                ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
+/* GPIO_CPU_INT_RIS[DIO7] Bits */
+#define GPIO_CPU_INT_RIS_DIO7_OFS                (7)                             /* !< DIO7 Offset */
+#define GPIO_CPU_INT_RIS_DIO7_MASK               ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_CPU_INT_RIS_DIO7_CLR                ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO7_SET                ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
+/* GPIO_CPU_INT_RIS[DIO8] Bits */
+#define GPIO_CPU_INT_RIS_DIO8_OFS                (8)                             /* !< DIO8 Offset */
+#define GPIO_CPU_INT_RIS_DIO8_MASK               ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_CPU_INT_RIS_DIO8_CLR                ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO8_SET                ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
+/* GPIO_CPU_INT_RIS[DIO9] Bits */
+#define GPIO_CPU_INT_RIS_DIO9_OFS                (9)                             /* !< DIO9 Offset */
+#define GPIO_CPU_INT_RIS_DIO9_MASK               ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_CPU_INT_RIS_DIO9_CLR                ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO9_SET                ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
+/* GPIO_CPU_INT_RIS[DIO10] Bits */
+#define GPIO_CPU_INT_RIS_DIO10_OFS               (10)                            /* !< DIO10 Offset */
+#define GPIO_CPU_INT_RIS_DIO10_MASK              ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_CPU_INT_RIS_DIO10_CLR               ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO10_SET               ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
+/* GPIO_CPU_INT_RIS[DIO11] Bits */
+#define GPIO_CPU_INT_RIS_DIO11_OFS               (11)                            /* !< DIO11 Offset */
+#define GPIO_CPU_INT_RIS_DIO11_MASK              ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_CPU_INT_RIS_DIO11_CLR               ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO11_SET               ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
+/* GPIO_CPU_INT_RIS[DIO12] Bits */
+#define GPIO_CPU_INT_RIS_DIO12_OFS               (12)                            /* !< DIO12 Offset */
+#define GPIO_CPU_INT_RIS_DIO12_MASK              ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_CPU_INT_RIS_DIO12_CLR               ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO12_SET               ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
+/* GPIO_CPU_INT_RIS[DIO13] Bits */
+#define GPIO_CPU_INT_RIS_DIO13_OFS               (13)                            /* !< DIO13 Offset */
+#define GPIO_CPU_INT_RIS_DIO13_MASK              ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_CPU_INT_RIS_DIO13_CLR               ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO13_SET               ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
+/* GPIO_CPU_INT_RIS[DIO14] Bits */
+#define GPIO_CPU_INT_RIS_DIO14_OFS               (14)                            /* !< DIO14 Offset */
+#define GPIO_CPU_INT_RIS_DIO14_MASK              ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_CPU_INT_RIS_DIO14_CLR               ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO14_SET               ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
+/* GPIO_CPU_INT_RIS[DIO15] Bits */
+#define GPIO_CPU_INT_RIS_DIO15_OFS               (15)                            /* !< DIO15 Offset */
+#define GPIO_CPU_INT_RIS_DIO15_MASK              ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_CPU_INT_RIS_DIO15_CLR               ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO15_SET               ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
+/* GPIO_CPU_INT_RIS[DIO16] Bits */
+#define GPIO_CPU_INT_RIS_DIO16_OFS               (16)                            /* !< DIO16 Offset */
+#define GPIO_CPU_INT_RIS_DIO16_MASK              ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_CPU_INT_RIS_DIO16_CLR               ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO16_SET               ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
+/* GPIO_CPU_INT_RIS[DIO17] Bits */
+#define GPIO_CPU_INT_RIS_DIO17_OFS               (17)                            /* !< DIO17 Offset */
+#define GPIO_CPU_INT_RIS_DIO17_MASK              ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_CPU_INT_RIS_DIO17_CLR               ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO17_SET               ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
+/* GPIO_CPU_INT_RIS[DIO18] Bits */
+#define GPIO_CPU_INT_RIS_DIO18_OFS               (18)                            /* !< DIO18 Offset */
+#define GPIO_CPU_INT_RIS_DIO18_MASK              ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_CPU_INT_RIS_DIO18_CLR               ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO18_SET               ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
+/* GPIO_CPU_INT_RIS[DIO19] Bits */
+#define GPIO_CPU_INT_RIS_DIO19_OFS               (19)                            /* !< DIO19 Offset */
+#define GPIO_CPU_INT_RIS_DIO19_MASK              ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_CPU_INT_RIS_DIO19_CLR               ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO19_SET               ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
+/* GPIO_CPU_INT_RIS[DIO20] Bits */
+#define GPIO_CPU_INT_RIS_DIO20_OFS               (20)                            /* !< DIO20 Offset */
+#define GPIO_CPU_INT_RIS_DIO20_MASK              ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_CPU_INT_RIS_DIO20_CLR               ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO20_SET               ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
+/* GPIO_CPU_INT_RIS[DIO21] Bits */
+#define GPIO_CPU_INT_RIS_DIO21_OFS               (21)                            /* !< DIO21 Offset */
+#define GPIO_CPU_INT_RIS_DIO21_MASK              ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_CPU_INT_RIS_DIO21_CLR               ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO21_SET               ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
+/* GPIO_CPU_INT_RIS[DIO22] Bits */
+#define GPIO_CPU_INT_RIS_DIO22_OFS               (22)                            /* !< DIO22 Offset */
+#define GPIO_CPU_INT_RIS_DIO22_MASK              ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_CPU_INT_RIS_DIO22_CLR               ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO22_SET               ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
+/* GPIO_CPU_INT_RIS[DIO23] Bits */
+#define GPIO_CPU_INT_RIS_DIO23_OFS               (23)                            /* !< DIO23 Offset */
+#define GPIO_CPU_INT_RIS_DIO23_MASK              ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_CPU_INT_RIS_DIO23_CLR               ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO23_SET               ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
+/* GPIO_CPU_INT_RIS[DIO24] Bits */
+#define GPIO_CPU_INT_RIS_DIO24_OFS               (24)                            /* !< DIO24 Offset */
+#define GPIO_CPU_INT_RIS_DIO24_MASK              ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_CPU_INT_RIS_DIO24_CLR               ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO24_SET               ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
+/* GPIO_CPU_INT_RIS[DIO25] Bits */
+#define GPIO_CPU_INT_RIS_DIO25_OFS               (25)                            /* !< DIO25 Offset */
+#define GPIO_CPU_INT_RIS_DIO25_MASK              ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_CPU_INT_RIS_DIO25_CLR               ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO25_SET               ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
+/* GPIO_CPU_INT_RIS[DIO26] Bits */
+#define GPIO_CPU_INT_RIS_DIO26_OFS               (26)                            /* !< DIO26 Offset */
+#define GPIO_CPU_INT_RIS_DIO26_MASK              ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_CPU_INT_RIS_DIO26_CLR               ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO26_SET               ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
+/* GPIO_CPU_INT_RIS[DIO27] Bits */
+#define GPIO_CPU_INT_RIS_DIO27_OFS               (27)                            /* !< DIO27 Offset */
+#define GPIO_CPU_INT_RIS_DIO27_MASK              ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_CPU_INT_RIS_DIO27_CLR               ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO27_SET               ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
+/* GPIO_CPU_INT_RIS[DIO28] Bits */
+#define GPIO_CPU_INT_RIS_DIO28_OFS               (28)                            /* !< DIO28 Offset */
+#define GPIO_CPU_INT_RIS_DIO28_MASK              ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_CPU_INT_RIS_DIO28_CLR               ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO28_SET               ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
+/* GPIO_CPU_INT_RIS[DIO29] Bits */
+#define GPIO_CPU_INT_RIS_DIO29_OFS               (29)                            /* !< DIO29 Offset */
+#define GPIO_CPU_INT_RIS_DIO29_MASK              ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_CPU_INT_RIS_DIO29_CLR               ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO29_SET               ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
+/* GPIO_CPU_INT_RIS[DIO30] Bits */
+#define GPIO_CPU_INT_RIS_DIO30_OFS               (30)                            /* !< DIO30 Offset */
+#define GPIO_CPU_INT_RIS_DIO30_MASK              ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_CPU_INT_RIS_DIO30_CLR               ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO30_SET               ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
+/* GPIO_CPU_INT_RIS[DIO31] Bits */
+#define GPIO_CPU_INT_RIS_DIO31_OFS               (31)                            /* !< DIO31 Offset */
+#define GPIO_CPU_INT_RIS_DIO31_MASK              ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_CPU_INT_RIS_DIO31_CLR               ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
+#define GPIO_CPU_INT_RIS_DIO31_SET               ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
 
-/* GPIO_INT_EVENT0_MIS Bits */
-/* GPIO_INT_EVENT0_MIS[DIO0] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO0_OFS             (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO0_MASK            ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT0_MIS_DIO0_CLR             ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO0_SET             ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO1] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO1_OFS             (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO1_MASK            ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT0_MIS_DIO1_CLR             ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO1_SET             ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO2] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO2_OFS             (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO2_MASK            ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT0_MIS_DIO2_CLR             ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO2_SET             ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO3] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO3_OFS             (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO3_MASK            ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT0_MIS_DIO3_CLR             ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO3_SET             ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO4] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO4_OFS             (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO4_MASK            ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT0_MIS_DIO4_CLR             ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO4_SET             ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO5] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO5_OFS             (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO5_MASK            ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT0_MIS_DIO5_CLR             ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO5_SET             ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO6] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO6_OFS             (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO6_MASK            ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT0_MIS_DIO6_CLR             ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO6_SET             ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO7] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO7_OFS             (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO7_MASK            ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT0_MIS_DIO7_CLR             ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO7_SET             ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO8] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO8_OFS             (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO8_MASK            ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT0_MIS_DIO8_CLR             ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO8_SET             ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO9] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO9_OFS             (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO9_MASK            ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT0_MIS_DIO9_CLR             ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO9_SET             ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO10] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO10_OFS            (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO10_MASK           ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT0_MIS_DIO10_CLR            ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO10_SET            ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO11] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO11_OFS            (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO11_MASK           ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT0_MIS_DIO11_CLR            ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO11_SET            ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO12] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO12_OFS            (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO12_MASK           ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT0_MIS_DIO12_CLR            ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO12_SET            ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO13] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO13_OFS            (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO13_MASK           ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT0_MIS_DIO13_CLR            ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO13_SET            ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO14] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO14_OFS            (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO14_MASK           ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT0_MIS_DIO14_CLR            ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO14_SET            ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO15] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO15_OFS            (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO15_MASK           ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT0_MIS_DIO15_CLR            ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO15_SET            ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO16] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO16_OFS            (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO16_MASK           ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT0_MIS_DIO16_CLR            ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO16_SET            ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO17] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO17_OFS            (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO17_MASK           ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT0_MIS_DIO17_CLR            ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO17_SET            ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO18] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO18_OFS            (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO18_MASK           ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT0_MIS_DIO18_CLR            ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO18_SET            ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO19] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO19_OFS            (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO19_MASK           ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT0_MIS_DIO19_CLR            ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO19_SET            ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO20] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO20_OFS            (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO20_MASK           ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT0_MIS_DIO20_CLR            ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO20_SET            ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO21] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO21_OFS            (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO21_MASK           ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT0_MIS_DIO21_CLR            ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO21_SET            ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO22] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO22_OFS            (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO22_MASK           ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT0_MIS_DIO22_CLR            ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO22_SET            ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO23] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO23_OFS            (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO23_MASK           ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT0_MIS_DIO23_CLR            ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO23_SET            ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO24] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO24_OFS            (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO24_MASK           ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT0_MIS_DIO24_CLR            ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO24_SET            ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO25] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO25_OFS            (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO25_MASK           ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT0_MIS_DIO25_CLR            ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO25_SET            ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO26] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO26_OFS            (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO26_MASK           ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT0_MIS_DIO26_CLR            ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO26_SET            ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO27] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO27_OFS            (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO27_MASK           ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT0_MIS_DIO27_CLR            ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO27_SET            ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO28] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO28_OFS            (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO28_MASK           ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT0_MIS_DIO28_CLR            ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO28_SET            ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO29] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO29_OFS            (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO29_MASK           ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT0_MIS_DIO29_CLR            ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO29_SET            ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO30] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO30_OFS            (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO30_MASK           ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT0_MIS_DIO30_CLR            ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO30_SET            ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
-/* GPIO_INT_EVENT0_MIS[DIO31] Bits */
-#define GPIO_INT_EVENT0_MIS_DIO31_OFS            (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT0_MIS_DIO31_MASK           ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT0_MIS_DIO31_CLR            ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
-#define GPIO_INT_EVENT0_MIS_DIO31_SET            ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
+/* GPIO_CPU_INT_MIS Bits */
+/* GPIO_CPU_INT_MIS[DIO0] Bits */
+#define GPIO_CPU_INT_MIS_DIO0_OFS                (0)                             /* !< DIO0 Offset */
+#define GPIO_CPU_INT_MIS_DIO0_MASK               ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_CPU_INT_MIS_DIO0_CLR                ((uint32_t)0x00000000U)         /* !< DIO0 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO0_SET                ((uint32_t)0x00000001U)         /* !< DIO0 event occurred */
+/* GPIO_CPU_INT_MIS[DIO1] Bits */
+#define GPIO_CPU_INT_MIS_DIO1_OFS                (1)                             /* !< DIO1 Offset */
+#define GPIO_CPU_INT_MIS_DIO1_MASK               ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_CPU_INT_MIS_DIO1_CLR                ((uint32_t)0x00000000U)         /* !< DIO1 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO1_SET                ((uint32_t)0x00000002U)         /* !< DIO1 event occurred */
+/* GPIO_CPU_INT_MIS[DIO2] Bits */
+#define GPIO_CPU_INT_MIS_DIO2_OFS                (2)                             /* !< DIO2 Offset */
+#define GPIO_CPU_INT_MIS_DIO2_MASK               ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_CPU_INT_MIS_DIO2_CLR                ((uint32_t)0x00000000U)         /* !< DIO2 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO2_SET                ((uint32_t)0x00000004U)         /* !< DIO2 event occurred */
+/* GPIO_CPU_INT_MIS[DIO3] Bits */
+#define GPIO_CPU_INT_MIS_DIO3_OFS                (3)                             /* !< DIO3 Offset */
+#define GPIO_CPU_INT_MIS_DIO3_MASK               ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_CPU_INT_MIS_DIO3_CLR                ((uint32_t)0x00000000U)         /* !< DIO3 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO3_SET                ((uint32_t)0x00000008U)         /* !< DIO3 event occurred */
+/* GPIO_CPU_INT_MIS[DIO4] Bits */
+#define GPIO_CPU_INT_MIS_DIO4_OFS                (4)                             /* !< DIO4 Offset */
+#define GPIO_CPU_INT_MIS_DIO4_MASK               ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_CPU_INT_MIS_DIO4_CLR                ((uint32_t)0x00000000U)         /* !< DIO4 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO4_SET                ((uint32_t)0x00000010U)         /* !< DIO4 event occurred */
+/* GPIO_CPU_INT_MIS[DIO5] Bits */
+#define GPIO_CPU_INT_MIS_DIO5_OFS                (5)                             /* !< DIO5 Offset */
+#define GPIO_CPU_INT_MIS_DIO5_MASK               ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_CPU_INT_MIS_DIO5_CLR                ((uint32_t)0x00000000U)         /* !< DIO5 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO5_SET                ((uint32_t)0x00000020U)         /* !< DIO5 event occurred */
+/* GPIO_CPU_INT_MIS[DIO6] Bits */
+#define GPIO_CPU_INT_MIS_DIO6_OFS                (6)                             /* !< DIO6 Offset */
+#define GPIO_CPU_INT_MIS_DIO6_MASK               ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_CPU_INT_MIS_DIO6_CLR                ((uint32_t)0x00000000U)         /* !< DIO6 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO6_SET                ((uint32_t)0x00000040U)         /* !< DIO6 event occurred */
+/* GPIO_CPU_INT_MIS[DIO7] Bits */
+#define GPIO_CPU_INT_MIS_DIO7_OFS                (7)                             /* !< DIO7 Offset */
+#define GPIO_CPU_INT_MIS_DIO7_MASK               ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_CPU_INT_MIS_DIO7_CLR                ((uint32_t)0x00000000U)         /* !< DIO7 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO7_SET                ((uint32_t)0x00000080U)         /* !< DIO7 event occurred */
+/* GPIO_CPU_INT_MIS[DIO8] Bits */
+#define GPIO_CPU_INT_MIS_DIO8_OFS                (8)                             /* !< DIO8 Offset */
+#define GPIO_CPU_INT_MIS_DIO8_MASK               ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_CPU_INT_MIS_DIO8_CLR                ((uint32_t)0x00000000U)         /* !< DIO8 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO8_SET                ((uint32_t)0x00000100U)         /* !< DIO8 event occurred */
+/* GPIO_CPU_INT_MIS[DIO9] Bits */
+#define GPIO_CPU_INT_MIS_DIO9_OFS                (9)                             /* !< DIO9 Offset */
+#define GPIO_CPU_INT_MIS_DIO9_MASK               ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_CPU_INT_MIS_DIO9_CLR                ((uint32_t)0x00000000U)         /* !< DIO9 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO9_SET                ((uint32_t)0x00000200U)         /* !< DIO9 event occurred */
+/* GPIO_CPU_INT_MIS[DIO10] Bits */
+#define GPIO_CPU_INT_MIS_DIO10_OFS               (10)                            /* !< DIO10 Offset */
+#define GPIO_CPU_INT_MIS_DIO10_MASK              ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_CPU_INT_MIS_DIO10_CLR               ((uint32_t)0x00000000U)         /* !< DIO10 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO10_SET               ((uint32_t)0x00000400U)         /* !< DIO10 event occurred */
+/* GPIO_CPU_INT_MIS[DIO11] Bits */
+#define GPIO_CPU_INT_MIS_DIO11_OFS               (11)                            /* !< DIO11 Offset */
+#define GPIO_CPU_INT_MIS_DIO11_MASK              ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_CPU_INT_MIS_DIO11_CLR               ((uint32_t)0x00000000U)         /* !< DIO11 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO11_SET               ((uint32_t)0x00000800U)         /* !< DIO11 event occurred */
+/* GPIO_CPU_INT_MIS[DIO12] Bits */
+#define GPIO_CPU_INT_MIS_DIO12_OFS               (12)                            /* !< DIO12 Offset */
+#define GPIO_CPU_INT_MIS_DIO12_MASK              ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_CPU_INT_MIS_DIO12_CLR               ((uint32_t)0x00000000U)         /* !< DIO12 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO12_SET               ((uint32_t)0x00001000U)         /* !< DIO12 event occurred */
+/* GPIO_CPU_INT_MIS[DIO13] Bits */
+#define GPIO_CPU_INT_MIS_DIO13_OFS               (13)                            /* !< DIO13 Offset */
+#define GPIO_CPU_INT_MIS_DIO13_MASK              ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_CPU_INT_MIS_DIO13_CLR               ((uint32_t)0x00000000U)         /* !< DIO13 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO13_SET               ((uint32_t)0x00002000U)         /* !< DIO13 event occurred */
+/* GPIO_CPU_INT_MIS[DIO14] Bits */
+#define GPIO_CPU_INT_MIS_DIO14_OFS               (14)                            /* !< DIO14 Offset */
+#define GPIO_CPU_INT_MIS_DIO14_MASK              ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_CPU_INT_MIS_DIO14_CLR               ((uint32_t)0x00000000U)         /* !< DIO14 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO14_SET               ((uint32_t)0x00004000U)         /* !< DIO14 event occurred */
+/* GPIO_CPU_INT_MIS[DIO15] Bits */
+#define GPIO_CPU_INT_MIS_DIO15_OFS               (15)                            /* !< DIO15 Offset */
+#define GPIO_CPU_INT_MIS_DIO15_MASK              ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_CPU_INT_MIS_DIO15_CLR               ((uint32_t)0x00000000U)         /* !< DIO15 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO15_SET               ((uint32_t)0x00008000U)         /* !< DIO15 event occurred */
+/* GPIO_CPU_INT_MIS[DIO16] Bits */
+#define GPIO_CPU_INT_MIS_DIO16_OFS               (16)                            /* !< DIO16 Offset */
+#define GPIO_CPU_INT_MIS_DIO16_MASK              ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_CPU_INT_MIS_DIO16_CLR               ((uint32_t)0x00000000U)         /* !< DIO16 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO16_SET               ((uint32_t)0x00010000U)         /* !< DIO16 event occurred */
+/* GPIO_CPU_INT_MIS[DIO17] Bits */
+#define GPIO_CPU_INT_MIS_DIO17_OFS               (17)                            /* !< DIO17 Offset */
+#define GPIO_CPU_INT_MIS_DIO17_MASK              ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_CPU_INT_MIS_DIO17_CLR               ((uint32_t)0x00000000U)         /* !< DIO17 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO17_SET               ((uint32_t)0x00020000U)         /* !< DIO17 event occurred */
+/* GPIO_CPU_INT_MIS[DIO18] Bits */
+#define GPIO_CPU_INT_MIS_DIO18_OFS               (18)                            /* !< DIO18 Offset */
+#define GPIO_CPU_INT_MIS_DIO18_MASK              ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_CPU_INT_MIS_DIO18_CLR               ((uint32_t)0x00000000U)         /* !< DIO18 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO18_SET               ((uint32_t)0x00040000U)         /* !< DIO18 event occurred */
+/* GPIO_CPU_INT_MIS[DIO19] Bits */
+#define GPIO_CPU_INT_MIS_DIO19_OFS               (19)                            /* !< DIO19 Offset */
+#define GPIO_CPU_INT_MIS_DIO19_MASK              ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_CPU_INT_MIS_DIO19_CLR               ((uint32_t)0x00000000U)         /* !< DIO19 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO19_SET               ((uint32_t)0x00080000U)         /* !< DIO19 event occurred */
+/* GPIO_CPU_INT_MIS[DIO20] Bits */
+#define GPIO_CPU_INT_MIS_DIO20_OFS               (20)                            /* !< DIO20 Offset */
+#define GPIO_CPU_INT_MIS_DIO20_MASK              ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_CPU_INT_MIS_DIO20_CLR               ((uint32_t)0x00000000U)         /* !< DIO20 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO20_SET               ((uint32_t)0x00100000U)         /* !< DIO20 event occurred */
+/* GPIO_CPU_INT_MIS[DIO21] Bits */
+#define GPIO_CPU_INT_MIS_DIO21_OFS               (21)                            /* !< DIO21 Offset */
+#define GPIO_CPU_INT_MIS_DIO21_MASK              ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_CPU_INT_MIS_DIO21_CLR               ((uint32_t)0x00000000U)         /* !< DIO21 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO21_SET               ((uint32_t)0x00200000U)         /* !< DIO21 event occurred */
+/* GPIO_CPU_INT_MIS[DIO22] Bits */
+#define GPIO_CPU_INT_MIS_DIO22_OFS               (22)                            /* !< DIO22 Offset */
+#define GPIO_CPU_INT_MIS_DIO22_MASK              ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_CPU_INT_MIS_DIO22_CLR               ((uint32_t)0x00000000U)         /* !< DIO22 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO22_SET               ((uint32_t)0x00400000U)         /* !< DIO22 event occurred */
+/* GPIO_CPU_INT_MIS[DIO23] Bits */
+#define GPIO_CPU_INT_MIS_DIO23_OFS               (23)                            /* !< DIO23 Offset */
+#define GPIO_CPU_INT_MIS_DIO23_MASK              ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_CPU_INT_MIS_DIO23_CLR               ((uint32_t)0x00000000U)         /* !< DIO23 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO23_SET               ((uint32_t)0x00800000U)         /* !< DIO23 event occurred */
+/* GPIO_CPU_INT_MIS[DIO24] Bits */
+#define GPIO_CPU_INT_MIS_DIO24_OFS               (24)                            /* !< DIO24 Offset */
+#define GPIO_CPU_INT_MIS_DIO24_MASK              ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_CPU_INT_MIS_DIO24_CLR               ((uint32_t)0x00000000U)         /* !< DIO24 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO24_SET               ((uint32_t)0x01000000U)         /* !< DIO24 event occurred */
+/* GPIO_CPU_INT_MIS[DIO25] Bits */
+#define GPIO_CPU_INT_MIS_DIO25_OFS               (25)                            /* !< DIO25 Offset */
+#define GPIO_CPU_INT_MIS_DIO25_MASK              ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_CPU_INT_MIS_DIO25_CLR               ((uint32_t)0x00000000U)         /* !< DIO25 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO25_SET               ((uint32_t)0x02000000U)         /* !< DIO25 event occurred */
+/* GPIO_CPU_INT_MIS[DIO26] Bits */
+#define GPIO_CPU_INT_MIS_DIO26_OFS               (26)                            /* !< DIO26 Offset */
+#define GPIO_CPU_INT_MIS_DIO26_MASK              ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_CPU_INT_MIS_DIO26_CLR               ((uint32_t)0x00000000U)         /* !< DIO26 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO26_SET               ((uint32_t)0x04000000U)         /* !< DIO26 event occurred */
+/* GPIO_CPU_INT_MIS[DIO27] Bits */
+#define GPIO_CPU_INT_MIS_DIO27_OFS               (27)                            /* !< DIO27 Offset */
+#define GPIO_CPU_INT_MIS_DIO27_MASK              ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_CPU_INT_MIS_DIO27_CLR               ((uint32_t)0x00000000U)         /* !< DIO27 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO27_SET               ((uint32_t)0x08000000U)         /* !< DIO27 event occurred */
+/* GPIO_CPU_INT_MIS[DIO28] Bits */
+#define GPIO_CPU_INT_MIS_DIO28_OFS               (28)                            /* !< DIO28 Offset */
+#define GPIO_CPU_INT_MIS_DIO28_MASK              ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_CPU_INT_MIS_DIO28_CLR               ((uint32_t)0x00000000U)         /* !< DIO28 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO28_SET               ((uint32_t)0x10000000U)         /* !< DIO28 event occurred */
+/* GPIO_CPU_INT_MIS[DIO29] Bits */
+#define GPIO_CPU_INT_MIS_DIO29_OFS               (29)                            /* !< DIO29 Offset */
+#define GPIO_CPU_INT_MIS_DIO29_MASK              ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_CPU_INT_MIS_DIO29_CLR               ((uint32_t)0x00000000U)         /* !< DIO29 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO29_SET               ((uint32_t)0x20000000U)         /* !< DIO29 event occurred */
+/* GPIO_CPU_INT_MIS[DIO30] Bits */
+#define GPIO_CPU_INT_MIS_DIO30_OFS               (30)                            /* !< DIO30 Offset */
+#define GPIO_CPU_INT_MIS_DIO30_MASK              ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_CPU_INT_MIS_DIO30_CLR               ((uint32_t)0x00000000U)         /* !< DIO30 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO30_SET               ((uint32_t)0x40000000U)         /* !< DIO30 event occurred */
+/* GPIO_CPU_INT_MIS[DIO31] Bits */
+#define GPIO_CPU_INT_MIS_DIO31_OFS               (31)                            /* !< DIO31 Offset */
+#define GPIO_CPU_INT_MIS_DIO31_MASK              ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_CPU_INT_MIS_DIO31_CLR               ((uint32_t)0x00000000U)         /* !< DIO31 event did not occur */
+#define GPIO_CPU_INT_MIS_DIO31_SET               ((uint32_t)0x80000000U)         /* !< DIO31 event occurred */
 
-/* GPIO_INT_EVENT0_ISET Bits */
-/* GPIO_INT_EVENT0_ISET[DIO0] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO0_OFS            (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT0_ISET_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO0_SET            ((uint32_t)0x00000001U)         /* !< Sets DIO0 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO1] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO1_OFS            (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT0_ISET_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO1_SET            ((uint32_t)0x00000002U)         /* !< Sets DIO1 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO2] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO2_OFS            (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT0_ISET_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO2_SET            ((uint32_t)0x00000004U)         /* !< Sets DIO2 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO3] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO3_OFS            (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT0_ISET_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO3_SET            ((uint32_t)0x00000008U)         /* !< Sets DIO3 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO4] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO4_OFS            (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT0_ISET_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO4_SET            ((uint32_t)0x00000010U)         /* !< Sets DIO4 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO5] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO5_OFS            (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT0_ISET_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO5_SET            ((uint32_t)0x00000020U)         /* !< Sets DIO5 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO6] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO6_OFS            (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT0_ISET_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO6_SET            ((uint32_t)0x00000040U)         /* !< Sets DIO6 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO7] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO7_OFS            (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT0_ISET_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO7_SET            ((uint32_t)0x00000080U)         /* !< Sets DIO7 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO8] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO8_OFS            (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT0_ISET_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO8_SET            ((uint32_t)0x00000100U)         /* !< Sets DIO8 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO9] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO9_OFS            (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT0_ISET_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO9_SET            ((uint32_t)0x00000200U)         /* !< Sets DIO9 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO10] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO10_OFS           (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT0_ISET_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO10_SET           ((uint32_t)0x00000400U)         /* !< Sets DIO10 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO11] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO11_OFS           (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT0_ISET_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO11_SET           ((uint32_t)0x00000800U)         /* !< Sets DIO11 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO12] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO12_OFS           (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT0_ISET_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO12_SET           ((uint32_t)0x00001000U)         /* !< Sets DIO12 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO13] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO13_OFS           (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT0_ISET_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO13_SET           ((uint32_t)0x00002000U)         /* !< Sets DIO13 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO14] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO14_OFS           (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT0_ISET_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO14_SET           ((uint32_t)0x00004000U)         /* !< Sets DIO14 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO15] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO15_OFS           (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT0_ISET_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO15_SET           ((uint32_t)0x00008000U)         /* !< Sets DIO15 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO16] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO16_OFS           (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT0_ISET_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO16_SET           ((uint32_t)0x00010000U)         /* !< Sets DIO16 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO17] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO17_OFS           (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT0_ISET_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO17_SET           ((uint32_t)0x00020000U)         /* !< Sets DIO17 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO18] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO18_OFS           (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT0_ISET_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO18_SET           ((uint32_t)0x00040000U)         /* !< Sets DIO18 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO19] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO19_OFS           (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT0_ISET_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO19_SET           ((uint32_t)0x00080000U)         /* !< Sets DIO19 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO20] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO20_OFS           (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT0_ISET_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO20_SET           ((uint32_t)0x00100000U)         /* !< Sets DIO20 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO21] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO21_OFS           (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT0_ISET_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO21_SET           ((uint32_t)0x00200000U)         /* !< Sets DIO21 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO22] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO22_OFS           (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT0_ISET_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO22_SET           ((uint32_t)0x00400000U)         /* !< Sets DIO22 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO23] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO23_OFS           (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT0_ISET_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO23_SET           ((uint32_t)0x00800000U)         /* !< Sets DIO23 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO24] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO24_OFS           (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT0_ISET_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO24_SET           ((uint32_t)0x01000000U)         /* !< Sets DIO24 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO25] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO25_OFS           (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT0_ISET_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO25_SET           ((uint32_t)0x02000000U)         /* !< Sets DIO25 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO26] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO26_OFS           (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT0_ISET_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO26_SET           ((uint32_t)0x04000000U)         /* !< Sets DIO26 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO27] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO27_OFS           (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT0_ISET_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO27_SET           ((uint32_t)0x08000000U)         /* !< Sets DIO27 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO28] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO28_OFS           (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT0_ISET_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO28_SET           ((uint32_t)0x10000000U)         /* !< Sets DIO28 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO29] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO29_OFS           (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT0_ISET_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO29_SET           ((uint32_t)0x20000000U)         /* !< Sets DIO29 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO30] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO30_OFS           (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT0_ISET_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO30_SET           ((uint32_t)0x40000000U)         /* !< Sets DIO30 in RIS register */
-/* GPIO_INT_EVENT0_ISET[DIO31] Bits */
-#define GPIO_INT_EVENT0_ISET_DIO31_OFS           (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT0_ISET_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT0_ISET_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ISET_DIO31_SET           ((uint32_t)0x80000000U)         /* !< Sets DIO31 in RIS register */
+/* GPIO_CPU_INT_ISET Bits */
+/* GPIO_CPU_INT_ISET[DIO0] Bits */
+#define GPIO_CPU_INT_ISET_DIO0_OFS               (0)                             /* !< DIO0 Offset */
+#define GPIO_CPU_INT_ISET_DIO0_MASK              ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_CPU_INT_ISET_DIO0_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO0_SET               ((uint32_t)0x00000001U)         /* !< Sets DIO0 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO1] Bits */
+#define GPIO_CPU_INT_ISET_DIO1_OFS               (1)                             /* !< DIO1 Offset */
+#define GPIO_CPU_INT_ISET_DIO1_MASK              ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_CPU_INT_ISET_DIO1_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO1_SET               ((uint32_t)0x00000002U)         /* !< Sets DIO1 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO2] Bits */
+#define GPIO_CPU_INT_ISET_DIO2_OFS               (2)                             /* !< DIO2 Offset */
+#define GPIO_CPU_INT_ISET_DIO2_MASK              ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_CPU_INT_ISET_DIO2_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO2_SET               ((uint32_t)0x00000004U)         /* !< Sets DIO2 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO3] Bits */
+#define GPIO_CPU_INT_ISET_DIO3_OFS               (3)                             /* !< DIO3 Offset */
+#define GPIO_CPU_INT_ISET_DIO3_MASK              ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_CPU_INT_ISET_DIO3_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO3_SET               ((uint32_t)0x00000008U)         /* !< Sets DIO3 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO4] Bits */
+#define GPIO_CPU_INT_ISET_DIO4_OFS               (4)                             /* !< DIO4 Offset */
+#define GPIO_CPU_INT_ISET_DIO4_MASK              ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_CPU_INT_ISET_DIO4_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO4_SET               ((uint32_t)0x00000010U)         /* !< Sets DIO4 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO5] Bits */
+#define GPIO_CPU_INT_ISET_DIO5_OFS               (5)                             /* !< DIO5 Offset */
+#define GPIO_CPU_INT_ISET_DIO5_MASK              ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_CPU_INT_ISET_DIO5_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO5_SET               ((uint32_t)0x00000020U)         /* !< Sets DIO5 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO6] Bits */
+#define GPIO_CPU_INT_ISET_DIO6_OFS               (6)                             /* !< DIO6 Offset */
+#define GPIO_CPU_INT_ISET_DIO6_MASK              ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_CPU_INT_ISET_DIO6_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO6_SET               ((uint32_t)0x00000040U)         /* !< Sets DIO6 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO7] Bits */
+#define GPIO_CPU_INT_ISET_DIO7_OFS               (7)                             /* !< DIO7 Offset */
+#define GPIO_CPU_INT_ISET_DIO7_MASK              ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_CPU_INT_ISET_DIO7_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO7_SET               ((uint32_t)0x00000080U)         /* !< Sets DIO7 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO8] Bits */
+#define GPIO_CPU_INT_ISET_DIO8_OFS               (8)                             /* !< DIO8 Offset */
+#define GPIO_CPU_INT_ISET_DIO8_MASK              ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_CPU_INT_ISET_DIO8_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO8_SET               ((uint32_t)0x00000100U)         /* !< Sets DIO8 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO9] Bits */
+#define GPIO_CPU_INT_ISET_DIO9_OFS               (9)                             /* !< DIO9 Offset */
+#define GPIO_CPU_INT_ISET_DIO9_MASK              ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_CPU_INT_ISET_DIO9_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO9_SET               ((uint32_t)0x00000200U)         /* !< Sets DIO9 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO10] Bits */
+#define GPIO_CPU_INT_ISET_DIO10_OFS              (10)                            /* !< DIO10 Offset */
+#define GPIO_CPU_INT_ISET_DIO10_MASK             ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_CPU_INT_ISET_DIO10_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO10_SET              ((uint32_t)0x00000400U)         /* !< Sets DIO10 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO11] Bits */
+#define GPIO_CPU_INT_ISET_DIO11_OFS              (11)                            /* !< DIO11 Offset */
+#define GPIO_CPU_INT_ISET_DIO11_MASK             ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_CPU_INT_ISET_DIO11_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO11_SET              ((uint32_t)0x00000800U)         /* !< Sets DIO11 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO12] Bits */
+#define GPIO_CPU_INT_ISET_DIO12_OFS              (12)                            /* !< DIO12 Offset */
+#define GPIO_CPU_INT_ISET_DIO12_MASK             ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_CPU_INT_ISET_DIO12_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO12_SET              ((uint32_t)0x00001000U)         /* !< Sets DIO12 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO13] Bits */
+#define GPIO_CPU_INT_ISET_DIO13_OFS              (13)                            /* !< DIO13 Offset */
+#define GPIO_CPU_INT_ISET_DIO13_MASK             ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_CPU_INT_ISET_DIO13_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO13_SET              ((uint32_t)0x00002000U)         /* !< Sets DIO13 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO14] Bits */
+#define GPIO_CPU_INT_ISET_DIO14_OFS              (14)                            /* !< DIO14 Offset */
+#define GPIO_CPU_INT_ISET_DIO14_MASK             ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_CPU_INT_ISET_DIO14_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO14_SET              ((uint32_t)0x00004000U)         /* !< Sets DIO14 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO15] Bits */
+#define GPIO_CPU_INT_ISET_DIO15_OFS              (15)                            /* !< DIO15 Offset */
+#define GPIO_CPU_INT_ISET_DIO15_MASK             ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_CPU_INT_ISET_DIO15_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO15_SET              ((uint32_t)0x00008000U)         /* !< Sets DIO15 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO16] Bits */
+#define GPIO_CPU_INT_ISET_DIO16_OFS              (16)                            /* !< DIO16 Offset */
+#define GPIO_CPU_INT_ISET_DIO16_MASK             ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_CPU_INT_ISET_DIO16_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO16_SET              ((uint32_t)0x00010000U)         /* !< Sets DIO16 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO17] Bits */
+#define GPIO_CPU_INT_ISET_DIO17_OFS              (17)                            /* !< DIO17 Offset */
+#define GPIO_CPU_INT_ISET_DIO17_MASK             ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_CPU_INT_ISET_DIO17_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO17_SET              ((uint32_t)0x00020000U)         /* !< Sets DIO17 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO18] Bits */
+#define GPIO_CPU_INT_ISET_DIO18_OFS              (18)                            /* !< DIO18 Offset */
+#define GPIO_CPU_INT_ISET_DIO18_MASK             ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_CPU_INT_ISET_DIO18_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO18_SET              ((uint32_t)0x00040000U)         /* !< Sets DIO18 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO19] Bits */
+#define GPIO_CPU_INT_ISET_DIO19_OFS              (19)                            /* !< DIO19 Offset */
+#define GPIO_CPU_INT_ISET_DIO19_MASK             ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_CPU_INT_ISET_DIO19_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO19_SET              ((uint32_t)0x00080000U)         /* !< Sets DIO19 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO20] Bits */
+#define GPIO_CPU_INT_ISET_DIO20_OFS              (20)                            /* !< DIO20 Offset */
+#define GPIO_CPU_INT_ISET_DIO20_MASK             ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_CPU_INT_ISET_DIO20_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO20_SET              ((uint32_t)0x00100000U)         /* !< Sets DIO20 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO21] Bits */
+#define GPIO_CPU_INT_ISET_DIO21_OFS              (21)                            /* !< DIO21 Offset */
+#define GPIO_CPU_INT_ISET_DIO21_MASK             ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_CPU_INT_ISET_DIO21_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO21_SET              ((uint32_t)0x00200000U)         /* !< Sets DIO21 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO22] Bits */
+#define GPIO_CPU_INT_ISET_DIO22_OFS              (22)                            /* !< DIO22 Offset */
+#define GPIO_CPU_INT_ISET_DIO22_MASK             ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_CPU_INT_ISET_DIO22_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO22_SET              ((uint32_t)0x00400000U)         /* !< Sets DIO22 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO23] Bits */
+#define GPIO_CPU_INT_ISET_DIO23_OFS              (23)                            /* !< DIO23 Offset */
+#define GPIO_CPU_INT_ISET_DIO23_MASK             ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_CPU_INT_ISET_DIO23_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO23_SET              ((uint32_t)0x00800000U)         /* !< Sets DIO23 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO24] Bits */
+#define GPIO_CPU_INT_ISET_DIO24_OFS              (24)                            /* !< DIO24 Offset */
+#define GPIO_CPU_INT_ISET_DIO24_MASK             ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_CPU_INT_ISET_DIO24_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO24_SET              ((uint32_t)0x01000000U)         /* !< Sets DIO24 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO25] Bits */
+#define GPIO_CPU_INT_ISET_DIO25_OFS              (25)                            /* !< DIO25 Offset */
+#define GPIO_CPU_INT_ISET_DIO25_MASK             ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_CPU_INT_ISET_DIO25_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO25_SET              ((uint32_t)0x02000000U)         /* !< Sets DIO25 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO26] Bits */
+#define GPIO_CPU_INT_ISET_DIO26_OFS              (26)                            /* !< DIO26 Offset */
+#define GPIO_CPU_INT_ISET_DIO26_MASK             ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_CPU_INT_ISET_DIO26_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO26_SET              ((uint32_t)0x04000000U)         /* !< Sets DIO26 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO27] Bits */
+#define GPIO_CPU_INT_ISET_DIO27_OFS              (27)                            /* !< DIO27 Offset */
+#define GPIO_CPU_INT_ISET_DIO27_MASK             ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_CPU_INT_ISET_DIO27_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO27_SET              ((uint32_t)0x08000000U)         /* !< Sets DIO27 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO28] Bits */
+#define GPIO_CPU_INT_ISET_DIO28_OFS              (28)                            /* !< DIO28 Offset */
+#define GPIO_CPU_INT_ISET_DIO28_MASK             ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_CPU_INT_ISET_DIO28_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO28_SET              ((uint32_t)0x10000000U)         /* !< Sets DIO28 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO29] Bits */
+#define GPIO_CPU_INT_ISET_DIO29_OFS              (29)                            /* !< DIO29 Offset */
+#define GPIO_CPU_INT_ISET_DIO29_MASK             ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_CPU_INT_ISET_DIO29_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO29_SET              ((uint32_t)0x20000000U)         /* !< Sets DIO29 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO30] Bits */
+#define GPIO_CPU_INT_ISET_DIO30_OFS              (30)                            /* !< DIO30 Offset */
+#define GPIO_CPU_INT_ISET_DIO30_MASK             ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_CPU_INT_ISET_DIO30_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO30_SET              ((uint32_t)0x40000000U)         /* !< Sets DIO30 in RIS register */
+/* GPIO_CPU_INT_ISET[DIO31] Bits */
+#define GPIO_CPU_INT_ISET_DIO31_OFS              (31)                            /* !< DIO31 Offset */
+#define GPIO_CPU_INT_ISET_DIO31_MASK             ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_CPU_INT_ISET_DIO31_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ISET_DIO31_SET              ((uint32_t)0x80000000U)         /* !< Sets DIO31 in RIS register */
 
-/* GPIO_INT_EVENT0_ICLR Bits */
-/* GPIO_INT_EVENT0_ICLR[DIO0] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO0_OFS            (0)                             /* !< DIO0 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO0_MASK           ((uint32_t)0x00000001U)         /* !< DIO0 event */
-#define GPIO_INT_EVENT0_ICLR_DIO0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO0_CLR            ((uint32_t)0x00000001U)         /* !< Clears DIO0 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO1] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO1_OFS            (1)                             /* !< DIO1 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO1_MASK           ((uint32_t)0x00000002U)         /* !< DIO1 event */
-#define GPIO_INT_EVENT0_ICLR_DIO1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO1_CLR            ((uint32_t)0x00000002U)         /* !< Clears DIO1 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO2] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO2_OFS            (2)                             /* !< DIO2 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO2_MASK           ((uint32_t)0x00000004U)         /* !< DIO2 event */
-#define GPIO_INT_EVENT0_ICLR_DIO2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO2_CLR            ((uint32_t)0x00000004U)         /* !< Clears DIO2 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO3] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO3_OFS            (3)                             /* !< DIO3 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO3_MASK           ((uint32_t)0x00000008U)         /* !< DIO3 event */
-#define GPIO_INT_EVENT0_ICLR_DIO3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO3_CLR            ((uint32_t)0x00000008U)         /* !< Clears DIO3 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO4] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO4_OFS            (4)                             /* !< DIO4 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO4_MASK           ((uint32_t)0x00000010U)         /* !< DIO4 event */
-#define GPIO_INT_EVENT0_ICLR_DIO4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO4_CLR            ((uint32_t)0x00000010U)         /* !< Clears DIO4 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO5] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO5_OFS            (5)                             /* !< DIO5 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO5_MASK           ((uint32_t)0x00000020U)         /* !< DIO5 event */
-#define GPIO_INT_EVENT0_ICLR_DIO5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO5_CLR            ((uint32_t)0x00000020U)         /* !< Clears DIO5 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO6] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO6_OFS            (6)                             /* !< DIO6 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO6_MASK           ((uint32_t)0x00000040U)         /* !< DIO6 event */
-#define GPIO_INT_EVENT0_ICLR_DIO6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO6_CLR            ((uint32_t)0x00000040U)         /* !< Clears DIO6 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO7] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO7_OFS            (7)                             /* !< DIO7 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO7_MASK           ((uint32_t)0x00000080U)         /* !< DIO7 event */
-#define GPIO_INT_EVENT0_ICLR_DIO7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO7_CLR            ((uint32_t)0x00000080U)         /* !< Clears DIO7 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO8] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO8_OFS            (8)                             /* !< DIO8 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO8_MASK           ((uint32_t)0x00000100U)         /* !< DIO8 event */
-#define GPIO_INT_EVENT0_ICLR_DIO8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO8_CLR            ((uint32_t)0x00000100U)         /* !< Clears DIO8 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO9] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO9_OFS            (9)                             /* !< DIO9 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO9_MASK           ((uint32_t)0x00000200U)         /* !< DIO9 event */
-#define GPIO_INT_EVENT0_ICLR_DIO9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO9_CLR            ((uint32_t)0x00000200U)         /* !< Clears DIO9 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO10] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO10_OFS           (10)                            /* !< DIO10 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO10_MASK          ((uint32_t)0x00000400U)         /* !< DIO10 event */
-#define GPIO_INT_EVENT0_ICLR_DIO10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO10_CLR           ((uint32_t)0x00000400U)         /* !< Clears DIO10 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO11] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO11_OFS           (11)                            /* !< DIO11 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO11_MASK          ((uint32_t)0x00000800U)         /* !< DIO11 event */
-#define GPIO_INT_EVENT0_ICLR_DIO11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO11_CLR           ((uint32_t)0x00000800U)         /* !< Clears DIO11 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO12] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO12_OFS           (12)                            /* !< DIO12 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO12_MASK          ((uint32_t)0x00001000U)         /* !< DIO12 event */
-#define GPIO_INT_EVENT0_ICLR_DIO12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO12_CLR           ((uint32_t)0x00001000U)         /* !< Clears DIO12 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO13] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO13_OFS           (13)                            /* !< DIO13 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO13_MASK          ((uint32_t)0x00002000U)         /* !< DIO13 event */
-#define GPIO_INT_EVENT0_ICLR_DIO13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO13_CLR           ((uint32_t)0x00002000U)         /* !< Clears DIO13 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO14] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO14_OFS           (14)                            /* !< DIO14 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO14_MASK          ((uint32_t)0x00004000U)         /* !< DIO14 event */
-#define GPIO_INT_EVENT0_ICLR_DIO14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO14_CLR           ((uint32_t)0x00004000U)         /* !< Clears DIO14 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO15] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO15_OFS           (15)                            /* !< DIO15 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO15_MASK          ((uint32_t)0x00008000U)         /* !< DIO15 event */
-#define GPIO_INT_EVENT0_ICLR_DIO15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO15_CLR           ((uint32_t)0x00008000U)         /* !< Clears DIO15 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO16] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO16_OFS           (16)                            /* !< DIO16 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO16_MASK          ((uint32_t)0x00010000U)         /* !< DIO16 event */
-#define GPIO_INT_EVENT0_ICLR_DIO16_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO16_CLR           ((uint32_t)0x00010000U)         /* !< Clears DIO16 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO17] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO17_OFS           (17)                            /* !< DIO17 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO17_MASK          ((uint32_t)0x00020000U)         /* !< DIO17 event */
-#define GPIO_INT_EVENT0_ICLR_DIO17_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO17_CLR           ((uint32_t)0x00020000U)         /* !< Clears DIO17 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO18] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO18_OFS           (18)                            /* !< DIO18 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO18_MASK          ((uint32_t)0x00040000U)         /* !< DIO18 event */
-#define GPIO_INT_EVENT0_ICLR_DIO18_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO18_CLR           ((uint32_t)0x00040000U)         /* !< Clears DIO18 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO19] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO19_OFS           (19)                            /* !< DIO19 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO19_MASK          ((uint32_t)0x00080000U)         /* !< DIO19 event */
-#define GPIO_INT_EVENT0_ICLR_DIO19_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO19_CLR           ((uint32_t)0x00080000U)         /* !< Clears DIO19 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO20] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO20_OFS           (20)                            /* !< DIO20 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO20_MASK          ((uint32_t)0x00100000U)         /* !< DIO20 event */
-#define GPIO_INT_EVENT0_ICLR_DIO20_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO20_CLR           ((uint32_t)0x00100000U)         /* !< Clears DIO20 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO21] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO21_OFS           (21)                            /* !< DIO21 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO21_MASK          ((uint32_t)0x00200000U)         /* !< DIO21 event */
-#define GPIO_INT_EVENT0_ICLR_DIO21_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO21_CLR           ((uint32_t)0x00200000U)         /* !< Clears DIO21 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO22] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO22_OFS           (22)                            /* !< DIO22 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO22_MASK          ((uint32_t)0x00400000U)         /* !< DIO22 event */
-#define GPIO_INT_EVENT0_ICLR_DIO22_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO22_CLR           ((uint32_t)0x00400000U)         /* !< Clears DIO22 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO23] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO23_OFS           (23)                            /* !< DIO23 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO23_MASK          ((uint32_t)0x00800000U)         /* !< DIO23 event */
-#define GPIO_INT_EVENT0_ICLR_DIO23_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO23_CLR           ((uint32_t)0x00800000U)         /* !< Clears DIO23 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO24] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO24_OFS           (24)                            /* !< DIO24 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO24_MASK          ((uint32_t)0x01000000U)         /* !< DIO24 event */
-#define GPIO_INT_EVENT0_ICLR_DIO24_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO24_CLR           ((uint32_t)0x01000000U)         /* !< Clears DIO24 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO25] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO25_OFS           (25)                            /* !< DIO25 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO25_MASK          ((uint32_t)0x02000000U)         /* !< DIO25 event */
-#define GPIO_INT_EVENT0_ICLR_DIO25_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO25_CLR           ((uint32_t)0x02000000U)         /* !< Clears DIO25 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO26] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO26_OFS           (26)                            /* !< DIO26 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO26_MASK          ((uint32_t)0x04000000U)         /* !< DIO26 event */
-#define GPIO_INT_EVENT0_ICLR_DIO26_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO26_CLR           ((uint32_t)0x04000000U)         /* !< Clears DIO26 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO27] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO27_OFS           (27)                            /* !< DIO27 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO27_MASK          ((uint32_t)0x08000000U)         /* !< DIO27 event */
-#define GPIO_INT_EVENT0_ICLR_DIO27_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO27_CLR           ((uint32_t)0x08000000U)         /* !< Clears DIO27 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO28] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO28_OFS           (28)                            /* !< DIO28 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO28_MASK          ((uint32_t)0x10000000U)         /* !< DIO28 event */
-#define GPIO_INT_EVENT0_ICLR_DIO28_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO28_CLR           ((uint32_t)0x10000000U)         /* !< Clears DIO28 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO29] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO29_OFS           (29)                            /* !< DIO29 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO29_MASK          ((uint32_t)0x20000000U)         /* !< DIO29 event */
-#define GPIO_INT_EVENT0_ICLR_DIO29_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO29_CLR           ((uint32_t)0x20000000U)         /* !< Clears DIO29 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO30] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO30_OFS           (30)                            /* !< DIO30 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO30_MASK          ((uint32_t)0x40000000U)         /* !< DIO30 event */
-#define GPIO_INT_EVENT0_ICLR_DIO30_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO30_CLR           ((uint32_t)0x40000000U)         /* !< Clears DIO30 in RIS register */
-/* GPIO_INT_EVENT0_ICLR[DIO31] Bits */
-#define GPIO_INT_EVENT0_ICLR_DIO31_OFS           (31)                            /* !< DIO31 Offset */
-#define GPIO_INT_EVENT0_ICLR_DIO31_MASK          ((uint32_t)0x80000000U)         /* !< DIO31 event */
-#define GPIO_INT_EVENT0_ICLR_DIO31_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< No effect */
-#define GPIO_INT_EVENT0_ICLR_DIO31_CLR           ((uint32_t)0x80000000U)         /* !< Clears DIO31 in RIS register */
+/* GPIO_CPU_INT_ICLR Bits */
+/* GPIO_CPU_INT_ICLR[DIO0] Bits */
+#define GPIO_CPU_INT_ICLR_DIO0_OFS               (0)                             /* !< DIO0 Offset */
+#define GPIO_CPU_INT_ICLR_DIO0_MASK              ((uint32_t)0x00000001U)         /* !< DIO0 event */
+#define GPIO_CPU_INT_ICLR_DIO0_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO0_CLR               ((uint32_t)0x00000001U)         /* !< Clears DIO0 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO1] Bits */
+#define GPIO_CPU_INT_ICLR_DIO1_OFS               (1)                             /* !< DIO1 Offset */
+#define GPIO_CPU_INT_ICLR_DIO1_MASK              ((uint32_t)0x00000002U)         /* !< DIO1 event */
+#define GPIO_CPU_INT_ICLR_DIO1_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO1_CLR               ((uint32_t)0x00000002U)         /* !< Clears DIO1 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO2] Bits */
+#define GPIO_CPU_INT_ICLR_DIO2_OFS               (2)                             /* !< DIO2 Offset */
+#define GPIO_CPU_INT_ICLR_DIO2_MASK              ((uint32_t)0x00000004U)         /* !< DIO2 event */
+#define GPIO_CPU_INT_ICLR_DIO2_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO2_CLR               ((uint32_t)0x00000004U)         /* !< Clears DIO2 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO3] Bits */
+#define GPIO_CPU_INT_ICLR_DIO3_OFS               (3)                             /* !< DIO3 Offset */
+#define GPIO_CPU_INT_ICLR_DIO3_MASK              ((uint32_t)0x00000008U)         /* !< DIO3 event */
+#define GPIO_CPU_INT_ICLR_DIO3_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO3_CLR               ((uint32_t)0x00000008U)         /* !< Clears DIO3 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO4] Bits */
+#define GPIO_CPU_INT_ICLR_DIO4_OFS               (4)                             /* !< DIO4 Offset */
+#define GPIO_CPU_INT_ICLR_DIO4_MASK              ((uint32_t)0x00000010U)         /* !< DIO4 event */
+#define GPIO_CPU_INT_ICLR_DIO4_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO4_CLR               ((uint32_t)0x00000010U)         /* !< Clears DIO4 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO5] Bits */
+#define GPIO_CPU_INT_ICLR_DIO5_OFS               (5)                             /* !< DIO5 Offset */
+#define GPIO_CPU_INT_ICLR_DIO5_MASK              ((uint32_t)0x00000020U)         /* !< DIO5 event */
+#define GPIO_CPU_INT_ICLR_DIO5_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO5_CLR               ((uint32_t)0x00000020U)         /* !< Clears DIO5 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO6] Bits */
+#define GPIO_CPU_INT_ICLR_DIO6_OFS               (6)                             /* !< DIO6 Offset */
+#define GPIO_CPU_INT_ICLR_DIO6_MASK              ((uint32_t)0x00000040U)         /* !< DIO6 event */
+#define GPIO_CPU_INT_ICLR_DIO6_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO6_CLR               ((uint32_t)0x00000040U)         /* !< Clears DIO6 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO7] Bits */
+#define GPIO_CPU_INT_ICLR_DIO7_OFS               (7)                             /* !< DIO7 Offset */
+#define GPIO_CPU_INT_ICLR_DIO7_MASK              ((uint32_t)0x00000080U)         /* !< DIO7 event */
+#define GPIO_CPU_INT_ICLR_DIO7_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO7_CLR               ((uint32_t)0x00000080U)         /* !< Clears DIO7 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO8] Bits */
+#define GPIO_CPU_INT_ICLR_DIO8_OFS               (8)                             /* !< DIO8 Offset */
+#define GPIO_CPU_INT_ICLR_DIO8_MASK              ((uint32_t)0x00000100U)         /* !< DIO8 event */
+#define GPIO_CPU_INT_ICLR_DIO8_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO8_CLR               ((uint32_t)0x00000100U)         /* !< Clears DIO8 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO9] Bits */
+#define GPIO_CPU_INT_ICLR_DIO9_OFS               (9)                             /* !< DIO9 Offset */
+#define GPIO_CPU_INT_ICLR_DIO9_MASK              ((uint32_t)0x00000200U)         /* !< DIO9 event */
+#define GPIO_CPU_INT_ICLR_DIO9_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO9_CLR               ((uint32_t)0x00000200U)         /* !< Clears DIO9 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO10] Bits */
+#define GPIO_CPU_INT_ICLR_DIO10_OFS              (10)                            /* !< DIO10 Offset */
+#define GPIO_CPU_INT_ICLR_DIO10_MASK             ((uint32_t)0x00000400U)         /* !< DIO10 event */
+#define GPIO_CPU_INT_ICLR_DIO10_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO10_CLR              ((uint32_t)0x00000400U)         /* !< Clears DIO10 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO11] Bits */
+#define GPIO_CPU_INT_ICLR_DIO11_OFS              (11)                            /* !< DIO11 Offset */
+#define GPIO_CPU_INT_ICLR_DIO11_MASK             ((uint32_t)0x00000800U)         /* !< DIO11 event */
+#define GPIO_CPU_INT_ICLR_DIO11_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO11_CLR              ((uint32_t)0x00000800U)         /* !< Clears DIO11 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO12] Bits */
+#define GPIO_CPU_INT_ICLR_DIO12_OFS              (12)                            /* !< DIO12 Offset */
+#define GPIO_CPU_INT_ICLR_DIO12_MASK             ((uint32_t)0x00001000U)         /* !< DIO12 event */
+#define GPIO_CPU_INT_ICLR_DIO12_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO12_CLR              ((uint32_t)0x00001000U)         /* !< Clears DIO12 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO13] Bits */
+#define GPIO_CPU_INT_ICLR_DIO13_OFS              (13)                            /* !< DIO13 Offset */
+#define GPIO_CPU_INT_ICLR_DIO13_MASK             ((uint32_t)0x00002000U)         /* !< DIO13 event */
+#define GPIO_CPU_INT_ICLR_DIO13_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO13_CLR              ((uint32_t)0x00002000U)         /* !< Clears DIO13 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO14] Bits */
+#define GPIO_CPU_INT_ICLR_DIO14_OFS              (14)                            /* !< DIO14 Offset */
+#define GPIO_CPU_INT_ICLR_DIO14_MASK             ((uint32_t)0x00004000U)         /* !< DIO14 event */
+#define GPIO_CPU_INT_ICLR_DIO14_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO14_CLR              ((uint32_t)0x00004000U)         /* !< Clears DIO14 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO15] Bits */
+#define GPIO_CPU_INT_ICLR_DIO15_OFS              (15)                            /* !< DIO15 Offset */
+#define GPIO_CPU_INT_ICLR_DIO15_MASK             ((uint32_t)0x00008000U)         /* !< DIO15 event */
+#define GPIO_CPU_INT_ICLR_DIO15_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO15_CLR              ((uint32_t)0x00008000U)         /* !< Clears DIO15 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO16] Bits */
+#define GPIO_CPU_INT_ICLR_DIO16_OFS              (16)                            /* !< DIO16 Offset */
+#define GPIO_CPU_INT_ICLR_DIO16_MASK             ((uint32_t)0x00010000U)         /* !< DIO16 event */
+#define GPIO_CPU_INT_ICLR_DIO16_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO16_CLR              ((uint32_t)0x00010000U)         /* !< Clears DIO16 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO17] Bits */
+#define GPIO_CPU_INT_ICLR_DIO17_OFS              (17)                            /* !< DIO17 Offset */
+#define GPIO_CPU_INT_ICLR_DIO17_MASK             ((uint32_t)0x00020000U)         /* !< DIO17 event */
+#define GPIO_CPU_INT_ICLR_DIO17_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO17_CLR              ((uint32_t)0x00020000U)         /* !< Clears DIO17 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO18] Bits */
+#define GPIO_CPU_INT_ICLR_DIO18_OFS              (18)                            /* !< DIO18 Offset */
+#define GPIO_CPU_INT_ICLR_DIO18_MASK             ((uint32_t)0x00040000U)         /* !< DIO18 event */
+#define GPIO_CPU_INT_ICLR_DIO18_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO18_CLR              ((uint32_t)0x00040000U)         /* !< Clears DIO18 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO19] Bits */
+#define GPIO_CPU_INT_ICLR_DIO19_OFS              (19)                            /* !< DIO19 Offset */
+#define GPIO_CPU_INT_ICLR_DIO19_MASK             ((uint32_t)0x00080000U)         /* !< DIO19 event */
+#define GPIO_CPU_INT_ICLR_DIO19_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO19_CLR              ((uint32_t)0x00080000U)         /* !< Clears DIO19 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO20] Bits */
+#define GPIO_CPU_INT_ICLR_DIO20_OFS              (20)                            /* !< DIO20 Offset */
+#define GPIO_CPU_INT_ICLR_DIO20_MASK             ((uint32_t)0x00100000U)         /* !< DIO20 event */
+#define GPIO_CPU_INT_ICLR_DIO20_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO20_CLR              ((uint32_t)0x00100000U)         /* !< Clears DIO20 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO21] Bits */
+#define GPIO_CPU_INT_ICLR_DIO21_OFS              (21)                            /* !< DIO21 Offset */
+#define GPIO_CPU_INT_ICLR_DIO21_MASK             ((uint32_t)0x00200000U)         /* !< DIO21 event */
+#define GPIO_CPU_INT_ICLR_DIO21_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO21_CLR              ((uint32_t)0x00200000U)         /* !< Clears DIO21 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO22] Bits */
+#define GPIO_CPU_INT_ICLR_DIO22_OFS              (22)                            /* !< DIO22 Offset */
+#define GPIO_CPU_INT_ICLR_DIO22_MASK             ((uint32_t)0x00400000U)         /* !< DIO22 event */
+#define GPIO_CPU_INT_ICLR_DIO22_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO22_CLR              ((uint32_t)0x00400000U)         /* !< Clears DIO22 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO23] Bits */
+#define GPIO_CPU_INT_ICLR_DIO23_OFS              (23)                            /* !< DIO23 Offset */
+#define GPIO_CPU_INT_ICLR_DIO23_MASK             ((uint32_t)0x00800000U)         /* !< DIO23 event */
+#define GPIO_CPU_INT_ICLR_DIO23_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO23_CLR              ((uint32_t)0x00800000U)         /* !< Clears DIO23 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO24] Bits */
+#define GPIO_CPU_INT_ICLR_DIO24_OFS              (24)                            /* !< DIO24 Offset */
+#define GPIO_CPU_INT_ICLR_DIO24_MASK             ((uint32_t)0x01000000U)         /* !< DIO24 event */
+#define GPIO_CPU_INT_ICLR_DIO24_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO24_CLR              ((uint32_t)0x01000000U)         /* !< Clears DIO24 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO25] Bits */
+#define GPIO_CPU_INT_ICLR_DIO25_OFS              (25)                            /* !< DIO25 Offset */
+#define GPIO_CPU_INT_ICLR_DIO25_MASK             ((uint32_t)0x02000000U)         /* !< DIO25 event */
+#define GPIO_CPU_INT_ICLR_DIO25_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO25_CLR              ((uint32_t)0x02000000U)         /* !< Clears DIO25 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO26] Bits */
+#define GPIO_CPU_INT_ICLR_DIO26_OFS              (26)                            /* !< DIO26 Offset */
+#define GPIO_CPU_INT_ICLR_DIO26_MASK             ((uint32_t)0x04000000U)         /* !< DIO26 event */
+#define GPIO_CPU_INT_ICLR_DIO26_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO26_CLR              ((uint32_t)0x04000000U)         /* !< Clears DIO26 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO27] Bits */
+#define GPIO_CPU_INT_ICLR_DIO27_OFS              (27)                            /* !< DIO27 Offset */
+#define GPIO_CPU_INT_ICLR_DIO27_MASK             ((uint32_t)0x08000000U)         /* !< DIO27 event */
+#define GPIO_CPU_INT_ICLR_DIO27_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO27_CLR              ((uint32_t)0x08000000U)         /* !< Clears DIO27 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO28] Bits */
+#define GPIO_CPU_INT_ICLR_DIO28_OFS              (28)                            /* !< DIO28 Offset */
+#define GPIO_CPU_INT_ICLR_DIO28_MASK             ((uint32_t)0x10000000U)         /* !< DIO28 event */
+#define GPIO_CPU_INT_ICLR_DIO28_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO28_CLR              ((uint32_t)0x10000000U)         /* !< Clears DIO28 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO29] Bits */
+#define GPIO_CPU_INT_ICLR_DIO29_OFS              (29)                            /* !< DIO29 Offset */
+#define GPIO_CPU_INT_ICLR_DIO29_MASK             ((uint32_t)0x20000000U)         /* !< DIO29 event */
+#define GPIO_CPU_INT_ICLR_DIO29_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO29_CLR              ((uint32_t)0x20000000U)         /* !< Clears DIO29 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO30] Bits */
+#define GPIO_CPU_INT_ICLR_DIO30_OFS              (30)                            /* !< DIO30 Offset */
+#define GPIO_CPU_INT_ICLR_DIO30_MASK             ((uint32_t)0x40000000U)         /* !< DIO30 event */
+#define GPIO_CPU_INT_ICLR_DIO30_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO30_CLR              ((uint32_t)0x40000000U)         /* !< Clears DIO30 in RIS register */
+/* GPIO_CPU_INT_ICLR[DIO31] Bits */
+#define GPIO_CPU_INT_ICLR_DIO31_OFS              (31)                            /* !< DIO31 Offset */
+#define GPIO_CPU_INT_ICLR_DIO31_MASK             ((uint32_t)0x80000000U)         /* !< DIO31 event */
+#define GPIO_CPU_INT_ICLR_DIO31_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< No effect */
+#define GPIO_CPU_INT_ICLR_DIO31_CLR              ((uint32_t)0x80000000U)         /* !< Clears DIO31 in RIS register */
 
 /* GPIO_PWREN Bits */
 /* GPIO_PWREN[ENABLE] Bits */
@@ -2081,8 +2079,7 @@ typedef struct {
 /* GPIO_EVT_MODE[INT0_CFG] Bits */
 #define GPIO_EVT_MODE_INT0_CFG_OFS               (0)                             /* !< INT0_CFG Offset */
 #define GPIO_EVT_MODE_INT0_CFG_MASK              ((uint32_t)0x00000003U)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT0] */
+                                                                                    corresponding to [IPSTANDARD.CPU_INT] */
 #define GPIO_EVT_MODE_INT0_CFG_DISABLE           ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPIO_EVT_MODE_INT0_CFG_SOFTWARE          ((uint32_t)0x00000001U)         /* !< The interrupt or event line is in
@@ -2096,7 +2093,7 @@ typedef struct {
 #define GPIO_EVT_MODE_EVT1_CFG_OFS               (2)                             /* !< EVT1_CFG Offset */
 #define GPIO_EVT_MODE_EVT1_CFG_MASK              ((uint32_t)0x0000000CU)         /* !< Event line mode select for event
                                                                                     corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT1] */
+                                                                                    [IPSTANDARD.GEN_EVENT0] */
 #define GPIO_EVT_MODE_EVT1_CFG_DISABLE           ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPIO_EVT_MODE_EVT1_CFG_SOFTWARE          ((uint32_t)0x00000004U)         /* !< The interrupt or event line is in
@@ -2110,7 +2107,7 @@ typedef struct {
 #define GPIO_EVT_MODE_EVT2_CFG_OFS               (4)                             /* !< EVT2_CFG Offset */
 #define GPIO_EVT_MODE_EVT2_CFG_MASK              ((uint32_t)0x00000030U)         /* !< Event line mode select for event
                                                                                     corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT2] */
+                                                                                    [IPSTANDARD.GEN_EVENT1] */
 #define GPIO_EVT_MODE_EVT2_CFG_DISABLE           ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPIO_EVT_MODE_EVT2_CFG_SOFTWARE          ((uint32_t)0x00000010U)         /* !< The interrupt or event line is in

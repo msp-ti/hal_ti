@@ -1463,6 +1463,11 @@ typedef DL_UART_ClockConfig                         DL_UART_Extend_ClockConfig;
  */
 #define DL_UART_Extend_getClockDivider2                DL_UART_getClockDivider2
 
+/*!
+ * @brief Redirects to common @ref DL_UART_setIrDABaudRateDivisor
+ */
+#define DL_UART_Extend_setIrDABaudRateDivisor    DL_UART_setIrDABaudRateDivisor
+
 /* clang-format on */
 
 #ifdef __cplusplus

@@ -5,11 +5,9 @@ _Min_Stack_Size = 0x80; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-    FLASH           (RX)  : ORIGIN = 0x00000000, LENGTH = 0x0000FFF8
-    SRAM            (RWX) : ORIGIN = 0x20000000, LENGTH = 0x00001000
+    FLASH           (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00004000
+    SRAM            (RWX) : ORIGIN = 0x20000000, LENGTH = 0x00000400
     BCR_CONFIG      (R)   : ORIGIN = 0x41C00000, LENGTH = 0x00000080
-    BSL_CONFIG      (R)   : ORIGIN = 0x41C00100, LENGTH = 0x00000080
-
 }
 
 /* Note: SRAM length must match MPPC/MEMSS config! Please edit it manually. */
@@ -157,11 +155,6 @@ SECTIONS
     {
         KEEP(*(.BCRConfig))
     } > BCR_CONFIG
-
-    .BSLConfig :
-    {
-        KEEP(*(.BSLConfig))
-    } > BSL_CONFIG
 
     __StackTop = ORIGIN(REGION_STACK) + LENGTH(REGION_STACK);
     PROVIDE(__stack = __StackTop);

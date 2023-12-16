@@ -1806,7 +1806,7 @@ bool DL_MCAN_saveConfiguration(MCAN_Regs *mcan, DL_MCAN_backupConfig *ptr)
         ptr->ssIntEnConf =
             mcan->MCANSS.TI_WRAPPER.PROCESSORS.MCANSS_REGS.MCANSS_IE;
         ptr->intEnConf    = mcan->MCANSS.MCAN.MCAN_IE;
-        ptr->intEvnt0Conf = mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IMASK;
+        ptr->intEvnt0Conf = mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IMASK;
 
         /* MCAN configuration */
         ptr->ctrlConf        = mcan->MCANSS.MCAN.MCAN_CCCR;
@@ -1916,8 +1916,8 @@ bool DL_MCAN_restoreConfiguration(MCAN_Regs *mcan, DL_MCAN_backupConfig *ptr)
         mcan->MCANSS.MCAN.MCAN_ILE    = ptr->intLnEnableConf;
         mcan->MCANSS.TI_WRAPPER.PROCESSORS.MCANSS_REGS.MCANSS_IE =
             ptr->ssIntEnConf;
-        mcan->MCANSS.MCAN.MCAN_IE                    = ptr->intEnConf;
-        mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IMASK = ptr->intEvnt0Conf;
+        mcan->MCANSS.MCAN.MCAN_IE                 = ptr->intEnConf;
+        mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IMASK = ptr->intEvnt0Conf;
 
         /* Restores MCAN configuration change state */
         if (false == cceState) {

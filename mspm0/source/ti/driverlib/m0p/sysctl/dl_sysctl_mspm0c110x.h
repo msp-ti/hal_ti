@@ -30,11 +30,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*!****************************************************************************
- *  @file       dl_sysctl_mspm0l11xx_l13xx.h
+ *  @file       dl_sysctl_mspm0c110x.h
  *  @brief      System Control (SysCtl)
- *  @defgroup   SYSCTL_MSPM0L11XX_L13XX MSPM0L11XX_L13XX System Control (SYSCTL)
+ *  @defgroup   SYSCTL_MSPM0C110X MSPM0C110X System Control (SYSCTL)
  *
- *  @anchor ti_dl_m0p_mspm0l11xx_l13xx_dl_sysctl_Overview
+ *  @anchor ti_dl_m0p_mspm0c110x_dl_sysctl_Overview
  *  # Overview
  *
  *  The System Control (SysCtl) module enables control over system wide
@@ -44,7 +44,7 @@
  *
  ******************************************************************************
  */
-/** @addtogroup SYSCTL_MSPM0L11XX_L13XX
+/** @addtogroup SYSCTL_MSPM0C110X
  * @{
  */
 #ifndef ti_dl_m0p_dl_sysctl_sysctl__include
@@ -119,7 +119,6 @@ typedef enum {
     DL_SYSCTL_IIDX_ANALOG_CLOCK_ERROR = SYSCTL_IIDX_STAT_ANACLKERR,
 } DL_SYSCTL_IIDX;
 
-
 /** @addtogroup DL_SYSCTL_NMI
  *  @{
  */
@@ -132,8 +131,6 @@ typedef enum {
 /** @addtogroup DL_SYSCTL_CLK_STATUS
  *  @{
  */
-/*! @brief Error with OPAMP Clock Generation */
-#define DL_SYSCTL_CLK_STATUS_OPAMP_ERROR     (SYSCTL_CLKSTATUS_OPAMPCLKERR_TRUE)
 /*! @brief SYSOSC Frequency Correcting Loop Mode ON */
 #define DL_SYSCTL_CLK_STATUS_FCL_ON           (SYSCTL_CLKSTATUS_FCLMODE_ENABLED)
 /*! @brief LFOSC is Valid */
@@ -141,13 +138,13 @@ typedef enum {
 /*! @brief MCLK now sourced from LFCLK */
 #define DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_LFCLK                                 \
                                              (SYSCTL_CLKSTATUS_CURMCLKSEL_LFCLK)
+/*! @brief MCLK now sourced from HSCLK, otherwise SYSOSC */
+#define DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_HSCLK (SYSCTL_CLKSTATUS_HSCLKMUX_HSCLK)
 /*! @brief Analog clocking error */
 #define DL_SYSCTL_CLK_STATUS_ANALOG_CLOCK_ERROR                                \
                                                (SYSCTL_CLKSTATUS_ANACLKERR_TRUE)
 /*! @brief Frequency Clock Counter (FCC) done */
 #define DL_SYSCTL_CLK_STATUS_FCC_DONE            (SYSCTL_CLKSTATUS_FCCDONE_DONE)
-/*! @brief = LFCLK sourced from the LFXT (crystal) */
-#define DL_SYSCTL_CLK_STATUS_LFCLK_SOURCE_LFXT  (SYSCTL_CLKSTATUS_LFCLKMUX_LFXT)
 /*! @brief = LFCLK sourced from LFCLK_IN (external digital clock input) */
 #define DL_SYSCTL_CLK_STATUS_LFCLK_SOURCE_EXLF  (SYSCTL_CLKSTATUS_LFCLKMUX_EXLF)
 /*! @brief = SYSOSC is at low frequency (4MHz) */
@@ -160,7 +157,6 @@ typedef enum {
 /** @addtogroup DL_SYSCTL_STATUS
  *  @{
  */
-
 /*! @brief IO is locked due to SHUTDOWN */
 #define DL_SYSCTL_STATUS_SHUTDOWN_IO_LOCK_TRUE                                 \
                                               (SYSCTL_SYSSTATUS_SHDNIOLOCK_TRUE)
@@ -169,22 +165,15 @@ typedef enum {
                                             (SYSCTL_SYSSTATUS_EXTRSTPINDIS_TRUE)
 /*! @brief User has disabled SWD port  */
 #define DL_SYSCTL_STATUS_SWD_DISABLED          (SYSCTL_SYSSTATUS_SWDCFGDIS_TRUE)
-
 /*! @brief PMU IFREF good */
 #define DL_SYSCTL_STATUS_PMU_IFREF_GOOD      (SYSCTL_SYSSTATUS_PMUIREFGOOD_TRUE)
 /*! @brief VBOOST (Analog Charge Pump) started up properly */
 #define DL_SYSCTL_STATUS_VBOOST_GOOD        (SYSCTL_SYSSTATUS_ANACPUMPGOOD_TRUE)
 /*! @brief Brown Out Reset event status indicator */
 #define DL_SYSCTL_STATUS_BOR_EVENT                (SYSCTL_SYSSTATUS_BORLVL_TRUE)
-/*! @brief MCAN0 ready */
-#define DL_SYSCTL_STATUS_MCAN0_READY          (SYSCTL_SYSSTATUS_MCAN0READY_TRUE)
-/*! @brief Double Error Detect on Flash */
-#define DL_SYSCTL_STATUS_FLASH_DED              (SYSCTL_SYSSTATUS_FLASHDED_TRUE)
-/*! @brief Single Error Correction on Flash */
-#define DL_SYSCTL_STATUS_FLASH_SEC              (SYSCTL_SYSSTATUS_FLASHSEC_TRUE)
 /*! @brief Current Brown Out Reset minimum level */
 #define DL_SYSCTL_STATUS_BOR_LEVEL0                                            \
-                                  (SYSCTL_SYSSTATUS_BORCURTHRESHOLD_BORLEVELMIN)
+                                  (SYSCTL_SYSSTATUS_BORCURTHRESHOLD_BORMIN)
 /*! @brief Current Brown Out Reset level 1 */
 #define DL_SYSCTL_STATUS_BOR_LEVEL1 (SYSCTL_SYSSTATUS_BORCURTHRESHOLD_BORLEVEL1)
 /*! @brief Current Brown Out Reset level 2 */
@@ -224,29 +213,15 @@ typedef enum {
     DL_SYSCTL_SYSOSC_FREQ_USERTRIM = (SYSCTL_SYSOSCCFG_FREQ_SYSOSCUSER),
 } DL_SYSCTL_SYSOSC_FREQ;
 
-/** @enum DL_SYSCTL_SYSOSC_USERTRIM_FREQ */
+/** @enum DL_SYSCTL_MCLK_SOURCE */
 typedef enum {
-    /*! Set SYSOSC user trim frequency target to 16MHz */
-    DL_SYSCTL_SYSOSC_USERTRIM_FREQ_16M =
-        (SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC16M),
-    /*! Set SYSOSC user trim frequency target to 24MHz */
-    DL_SYSCTL_SYSOSC_USERTRIM_FREQ_24M =
-        (SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC24M),
-} DL_SYSCTL_SYSOSC_USERTRIM_FREQ;
-
-/*! @brief  Configuration struct for @ref DL_SYSCTL_configSYSOSCUserTrim. */
-typedef struct {
-    /*! Frequency Correcting Loop resistor divide value [0x0, 0x1FF] */
-    uint32_t rDiv;
-    /*! Resistor fine trim [0x0, 0xF] */
-    uint32_t resistorFine;
-    /*! Resistor coarse trim [0x0, 0x3F] */
-    uint32_t resistorCoarse;
-    /*! Capacitor trim [0x0, 0x7] */
-    uint32_t capacitor;
-    /*! SYSOSC user trim frequency target */
-    DL_SYSCTL_SYSOSC_USERTRIM_FREQ freq;
-} DL_SYSCTL_SYSOSCUserTrimConfig;
+    /*! Use System Oscillator (SYSOSC) as MCLK source (default after reset) */
+    DL_SYSCTL_MCLK_SOURCE_SYSOSC = SYSCTL_MCLKCFG_USEHSCLK_DISABLE,
+    /*! Use High Speed Clock (HSCLK) as MCLK source (HFCLK, PLL,...) */
+    DL_SYSCTL_MCLK_SOURCE_HSCLK = SYSCTL_MCLKCFG_USEHSCLK_ENABLE,
+    /*! Use the Low Frequency Clock (LFCLK) as the clock source */
+    DL_SYSCTL_MCLK_SOURCE_LFCLK = SYSCTL_MCLKCFG_USELFCLK_ENABLE,
+} DL_SYSCTL_MCLK_SOURCE;
 
 /** @enum DL_SYSCTL_MCLK_DIVIDER */
 typedef enum {
@@ -298,6 +273,8 @@ typedef enum {
       * @ref DL_SYSCTL_CLK_OUT_DIVIDE_DISABLE must not be selected for this
       * configuration. */
     DL_SYSCTL_CLK_OUT_SOURCE_MFPCLK = SYSCTL_GENCLKCFG_EXCLKSRC_MFPCLK,
+    /*! Use High Frequency Clock (HFCLK) as CLK_OUT source */
+    DL_SYSCTL_CLK_OUT_SOURCE_HFCLK = SYSCTL_GENCLKCFG_EXCLKSRC_HFCLK,
 } DL_SYSCTL_CLK_OUT_SOURCE;
 
 /** @enum DL_SYSCTL_CLK_OUT_DIVIDE */
@@ -362,6 +339,8 @@ typedef enum {
     DL_SYSCTL_FCC_CLOCK_SOURCE_MCLK = SYSCTL_GENCLKCFG_FCCSELCLK_MCLK,
     /*! FCC clock source to capture is SYSOSC */
     DL_SYSCTL_FCC_CLOCK_SOURCE_SYSOSC = SYSCTL_GENCLKCFG_FCCSELCLK_SYSOSC,
+    /*! FCC clock source to capture is HFCLK */
+    DL_SYSCTL_FCC_CLOCK_SOURCE_HFCLK = SYSCTL_GENCLKCFG_FCCSELCLK_HFCLK,
     /*! FCC clock source to capture is CLK_OUT */
     DL_SYSCTL_FCC_CLOCK_SOURCE_CLK_OUT = SYSCTL_GENCLKCFG_FCCSELCLK_EXTCLK,
     /*! FCC clock source to capture is FCC_IN */
@@ -468,16 +447,6 @@ typedef enum {
         ((uint32_t) 31 << SYSCTL_GENCLKCFG_FCCTRIGCNT_OFS),
 } DL_SYSCTL_FCC_TRIG_CNT;
 
-/** @enum DL_SYSCTL_FLASH_WAIT_STATE */
-typedef enum {
-    /*! 0 flash wait states */
-    DL_SYSCTL_FLASH_WAIT_STATE_0 = ((uint32_t) 0x00000000U),
-    /*! 1 flash wait states */
-    DL_SYSCTL_FLASH_WAIT_STATE_1 = ((uint32_t) 0x00000100U),
-    /*! 2 flash wait states */
-    DL_SYSCTL_FLASH_WAIT_STATE_2 = ((uint32_t) 0x00000200U),
-} DL_SYSCTL_FLASH_WAIT_STATE;
-
 /** @enum DL_SYSCTL_POWER_POLICY_RUN_SLEEP */
 typedef enum {
     /*! RUN/SLEEP power policy is not enabled */
@@ -496,8 +465,6 @@ typedef enum {
     DL_SYSCTL_POWER_POLICY_STOP_NOT_ENABLED = 0x0,
     /*! Enable the STOP0 power mode policy */
     DL_SYSCTL_POWER_POLICY_STOP0 = 0x1,
-    /*! Enable the STOP1 power mode policy */
-    DL_SYSCTL_POWER_POLICY_STOP1 = 0x2,
     /*! Enable the STOP2 power mode policy */
     DL_SYSCTL_POWER_POLICY_STOP2 = 0x3,
 } DL_SYSCTL_POWER_POLICY_STOP;
@@ -585,6 +552,18 @@ typedef enum {
     /*! Software-triggered CPURST */
     DL_SYSCTL_RESET_CAUSE_CPURST_SW_TRIGGERED = SYSCTL_RSTCAUSE_ID_CPUSW,
 } DL_SYSCTL_RESET_CAUSE;
+
+/*! @enum DL_SYSCTL_BEEPER_FREQ */
+typedef enum {
+    /*! Use 1KHz for Beeper output */
+    DL_SYSCTL_BEEPER_FREQ_1KHZ = SYSCTL_BEEPCFG_FREQ_1KHZ,
+    /*! Use 2KHz for Beeper output */
+    DL_SYSCTL_BEEPER_FREQ_2KHZ = SYSCTL_BEEPCFG_FREQ_2KHZ,
+    /*! Use 4KHz for Beeper output */
+    DL_SYSCTL_BEEPER_FREQ_4KHZ = SYSCTL_BEEPCFG_FREQ_4KHZ,
+    /*! Use 8KHz for Beeper output */
+    DL_SYSCTL_BEEPER_FREQ_8KHZ = SYSCTL_BEEPCFG_FREQ_8KHZ,
+} DL_SYSCTL_BEEPER_FREQ;
 
 /**
  *  @brief  Enable sleep on exit
@@ -689,6 +668,15 @@ void DL_SYSCTL_switchMCLKfromSYSOSCtoLFCLK(bool disableSYSOSC);
  *  @post   MCLK source is switched to SYSOSC, function will busy-wait until confirmed.
  */
 void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void);
+
+/**
+ *  @brief  Change MCLK source from SYSOSC to HSCLK
+ *
+ *  @pre    The desired HSCLK source is enabled beforehand (SYSPLL, HFXT, HFCLK_IN).
+ *  @post   MCLK source is switched to HSCLK, function will busy-wait until confirmed.
+
+ */
+void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(void);
 
 /**
  *  @brief  Change MCLK source from HSCLK to SYSOSC
@@ -803,7 +791,7 @@ DL_SYSCTL_POWER_POLICY_RUN_SLEEP DL_SYSCTL_getPowerPolicyRUNSLEEP(void);
  * to 4MHz automatically by hardware, but SYSOSC is not disturbed to support
  * consistent operation of analog peripherals such as the ADC, OPA, or COMP.
  *
- * There are three STOP mode policy options: STOP0, STOP1, and STOP2.
+ * There are two STOP mode policy options: STOP0 and STOP2.
  * Refer to the device TRM for more information on each policy.
  *
  * @post This API does not actually enter STOP mode. After using this API to
@@ -816,32 +804,6 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP0(void)
 {
     SYSCTL->SOCLOCK.PMODECFG = SYSCTL_PMODECFG_DSLEEP_STOP;
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    SYSCTL->SOCLOCK.SYSOSCCFG &= ~(
-        SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK | SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
-    SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
-}
-
-/**
- *  @brief     Set the STOP mode power policy to STOP1
- *
- * In STOP1, the SYSOSC is gear shifted from its current frequency to 4MHz for
- * the lowest power consumption in STOP mode with SYSOSC running. SYSOSC and
- * ULPCLK both run at 4MHz.
- *
- * There are three STOP mode policy options: STOP0, STOP1, and STOP2.
- * Refer to the device TRM for more information on each policy.
- *
- * @post This API does not actually enter STOP mode. After using this API to
- * set the power policy, to enter STOP mode you must call `__WFI()` to
- * wait for interrupts or `__WFE()` to wait for ARM events. `__WFI()` is used
- * in interrupt-driven applications, and `__WFE()` is used for interactions
- * between the interrupt handler and main application.
- */
-__STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP1(void)
-{
-    SYSCTL->SOCLOCK.PMODECFG = SYSCTL_PMODECFG_DSLEEP_STOP;
-    SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK;
     SYSCTL->SOCLOCK.SYSOSCCFG &= ~(SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
     SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
 }
@@ -852,7 +814,7 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP1(void)
  * In STOP2, the SYSOSC is disabled and the ULPCLK is sourced from LFCLK at
  * 32kHz. This is the lowest power state in STOP mode.
  *
- * There are three STOP mode policy options: STOP0, STOP1, and STOP2.
+ * There are two STOP mode policy options: STOP0 and STOP2.
  * Refer to the device TRM for more information on each policy.
  *
  * @post This API does not actually enter STOP mode. After using this API to
@@ -865,7 +827,6 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP2(void)
 {
     SYSCTL->SOCLOCK.PMODECFG = SYSCTL_PMODECFG_DSLEEP_STOP;
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-    SYSCTL->SOCLOCK.SYSOSCCFG &= ~(SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK);
     SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_DISABLESTOP_MASK;
 }
 
@@ -1261,6 +1222,22 @@ __STATIC_INLINE DL_SYSCTL_MCLK_DIVIDER DL_SYSCTL_getMCLKDivider(void)
 }
 
 /**
+ *  @brief   Get the source for the Main Clock (MCLK)
+ *
+ *  @return  The source for the Main Clock (MCLK)
+ *
+ *  @retval  One of @ref DL_SYSCTL_MCLK_SOURCE
+ */
+__STATIC_INLINE DL_SYSCTL_MCLK_SOURCE DL_SYSCTL_getMCLKSource(void)
+{
+    uint32_t source =
+        SYSCTL->SOCLOCK.MCLKCFG &
+        (SYSCTL_MCLKCFG_USEHSCLK_MASK | SYSCTL_MCLKCFG_USELFCLK_MASK);
+
+    return (DL_SYSCTL_MCLK_SOURCE)(source);
+}
+
+/**
  *  @brief     Set the target frequency of the System Oscillator (SYSOSC)
  *
  *  Target/desired SYSOSC frequency may be different than current/actual SYSOSC
@@ -1269,8 +1246,6 @@ __STATIC_INLINE DL_SYSCTL_MCLK_DIVIDER DL_SYSCTL_getMCLKDivider(void)
  *  The System Oscillator (SYSOSC) is an on-chip, accurate, configurable
  *  oscillator with factory trimmed support for 32MHz (base frequency) and 4MHz
  *  (low frequency) operation.
- *  It can also operate at 16MHz or 24MHz by using the
- *  @ref DL_SYSCTL_configSYSOSCUserTrim function instead.
  *
  *  SYSOSC provides a flexible high-speed clock source for the system in cases
  *  where the HFXT is either not present or not used.
@@ -1280,45 +1255,12 @@ __STATIC_INLINE DL_SYSCTL_MCLK_DIVIDER DL_SYSCTL_getMCLKDivider(void)
  *  @param[in] freq  Target frequency to use for the System Oscillator (SYSOSC).
  *                  @ref DL_SYSCTL_SYSOSC_FREQ_4M or @ref DL_SYSCTL_SYSOSC_FREQ_BASE.
  *
- *  @sa DL_SYSCTL_configSYSOSCUserTrim
  *  @sa DL_SYSCTL_setMCLKDivider
  */
 __STATIC_INLINE void DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ freq)
 {
     DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSOSCCFG, (uint32_t) freq,
         SYSCTL_SYSOSCCFG_FREQ_MASK);
-}
-
-/**
- *  @brief     Trim the System Oscillator (SYSOSC) to 16MHz or 24MHz
- *
- *  The trim values supplied in the config struct must be determined by
- *  experimentation. Please refer to the "SYSOSC User Trim Procedure" section
- *  in the CKM Technical Reference Manual.
- *  Each device must be trimmed individually for accuracy.
- *
- *  MDIV must be disabled before changing SYSOSC freq. See @ref DL_SYSCTL_setMCLKDivider.
- *
- *  @param[in]  config         Pointer to the SYSOSC user trim configuration struct
- *                             @ref DL_SYSCTL_SYSOSCUserTrimConfig.
- *
- *  @sa DL_SYSCTL_setSYSOSCFreq
- *  @sa DL_SYSCTL_setMCLKDivider
- */
-__STATIC_INLINE void DL_SYSCTL_configSYSOSCUserTrim(
-    DL_SYSCTL_SYSOSCUserTrimConfig *config)
-{
-    SYSCTL->SOCLOCK.SYSOSCTRIMUSER =
-        ((config->rDiv << SYSCTL_SYSOSCTRIMUSER_RDIV_OFS) &
-            SYSCTL_SYSOSCTRIMUSER_RDIV_MASK) |
-        ((config->resistorFine << SYSCTL_SYSOSCTRIMUSER_RESFINE_OFS) &
-            SYSCTL_SYSOSCTRIMUSER_RESFINE_MASK) |
-        ((config->resistorCoarse << SYSCTL_SYSOSCTRIMUSER_RESCOARSE_OFS) &
-            SYSCTL_SYSOSCTRIMUSER_RESCOARSE_MASK) |
-        (config->capacitor << SYSCTL_SYSOSCTRIMUSER_CAP_OFS) |
-        ((uint32_t) config->freq);
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSOSCCFG,
-        SYSCTL_SYSOSCCFG_FREQ_SYSOSCUSER, SYSCTL_SYSOSCCFG_FREQ_MASK);
 }
 
 /**
@@ -1388,6 +1330,48 @@ __STATIC_INLINE void DL_SYSCTL_clearECCErrorStatus(void)
 {
     SYSCTL->SOCLOCK.SYSSTATUSCLR =
         (SYSCTL_SYSSTATUSCLR_ALLECC_CLEAR | SYSCTL_SYSSTATUSCLR_KEY_VALUE);
+}
+
+/**
+ *  @brief Change LFCLK source to external digital LFCLK_IN
+ *
+ * LFOSC is the internal 32kHz oscillator and default LFCLK source after a BOR.
+ * Once LFCLK source is changed, the change is locked, LFOSC is disabled to
+ * save power, and LFCLK source cannot be selected again without BOR.
+ *
+ * LFCLK_IN is a low frequency digital clock input compatible with 32.768kHz
+ * typical frequency digital square wave CMOS clock inputs (typical duty
+ * cycle of 50%).
+ *
+ * Digital clock input must be valid and GPIO/IOMUX must be configured
+ * separately on the appropriate pin before calling this function to enable
+ * LFCLK_IN.
+ *
+ * LFCLK_IN and LFXT are mutually exclusive.
+ * This function assumes LFXT is disabled (default).
+ */
+__STATIC_INLINE void DL_SYSCTL_setLFCLKSourceEXLF(void)
+{
+    SYSCTL->SOCLOCK.EXLFCTL =
+        (SYSCTL_EXLFCTL_KEY_VALUE | SYSCTL_EXLFCTL_SETUSEEXLF_TRUE);
+}
+
+/**
+ *  @brief Change HFCLK source to external digital HFCLK_IN
+ *
+ * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
+ * frequency digital clock into the devce as HFCLK source instead of HFXT.
+ *
+ * HFCLK_IN is a digital clock input compatible with digital square wave CMOS
+ * clock inputs and should have typical duty cycle of 50%.
+ *
+ * Digital clock input must be valid and GPIO/IOMUX must be configured
+ * separately on the appropriate pin before calling this function to enable
+ * HFCLK_IN.
+ */
+__STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
+{
+    SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
 }
 
 /**
@@ -1592,46 +1576,6 @@ __STATIC_INLINE void DL_SYSCTL_setSRAMBoundaryAddress(uint32_t address)
 __STATIC_INLINE uint32_t DL_SYSCTL_getSRAMBoundaryAddress(void)
 {
     return (SYSCTL->SOCLOCK.SRAMBOUNDARY);
-}
-
-/**
- *  @brief  Set flash wait state
- *
- *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
- *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
- *  or HFCLK_IN.
- *
- *  Consult device specific datasheet for proper values.
- *
- *  @param[in]  waitState  Desired number of flash wait states. One of
- *  @ref DL_SYSCTL_FLASH_WAIT_STATE.
- */
-__STATIC_INLINE void DL_SYSCTL_setFlashWaitState(
-    DL_SYSCTL_FLASH_WAIT_STATE waitState)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.MCLKCFG, (uint32_t) waitState,
-        SYSCTL_MCLKCFG_FLASHWAIT_MASK);
-}
-
-/**
- *  @brief  Get flash wait state
- *
- *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
- *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
- *  or HFCLK_IN.
- *
- *  Consult device specific datasheet for proper values.
- *
- *  @return Number of flash wait states. One of @ref DL_SYSCTL_FLASH_WAIT_STATE.
- */
-__STATIC_INLINE DL_SYSCTL_FLASH_WAIT_STATE DL_SYSCTL_getFlashWaitState(void)
-{
-    uint32_t waitState =
-        SYSCTL->SOCLOCK.MCLKCFG & SYSCTL_MCLKCFG_FLASHWAIT_MASK;
-
-    return (DL_SYSCTL_FLASH_WAIT_STATE)(waitState);
 }
 
 /**
@@ -1903,6 +1847,67 @@ __STATIC_INLINE uint32_t DL_SYSCTL_getTempCalibrationConstant(void)
 {
     // TODO replace hard coded temp cal address once available in device header file
     return (*((uint32_t *) 0x41C4003C));
+}
+
+/**
+ *  @brief  Enable Beeper output
+ *
+ *  The Beeper function can be used to generate a square wave output to external
+ *  beepers.
+ *  The frequency of the Beeper output can be configued by calling
+ *  @ref DL_SYSCTL_setBeeperFreq
+ */
+__STATIC_INLINE void DL_SYSCTL_enableBeeperOutput(void)
+{
+    SYSCTL->SOCLOCK.BEEPCFG |= SYSCTL_BEEPCFG_EN_ENABLE;
+}
+
+/**
+ *  @brief  Disable Beeper output
+ */
+__STATIC_INLINE void DL_SYSCTL_disableBeeperOutput(void)
+{
+    SYSCTL->SOCLOCK.BEEPCFG &= ~(SYSCTL_BEEPCFG_EN_MASK);
+}
+
+/**
+ *  @brief  Set the target frequency of the Beeper output
+ *
+ *  @param[in] freq  Target frequency to use for the Beeper output. One of
+ *                   @ref DL_SYSCTL_BEEPER_FREQ.
+ */
+__STATIC_INLINE void DL_SYSCTL_setBeeperFreq(DL_SYSCTL_BEEPER_FREQ freq)
+{
+    DL_Common_updateReg(
+        &SYSCTL->SOCLOCK.BEEPCFG, (uint32_t) freq, SYSCTL_BEEPCFG_FREQ_MASK);
+}
+
+/**
+ *  @brief   Get the target frequency of the the Beeper output
+ *
+ *  @return  Returns the target frequency of the Beeper output.
+ *
+ *  @retval  One of @ref DL_SYSCTL_BEEPER_FREQ.
+ */
+__STATIC_INLINE DL_SYSCTL_BEEPER_FREQ DL_SYSCTL_getBeeperFreq(void)
+{
+    uint32_t freq = SYSCTL->SOCLOCK.BEEPCFG & SYSCTL_BEEPCFG_FREQ_MASK;
+
+    return (DL_SYSCTL_BEEPER_FREQ)(freq);
+}
+
+/**
+ *  @brief  Check if Beeper is enabled
+ *
+ * @return  Returns the enabled status of the Beeper output
+ *
+ * @retval  true  The Beeper output is enabled
+ * @retval  false  The Beeper output is disabled
+ */
+__STATIC_INLINE bool DL_SYSCTL_isBeeperEnabled(void)
+{
+    return ((SYSCTL->SOCLOCK.BEEPCFG & SYSCTL_BEEPCFG_EN_MASK) ==
+            SYSCTL_BEEPCFG_EN_ENABLE);
 }
 
 /**

@@ -76,6 +76,26 @@ void DL_Timer_initTimerMode(
 {
     DL_Timer_setLoadValue(gptimer, config->period);
 
+    switch (config->timerMode) {
+        /* All four cases below should set counter value to ZERO when enabled */
+        case DL_TIMER_TIMER_MODE_ONE_SHOT_UP:
+        case DL_TIMER_TIMER_MODE_PERIODIC_UP:
+        case DL_TIMER_TIMER_MODE_ONE_SHOT_UP_DOWN:
+        case DL_TIMER_TIMER_MODE_PERIODIC_UP_DOWN:
+            DL_Timer_setCounterValueAfterEnable(
+                gptimer, DL_TIMER_COUNT_AFTER_EN_ZERO);
+            break;
+        /* The two cases below should set counter value to LOAD when enabled */
+        case DL_TIMER_TIMER_MODE_ONE_SHOT:
+        case DL_TIMER_TIMER_MODE_PERIODIC:
+            DL_Timer_setCounterValueAfterEnable(
+                gptimer, DL_TIMER_COUNT_AFTER_EN_LOAD_VAL);
+            break;
+        default:
+            /* Code should not reach this case */
+            break;
+    }
+
     DL_Timer_setCaptureCompareValue(
         gptimer, config->counterVal, DL_TIMER_CC_0_INDEX);
 
@@ -147,6 +167,19 @@ void DL_Timer_initCaptureMode(
 
     DL_Timer_setCCPDirection(gptimer, captConfig.ccpInputDir);
 
+    switch (config->captureMode) {
+        case DL_TIMER_CAPTURE_MODE_EDGE_TIME_UP:
+        case DL_TIMER_CAPTURE_MODE_PERIOD_CAPTURE_UP:
+        case DL_TIMER_CAPTURE_MODE_PULSE_WIDTH_UP:
+            captConfig.timerConfig =
+                ((uint32_t) captConfig.timerConfig | GPTIMER_CTRCTL_CM_UP);
+            break;
+        default:
+            /* Default timer count is down counting mode. No need to
+              change counting mode */
+            break;
+    }
+
     DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
         ((uint32_t) captConfig.timerConfig | GPTIMER_CTRCTL_CVAE_LDVAL |
             GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
@@ -188,15 +221,36 @@ void DL_Timer_initCaptureTriggerMode(
             break;
     }
 
-    DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
-        (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND | GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
-            GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND | GPTIMER_CTRCTL_CVAE_LDVAL |
-            GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
-            (uint32_t) config->startTimer),
-        (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
-            GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
-            GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
-            GPTIMER_CTRCTL_EN_MASK));
+    switch (config->captureMode) {
+        case DL_TIMER_CAPTURE_MODE_EDGE_TIME_UP:
+        case DL_TIMER_CAPTURE_MODE_PERIOD_CAPTURE_UP:
+        case DL_TIMER_CAPTURE_MODE_PULSE_WIDTH_UP:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_UP |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        default:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_DOWN |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+    }
 }
 
 void DL_Timer_initCaptureCombinedMode(
@@ -215,16 +269,30 @@ void DL_Timer_initCaptureCombinedMode(
     DL_Timer_setCaptureCompareInput(gptimer, (uint32_t) config->inputInvMode,
         GPTIMER_IFCTL_01_ISEL_CCPX_INPUT_PAIR, captPairConfig.index);
 
+    /*
+     * Setting load condition to none due to GPTimer combined capture limitation
+     */
     DL_Timer_setCaptureCompareCtl(gptimer, DL_TIMER_CC_MODE_CAPTURE,
         (DL_TIMER_CC_ZCOND_NONE | DL_TIMER_CC_ACOND_TIMCLK |
-            DL_TIMER_CC_LCOND_TRIG_RISE | DL_TIMER_CC_CCOND_TRIG_FALL),
+            DL_TIMER_CC_LCOND_NONE | DL_TIMER_CC_CCOND_TRIG_FALL),
         captConfig.index);
     DL_Timer_setCaptureCompareCtl(gptimer, DL_TIMER_CC_MODE_CAPTURE,
         (DL_TIMER_CC_ZCOND_NONE | DL_TIMER_CC_ACOND_TIMCLK |
-            DL_TIMER_CC_LCOND_TRIG_RISE | DL_TIMER_CC_CCOND_TRIG_RISE),
+            DL_TIMER_CC_LCOND_NONE | DL_TIMER_CC_CCOND_TRIG_RISE),
         captPairConfig.index);
 
     DL_Timer_setCCPDirection(gptimer, captConfig.ccpInputDir);
+
+    switch (config->captureMode) {
+        case DL_TIMER_CAPTURE_COMBINED_MODE_PULSE_WIDTH_AND_PERIOD_UP:
+            captConfig.timerConfig =
+                ((uint32_t) captConfig.timerConfig | GPTIMER_CTRCTL_CM_UP);
+            break;
+        default:
+            /* Default timer count is down counting mode. No need to
+              change counting mode */
+            break;
+    }
 
     DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
         ((uint32_t) captConfig.timerConfig | GPTIMER_CTRCTL_CVAE_LDVAL |
@@ -253,14 +321,44 @@ void DL_Timer_initCompareMode(
             DL_TIMER_CC_LCOND_NONE | DL_TIMER_CC_CCOND_NOCAPTURE),
         inChanConfig.index);
 
-    DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
-        ((uint32_t) inChanConfig.timerConfig | GPTIMER_CTRCTL_CVAE_LDVAL |
-            GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
-            (uint32_t) config->startTimer),
-        (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
-            GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
-            GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
-            GPTIMER_CTRCTL_EN_MASK));
+    switch (config->compareMode) {
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                ((uint32_t) inChanConfig.timerConfig |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_DOWN |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                ((uint32_t) inChanConfig.timerConfig |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_UP |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP_DOWN:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                ((uint32_t) inChanConfig.timerConfig |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_UP_DOWN |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        default:
+            /* Code should not reach this case */
+            break;
+    }
 }
 
 void DL_Timer_initCompareTriggerMode(
@@ -276,28 +374,74 @@ void DL_Timer_initCompareTriggerMode(
             DL_TIMER_CC_LCOND_NONE | DL_TIMER_CC_CCOND_NOCAPTURE),
         DL_TIMER_CC_0_INDEX);
 
-    DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
-        (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND | GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
-            GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND | GPTIMER_CTRCTL_CVAE_LDVAL |
-            GPTIMER_CTRCTL_CM_DOWN | GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
-            (uint32_t) config->startTimer),
-        (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
-            GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
-            GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
-            GPTIMER_CTRCTL_EN_MASK));
+    switch (config->compareMode) {
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_DOWN |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_UP |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        case DL_TIMER_COMPARE_MODE_EDGE_COUNT_UP_DOWN:
+            DL_Common_updateReg(&gptimer->COUNTERREGS.CTRCTL,
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND |
+                    GPTIMER_CTRCTL_CVAE_LDVAL | GPTIMER_CTRCTL_CM_UP_DOWN |
+                    GPTIMER_CTRCTL_REPEAT_REPEAT_1 |
+                    (uint32_t) config->startTimer),
+                (GPTIMER_CTRCTL_CZC_MASK | GPTIMER_CTRCTL_CAC_MASK |
+                    GPTIMER_CTRCTL_CLC_MASK | GPTIMER_CTRCTL_CVAE_MASK |
+                    GPTIMER_CTRCTL_CM_MASK | GPTIMER_CTRCTL_REPEAT_MASK |
+                    GPTIMER_CTRCTL_EN_MASK));
+            break;
+        default:
+            /* Code should not reach this case */
+            break;
+    }
 }
 
 void DL_Timer_initPWMMode(GPTIMER_Regs *gptimer, DL_Timer_PWMConfig *config)
 {
     switch (config->pwmMode) {
         case DL_TIMER_PWM_MODE_EDGE_ALIGN:
-            DL_Timer_setLoadValue(gptimer, (config->period - (uint16_t) 1));
+            DL_Timer_setLoadValue(gptimer, (config->period - (uint32_t) 1));
             DL_Timer_setCaptureCompareAction(gptimer,
                 (DL_TIMER_CC_LACT_CCP_HIGH | DL_TIMER_CC_CDACT_CCP_LOW),
                 DL_TIMER_CC_0_INDEX);
             DL_Timer_setCaptureCompareAction(gptimer,
                 (DL_TIMER_CC_LACT_CCP_HIGH | DL_TIMER_CC_CDACT_CCP_LOW),
                 DL_TIMER_CC_1_INDEX);
+            break;
+        case DL_TIMER_PWM_MODE_EDGE_ALIGN_UP:
+            DL_Timer_setLoadValue(gptimer, (config->period - (uint32_t) 1));
+            DL_Timer_setCaptureCompareAction(gptimer,
+                (DL_TIMER_CC_ZACT_CCP_HIGH | DL_TIMER_CC_CUACT_CCP_LOW),
+                DL_TIMER_CC_0_INDEX);
+            DL_Timer_setCaptureCompareAction(gptimer,
+                (DL_TIMER_CC_ZACT_CCP_HIGH | DL_TIMER_CC_CUACT_CCP_LOW),
+                DL_TIMER_CC_1_INDEX);
+            DL_Timer_setCounterValueAfterEnable(
+                gptimer, DL_TIMER_COUNT_AFTER_EN_ZERO);
             break;
         default:  // DL_TIMER_PWM_MODE_CENTER_ALIGN
             DL_Timer_setLoadValue(gptimer, (config->period >> 1));
@@ -596,9 +740,9 @@ bool DL_Timer_saveConfiguration(
         ptr->countClkConf = gptimer->COMMONREGS.CCLKCTL;
 
         /* Interrupt and Event Configuration */
-        ptr->intEvnt0Conf = gptimer->INT_EVENT[0].IMASK;
-        ptr->intEvnt1Conf = gptimer->INT_EVENT[1].IMASK;
-        ptr->intEvnt2Conf = gptimer->INT_EVENT[2].IMASK;
+        ptr->intEvnt0Conf = gptimer->CPU_INT.IMASK;
+        ptr->intEvnt1Conf = gptimer->GEN_EVENT0.IMASK;
+        ptr->intEvnt2Conf = gptimer->GEN_EVENT1.IMASK;
 
         /* Cross-trigger configuration */
         ptr->crossTrigCtl  = gptimer->COMMONREGS.CTTRIGCTL;
@@ -684,9 +828,9 @@ bool DL_Timer_restoreConfiguration(
         gptimer->COMMONREGS.CTTRIG    = ptr->crossTrigConf;
 
         /* Interrupt and Event Configuration */
-        gptimer->INT_EVENT[0].IMASK = ptr->intEvnt0Conf;
-        gptimer->INT_EVENT[1].IMASK = ptr->intEvnt1Conf;
-        gptimer->INT_EVENT[2].IMASK = ptr->intEvnt2Conf;
+        gptimer->CPU_INT.IMASK    = ptr->intEvnt0Conf;
+        gptimer->GEN_EVENT0.IMASK = ptr->intEvnt1Conf;
+        gptimer->GEN_EVENT1.IMASK = ptr->intEvnt2Conf;
 
         /* Restores Timer counter state until the end to prevent unexpected
          * behavior */
@@ -709,6 +853,14 @@ void DL_TimerA_initPWMMode(GPTIMER_Regs *gptimer, DL_TimerA_PWMConfig *config)
                     DL_TIMER_CC_2_INDEX);
                 DL_Timer_setCaptureCompareAction(gptimer,
                     (DL_TIMER_CC_LACT_CCP_HIGH | DL_TIMER_CC_CDACT_CCP_LOW),
+                    DL_TIMER_CC_3_INDEX);
+                break;
+            case DL_TIMER_PWM_MODE_EDGE_ALIGN_UP:
+                DL_Timer_setCaptureCompareAction(gptimer,
+                    (DL_TIMER_CC_LACT_CCP_LOW | DL_TIMER_CC_CUACT_CCP_HIGH),
+                    DL_TIMER_CC_2_INDEX);
+                DL_Timer_setCaptureCompareAction(gptimer,
+                    (DL_TIMER_CC_LACT_CCP_LOW | DL_TIMER_CC_CUACT_CCP_HIGH),
                     DL_TIMER_CC_3_INDEX);
                 break;
             default:  // DL_TIMER_PWM_MODE_CENTER_ALIGN
@@ -805,9 +957,9 @@ bool DL_TimerA_saveConfiguration(
         ptr->countClkConf = gptimer->COMMONREGS.CCLKCTL;
 
         /* Interrupt and Event Configuration */
-        ptr->intEvnt0Conf = gptimer->INT_EVENT[0].IMASK;
-        ptr->intEvnt1Conf = gptimer->INT_EVENT[1].IMASK;
-        ptr->intEvnt2Conf = gptimer->INT_EVENT[2].IMASK;
+        ptr->intEvnt0Conf = gptimer->CPU_INT.IMASK;
+        ptr->intEvnt1Conf = gptimer->GEN_EVENT0.IMASK;
+        ptr->intEvnt2Conf = gptimer->GEN_EVENT1.IMASK;
 
         /* Cross-trigger configuration */
         ptr->crossTrigCtl  = gptimer->COMMONREGS.CTTRIGCTL;
@@ -923,9 +1075,9 @@ bool DL_TimerA_restoreConfiguration(
         ptr->faultInCtl       = gptimer->COUNTERREGS.FIFCTL;
 
         /* Interrupt and Event Configuration */
-        gptimer->INT_EVENT[0].IMASK = ptr->intEvnt0Conf;
-        gptimer->INT_EVENT[1].IMASK = ptr->intEvnt1Conf;
-        gptimer->INT_EVENT[2].IMASK = ptr->intEvnt2Conf;
+        gptimer->CPU_INT.IMASK    = ptr->intEvnt0Conf;
+        gptimer->GEN_EVENT0.IMASK = ptr->intEvnt1Conf;
+        gptimer->GEN_EVENT1.IMASK = ptr->intEvnt2Conf;
 
         /* Restores Timer counter state until the end to prevent unexpected
          * behavior */
@@ -941,35 +1093,39 @@ static void DL_Timer_getInChanConfig(
 {
     switch (chan) {
         case DL_TIMER_INPUT_CHAN_0:
-            config->index       = (DL_TIMER_CC_0_INDEX);
-            config->ccpInput    = (DL_TIMER_CC_IN_SEL_CCP0);
-            config->timerConfig = (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
-                                   GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
-                                   GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND);
+            config->index    = (DL_TIMER_CC_0_INDEX);
+            config->ccpInput = (DL_TIMER_CC_IN_SEL_CCP0);
+            config->timerConfig =
+                (GPTIMER_CTRCTL_CLC_CCCTL0_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL0_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL0_ZCOND | GPTIMER_CTRCTL_CM_DOWN);
             config->ccpInputDir = DL_TIMER_CC0_INPUT;
             break;
         case DL_TIMER_INPUT_CHAN_1:
-            config->index       = (DL_TIMER_CC_1_INDEX);
-            config->ccpInput    = (DL_TIMER_CC_IN_SEL_CCPX);
-            config->timerConfig = (GPTIMER_CTRCTL_CLC_CCCTL1_LCOND |
-                                   GPTIMER_CTRCTL_CAC_CCCTL1_ACOND |
-                                   GPTIMER_CTRCTL_CZC_CCCTL1_ZCOND);
+            config->index    = (DL_TIMER_CC_1_INDEX);
+            config->ccpInput = (DL_TIMER_CC_IN_SEL_CCPX);
+            config->timerConfig =
+                (GPTIMER_CTRCTL_CLC_CCCTL1_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL1_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL1_ZCOND | GPTIMER_CTRCTL_CM_DOWN);
             config->ccpInputDir = (DL_TIMER_CC1_INPUT);
             break;
         case DL_TIMER_INPUT_CHAN_2:
-            config->index       = (DL_TIMER_CC_2_INDEX);
-            config->ccpInput    = (DL_TIMER_CC_IN_SEL_CCP0);
-            config->timerConfig = (GPTIMER_CTRCTL_CLC_CCCTL2_LCOND |
-                                   GPTIMER_CTRCTL_CAC_CCCTL2_ACOND |
-                                   GPTIMER_CTRCTL_CZC_CCCTL2_ZCOND);
+            config->index    = (DL_TIMER_CC_2_INDEX);
+            config->ccpInput = (DL_TIMER_CC_IN_SEL_CCP0);
+            config->timerConfig =
+                (GPTIMER_CTRCTL_CLC_CCCTL2_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL2_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL2_ZCOND | GPTIMER_CTRCTL_CM_DOWN);
             config->ccpInputDir = (DL_TIMER_CC2_INPUT);
             break;
         case DL_TIMER_INPUT_CHAN_3:
-            config->index       = (DL_TIMER_CC_3_INDEX);
-            config->ccpInput    = (DL_TIMER_CC_IN_SEL_CCPX);
-            config->timerConfig = (GPTIMER_CTRCTL_CLC_CCCTL3_LCOND |
-                                   GPTIMER_CTRCTL_CAC_CCCTL3_ACOND |
-                                   GPTIMER_CTRCTL_CZC_CCCTL3_ZCOND);
+            config->index    = (DL_TIMER_CC_3_INDEX);
+            config->ccpInput = (DL_TIMER_CC_IN_SEL_CCPX);
+            config->timerConfig =
+                (GPTIMER_CTRCTL_CLC_CCCTL3_LCOND |
+                    GPTIMER_CTRCTL_CAC_CCCTL3_ACOND |
+                    GPTIMER_CTRCTL_CZC_CCCTL3_ZCOND | GPTIMER_CTRCTL_CM_DOWN);
             config->ccpInputDir = (DL_TIMER_CC3_INPUT);
             break;
         default:
@@ -998,6 +1154,21 @@ static void DL_Timer_getInChanPairConfig(
             /* This case shouldn't be reached */
             break;
     }
+}
+
+void DL_Timer_configQEIHallInputMode(GPTIMER_Regs *gptimer)
+{
+    /* Set channels for capture mode */
+    gptimer->COUNTERREGS.CCCTL_01[0] = GPTIMER_CCCTL_01_COC_CAPTURE;
+    gptimer->COUNTERREGS.CCCTL_01[1] = GPTIMER_CCCTL_01_COC_CAPTURE;
+
+    /* Set channels as input */
+    DL_Timer_setCCPDirection(
+        gptimer, (DL_TIMER_CC0_INPUT | DL_TIMER_CC1_INPUT));
+
+    /* Select XOR option for Hall signals */
+    gptimer->COUNTERREGS.IFCTL_01[0] = DL_TIMER_CC_IN_SEL_CCP_XOR;
+    gptimer->COUNTERREGS.IFCTL_01[1] = DL_TIMER_CC_IN_SEL_CCP_XOR;
 }
 
 #endif /* __MSPM0_HAS_TIMER_A__ || __MSPM0_HAS_TIMER_G__ */

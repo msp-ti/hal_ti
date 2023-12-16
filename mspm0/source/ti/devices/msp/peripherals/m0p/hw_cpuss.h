@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_m0p_hw_cpuss__include
 #define ti_devices_msp_peripherals_m0p_hw_cpuss__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspcpussm0p */
-/* MMR revision: bd86869856111188d369604bbab73ec89d188f2b */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_cpuss.h */
+/* Revised: 2023-04-30 21:36:20 */
+/* Revision: ec4f3de051dafa6135b4867f4e796eec5f1a339b */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus

@@ -72,12 +72,13 @@ extern "C" {
 /*!
  * @brief Data mode
  */
-#define DL_SPI_CD_MODE_DATA                               (SPI_CTL1_CDMODE_DATA)
+#define DL_SPI_CD_MODE_DATA        (SPI_CTL1_CDMODE_DATA >> SPI_CTL1_CDMODE_OFS)
 
 /*!
  * @brief Command mode
  */
-#define DL_SPI_CD_MODE_COMMAND                         (SPI_CTL1_CDMODE_COMMAND)
+#define DL_SPI_CD_MODE_COMMAND  (SPI_CTL1_CDMODE_COMMAND >> SPI_CTL1_CDMODE_OFS)
+
 
 /** @}*/
 
@@ -88,71 +89,71 @@ extern "C" {
 /*!
  * @brief DMA done 1 event for transmit interrupt
  */
-#define DL_SPI_INTERRUPT_DMA_DONE_TX    (SPI_INT_EVENT0_IMASK_DMA_DONE_TX_SET)
+#define DL_SPI_INTERRUPT_DMA_DONE_TX    (SPI_CPU_INT_IMASK_DMA_DONE_TX_SET)
 
 /*!
  * @brief DMA done 1 event for receive interrupt
  */
-#define DL_SPI_INTERRUPT_DMA_DONE_RX    (SPI_INT_EVENT0_IMASK_DMA_DONE_RX_SET)
+#define DL_SPI_INTERRUPT_DMA_DONE_RX    (SPI_CPU_INT_IMASK_DMA_DONE_RX_SET)
 /*!
  * @brief SPI has finished transfers and changed into idle mode interrupt
  */
-#define DL_SPI_INTERRUPT_IDLE                   (SPI_INT_EVENT0_IMASK_IDLE_SET)
+#define DL_SPI_INTERRUPT_IDLE                   (SPI_CPU_INT_IMASK_IDLE_SET)
 
 /*!
  * @brief Transmit FIFO empty interrupt
  */
-#define DL_SPI_INTERRUPT_TX_EMPTY            (SPI_INT_EVENT0_IMASK_TXEMPTY_SET)
+#define DL_SPI_INTERRUPT_TX_EMPTY            (SPI_CPU_INT_IMASK_TXEMPTY_SET)
 
 /*!
  * @brief Transmit FIFO interrupt
  */
-#define DL_SPI_INTERRUPT_TX                       (SPI_INT_EVENT0_IMASK_TX_SET)
+#define DL_SPI_INTERRUPT_TX                       (SPI_CPU_INT_IMASK_TX_SET)
 
 /*!
  * @brief Receive FIFO interrupt
  */
-#define DL_SPI_INTERRUPT_RX                       (SPI_INT_EVENT0_IMASK_RX_SET)
+#define DL_SPI_INTERRUPT_RX                       (SPI_CPU_INT_IMASK_RX_SET)
 
 /*!
  * @brief Receive timeout interrupt
  */
-#define DL_SPI_INTERRUPT_RX_TIMEOUT            (SPI_INT_EVENT0_IMASK_RTOUT_SET)
+#define DL_SPI_INTERRUPT_RX_TIMEOUT            (SPI_CPU_INT_IMASK_RTOUT_SET)
 
 /*!
  * @brief Receive FIFO full interrupt
  */
-#define DL_SPI_INTERRUPT_RX_FULL              (SPI_INT_EVENT0_IMASK_RXFULL_SET)
+#define DL_SPI_INTERRUPT_RX_FULL              (SPI_CPU_INT_IMASK_RXFULL_SET)
 
 /*!
  * @brief Transmit FIFO underflow interrupt
  */
-#define DL_SPI_INTERRUPT_TX_UNDERFLOW     (SPI_INT_EVENT0_IMASK_TXFIFO_UNF_SET)
+#define DL_SPI_INTERRUPT_TX_UNDERFLOW     (SPI_CPU_INT_IMASK_TXFIFO_UNF_SET)
 
 /*!
  * @brief Parity error
  */
-#define DL_SPI_INTERRUPT_PARITY_ERROR            (SPI_INT_EVENT0_IMASK_PER_SET)
+#define DL_SPI_INTERRUPT_PARITY_ERROR            (SPI_CPU_INT_IMASK_PER_SET)
 
 /*!
  * @brief Receive FIFO overflow interrupt
  */
-#define DL_SPI_INTERRUPT_RX_OVERFLOW      (SPI_INT_EVENT0_IMASK_RXFIFO_OVF_SET)
+#define DL_SPI_INTERRUPT_RX_OVERFLOW      (SPI_CPU_INT_IMASK_RXFIFO_OVF_SET)
 
 /** @}*/
 
 /*! @enum DL_SPI_DMA_IIDX_RX */
 typedef enum {
     /*! SPI interrupt index for enabling SPI receive as DMA trigger */
-    DL_SPI_DMA_IIDX_RX_TRIGGER = SPI_INT_EVENT1_IIDX_STAT_RX_EVT,
+    DL_SPI_DMA_IIDX_RX_TRIGGER = SPI_DMA_TRIG_RX_IIDX_STAT_RX_EVT,
     /*! SPI interrupt index for enabling SPI receive timeout as DMA trigger */
-    DL_SPI_DMA_IIDX_RX_TIMEOUT_TRIGGER = SPI_INT_EVENT1_IIDX_STAT_RTOUT_EVT
+    DL_SPI_DMA_IIDX_RX_TIMEOUT_TRIGGER = SPI_DMA_TRIG_RX_IIDX_STAT_RTOUT_EVT
 } DL_SPI_DMA_IIDX_RX;
 
 /*! @enum DL_SPI_DMA_IIDX_TX */
 typedef enum {
     /*! SPI interrupt index for enabling SPI transmit as DMA trigger */
-    DL_SPI_DMA_IIDX_TX_TRIGGER = SPI_INT_EVENT2_IIDX_STAT_TX_EVT
+    DL_SPI_DMA_IIDX_TX_TRIGGER = SPI_DMA_TRIG_TX_IIDX_STAT_TX_EVT
 } DL_SPI_DMA_IIDX_TX;
 
 /** @addtogroup DL_SPI_DMA_INTERRUPT_RX
@@ -161,19 +162,19 @@ typedef enum {
 /*!
  * @brief SPI interrupt for enabling SPI receive as DMA trigger
  */
-#define DL_SPI_DMA_INTERRUPT_RX               (SPI_INT_EVENT1_IMASK_RX_SET)
+#define DL_SPI_DMA_INTERRUPT_RX               (SPI_DMA_TRIG_RX_IMASK_RX_SET)
 
 /*!
  * @brief SPI interrupt for enabling SPI receive timeout as DMA trigger
  */
-#define DL_SPI_DMA_INTERRUPT_RX_TIMEOUT       (SPI_INT_EVENT1_IMASK_RTOUT_SET)
+#define DL_SPI_DMA_INTERRUPT_RX_TIMEOUT       (SPI_DMA_TRIG_RX_IMASK_RTOUT_SET)
 
 /** @}*/
 
 /*!
  * @brief SPI interrupt for enabling SPI transmit as DMA trigger
  */
-#define DL_SPI_DMA_INTERRUPT_TX               (SPI_INT_EVENT2_IMASK_TX_SET)
+#define DL_SPI_DMA_INTERRUPT_TX               (SPI_DMA_TRIG_TX_IMASK_TX_SET)
 
 /* clang-format on */
 
@@ -265,8 +266,6 @@ typedef enum {
     DL_SPI_DATA_SIZE_15 = (SPI_CTL0_DSS_DSS_15),
     /*! Data size 16 bits */
     DL_SPI_DATA_SIZE_16 = (SPI_CTL0_DSS_DSS_16),
-    /*! Data size 32 bits */
-    DL_SPI_DATA_SIZE_32 = (SPI_CTL0_DSS_DSS_32),
 } DL_SPI_DATA_SIZE;
 
 /*! @enum DL_SPI_CHIP_SELECT */
@@ -315,31 +314,31 @@ typedef enum {
 typedef enum {
 
     /*! SPI interrupt index for DMA Done 1 event for transmit */
-    DL_SPI_IIDX_DMA_DONE_TX = SPI_INT_EVENT0_IIDX_STAT_DMA_DONE_TX_EVT,
+    DL_SPI_IIDX_DMA_DONE_TX = SPI_CPU_INT_IIDX_STAT_DMA_DONE_TX_EVT,
     /*! SPI interrupt index for DMA Done 1 event for receive */
-    DL_SPI_IIDX_DMA_DONE_RX = SPI_INT_EVENT0_IIDX_STAT_DMA_DONE_RX_EVT,
+    DL_SPI_IIDX_DMA_DONE_RX = SPI_CPU_INT_IIDX_STAT_DMA_DONE_RX_EVT,
     /*! SPI interrupt index for SPI to signal it has finished transfers and
      * changed into idle mode */
 
-    DL_SPI_IIDX_IDLE = SPI_INT_EVENT0_IIDX_STAT_IDLE_EVT,
+    DL_SPI_IIDX_IDLE = SPI_CPU_INT_IIDX_STAT_IDLE_EVT,
     /*! SPI interrupt index for transmit FIFO empty */
-    DL_SPI_IIDX_TX_EMPTY = SPI_INT_EVENT0_IIDX_STAT_TX_EMPTY,
+    DL_SPI_IIDX_TX_EMPTY = SPI_CPU_INT_IIDX_STAT_TX_EMPTY,
     /*! SPI interrupt index for transmit FIFO */
-    DL_SPI_IIDX_TX = SPI_INT_EVENT0_IIDX_STAT_TX_EVT,
+    DL_SPI_IIDX_TX = SPI_CPU_INT_IIDX_STAT_TX_EVT,
     /*! SPI interrupt index for receive FIFO */
-    DL_SPI_IIDX_RX = SPI_INT_EVENT0_IIDX_STAT_RX_EVT,
+    DL_SPI_IIDX_RX = SPI_CPU_INT_IIDX_STAT_RX_EVT,
     /*! SPI interrupt index for receive timeout */
-    DL_SPI_IIDX_RX_TIMEOUT = SPI_INT_EVENT0_IIDX_STAT_RTOUT_EVT,
+    DL_SPI_IIDX_RX_TIMEOUT = SPI_CPU_INT_IIDX_STAT_RTOUT_EVT,
 
     /*! SPI interrupt index for receive FIFO full  */
-    DL_SPI_IIDX_RX_FULL = SPI_INT_EVENT0_IIDX_STAT_RXFULL_EVT,
+    DL_SPI_IIDX_RX_FULL = SPI_CPU_INT_IIDX_STAT_RXFULL_EVT,
     /*! SPI interrupt index for transmit FIFO underflow  */
-    DL_SPI_IIDX_TX_UNDERFLOW = SPI_INT_EVENT0_IIDX_STAT_TXFIFO_UNF_EVT,
+    DL_SPI_IIDX_TX_UNDERFLOW = SPI_CPU_INT_IIDX_STAT_TXFIFO_UNF_EVT,
 
     /*! SPI interrupt index for parity error */
-    DL_SPI_IIDX_PARITY_ERROR = SPI_INT_EVENT0_IIDX_STAT_PER_EVT,
+    DL_SPI_IIDX_PARITY_ERROR = SPI_CPU_INT_IIDX_STAT_PER_EVT,
     /*! SPI interrupt index for receive FIFO overflow */
-    DL_SPI_IIDX_RX_OVERFLOW = SPI_INT_EVENT0_IIDX_STAT_RXFIFO_OFV_EVT
+    DL_SPI_IIDX_RX_OVERFLOW = SPI_CPU_INT_IIDX_STAT_RXFIFO_OFV_EVT
 } DL_SPI_IIDX;
 
 /*! @enum DL_SPI_CLOCK_DIVIDE_RATIO */
@@ -1598,7 +1597,7 @@ __STATIC_INLINE uint32_t DL_SPI_receiveData32(SPI_Regs *spi)
 __STATIC_INLINE void DL_SPI_enableInterrupt(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    spi->INT_EVENT0.IMASK |= interruptMask;
+    spi->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -1612,7 +1611,7 @@ __STATIC_INLINE void DL_SPI_enableInterrupt(
 __STATIC_INLINE void DL_SPI_disableInterrupt(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    spi->INT_EVENT0.IMASK &= ~(interruptMask);
+    spi->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -1630,7 +1629,7 @@ __STATIC_INLINE void DL_SPI_disableInterrupt(
 __STATIC_INLINE uint32_t DL_SPI_getEnabledInterrupts(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT0.IMASK & interruptMask);
+    return (spi->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -1653,7 +1652,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_SPI_getEnabledInterruptStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT0.MIS & interruptMask);
+    return (spi->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -1674,7 +1673,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_SPI_getRawInterruptStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT0.RIS & interruptMask);
+    return (spi->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -1691,7 +1690,7 @@ __STATIC_INLINE uint32_t DL_SPI_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_SPI_IIDX DL_SPI_getPendingInterrupt(SPI_Regs *spi)
 {
-    return ((DL_SPI_IIDX) spi->INT_EVENT0.IIDX);
+    return ((DL_SPI_IIDX) spi->CPU_INT.IIDX);
 }
 
 /**
@@ -1705,7 +1704,7 @@ __STATIC_INLINE DL_SPI_IIDX DL_SPI_getPendingInterrupt(SPI_Regs *spi)
 __STATIC_INLINE void DL_SPI_clearInterruptStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    spi->INT_EVENT0.ICLR = interruptMask;
+    spi->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -2065,7 +2064,7 @@ uint32_t DL_SPI_fillTXFIFO32(SPI_Regs *spi, uint32_t *buffer, uint32_t count);
  *  @brief      Enable SPI interrupt for triggering the DMA receive event
  *
  * Enables the SPI interrupt to be used as the condition to generate an
- * event to directly trigger the DMA. This API configures the INT_EVENT1
+ * event to directly trigger the DMA. This API configures the DMA_TRIG_RX
  * register, which is the event publisher used for triggering the DMA to do
  * a receive data transfer.
  *
@@ -2079,32 +2078,32 @@ uint32_t DL_SPI_fillTXFIFO32(SPI_Regs *spi, uint32_t *buffer, uint32_t count);
 __STATIC_INLINE void DL_SPI_enableDMAReceiveEvent(
     SPI_Regs *spi, uint32_t interrupt)
 {
-    spi->INT_EVENT1.IMASK = interrupt;
+    spi->DMA_TRIG_RX.IMASK = interrupt;
 }
 
 /**
  *  @brief      Enable SPI interrupt for triggering the DMA transmit event
  *
  * Enables the SPI interrupt to be used as the condition to generate an
- * event to directly trigger the DMA. This API configures the INT_EVENT2
+ * event to directly trigger the DMA. This API configures the DMA_TRIG_TX
  * register, which is the event publisher used for triggering the DMA to do
  * a transmit data transfer.
  *
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  *
  *  @param[in]  spi       Pointer to the register overlay for the
  *                         peripheral
  */
 __STATIC_INLINE void DL_SPI_enableDMATransmitEvent(SPI_Regs *spi)
 {
-    spi->INT_EVENT2.IMASK = SPI_INT_EVENT2_IMASK_TX_SET;
+    spi->DMA_TRIG_TX.IMASK = SPI_DMA_TRIG_TX_IMASK_TX_SET;
 }
 
 /**
  *  @brief      Disables SPI interrupt from triggering the DMA receive event
  *
  * Disables the SPI interrupt as the condition to generate an event to
- * directly trigger the DMA. This API configures the INT_EVENT1
+ * directly trigger the DMA. This API configures the DMA_TRIG_RX
  * register, which is the event publisher used for triggering the DMA to do
  * a receive data transfer.
  *
@@ -2116,31 +2115,31 @@ __STATIC_INLINE void DL_SPI_enableDMATransmitEvent(SPI_Regs *spi)
 __STATIC_INLINE void DL_SPI_disableDMAReceiveEvent(
     SPI_Regs *spi, uint32_t interrupt)
 {
-    spi->INT_EVENT1.IMASK &= ~(interrupt);
+    spi->DMA_TRIG_RX.IMASK &= ~(interrupt);
 }
 
 /**
  *  @brief      Disables SPI interrupt from triggering the DMA transmit event
  *
  * Disables the SPI interrupt as the condition to generate an event to
- * directly trigger the DMA. This API configures the INT_EVENT2
+ * directly trigger the DMA. This API configures the DMA_TRIG_TX
  * register, which is the event publisher used for triggering the DMA to do
  * a transmit data transfer.
  *
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  *
  * @param[in]  spi       Pointer to the register overlay for the
  *                       peripheral
  */
 __STATIC_INLINE void DL_SPI_disableDMATransmitEvent(SPI_Regs *spi)
 {
-    spi->INT_EVENT2.IMASK = SPI_INT_EVENT2_IMASK_TX_CLR;
+    spi->DMA_TRIG_TX.IMASK = SPI_DMA_TRIG_TX_IMASK_TX_CLR;
 }
 
 /**
  *  @brief      Check which SPI interrupt for DMA receive events is enabled
  *
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  spi            Pointer to the register overlay for the
@@ -2157,13 +2156,13 @@ __STATIC_INLINE void DL_SPI_disableDMATransmitEvent(SPI_Regs *spi)
 __STATIC_INLINE uint32_t DL_SPI_getEnabledDMAReceiveEvent(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT1.IMASK & interruptMask);
+    return (spi->DMA_TRIG_RX.IMASK & interruptMask);
 }
 
 /**
  *  @brief      Check if SPI interrupt for DMA transmit event is enabled
  *
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  spi           Pointer to the register overlay for the
@@ -2175,7 +2174,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMAReceiveEvent(
  */
 __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEvent(SPI_Regs *spi)
 {
-    return (spi->INT_EVENT2.IMASK & SPI_INT_EVENT2_IMASK_TX_MASK);
+    return (spi->DMA_TRIG_TX.IMASK & SPI_DMA_TRIG_TX_IMASK_TX_MASK);
 }
 
 /**
@@ -2183,7 +2182,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEvent(SPI_Regs *spi)
  *
  * Checks if any of the SPI interrupts for the DMA receive event that were
  * previously enabled are pending.
- * This API checks the INT_EVENT1 register, which is the event publisher used
+ * This API checks the DMA_TRIG_RX register, which is the event publisher used
  * for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  spi            Pointer to the register overlay for the
@@ -2202,7 +2201,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEvent(SPI_Regs *spi)
 __STATIC_INLINE uint32_t DL_SPI_getEnabledDMAReceiveEventStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT1.MIS & interruptMask);
+    return (spi->DMA_TRIG_RX.MIS & interruptMask);
 }
 
 /**
@@ -2210,7 +2209,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMAReceiveEventStatus(
  *
  * Checks if the SPI interrupt for the DMA transmit event that was
  * previously enabled is pending.
- * This API checks the INT_EVENT2 register, which is the event publisher used
+ * This API checks the DMA_TRIG_TX register, which is the event publisher used
  * for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  spi           Pointer to the register overlay for the
@@ -2224,7 +2223,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMAReceiveEventStatus(
  */
 __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEventStatus(SPI_Regs *spi)
 {
-    return (spi->INT_EVENT2.MIS & SPI_INT_EVENT2_MIS_TX_MASK);
+    return (spi->DMA_TRIG_TX.MIS & SPI_DMA_TRIG_TX_MIS_TX_MASK);
 }
 
 /**
@@ -2232,7 +2231,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEventStatus(SPI_Regs *spi)
  *
  *  Checks if any of the SPI interrupts for DMA receive event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  spi            Pointer to the register overlay for the
@@ -2247,7 +2246,7 @@ __STATIC_INLINE uint32_t DL_SPI_getEnabledDMATransmitEventStatus(SPI_Regs *spi)
 __STATIC_INLINE uint32_t DL_SPI_getRawDMAReceiveEventStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    return (spi->INT_EVENT1.RIS & interruptMask);
+    return (spi->DMA_TRIG_RX.RIS & interruptMask);
 }
 
 /**
@@ -2255,7 +2254,7 @@ __STATIC_INLINE uint32_t DL_SPI_getRawDMAReceiveEventStatus(
  *
  *  Checks if any of the SPI interrupts for DMA transmit event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  spi           Pointer to the register overlay for the
@@ -2267,7 +2266,7 @@ __STATIC_INLINE uint32_t DL_SPI_getRawDMAReceiveEventStatus(
  */
 __STATIC_INLINE uint32_t DL_SPI_getRawDMATransmitEventStatus(SPI_Regs *spi)
 {
-    return (spi->INT_EVENT2.RIS & SPI_INT_EVENT2_RIS_TX_MASK);
+    return (spi->DMA_TRIG_TX.RIS & SPI_DMA_TRIG_TX_RIS_TX_MASK);
 }
 
 /**
@@ -2275,7 +2274,7 @@ __STATIC_INLINE uint32_t DL_SPI_getRawDMATransmitEventStatus(SPI_Regs *spi)
  *
  *  Checks if any of the SPI interrupts for DMA receive event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *
@@ -2289,7 +2288,7 @@ __STATIC_INLINE uint32_t DL_SPI_getRawDMATransmitEventStatus(SPI_Regs *spi)
 __STATIC_INLINE DL_SPI_DMA_IIDX_RX DL_SPI_getPendingDMAReceiveEvent(
     SPI_Regs *spi)
 {
-    return (DL_SPI_DMA_IIDX_RX)(spi->INT_EVENT1.IIDX);
+    return (DL_SPI_DMA_IIDX_RX)(spi->DMA_TRIG_RX.IIDX);
 }
 
 /**
@@ -2297,7 +2296,7 @@ __STATIC_INLINE DL_SPI_DMA_IIDX_RX DL_SPI_getPendingDMAReceiveEvent(
  *
  *  Checks if the SPI interrupt for DMA transmit event is pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *
@@ -2311,13 +2310,13 @@ __STATIC_INLINE DL_SPI_DMA_IIDX_RX DL_SPI_getPendingDMAReceiveEvent(
 __STATIC_INLINE DL_SPI_DMA_IIDX_TX DL_SPI_getPendingDMATransmitEvent(
     SPI_Regs *spi)
 {
-    return (DL_SPI_DMA_IIDX_TX)(spi->INT_EVENT2.IIDX);
+    return (DL_SPI_DMA_IIDX_TX)(spi->DMA_TRIG_TX.IIDX);
 }
 
 /**
  *  @brief      Clear pending SPI interrupts for DMA receive event
  *
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  spi            Pointer to the register overlay for the
@@ -2328,22 +2327,22 @@ __STATIC_INLINE DL_SPI_DMA_IIDX_TX DL_SPI_getPendingDMATransmitEvent(
 __STATIC_INLINE void DL_SPI_clearDMAReceiveEventStatus(
     SPI_Regs *spi, uint32_t interruptMask)
 {
-    spi->INT_EVENT1.ICLR = interruptMask;
+    spi->DMA_TRIG_RX.ICLR = interruptMask;
 }
 
 /**
  *  @brief      Clear pending SPI interrupt for DMA transmit event
  *
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  spi           Pointer to the register overlay for the
  *                            peripheral
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  */
 __STATIC_INLINE void DL_SPI_clearDMATransmitEventStatus(SPI_Regs *spi)
 {
-    spi->INT_EVENT2.ICLR = SPI_INT_EVENT2_ICLR_TX_CLR;
+    spi->DMA_TRIG_TX.ICLR = SPI_DMA_TRIG_TX_ICLR_TX_CLR;
 }
 
 /**

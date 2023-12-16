@@ -282,7 +282,7 @@ __STATIC_INLINE bool DL_TRNG_isReset(TRNG_Regs *trng)
  */
 __STATIC_INLINE bool DL_TRNG_isCaptureReady(TRNG_Regs *trng)
 {
-    return ((trng->RIS & TRNG_RIS_IRQ_CAPTURED_RDY_MASK)) ==
+    return ((trng->CPU_INT.RIS & TRNG_RIS_IRQ_CAPTURED_RDY_MASK)) ==
            TRNG_RIS_IRQ_CAPTURED_RDY_SET;
 }
 
@@ -296,7 +296,7 @@ __STATIC_INLINE bool DL_TRNG_isCaptureReady(TRNG_Regs *trng)
  */
 __STATIC_INLINE bool DL_TRNG_isCommandDone(TRNG_Regs *trng)
 {
-    return ((trng->RIS & TRNG_RIS_IRQ_CMD_DONE_MASK)) ==
+    return ((trng->CPU_INT.RIS & TRNG_RIS_IRQ_CMD_DONE_MASK)) ==
            TRNG_RIS_IRQ_CMD_DONE_SET;
 }
 
@@ -310,7 +310,7 @@ __STATIC_INLINE bool DL_TRNG_isCommandDone(TRNG_Regs *trng)
  */
 __STATIC_INLINE bool DL_TRNG_isCommandFail(TRNG_Regs *trng)
 {
-    return ((trng->RIS & TRNG_RIS_IRQ_CMD_FAIL_MASK)) ==
+    return ((trng->CPU_INT.RIS & TRNG_RIS_IRQ_CMD_FAIL_MASK)) ==
            TRNG_RIS_IRQ_CMD_FAIL_SET;
 }
 
@@ -324,7 +324,7 @@ __STATIC_INLINE bool DL_TRNG_isCommandFail(TRNG_Regs *trng)
  */
 __STATIC_INLINE bool DL_TRNG_isHealthTestFail(TRNG_Regs *trng)
 {
-    return ((trng->RIS & TRNG_RIS_IRQ_HEALTH_FAIL_MASK)) ==
+    return ((trng->CPU_INT.RIS & TRNG_RIS_IRQ_HEALTH_FAIL_MASK)) ==
            TRNG_RIS_IRQ_HEALTH_FAIL_SET;
 }
 
@@ -473,7 +473,7 @@ __STATIC_INLINE bool DL_TRNG_isAdaptiveTestFail(TRNG_Regs *trng)
 __STATIC_INLINE void DL_TRNG_enableInterrupt(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    trng->IMASK |= interruptMask;
+    trng->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -487,7 +487,7 @@ __STATIC_INLINE void DL_TRNG_enableInterrupt(
 __STATIC_INLINE void DL_TRNG_disableInterrupt(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    trng->IMASK &= ~interruptMask;
+    trng->CPU_INT.IMASK &= ~interruptMask;
 }
 
 /**
@@ -505,7 +505,7 @@ __STATIC_INLINE void DL_TRNG_disableInterrupt(
 __STATIC_INLINE uint32_t DL_TRNG_getEnabledInterrupts(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    return trng->IMASK & interruptMask;
+    return trng->CPU_INT.IMASK & interruptMask;
 }
 
 /**
@@ -526,7 +526,7 @@ __STATIC_INLINE uint32_t DL_TRNG_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_TRNG_getEnabledInterruptStatus(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    return (trng->MIS & interruptMask);
+    return (trng->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -546,7 +546,7 @@ __STATIC_INLINE uint32_t DL_TRNG_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_TRNG_getRawInterruptStatus(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    return trng->RIS & interruptMask;
+    return trng->CPU_INT.RIS & interruptMask;
 }
 
 /**
@@ -563,7 +563,7 @@ __STATIC_INLINE uint32_t DL_TRNG_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_TRNG_IIDX DL_TRNG_getPendingInterrupt(TRNG_Regs *trng)
 {
-    return (DL_TRNG_IIDX) trng->IIDX;
+    return (DL_TRNG_IIDX) trng->CPU_INT.IIDX;
 }
 
 /**
@@ -578,7 +578,7 @@ __STATIC_INLINE DL_TRNG_IIDX DL_TRNG_getPendingInterrupt(TRNG_Regs *trng)
 __STATIC_INLINE void DL_TRNG_clearInterruptStatus(
     TRNG_Regs *trng, uint32_t interruptMask)
 {
-    trng->ICLR = interruptMask;
+    trng->CPU_INT.ICLR = interruptMask;
 }
 
 /**

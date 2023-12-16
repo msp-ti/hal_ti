@@ -236,9 +236,9 @@ bool DL_UART_Main_saveConfiguration(
         ptr->fbrd                         = uart->FBRD;
         ptr->lineControlRegisterWord      = uart->LCRH;
         ptr->glitchFilterControlWord      = uart->GFCTL;
-        ptr->interruptMask0               = uart->INT_EVENT0.IMASK;
-        ptr->interruptMask1               = uart->INT_EVENT1.IMASK;
-        ptr->interruptMask2               = uart->INT_EVENT2.IMASK;
+        ptr->interruptMask0               = uart->CPU_INT.IMASK;
+        ptr->interruptMask1               = uart->DMA_TRIG_RX.IMASK;
+        ptr->interruptMask2               = uart->DMA_TRIG_TX.IMASK;
         ptr->backupRdy                    = true;
     }
     return stateSaved;
@@ -250,17 +250,17 @@ bool DL_UART_Main_restoreConfiguration(
     bool stateRestored = ptr->backupRdy;
     if (stateRestored) {
         /* Set CTL0.ENABLE=0 during initialization */
-        uart->CTL0             = ptr->controlWord & ~(UART_CTL0_ENABLE_MASK);
-        uart->CLKSEL           = ptr->clockSel;
-        uart->CLKDIV           = ptr->divideRatio;
-        uart->IFLS             = ptr->interruptFifoLevelSelectWord;
-        uart->IBRD             = ptr->ibrd;
-        uart->FBRD             = ptr->fbrd;
-        uart->LCRH             = ptr->lineControlRegisterWord;
-        uart->GFCTL            = ptr->glitchFilterControlWord;
-        uart->INT_EVENT0.IMASK = ptr->interruptMask0;
-        uart->INT_EVENT1.IMASK = ptr->interruptMask1;
-        uart->INT_EVENT2.IMASK = ptr->interruptMask2;
+        uart->CTL0              = ptr->controlWord & ~(UART_CTL0_ENABLE_MASK);
+        uart->CLKSEL            = ptr->clockSel;
+        uart->CLKDIV            = ptr->divideRatio;
+        uart->IFLS              = ptr->interruptFifoLevelSelectWord;
+        uart->IBRD              = ptr->ibrd;
+        uart->FBRD              = ptr->fbrd;
+        uart->LCRH              = ptr->lineControlRegisterWord;
+        uart->GFCTL             = ptr->glitchFilterControlWord;
+        uart->CPU_INT.IMASK     = ptr->interruptMask0;
+        uart->DMA_TRIG_RX.IMASK = ptr->interruptMask1;
+        uart->DMA_TRIG_TX.IMASK = ptr->interruptMask2;
 
         /* Re-enable UART if it was originally enabled */
         if ((ptr->controlWord & UART_CTL0_ENABLE_MASK) ==
@@ -293,9 +293,9 @@ bool DL_UART_Extend_saveConfiguration(
         ptr->irdaControlWord              = uart->IRCTL;
         ptr->addressMask                  = uart->AMASK;
         ptr->address                      = uart->ADDR;
-        ptr->interruptMask0               = uart->INT_EVENT0.IMASK;
-        ptr->interruptMask1               = uart->INT_EVENT1.IMASK;
-        ptr->interruptMask2               = uart->INT_EVENT2.IMASK;
+        ptr->interruptMask0               = uart->CPU_INT.IMASK;
+        ptr->interruptMask1               = uart->DMA_TRIG_RX.IMASK;
+        ptr->interruptMask2               = uart->DMA_TRIG_TX.IMASK;
         ptr->backupRdy                    = true;
     }
     return stateSaved;
@@ -307,21 +307,21 @@ bool DL_UART_Extend_restoreConfiguration(
     bool stateRestored = ptr->backupRdy;
     if (stateRestored) {
         /* Set CTL0.ENABLE=0 during initialization */
-        uart->CTL0             = ptr->controlWord & ~(UART_CTL0_ENABLE_MASK);
-        uart->CLKSEL           = ptr->clockSel;
-        uart->CLKDIV           = ptr->divideRatio;
-        uart->IFLS             = ptr->interruptFifoLevelSelectWord;
-        uart->IBRD             = ptr->ibrd;
-        uart->FBRD             = ptr->fbrd;
-        uart->LCRH             = ptr->lineControlRegisterWord;
-        uart->GFCTL            = ptr->glitchFilterControlWord;
-        uart->LCRH             = ptr->lineControlRegisterWord;
-        uart->IRCTL            = ptr->irdaControlWord;
-        uart->AMASK            = ptr->addressMask;
-        uart->ADDR             = ptr->address;
-        uart->INT_EVENT0.IMASK = ptr->interruptMask0;
-        uart->INT_EVENT1.IMASK = ptr->interruptMask1;
-        uart->INT_EVENT2.IMASK = ptr->interruptMask2;
+        uart->CTL0              = ptr->controlWord & ~(UART_CTL0_ENABLE_MASK);
+        uart->CLKSEL            = ptr->clockSel;
+        uart->CLKDIV            = ptr->divideRatio;
+        uart->IFLS              = ptr->interruptFifoLevelSelectWord;
+        uart->IBRD              = ptr->ibrd;
+        uart->FBRD              = ptr->fbrd;
+        uart->LCRH              = ptr->lineControlRegisterWord;
+        uart->GFCTL             = ptr->glitchFilterControlWord;
+        uart->LCRH              = ptr->lineControlRegisterWord;
+        uart->IRCTL             = ptr->irdaControlWord;
+        uart->AMASK             = ptr->addressMask;
+        uart->ADDR              = ptr->address;
+        uart->CPU_INT.IMASK     = ptr->interruptMask0;
+        uart->DMA_TRIG_RX.IMASK = ptr->interruptMask1;
+        uart->DMA_TRIG_TX.IMASK = ptr->interruptMask2;
 
         /* Re-enable UART if it was originally enabled */
         if ((ptr->controlWord & UART_CTL0_ENABLE_MASK) ==

@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_dma__include
 #define ti_devices_msp_peripherals_hw_dma__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspdmam0p */
-/* MMR revision: 02a15230d46f10ac291516379cd6baa87c50ee24 */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_dma.h */
+/* Revised: 2023-05-10 21:25:55 */
+/* Revision: fd45ad6f4da46c901da2f4bc9007f7b90b448408 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -72,7 +70,8 @@
 ******************************************************************************/
 #define DMA_DMACHAN_OFS                          ((uint32_t)0x00001200U)
 #define DMA_DMATRIG_OFS                          ((uint32_t)0x00001110U)
-#define DMA_INT_EVENT_OFS                        ((uint32_t)0x00001020U)
+#define DMA_GEN_EVENT_OFS                        ((uint32_t)0x00001050U)
+#define DMA_CPU_INT_OFS                          ((uint32_t)0x00001020U)
 
 
 /** @addtogroup DMA_DMACHAN
@@ -98,7 +97,27 @@ typedef struct {
 
 /*@}*/ /* end of group DMA_DMATRIG */
 
-/** @addtogroup DMA_INT_EVENT
+/** @addtogroup DMA_GEN_EVENT
+  @{
+*/
+
+typedef struct {
+  __I  uint32_t IIDX;                              /* !< (@ 0x00001050) Interrupt index */
+       uint32_t RESERVED0;
+  __IO uint32_t IMASK;                             /* !< (@ 0x00001058) Interrupt mask */
+       uint32_t RESERVED1;
+  __I  uint32_t RIS;                               /* !< (@ 0x00001060) Raw interrupt status */
+       uint32_t RESERVED2;
+  __I  uint32_t MIS;                               /* !< (@ 0x00001068) Masked interrupt status */
+       uint32_t RESERVED3;
+  __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
+       uint32_t RESERVED4;
+  __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
+} DMA_GEN_EVENT_Regs;
+
+/*@}*/ /* end of group DMA_GEN_EVENT */
+
+/** @addtogroup DMA_CPU_INT
   @{
 */
 
@@ -114,10 +133,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-       uint32_t RESERVED5;
-} DMA_INT_EVENT_Regs;
+} DMA_CPU_INT_Regs;
 
-/*@}*/ /* end of group DMA_INT_EVENT */
+/*@}*/ /* end of group DMA_CPU_INT */
 
 /** @addtogroup DMA
   @{
@@ -132,15 +150,17 @@ typedef struct {
        uint32_t RESERVED2[756];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED3;
-  DMA_INT_EVENT_Regs  INT_EVENT[2];                      /* !< (@ 0x00001020) */
-       uint32_t RESERVED4[24];
+  DMA_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
+       uint32_t RESERVED4;
+  DMA_GEN_EVENT_Regs  GEN_EVENT;                         /* !< (@ 0x00001050) */
+       uint32_t RESERVED5[25];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
-       uint32_t RESERVED5[6];
+       uint32_t RESERVED6[6];
   __I  uint32_t DESC;                              /* !< (@ 0x000010FC) Module Description */
   __IO uint32_t DMAPRIO;                           /* !< (@ 0x00001100) DMA Channel Priority Control */
-       uint32_t RESERVED6[3];
+       uint32_t RESERVED7[3];
   DMA_DMATRIG_Regs  DMATRIG[16];                       /* !< (@ 0x00001110) */
-       uint32_t RESERVED7[44];
+       uint32_t RESERVED8[44];
   DMA_DMACHAN_Regs  DMACHAN[16];                       /* !< (@ 0x00001200) */
 } DMA_Regs;
 
@@ -358,926 +378,1847 @@ typedef struct {
                                                                                     0-> Channel0-done, 1-> Channel1-done,
                                                                                     ... */
 
-/* DMA_IIDX Bits */
-/* DMA_IIDX[STAT] Bits */
-#define DMA_IIDX_STAT_OFS                        (0)                             /* !< STAT Offset */
-#define DMA_IIDX_STAT_MASK                       ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define DMA_IIDX_STAT_NO_INTR                    ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* DMA_GEN_EVENT_IIDX Bits */
+/* DMA_GEN_EVENT_IIDX[STAT] Bits */
+#define DMA_GEN_EVENT_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define DMA_GEN_EVENT_IIDX_STAT_MASK             ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define DMA_GEN_EVENT_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define DMA_IIDX_STAT_DMACH0                     ((uint32_t)0x00000001U)         /* !< DMA Channel 0 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH0           ((uint32_t)0x00000001U)         /* !< DMA Channel 0 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH1                     ((uint32_t)0x00000002U)         /* !< DMA Channel 2 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH1           ((uint32_t)0x00000002U)         /* !< DMA Channel 1 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH2                     ((uint32_t)0x00000003U)         /* !< DMA Channel 2 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH2           ((uint32_t)0x00000003U)         /* !< DMA Channel 2 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH3                     ((uint32_t)0x00000004U)         /* !< DMA Channel 3 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH3           ((uint32_t)0x00000004U)         /* !< DMA Channel 3 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH4                     ((uint32_t)0x00000005U)         /* !< DMA Channel 4 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH4           ((uint32_t)0x00000005U)         /* !< DMA Channel 4 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH5                     ((uint32_t)0x00000006U)         /* !< DMA Channel 5 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH5           ((uint32_t)0x00000006U)         /* !< DMA Channel 5 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH6                     ((uint32_t)0x00000007U)         /* !< DMA Channel 6 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH6           ((uint32_t)0x00000007U)         /* !< DMA Channel 6 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH7                     ((uint32_t)0x00000008U)         /* !< DMA Channel 7 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH7           ((uint32_t)0x00000008U)         /* !< DMA Channel 7 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH8                     ((uint32_t)0x00000009U)         /* !< DMA Channel 8 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH8           ((uint32_t)0x00000009U)         /* !< DMA Channel 8 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH9                     ((uint32_t)0x0000000AU)         /* !< DMA Channel 9 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH9           ((uint32_t)0x0000000AU)         /* !< DMA Channel 9 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH10                    ((uint32_t)0x0000000BU)         /* !< DMA Channel 10 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH10          ((uint32_t)0x0000000BU)         /* !< DMA Channel 10 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH11                    ((uint32_t)0x0000000CU)         /* !< DMA Channel 11 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH11          ((uint32_t)0x0000000CU)         /* !< DMA Channel 11 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH12                    ((uint32_t)0x0000000DU)         /* !< DMA Channel 12 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH12          ((uint32_t)0x0000000DU)         /* !< DMA Channel 12 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH13                    ((uint32_t)0x0000000EU)         /* !< DMA Channel 13 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH13          ((uint32_t)0x0000000EU)         /* !< DMA Channel 13 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH14                    ((uint32_t)0x0000000FU)         /* !< DMA Channel 14 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH14          ((uint32_t)0x0000000FU)         /* !< DMA Channel 14 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_DMACH15                    ((uint32_t)0x00000010U)         /* !< DMA Channel 15 size counter reached
+#define DMA_GEN_EVENT_IIDX_STAT_DMACH15          ((uint32_t)0x00000010U)         /* !< DMA Channel 15 size counter reached
                                                                                     zero (DMASZ=0). */
-#define DMA_IIDX_STAT_PREIRQCH0                  ((uint32_t)0x00000011U)         /* !< PRE-IRQ event for DMA Channel 0. */
-#define DMA_IIDX_STAT_PREIRQCH1                  ((uint32_t)0x00000012U)         /* !< PRE-IRQ event for DMA Channel 1. */
-#define DMA_IIDX_STAT_PREIRQCH2                  ((uint32_t)0x00000013U)         /* !< PRE-IRQ event for DMA Channel 2. */
-#define DMA_IIDX_STAT_PREIRQCH3                  ((uint32_t)0x00000014U)         /* !< PRE-IRQ event for DMA Channel 3. */
-#define DMA_IIDX_STAT_PREIRQCH4                  ((uint32_t)0x00000015U)         /* !< PRE-IRQ event for DMA Channel 4. */
-#define DMA_IIDX_STAT_PREIRQCH5                  ((uint32_t)0x00000016U)         /* !< PRE-IRQ event for DMA Channel 5. */
-#define DMA_IIDX_STAT_PREIRQCH6                  ((uint32_t)0x00000017U)         /* !< PRE-IRQ event for DMA Channel 6. */
-#define DMA_IIDX_STAT_PREIRQCH7                  ((uint32_t)0x00000018U)         /* !< PRE-IRQ event for DMA Channel 7. */
-#define DMA_IIDX_STAT_ADDRERR                    ((uint32_t)0x00000019U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH0        ((uint32_t)0x00000011U)         /* !< PRE-IRQ event for DMA Channel 0. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH1        ((uint32_t)0x00000012U)         /* !< PRE-IRQ event for DMA Channel 1. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH2        ((uint32_t)0x00000013U)         /* !< PRE-IRQ event for DMA Channel 2. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH3        ((uint32_t)0x00000014U)         /* !< PRE-IRQ event for DMA Channel 3. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH4        ((uint32_t)0x00000015U)         /* !< PRE-IRQ event for DMA Channel 4. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH5        ((uint32_t)0x00000016U)         /* !< PRE-IRQ event for DMA Channel 5. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH6        ((uint32_t)0x00000017U)         /* !< PRE-IRQ event for DMA Channel 6. */
+#define DMA_GEN_EVENT_IIDX_STAT_PREIRQCH7        ((uint32_t)0x00000018U)         /* !< PRE-IRQ event for DMA Channel 7. */
+#define DMA_GEN_EVENT_IIDX_STAT_ADDRERR          ((uint32_t)0x00000019U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_IIDX_STAT_DATAERR                    ((uint32_t)0x0000001AU)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_IIDX_STAT_DATAERR          ((uint32_t)0x0000001AU)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
 
-/* DMA_IMASK Bits */
-/* DMA_IMASK[DMACH0] Bits */
-#define DMA_IMASK_DMACH0_OFS                     (0)                             /* !< DMACH0 Offset */
-#define DMA_IMASK_DMACH0_MASK                    ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signal.
+/* DMA_GEN_EVENT_IMASK Bits */
+/* DMA_GEN_EVENT_IMASK[DMACH0] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH0_OFS           (0)                             /* !< DMACH0 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH0_MASK          ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH0_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH0_SET                     ((uint32_t)0x00000001U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH1] Bits */
-#define DMA_IMASK_DMACH1_OFS                     (1)                             /* !< DMACH1 Offset */
-#define DMA_IMASK_DMACH1_MASK                    ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH0_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH0_SET           ((uint32_t)0x00000001U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH1] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH1_OFS           (1)                             /* !< DMACH1 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH1_MASK          ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH1_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH1_SET                     ((uint32_t)0x00000002U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH2] Bits */
-#define DMA_IMASK_DMACH2_OFS                     (2)                             /* !< DMACH2 Offset */
-#define DMA_IMASK_DMACH2_MASK                    ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH1_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH1_SET           ((uint32_t)0x00000002U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH2] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH2_OFS           (2)                             /* !< DMACH2 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH2_MASK          ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH2_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH2_SET                     ((uint32_t)0x00000004U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH3] Bits */
-#define DMA_IMASK_DMACH3_OFS                     (3)                             /* !< DMACH3 Offset */
-#define DMA_IMASK_DMACH3_MASK                    ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH2_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH2_SET           ((uint32_t)0x00000004U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH3] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH3_OFS           (3)                             /* !< DMACH3 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH3_MASK          ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH3_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH3_SET                     ((uint32_t)0x00000008U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH4] Bits */
-#define DMA_IMASK_DMACH4_OFS                     (4)                             /* !< DMACH4 Offset */
-#define DMA_IMASK_DMACH4_MASK                    ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH3_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH3_SET           ((uint32_t)0x00000008U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH4] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH4_OFS           (4)                             /* !< DMACH4 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH4_MASK          ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH4_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH4_SET                     ((uint32_t)0x00000010U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH5] Bits */
-#define DMA_IMASK_DMACH5_OFS                     (5)                             /* !< DMACH5 Offset */
-#define DMA_IMASK_DMACH5_MASK                    ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH4_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH4_SET           ((uint32_t)0x00000010U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH5] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH5_OFS           (5)                             /* !< DMACH5 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH5_MASK          ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH5_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH5_SET                     ((uint32_t)0x00000020U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH6] Bits */
-#define DMA_IMASK_DMACH6_OFS                     (6)                             /* !< DMACH6 Offset */
-#define DMA_IMASK_DMACH6_MASK                    ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH5_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH5_SET           ((uint32_t)0x00000020U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH6] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH6_OFS           (6)                             /* !< DMACH6 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH6_MASK          ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH6_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH6_SET                     ((uint32_t)0x00000040U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH7] Bits */
-#define DMA_IMASK_DMACH7_OFS                     (7)                             /* !< DMACH7 Offset */
-#define DMA_IMASK_DMACH7_MASK                    ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH6_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH6_SET           ((uint32_t)0x00000040U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH7] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH7_OFS           (7)                             /* !< DMACH7 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH7_MASK          ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH7_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH7_SET                     ((uint32_t)0x00000080U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH8] Bits */
-#define DMA_IMASK_DMACH8_OFS                     (8)                             /* !< DMACH8 Offset */
-#define DMA_IMASK_DMACH8_MASK                    ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH7_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH7_SET           ((uint32_t)0x00000080U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH8] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH8_OFS           (8)                             /* !< DMACH8 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH8_MASK          ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH8_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH8_SET                     ((uint32_t)0x00000100U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH9] Bits */
-#define DMA_IMASK_DMACH9_OFS                     (9)                             /* !< DMACH9 Offset */
-#define DMA_IMASK_DMACH9_MASK                    ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH8_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH8_SET           ((uint32_t)0x00000100U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH9] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH9_OFS           (9)                             /* !< DMACH9 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH9_MASK          ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH9_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH9_SET                     ((uint32_t)0x00000200U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH10] Bits */
-#define DMA_IMASK_DMACH10_OFS                    (10)                            /* !< DMACH10 Offset */
-#define DMA_IMASK_DMACH10_MASK                   ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH9_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH9_SET           ((uint32_t)0x00000200U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH10] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH10_OFS          (10)                            /* !< DMACH10 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH10_MASK         ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH10_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH10_SET                    ((uint32_t)0x00000400U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH11] Bits */
-#define DMA_IMASK_DMACH11_OFS                    (11)                            /* !< DMACH11 Offset */
-#define DMA_IMASK_DMACH11_MASK                   ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH10_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH10_SET          ((uint32_t)0x00000400U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH11] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH11_OFS          (11)                            /* !< DMACH11 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH11_MASK         ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH11_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH11_SET                    ((uint32_t)0x00000800U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH12] Bits */
-#define DMA_IMASK_DMACH12_OFS                    (12)                            /* !< DMACH12 Offset */
-#define DMA_IMASK_DMACH12_MASK                   ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH11_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH11_SET          ((uint32_t)0x00000800U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH12] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH12_OFS          (12)                            /* !< DMACH12 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH12_MASK         ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH12_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH12_SET                    ((uint32_t)0x00001000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH13] Bits */
-#define DMA_IMASK_DMACH13_OFS                    (13)                            /* !< DMACH13 Offset */
-#define DMA_IMASK_DMACH13_MASK                   ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH12_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH12_SET          ((uint32_t)0x00001000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH13] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH13_OFS          (13)                            /* !< DMACH13 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH13_MASK         ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH13_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH13_SET                    ((uint32_t)0x00002000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH14] Bits */
-#define DMA_IMASK_DMACH14_OFS                    (14)                            /* !< DMACH14 Offset */
-#define DMA_IMASK_DMACH14_MASK                   ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH13_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH13_SET          ((uint32_t)0x00002000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH14] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH14_OFS          (14)                            /* !< DMACH14 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH14_MASK         ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH14_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH14_SET                    ((uint32_t)0x00004000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DMACH15] Bits */
-#define DMA_IMASK_DMACH15_OFS                    (15)                            /* !< DMACH15 Offset */
-#define DMA_IMASK_DMACH15_MASK                   ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signal.
+#define DMA_GEN_EVENT_IMASK_DMACH14_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH14_SET          ((uint32_t)0x00004000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DMACH15] Bits */
+#define DMA_GEN_EVENT_IMASK_DMACH15_OFS          (15)                            /* !< DMACH15 Offset */
+#define DMA_GEN_EVENT_IMASK_DMACH15_MASK         ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signal.
                                                                                     Size counter reached zero (DMASZ=0). */
-#define DMA_IMASK_DMACH15_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DMACH15_SET                    ((uint32_t)0x00008000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH0] Bits */
-#define DMA_IMASK_PREIRQCH0_OFS                  (16)                            /* !< PREIRQCH0 Offset */
-#define DMA_IMASK_PREIRQCH0_MASK                 ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+#define DMA_GEN_EVENT_IMASK_DMACH15_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DMACH15_SET          ((uint32_t)0x00008000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH0] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH0_OFS        (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH0_MASK       ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH0_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH0_SET                  ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH1] Bits */
-#define DMA_IMASK_PREIRQCH1_OFS                  (17)                            /* !< PREIRQCH1 Offset */
-#define DMA_IMASK_PREIRQCH1_MASK                 ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH0_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH0_SET        ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH1] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH1_OFS        (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH1_MASK       ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH1_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH1_SET                  ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH2] Bits */
-#define DMA_IMASK_PREIRQCH2_OFS                  (18)                            /* !< PREIRQCH2 Offset */
-#define DMA_IMASK_PREIRQCH2_MASK                 ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH1_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH1_SET        ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH2] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH2_OFS        (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH2_MASK       ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH2_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH2_SET                  ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH3] Bits */
-#define DMA_IMASK_PREIRQCH3_OFS                  (19)                            /* !< PREIRQCH3 Offset */
-#define DMA_IMASK_PREIRQCH3_MASK                 ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH2_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH2_SET        ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH3] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH3_OFS        (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH3_MASK       ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH3_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH3_SET                  ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH4] Bits */
-#define DMA_IMASK_PREIRQCH4_OFS                  (20)                            /* !< PREIRQCH4 Offset */
-#define DMA_IMASK_PREIRQCH4_MASK                 ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH3_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH3_SET        ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH4] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH4_OFS        (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH4_MASK       ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH4_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH4_SET                  ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH5] Bits */
-#define DMA_IMASK_PREIRQCH5_OFS                  (21)                            /* !< PREIRQCH5 Offset */
-#define DMA_IMASK_PREIRQCH5_MASK                 ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH4_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH4_SET        ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH5] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH5_OFS        (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH5_MASK       ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH5_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH5_SET                  ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH6] Bits */
-#define DMA_IMASK_PREIRQCH6_OFS                  (22)                            /* !< PREIRQCH6 Offset */
-#define DMA_IMASK_PREIRQCH6_MASK                 ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH5_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH5_SET        ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH6] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH6_OFS        (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH6_MASK       ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH6_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH6_SET                  ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[PREIRQCH7] Bits */
-#define DMA_IMASK_PREIRQCH7_OFS                  (23)                            /* !< PREIRQCH7 Offset */
-#define DMA_IMASK_PREIRQCH7_MASK                 ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+#define DMA_GEN_EVENT_IMASK_PREIRQCH6_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH6_SET        ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[PREIRQCH7] Bits */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH7_OFS        (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH7_MASK       ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_IMASK_PREIRQCH7_CLR                  ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_PREIRQCH7_SET                  ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[ADDRERR] Bits */
-#define DMA_IMASK_ADDRERR_OFS                    (24)                            /* !< ADDRERR Offset */
-#define DMA_IMASK_ADDRERR_MASK                   ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_IMASK_PREIRQCH7_CLR        ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_PREIRQCH7_SET        ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[ADDRERR] Bits */
+#define DMA_GEN_EVENT_IMASK_ADDRERR_OFS          (24)                            /* !< ADDRERR Offset */
+#define DMA_GEN_EVENT_IMASK_ADDRERR_MASK         ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_IMASK_ADDRERR_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_ADDRERR_SET                    ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
-/* DMA_IMASK[DATAERR] Bits */
-#define DMA_IMASK_DATAERR_OFS                    (25)                            /* !< DATAERR Offset */
-#define DMA_IMASK_DATAERR_MASK                   ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_IMASK_ADDRERR_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_ADDRERR_SET          ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_IMASK[DATAERR] Bits */
+#define DMA_GEN_EVENT_IMASK_DATAERR_OFS          (25)                            /* !< DATAERR Offset */
+#define DMA_GEN_EVENT_IMASK_DATAERR_MASK         ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
-#define DMA_IMASK_DATAERR_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_IMASK_DATAERR_SET                    ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DATAERR_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_IMASK_DATAERR_SET          ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
 
-/* DMA_RIS Bits */
-/* DMA_RIS[DMACH0] Bits */
-#define DMA_RIS_DMACH0_OFS                       (0)                             /* !< DMACH0 Offset */
-#define DMA_RIS_DMACH0_MASK                      ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+/* DMA_GEN_EVENT_RIS Bits */
+/* DMA_GEN_EVENT_RIS[DMACH0] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH0_OFS             (0)                             /* !< DMACH0 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH0_MASK            ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH0_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH0_SET                       ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH1] Bits */
-#define DMA_RIS_DMACH1_OFS                       (1)                             /* !< DMACH1 Offset */
-#define DMA_RIS_DMACH1_MASK                      ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH0_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH0_SET             ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH1] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH1_OFS             (1)                             /* !< DMACH1 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH1_MASK            ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH1_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH1_SET                       ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH2] Bits */
-#define DMA_RIS_DMACH2_OFS                       (2)                             /* !< DMACH2 Offset */
-#define DMA_RIS_DMACH2_MASK                      ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH1_SET             ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH2] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH2_OFS             (2)                             /* !< DMACH2 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH2_MASK            ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH2_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH2_SET                       ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH3] Bits */
-#define DMA_RIS_DMACH3_OFS                       (3)                             /* !< DMACH3 Offset */
-#define DMA_RIS_DMACH3_MASK                      ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH2_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH3] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH3_OFS             (3)                             /* !< DMACH3 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH3_MASK            ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH3_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH3_SET                       ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH4] Bits */
-#define DMA_RIS_DMACH4_OFS                       (4)                             /* !< DMACH4 Offset */
-#define DMA_RIS_DMACH4_MASK                      ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH3_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH3_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH4] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH4_OFS             (4)                             /* !< DMACH4 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH4_MASK            ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH4_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH4_SET                       ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH5] Bits */
-#define DMA_RIS_DMACH5_OFS                       (5)                             /* !< DMACH5 Offset */
-#define DMA_RIS_DMACH5_MASK                      ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH4_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH4_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH5] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH5_OFS             (5)                             /* !< DMACH5 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH5_MASK            ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH5_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH5_SET                       ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH6] Bits */
-#define DMA_RIS_DMACH6_OFS                       (6)                             /* !< DMACH6 Offset */
-#define DMA_RIS_DMACH6_MASK                      ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH5_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH5_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH6] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH6_OFS             (6)                             /* !< DMACH6 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH6_MASK            ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH6_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH6_SET                       ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH7] Bits */
-#define DMA_RIS_DMACH7_OFS                       (7)                             /* !< DMACH7 Offset */
-#define DMA_RIS_DMACH7_MASK                      ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH6_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH6_SET             ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH7] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH7_OFS             (7)                             /* !< DMACH7 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH7_MASK            ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH7_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH7_SET                       ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH8] Bits */
-#define DMA_RIS_DMACH8_OFS                       (8)                             /* !< DMACH8 Offset */
-#define DMA_RIS_DMACH8_MASK                      ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH7_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH7_SET             ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH8] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH8_OFS             (8)                             /* !< DMACH8 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH8_MASK            ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH8_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH8_SET                       ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH9] Bits */
-#define DMA_RIS_DMACH9_OFS                       (9)                             /* !< DMACH9 Offset */
-#define DMA_RIS_DMACH9_MASK                      ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH8_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH8_SET             ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH9] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH9_OFS             (9)                             /* !< DMACH9 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH9_MASK            ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH9_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH9_SET                       ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH10] Bits */
-#define DMA_RIS_DMACH10_OFS                      (10)                            /* !< DMACH10 Offset */
-#define DMA_RIS_DMACH10_MASK                     ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH9_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH9_SET             ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH10] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH10_OFS            (10)                            /* !< DMACH10 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH10_MASK           ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH10_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH10_SET                      ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH11] Bits */
-#define DMA_RIS_DMACH11_OFS                      (11)                            /* !< DMACH11 Offset */
-#define DMA_RIS_DMACH11_MASK                     ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH10_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH10_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH11] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH11_OFS            (11)                            /* !< DMACH11 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH11_MASK           ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH11_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH11_SET                      ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH12] Bits */
-#define DMA_RIS_DMACH12_OFS                      (12)                            /* !< DMACH12 Offset */
-#define DMA_RIS_DMACH12_MASK                     ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH11_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH11_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH12] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH12_OFS            (12)                            /* !< DMACH12 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH12_MASK           ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH12_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH12_SET                      ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH13] Bits */
-#define DMA_RIS_DMACH13_OFS                      (13)                            /* !< DMACH13 Offset */
-#define DMA_RIS_DMACH13_MASK                     ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH12_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH12_SET            ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH13] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH13_OFS            (13)                            /* !< DMACH13 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH13_MASK           ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH13_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH13_SET                      ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH14] Bits */
-#define DMA_RIS_DMACH14_OFS                      (14)                            /* !< DMACH14 Offset */
-#define DMA_RIS_DMACH14_MASK                     ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH13_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH13_SET            ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH14] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH14_OFS            (14)                            /* !< DMACH14 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH14_MASK           ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH14_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH14_SET                      ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
-/* DMA_RIS[DMACH15] Bits */
-#define DMA_RIS_DMACH15_OFS                      (15)                            /* !< DMACH15 Offset */
-#define DMA_RIS_DMACH15_MASK                     ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+#define DMA_GEN_EVENT_RIS_DMACH14_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH14_SET            ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[DMACH15] Bits */
+#define DMA_GEN_EVENT_RIS_DMACH15_OFS            (15)                            /* !< DMACH15 Offset */
+#define DMA_GEN_EVENT_RIS_DMACH15_MASK           ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_RIS_DMACH15_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define DMA_RIS_DMACH15_SET                      ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
-/* DMA_RIS[PREIRQCH0] Bits */
-#define DMA_RIS_PREIRQCH0_OFS                    (16)                            /* !< PREIRQCH0 Offset */
-#define DMA_RIS_PREIRQCH0_MASK                   ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+#define DMA_GEN_EVENT_RIS_DMACH15_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_GEN_EVENT_RIS_DMACH15_SET            ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_RIS[PREIRQCH0] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH0_OFS          (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH0_MASK         ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH0_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH0_SET                    ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH1] Bits */
-#define DMA_RIS_PREIRQCH1_OFS                    (17)                            /* !< PREIRQCH1 Offset */
-#define DMA_RIS_PREIRQCH1_MASK                   ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH0_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH0_SET          ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH1] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH1_OFS          (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH1_MASK         ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH1_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH1_SET                    ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH2] Bits */
-#define DMA_RIS_PREIRQCH2_OFS                    (18)                            /* !< PREIRQCH2 Offset */
-#define DMA_RIS_PREIRQCH2_MASK                   ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH1_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH1_SET          ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH2] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH2_OFS          (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH2_MASK         ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH2_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH2_SET                    ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH3] Bits */
-#define DMA_RIS_PREIRQCH3_OFS                    (19)                            /* !< PREIRQCH3 Offset */
-#define DMA_RIS_PREIRQCH3_MASK                   ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH2_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH2_SET          ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH3] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH3_OFS          (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH3_MASK         ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH3_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH3_SET                    ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH4] Bits */
-#define DMA_RIS_PREIRQCH4_OFS                    (20)                            /* !< PREIRQCH4 Offset */
-#define DMA_RIS_PREIRQCH4_MASK                   ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH3_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH3_SET          ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH4] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH4_OFS          (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH4_MASK         ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH4_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH4_SET                    ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH5] Bits */
-#define DMA_RIS_PREIRQCH5_OFS                    (21)                            /* !< PREIRQCH5 Offset */
-#define DMA_RIS_PREIRQCH5_MASK                   ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH4_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH4_SET          ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH5] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH5_OFS          (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH5_MASK         ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH5_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH5_SET                    ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH6] Bits */
-#define DMA_RIS_PREIRQCH6_OFS                    (22)                            /* !< PREIRQCH6 Offset */
-#define DMA_RIS_PREIRQCH6_MASK                   ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH5_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH5_SET          ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH6] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH6_OFS          (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH6_MASK         ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH6_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH6_SET                    ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[PREIRQCH7] Bits */
-#define DMA_RIS_PREIRQCH7_OFS                    (23)                            /* !< PREIRQCH7 Offset */
-#define DMA_RIS_PREIRQCH7_MASK                   ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+#define DMA_GEN_EVENT_RIS_PREIRQCH6_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH6_SET          ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[PREIRQCH7] Bits */
+#define DMA_GEN_EVENT_RIS_PREIRQCH7_OFS          (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_GEN_EVENT_RIS_PREIRQCH7_MASK         ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_RIS_PREIRQCH7_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_PREIRQCH7_SET                    ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[ADDRERR] Bits */
-#define DMA_RIS_ADDRERR_OFS                      (24)                            /* !< ADDRERR Offset */
-#define DMA_RIS_ADDRERR_MASK                     ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_RIS_PREIRQCH7_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_PREIRQCH7_SET          ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[ADDRERR] Bits */
+#define DMA_GEN_EVENT_RIS_ADDRERR_OFS            (24)                            /* !< ADDRERR Offset */
+#define DMA_GEN_EVENT_RIS_ADDRERR_MASK           ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_RIS_ADDRERR_CLR                      ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_ADDRERR_SET                      ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
-/* DMA_RIS[DATAERR] Bits */
-#define DMA_RIS_DATAERR_OFS                      (25)                            /* !< DATAERR Offset */
-#define DMA_RIS_DATAERR_MASK                     ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_RIS_ADDRERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_ADDRERR_SET            ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_RIS[DATAERR] Bits */
+#define DMA_GEN_EVENT_RIS_DATAERR_OFS            (25)                            /* !< DATAERR Offset */
+#define DMA_GEN_EVENT_RIS_DATAERR_MASK           ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
-#define DMA_RIS_DATAERR_CLR                      ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_RIS_DATAERR_SET                      ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_DATAERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_RIS_DATAERR_SET            ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
 
-/* DMA_MIS Bits */
-/* DMA_MIS[DMACH0] Bits */
-#define DMA_MIS_DMACH0_OFS                       (0)                             /* !< DMACH0 Offset */
-#define DMA_MIS_DMACH0_MASK                      ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+/* DMA_GEN_EVENT_MIS Bits */
+/* DMA_GEN_EVENT_MIS[DMACH0] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH0_OFS             (0)                             /* !< DMACH0 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH0_MASK            ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH0_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH0_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH0_SET                       ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH1] Bits */
-#define DMA_MIS_DMACH1_OFS                       (1)                             /* !< DMACH1 Offset */
-#define DMA_MIS_DMACH1_MASK                      ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH0_SET             ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH1] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH1_OFS             (1)                             /* !< DMACH1 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH1_MASK            ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH1_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH1_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH1_SET                       ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH2] Bits */
-#define DMA_MIS_DMACH2_OFS                       (2)                             /* !< DMACH2 Offset */
-#define DMA_MIS_DMACH2_MASK                      ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH1_SET             ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH2] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH2_OFS             (2)                             /* !< DMACH2 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH2_MASK            ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH2_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH2_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH2_SET                       ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH3] Bits */
-#define DMA_MIS_DMACH3_OFS                       (3)                             /* !< DMACH3 Offset */
-#define DMA_MIS_DMACH3_MASK                      ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH2_SET             ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH3] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH3_OFS             (3)                             /* !< DMACH3 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH3_MASK            ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH3_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH3_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH3_SET                       ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH4] Bits */
-#define DMA_MIS_DMACH4_OFS                       (4)                             /* !< DMACH4 Offset */
-#define DMA_MIS_DMACH4_MASK                      ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH3_SET             ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH4] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH4_OFS             (4)                             /* !< DMACH4 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH4_MASK            ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH4_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH4_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH4_SET                       ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH5] Bits */
-#define DMA_MIS_DMACH5_OFS                       (5)                             /* !< DMACH5 Offset */
-#define DMA_MIS_DMACH5_MASK                      ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH4_SET             ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH5] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH5_OFS             (5)                             /* !< DMACH5 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH5_MASK            ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH5_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH5_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH5_SET                       ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH6] Bits */
-#define DMA_MIS_DMACH6_OFS                       (6)                             /* !< DMACH6 Offset */
-#define DMA_MIS_DMACH6_MASK                      ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH5_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH6] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH6_OFS             (6)                             /* !< DMACH6 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH6_MASK            ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH6_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH6_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH6_SET                       ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH7] Bits */
-#define DMA_MIS_DMACH7_OFS                       (7)                             /* !< DMACH7 Offset */
-#define DMA_MIS_DMACH7_MASK                      ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH6_SET             ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH7] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH7_OFS             (7)                             /* !< DMACH7 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH7_MASK            ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH7_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH7_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH7_SET                       ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH8] Bits */
-#define DMA_MIS_DMACH8_OFS                       (8)                             /* !< DMACH8 Offset */
-#define DMA_MIS_DMACH8_MASK                      ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH7_SET             ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH8] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH8_OFS             (8)                             /* !< DMACH8 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH8_MASK            ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH8_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH8_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH8_SET                       ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH9] Bits */
-#define DMA_MIS_DMACH9_OFS                       (9)                             /* !< DMACH9 Offset */
-#define DMA_MIS_DMACH9_MASK                      ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH8_SET             ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH9] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH9_OFS             (9)                             /* !< DMACH9 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH9_MASK            ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH9_CLR                       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH9_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH9_SET                       ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH10] Bits */
-#define DMA_MIS_DMACH10_OFS                      (10)                            /* !< DMACH10 Offset */
-#define DMA_MIS_DMACH10_MASK                     ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH9_SET             ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH10] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH10_OFS            (10)                            /* !< DMACH10 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH10_MASK           ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH10_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH10_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH10_SET                      ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH11] Bits */
-#define DMA_MIS_DMACH11_OFS                      (11)                            /* !< DMACH11 Offset */
-#define DMA_MIS_DMACH11_MASK                     ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH10_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH11] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH11_OFS            (11)                            /* !< DMACH11 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH11_MASK           ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH11_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH11_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH11_SET                      ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH12] Bits */
-#define DMA_MIS_DMACH12_OFS                      (12)                            /* !< DMACH12 Offset */
-#define DMA_MIS_DMACH12_MASK                     ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH11_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH12] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH12_OFS            (12)                            /* !< DMACH12 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH12_MASK           ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH12_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH12_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH12_SET                      ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH13] Bits */
-#define DMA_MIS_DMACH13_OFS                      (13)                            /* !< DMACH13 Offset */
-#define DMA_MIS_DMACH13_MASK                     ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH12_SET            ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH13] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH13_OFS            (13)                            /* !< DMACH13 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH13_MASK           ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH13_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH13_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH13_SET                      ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH14] Bits */
-#define DMA_MIS_DMACH14_OFS                      (14)                            /* !< DMACH14 Offset */
-#define DMA_MIS_DMACH14_MASK                     ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH13_SET            ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH14] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH14_OFS            (14)                            /* !< DMACH14 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH14_MASK           ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH14_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH14_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH14_SET                      ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
-/* DMA_MIS[DMACH15] Bits */
-#define DMA_MIS_DMACH15_OFS                      (15)                            /* !< DMACH15 Offset */
-#define DMA_MIS_DMACH15_MASK                     ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+#define DMA_GEN_EVENT_MIS_DMACH14_SET            ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[DMACH15] Bits */
+#define DMA_GEN_EVENT_MIS_DMACH15_OFS            (15)                            /* !< DMACH15 Offset */
+#define DMA_GEN_EVENT_MIS_DMACH15_MASK           ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_MIS_DMACH15_CLR                      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+#define DMA_GEN_EVENT_MIS_DMACH15_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
                                                                                     masked out */
-#define DMA_MIS_DMACH15_SET                      ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
-/* DMA_MIS[PREIRQCH0] Bits */
-#define DMA_MIS_PREIRQCH0_OFS                    (16)                            /* !< PREIRQCH0 Offset */
-#define DMA_MIS_PREIRQCH0_MASK                   ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+#define DMA_GEN_EVENT_MIS_DMACH15_SET            ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
+/* DMA_GEN_EVENT_MIS[PREIRQCH0] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH0_OFS          (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH0_MASK         ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH0_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH0_SET                    ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH1] Bits */
-#define DMA_MIS_PREIRQCH1_OFS                    (17)                            /* !< PREIRQCH1 Offset */
-#define DMA_MIS_PREIRQCH1_MASK                   ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH0_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH0_SET          ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH1] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH1_OFS          (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH1_MASK         ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH1_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH1_SET                    ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH2] Bits */
-#define DMA_MIS_PREIRQCH2_OFS                    (18)                            /* !< PREIRQCH2 Offset */
-#define DMA_MIS_PREIRQCH2_MASK                   ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH1_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH1_SET          ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH2] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH2_OFS          (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH2_MASK         ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH2_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH2_SET                    ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH3] Bits */
-#define DMA_MIS_PREIRQCH3_OFS                    (19)                            /* !< PREIRQCH3 Offset */
-#define DMA_MIS_PREIRQCH3_MASK                   ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH2_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH2_SET          ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH3] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH3_OFS          (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH3_MASK         ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH3_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH3_SET                    ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH4] Bits */
-#define DMA_MIS_PREIRQCH4_OFS                    (20)                            /* !< PREIRQCH4 Offset */
-#define DMA_MIS_PREIRQCH4_MASK                   ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH3_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH3_SET          ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH4] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH4_OFS          (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH4_MASK         ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH4_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH4_SET                    ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH5] Bits */
-#define DMA_MIS_PREIRQCH5_OFS                    (21)                            /* !< PREIRQCH5 Offset */
-#define DMA_MIS_PREIRQCH5_MASK                   ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH4_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH4_SET          ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH5] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH5_OFS          (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH5_MASK         ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH5_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH5_SET                    ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH6] Bits */
-#define DMA_MIS_PREIRQCH6_OFS                    (22)                            /* !< PREIRQCH6 Offset */
-#define DMA_MIS_PREIRQCH6_MASK                   ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH5_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH5_SET          ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH6] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH6_OFS          (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH6_MASK         ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH6_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH6_SET                    ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[PREIRQCH7] Bits */
-#define DMA_MIS_PREIRQCH7_OFS                    (23)                            /* !< PREIRQCH7 Offset */
-#define DMA_MIS_PREIRQCH7_MASK                   ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+#define DMA_GEN_EVENT_MIS_PREIRQCH6_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH6_SET          ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[PREIRQCH7] Bits */
+#define DMA_GEN_EVENT_MIS_PREIRQCH7_OFS          (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_GEN_EVENT_MIS_PREIRQCH7_MASK         ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_MIS_PREIRQCH7_CLR                    ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_PREIRQCH7_SET                    ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[ADDRERR] Bits */
-#define DMA_MIS_ADDRERR_OFS                      (24)                            /* !< ADDRERR Offset */
-#define DMA_MIS_ADDRERR_MASK                     ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_MIS_PREIRQCH7_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_PREIRQCH7_SET          ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[ADDRERR] Bits */
+#define DMA_GEN_EVENT_MIS_ADDRERR_OFS            (24)                            /* !< ADDRERR Offset */
+#define DMA_GEN_EVENT_MIS_ADDRERR_MASK           ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_MIS_ADDRERR_CLR                      ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_ADDRERR_SET                      ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
-/* DMA_MIS[DATAERR] Bits */
-#define DMA_MIS_DATAERR_OFS                      (25)                            /* !< DATAERR Offset */
-#define DMA_MIS_DATAERR_MASK                     ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_MIS_ADDRERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_ADDRERR_SET            ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_MIS[DATAERR] Bits */
+#define DMA_GEN_EVENT_MIS_DATAERR_OFS            (25)                            /* !< DATAERR Offset */
+#define DMA_GEN_EVENT_MIS_DATAERR_MASK           ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
-#define DMA_MIS_DATAERR_CLR                      ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_MIS_DATAERR_SET                      ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_DATAERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_MIS_DATAERR_SET            ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
 
-/* DMA_ISET Bits */
-/* DMA_ISET[DMACH0] Bits */
-#define DMA_ISET_DMACH0_OFS                      (0)                             /* !< DMACH0 Offset */
-#define DMA_ISET_DMACH0_MASK                     ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+/* DMA_GEN_EVENT_ISET Bits */
+/* DMA_GEN_EVENT_ISET[DMACH0] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH0_OFS            (0)                             /* !< DMACH0 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH0_MASK           ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH0_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH0_SET                      ((uint32_t)0x00000001U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH1] Bits */
-#define DMA_ISET_DMACH1_OFS                      (1)                             /* !< DMACH1 Offset */
-#define DMA_ISET_DMACH1_MASK                     ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH0_SET            ((uint32_t)0x00000001U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH1] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH1_OFS            (1)                             /* !< DMACH1 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH1_MASK           ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH1_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH1_SET                      ((uint32_t)0x00000002U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH2] Bits */
-#define DMA_ISET_DMACH2_OFS                      (2)                             /* !< DMACH2 Offset */
-#define DMA_ISET_DMACH2_MASK                     ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH1_SET            ((uint32_t)0x00000002U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH2] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH2_OFS            (2)                             /* !< DMACH2 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH2_MASK           ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH2_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH2_SET                      ((uint32_t)0x00000004U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH3] Bits */
-#define DMA_ISET_DMACH3_OFS                      (3)                             /* !< DMACH3 Offset */
-#define DMA_ISET_DMACH3_MASK                     ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH2_SET            ((uint32_t)0x00000004U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH3] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH3_OFS            (3)                             /* !< DMACH3 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH3_MASK           ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH3_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH3_SET                      ((uint32_t)0x00000008U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH4] Bits */
-#define DMA_ISET_DMACH4_OFS                      (4)                             /* !< DMACH4 Offset */
-#define DMA_ISET_DMACH4_MASK                     ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH3_SET            ((uint32_t)0x00000008U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH4] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH4_OFS            (4)                             /* !< DMACH4 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH4_MASK           ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH4_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH4_SET                      ((uint32_t)0x00000010U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH5] Bits */
-#define DMA_ISET_DMACH5_OFS                      (5)                             /* !< DMACH5 Offset */
-#define DMA_ISET_DMACH5_MASK                     ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH4_SET            ((uint32_t)0x00000010U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH5] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH5_OFS            (5)                             /* !< DMACH5 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH5_MASK           ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH5_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH5_SET                      ((uint32_t)0x00000020U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH6] Bits */
-#define DMA_ISET_DMACH6_OFS                      (6)                             /* !< DMACH6 Offset */
-#define DMA_ISET_DMACH6_MASK                     ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH5_SET            ((uint32_t)0x00000020U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH6] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH6_OFS            (6)                             /* !< DMACH6 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH6_MASK           ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH6_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH6_SET                      ((uint32_t)0x00000040U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH7] Bits */
-#define DMA_ISET_DMACH7_OFS                      (7)                             /* !< DMACH7 Offset */
-#define DMA_ISET_DMACH7_MASK                     ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH6_SET            ((uint32_t)0x00000040U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH7] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH7_OFS            (7)                             /* !< DMACH7 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH7_MASK           ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH7_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH7_SET                      ((uint32_t)0x00000080U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH8] Bits */
-#define DMA_ISET_DMACH8_OFS                      (8)                             /* !< DMACH8 Offset */
-#define DMA_ISET_DMACH8_MASK                     ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH7_SET            ((uint32_t)0x00000080U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH8] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH8_OFS            (8)                             /* !< DMACH8 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH8_MASK           ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH8_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH8_SET                      ((uint32_t)0x00000100U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH9] Bits */
-#define DMA_ISET_DMACH9_OFS                      (9)                             /* !< DMACH9 Offset */
-#define DMA_ISET_DMACH9_MASK                     ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH8_SET            ((uint32_t)0x00000100U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH9] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH9_OFS            (9)                             /* !< DMACH9 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH9_MASK           ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH9_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH9_SET                      ((uint32_t)0x00000200U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH10] Bits */
-#define DMA_ISET_DMACH10_OFS                     (10)                            /* !< DMACH10 Offset */
-#define DMA_ISET_DMACH10_MASK                    ((uint32_t)0x00000400U)         /* !< DMA Channel 0 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH9_SET            ((uint32_t)0x00000200U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH10] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH10_OFS           (10)                            /* !< DMACH10 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH10_MASK          ((uint32_t)0x00000400U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH10_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH10_SET                     ((uint32_t)0x00000400U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH11] Bits */
-#define DMA_ISET_DMACH11_OFS                     (11)                            /* !< DMACH11 Offset */
-#define DMA_ISET_DMACH11_MASK                    ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH10_SET           ((uint32_t)0x00000400U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH11] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH11_OFS           (11)                            /* !< DMACH11 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH11_MASK          ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH11_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH11_SET                     ((uint32_t)0x00000800U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH12] Bits */
-#define DMA_ISET_DMACH12_OFS                     (12)                            /* !< DMACH12 Offset */
-#define DMA_ISET_DMACH12_MASK                    ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH11_SET           ((uint32_t)0x00000800U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH12] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH12_OFS           (12)                            /* !< DMACH12 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH12_MASK          ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH12_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH12_SET                     ((uint32_t)0x00001000U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH13] Bits */
-#define DMA_ISET_DMACH13_OFS                     (13)                            /* !< DMACH13 Offset */
-#define DMA_ISET_DMACH13_MASK                    ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH12_SET           ((uint32_t)0x00001000U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH13] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH13_OFS           (13)                            /* !< DMACH13 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH13_MASK          ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH13_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH13_SET                     ((uint32_t)0x00002000U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH14] Bits */
-#define DMA_ISET_DMACH14_OFS                     (14)                            /* !< DMACH14 Offset */
-#define DMA_ISET_DMACH14_MASK                    ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH13_SET           ((uint32_t)0x00002000U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH14] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH14_OFS           (14)                            /* !< DMACH14 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH14_MASK          ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH14_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH14_SET                     ((uint32_t)0x00004000U)         /* !< Set interrupt */
-/* DMA_ISET[DMACH15] Bits */
-#define DMA_ISET_DMACH15_OFS                     (15)                            /* !< DMACH15 Offset */
-#define DMA_ISET_DMACH15_MASK                    ((uint32_t)0x00008000U)         /* !< DMA Channel 0 interrupt signals
+#define DMA_GEN_EVENT_ISET_DMACH14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH14_SET           ((uint32_t)0x00004000U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[DMACH15] Bits */
+#define DMA_GEN_EVENT_ISET_DMACH15_OFS           (15)                            /* !< DMACH15 Offset */
+#define DMA_GEN_EVENT_ISET_DMACH15_MASK          ((uint32_t)0x00008000U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ISET_DMACH15_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ISET_DMACH15_SET                     ((uint32_t)0x00008000U)         /* !< Set interrupt */
-/* DMA_ISET[PREIRQCH0] Bits */
-#define DMA_ISET_PREIRQCH0_OFS                   (16)                            /* !< PREIRQCH0 Offset */
-#define DMA_ISET_PREIRQCH0_MASK                  ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+#define DMA_GEN_EVENT_ISET_DMACH15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ISET_DMACH15_SET           ((uint32_t)0x00008000U)         /* !< Set interrupt */
+/* DMA_GEN_EVENT_ISET[PREIRQCH0] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH0_OFS         (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH0_MASK        ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH0_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH0_SET                   ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH1] Bits */
-#define DMA_ISET_PREIRQCH1_OFS                   (17)                            /* !< PREIRQCH1 Offset */
-#define DMA_ISET_PREIRQCH1_MASK                  ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH0_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH0_SET         ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH1] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH1_OFS         (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH1_MASK        ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH1_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH1_SET                   ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH2] Bits */
-#define DMA_ISET_PREIRQCH2_OFS                   (18)                            /* !< PREIRQCH2 Offset */
-#define DMA_ISET_PREIRQCH2_MASK                  ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH1_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH1_SET         ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH2] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH2_OFS         (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH2_MASK        ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH2_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH2_SET                   ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH3] Bits */
-#define DMA_ISET_PREIRQCH3_OFS                   (19)                            /* !< PREIRQCH3 Offset */
-#define DMA_ISET_PREIRQCH3_MASK                  ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH2_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH2_SET         ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH3] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH3_OFS         (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH3_MASK        ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH3_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH3_SET                   ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH4] Bits */
-#define DMA_ISET_PREIRQCH4_OFS                   (20)                            /* !< PREIRQCH4 Offset */
-#define DMA_ISET_PREIRQCH4_MASK                  ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH3_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH3_SET         ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH4] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH4_OFS         (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH4_MASK        ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH4_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH4_SET                   ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH5] Bits */
-#define DMA_ISET_PREIRQCH5_OFS                   (21)                            /* !< PREIRQCH5 Offset */
-#define DMA_ISET_PREIRQCH5_MASK                  ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH4_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH4_SET         ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH5] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH5_OFS         (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH5_MASK        ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH5_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH5_SET                   ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH6] Bits */
-#define DMA_ISET_PREIRQCH6_OFS                   (22)                            /* !< PREIRQCH6 Offset */
-#define DMA_ISET_PREIRQCH6_MASK                  ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH5_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH5_SET         ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH6] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH6_OFS         (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH6_MASK        ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH6_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH6_SET                   ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[PREIRQCH7] Bits */
-#define DMA_ISET_PREIRQCH7_OFS                   (23)                            /* !< PREIRQCH7 Offset */
-#define DMA_ISET_PREIRQCH7_MASK                  ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+#define DMA_GEN_EVENT_ISET_PREIRQCH6_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH6_SET         ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[PREIRQCH7] Bits */
+#define DMA_GEN_EVENT_ISET_PREIRQCH7_OFS         (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_GEN_EVENT_ISET_PREIRQCH7_MASK        ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ISET_PREIRQCH7_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_PREIRQCH7_SET                   ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[ADDRERR] Bits */
-#define DMA_ISET_ADDRERR_OFS                     (24)                            /* !< ADDRERR Offset */
-#define DMA_ISET_ADDRERR_MASK                    ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_ISET_PREIRQCH7_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_PREIRQCH7_SET         ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[ADDRERR] Bits */
+#define DMA_GEN_EVENT_ISET_ADDRERR_OFS           (24)                            /* !< ADDRERR Offset */
+#define DMA_GEN_EVENT_ISET_ADDRERR_MASK          ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_ISET_ADDRERR_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_ADDRERR_SET                     ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
-/* DMA_ISET[DATAERR] Bits */
-#define DMA_ISET_DATAERR_OFS                     (25)                            /* !< DATAERR Offset */
-#define DMA_ISET_DATAERR_MASK                    ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_ISET_ADDRERR_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_ADDRERR_SET           ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ISET[DATAERR] Bits */
+#define DMA_GEN_EVENT_ISET_DATAERR_OFS           (25)                            /* !< DATAERR Offset */
+#define DMA_GEN_EVENT_ISET_DATAERR_MASK          ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
-#define DMA_ISET_DATAERR_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ISET_DATAERR_SET                     ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_DATAERR_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ISET_DATAERR_SET           ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
 
-/* DMA_ICLR Bits */
-/* DMA_ICLR[DMACH0] Bits */
-#define DMA_ICLR_DMACH0_OFS                      (0)                             /* !< DMACH0 Offset */
-#define DMA_ICLR_DMACH0_MASK                     ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+/* DMA_GEN_EVENT_ICLR Bits */
+/* DMA_GEN_EVENT_ICLR[DMACH0] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH0_OFS            (0)                             /* !< DMACH0 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH0_MASK           ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH0_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH0_CLR                      ((uint32_t)0x00000001U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH1] Bits */
-#define DMA_ICLR_DMACH1_OFS                      (1)                             /* !< DMACH1 Offset */
-#define DMA_ICLR_DMACH1_MASK                     ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH0_CLR            ((uint32_t)0x00000001U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH1] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH1_OFS            (1)                             /* !< DMACH1 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH1_MASK           ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH1_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH1_CLR                      ((uint32_t)0x00000002U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH2] Bits */
-#define DMA_ICLR_DMACH2_OFS                      (2)                             /* !< DMACH2 Offset */
-#define DMA_ICLR_DMACH2_MASK                     ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH1_CLR            ((uint32_t)0x00000002U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH2] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH2_OFS            (2)                             /* !< DMACH2 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH2_MASK           ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH2_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH2_CLR                      ((uint32_t)0x00000004U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH3] Bits */
-#define DMA_ICLR_DMACH3_OFS                      (3)                             /* !< DMACH3 Offset */
-#define DMA_ICLR_DMACH3_MASK                     ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH2_CLR            ((uint32_t)0x00000004U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH3] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH3_OFS            (3)                             /* !< DMACH3 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH3_MASK           ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH3_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH3_CLR                      ((uint32_t)0x00000008U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH4] Bits */
-#define DMA_ICLR_DMACH4_OFS                      (4)                             /* !< DMACH4 Offset */
-#define DMA_ICLR_DMACH4_MASK                     ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH3_CLR            ((uint32_t)0x00000008U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH4] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH4_OFS            (4)                             /* !< DMACH4 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH4_MASK           ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH4_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH4_CLR                      ((uint32_t)0x00000010U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH5] Bits */
-#define DMA_ICLR_DMACH5_OFS                      (5)                             /* !< DMACH5 Offset */
-#define DMA_ICLR_DMACH5_MASK                     ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH4_CLR            ((uint32_t)0x00000010U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH5] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH5_OFS            (5)                             /* !< DMACH5 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH5_MASK           ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH5_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH5_CLR                      ((uint32_t)0x00000020U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH6] Bits */
-#define DMA_ICLR_DMACH6_OFS                      (6)                             /* !< DMACH6 Offset */
-#define DMA_ICLR_DMACH6_MASK                     ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH5_CLR            ((uint32_t)0x00000020U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH6] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH6_OFS            (6)                             /* !< DMACH6 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH6_MASK           ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH6_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH6_CLR                      ((uint32_t)0x00000040U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH7] Bits */
-#define DMA_ICLR_DMACH7_OFS                      (7)                             /* !< DMACH7 Offset */
-#define DMA_ICLR_DMACH7_MASK                     ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH6_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH6_CLR            ((uint32_t)0x00000040U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH7] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH7_OFS            (7)                             /* !< DMACH7 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH7_MASK           ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH7_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH7_CLR                      ((uint32_t)0x00000080U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH8] Bits */
-#define DMA_ICLR_DMACH8_OFS                      (8)                             /* !< DMACH8 Offset */
-#define DMA_ICLR_DMACH8_MASK                     ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH7_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH7_CLR            ((uint32_t)0x00000080U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH8] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH8_OFS            (8)                             /* !< DMACH8 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH8_MASK           ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH8_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH8_CLR                      ((uint32_t)0x00000100U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH9] Bits */
-#define DMA_ICLR_DMACH9_OFS                      (9)                             /* !< DMACH9 Offset */
-#define DMA_ICLR_DMACH9_MASK                     ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH8_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH8_CLR            ((uint32_t)0x00000100U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH9] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH9_OFS            (9)                             /* !< DMACH9 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH9_MASK           ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH9_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH9_CLR                      ((uint32_t)0x00000200U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH10] Bits */
-#define DMA_ICLR_DMACH10_OFS                     (10)                            /* !< DMACH10 Offset */
-#define DMA_ICLR_DMACH10_MASK                    ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH9_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH9_CLR            ((uint32_t)0x00000200U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH10] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH10_OFS           (10)                            /* !< DMACH10 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH10_MASK          ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH10_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH10_CLR                     ((uint32_t)0x00000400U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH11] Bits */
-#define DMA_ICLR_DMACH11_OFS                     (11)                            /* !< DMACH11 Offset */
-#define DMA_ICLR_DMACH11_MASK                    ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH10_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH10_CLR           ((uint32_t)0x00000400U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH11] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH11_OFS           (11)                            /* !< DMACH11 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH11_MASK          ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH11_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH11_CLR                     ((uint32_t)0x00000800U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH12] Bits */
-#define DMA_ICLR_DMACH12_OFS                     (12)                            /* !< DMACH12 Offset */
-#define DMA_ICLR_DMACH12_MASK                    ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH11_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH11_CLR           ((uint32_t)0x00000800U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH12] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH12_OFS           (12)                            /* !< DMACH12 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH12_MASK          ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH12_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH12_CLR                     ((uint32_t)0x00001000U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH13] Bits */
-#define DMA_ICLR_DMACH13_OFS                     (13)                            /* !< DMACH13 Offset */
-#define DMA_ICLR_DMACH13_MASK                    ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH12_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH12_CLR           ((uint32_t)0x00001000U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH13] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH13_OFS           (13)                            /* !< DMACH13 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH13_MASK          ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH13_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH13_CLR                     ((uint32_t)0x00002000U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH14] Bits */
-#define DMA_ICLR_DMACH14_OFS                     (14)                            /* !< DMACH14 Offset */
-#define DMA_ICLR_DMACH14_MASK                    ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH13_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH13_CLR           ((uint32_t)0x00002000U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH14] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH14_OFS           (14)                            /* !< DMACH14 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH14_MASK          ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH14_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH14_CLR                     ((uint32_t)0x00004000U)         /* !< Clear interrupt */
-/* DMA_ICLR[DMACH15] Bits */
-#define DMA_ICLR_DMACH15_OFS                     (15)                            /* !< DMACH15 Offset */
-#define DMA_ICLR_DMACH15_MASK                    ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+#define DMA_GEN_EVENT_ICLR_DMACH14_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH14_CLR           ((uint32_t)0x00004000U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[DMACH15] Bits */
+#define DMA_GEN_EVENT_ICLR_DMACH15_OFS           (15)                            /* !< DMACH15 Offset */
+#define DMA_GEN_EVENT_ICLR_DMACH15_MASK          ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
                                                                                     that size counter reached zero
                                                                                     (DMASZ=0). */
-#define DMA_ICLR_DMACH15_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define DMA_ICLR_DMACH15_CLR                     ((uint32_t)0x00008000U)         /* !< Clear interrupt */
-/* DMA_ICLR[PREIRQCH0] Bits */
-#define DMA_ICLR_PREIRQCH0_OFS                   (16)                            /* !< PREIRQCH0 Offset */
-#define DMA_ICLR_PREIRQCH0_MASK                  ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+#define DMA_GEN_EVENT_ICLR_DMACH15_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_GEN_EVENT_ICLR_DMACH15_CLR           ((uint32_t)0x00008000U)         /* !< Clear interrupt */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH0] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH0_OFS         (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH0_MASK        ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH0_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH0_SET                   ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH1] Bits */
-#define DMA_ICLR_PREIRQCH1_OFS                   (17)                            /* !< PREIRQCH1 Offset */
-#define DMA_ICLR_PREIRQCH1_MASK                  ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH0_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH0_SET         ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH1] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH1_OFS         (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH1_MASK        ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH1_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH1_SET                   ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH2] Bits */
-#define DMA_ICLR_PREIRQCH2_OFS                   (18)                            /* !< PREIRQCH2 Offset */
-#define DMA_ICLR_PREIRQCH2_MASK                  ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH1_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH1_SET         ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH2] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH2_OFS         (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH2_MASK        ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH2_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH2_SET                   ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH3] Bits */
-#define DMA_ICLR_PREIRQCH3_OFS                   (19)                            /* !< PREIRQCH3 Offset */
-#define DMA_ICLR_PREIRQCH3_MASK                  ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH2_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH2_SET         ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH3] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH3_OFS         (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH3_MASK        ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH3_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH3_SET                   ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH4] Bits */
-#define DMA_ICLR_PREIRQCH4_OFS                   (20)                            /* !< PREIRQCH4 Offset */
-#define DMA_ICLR_PREIRQCH4_MASK                  ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH3_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH3_SET         ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH4] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH4_OFS         (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH4_MASK        ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH4_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH4_SET                   ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH5] Bits */
-#define DMA_ICLR_PREIRQCH5_OFS                   (21)                            /* !< PREIRQCH5 Offset */
-#define DMA_ICLR_PREIRQCH5_MASK                  ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH4_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH4_SET         ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH5] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH5_OFS         (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH5_MASK        ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH5_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH5_SET                   ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH6] Bits */
-#define DMA_ICLR_PREIRQCH6_OFS                   (22)                            /* !< PREIRQCH6 Offset */
-#define DMA_ICLR_PREIRQCH6_MASK                  ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH5_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH5_SET         ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH6] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH6_OFS         (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH6_MASK        ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH6_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH6_SET                   ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[PREIRQCH7] Bits */
-#define DMA_ICLR_PREIRQCH7_OFS                   (23)                            /* !< PREIRQCH7 Offset */
-#define DMA_ICLR_PREIRQCH7_MASK                  ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+#define DMA_GEN_EVENT_ICLR_PREIRQCH6_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH6_SET         ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[PREIRQCH7] Bits */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH7_OFS         (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH7_MASK        ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
                                                                                     reached Pre-IRQ threshold. */
-#define DMA_ICLR_PREIRQCH7_CLR                   ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_PREIRQCH7_SET                   ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[ADDRERR] Bits */
-#define DMA_ICLR_ADDRERR_OFS                     (24)                            /* !< ADDRERR Offset */
-#define DMA_ICLR_ADDRERR_MASK                    ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+#define DMA_GEN_EVENT_ICLR_PREIRQCH7_CLR         ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_PREIRQCH7_SET         ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[ADDRERR] Bits */
+#define DMA_GEN_EVENT_ICLR_ADDRERR_OFS           (24)                            /* !< ADDRERR Offset */
+#define DMA_GEN_EVENT_ICLR_ADDRERR_MASK          ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
                                                                                     reachable. */
-#define DMA_ICLR_ADDRERR_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_ADDRERR_SET                     ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
-/* DMA_ICLR[DATAERR] Bits */
-#define DMA_ICLR_DATAERR_OFS                     (25)                            /* !< DATAERR Offset */
-#define DMA_ICLR_DATAERR_MASK                    ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+#define DMA_GEN_EVENT_ICLR_ADDRERR_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_ADDRERR_SET           ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_GEN_EVENT_ICLR[DATAERR] Bits */
+#define DMA_GEN_EVENT_ICLR_DATAERR_OFS           (25)                            /* !< DATAERR Offset */
+#define DMA_GEN_EVENT_ICLR_DATAERR_MASK          ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
                                                                                     corrupted (PAR or ECC error). */
-#define DMA_ICLR_DATAERR_CLR                     ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
-#define DMA_ICLR_DATAERR_SET                     ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_DATAERR_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_GEN_EVENT_ICLR_DATAERR_SET           ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+
+/* DMA_CPU_INT_IIDX Bits */
+/* DMA_CPU_INT_IIDX[STAT] Bits */
+#define DMA_CPU_INT_IIDX_STAT_OFS                (0)                             /* !< STAT Offset */
+#define DMA_CPU_INT_IIDX_STAT_MASK               ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define DMA_CPU_INT_IIDX_STAT_NO_INTR            ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+                                                                                    pending interrupt request */
+#define DMA_CPU_INT_IIDX_STAT_DMACH0             ((uint32_t)0x00000001U)         /* !< DMA Channel 0 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH1             ((uint32_t)0x00000002U)         /* !< DMA Channel 1 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH2             ((uint32_t)0x00000003U)         /* !< DMA Channel 2 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH3             ((uint32_t)0x00000004U)         /* !< DMA Channel 3 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH4             ((uint32_t)0x00000005U)         /* !< DMA Channel 4 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH5             ((uint32_t)0x00000006U)         /* !< DMA Channel 5 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH6             ((uint32_t)0x00000007U)         /* !< DMA Channel 6 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH7             ((uint32_t)0x00000008U)         /* !< DMA Channel 7 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH8             ((uint32_t)0x00000009U)         /* !< DMA Channel 8 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH9             ((uint32_t)0x0000000AU)         /* !< DMA Channel 9 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH10            ((uint32_t)0x0000000BU)         /* !< DMA Channel 10 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH11            ((uint32_t)0x0000000CU)         /* !< DMA Channel 11 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH12            ((uint32_t)0x0000000DU)         /* !< DMA Channel 12 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH13            ((uint32_t)0x0000000EU)         /* !< DMA Channel 13 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH14            ((uint32_t)0x0000000FU)         /* !< DMA Channel 14 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_DMACH15            ((uint32_t)0x00000010U)         /* !< DMA Channel 15 size counter reached
+                                                                                    zero (DMASZ=0). */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH0          ((uint32_t)0x00000011U)         /* !< PRE-IRQ event for DMA Channel 0. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH1          ((uint32_t)0x00000012U)         /* !< PRE-IRQ event for DMA Channel 1. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH2          ((uint32_t)0x00000013U)         /* !< PRE-IRQ event for DMA Channel 2. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH3          ((uint32_t)0x00000014U)         /* !< PRE-IRQ event for DMA Channel 3. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH4          ((uint32_t)0x00000015U)         /* !< PRE-IRQ event for DMA Channel 4. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH5          ((uint32_t)0x00000016U)         /* !< PRE-IRQ event for DMA Channel 5. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH6          ((uint32_t)0x00000017U)         /* !< PRE-IRQ event for DMA Channel 6. */
+#define DMA_CPU_INT_IIDX_STAT_PREIRQCH7          ((uint32_t)0x00000018U)         /* !< PRE-IRQ event for DMA Channel 7. */
+#define DMA_CPU_INT_IIDX_STAT_ADDRERR            ((uint32_t)0x00000019U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_IIDX_STAT_DATAERR            ((uint32_t)0x0000001AU)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+
+/* DMA_CPU_INT_IMASK Bits */
+/* DMA_CPU_INT_IMASK[DMACH0] Bits */
+#define DMA_CPU_INT_IMASK_DMACH0_OFS             (0)                             /* !< DMACH0 Offset */
+#define DMA_CPU_INT_IMASK_DMACH0_MASK            ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH0_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH0_SET             ((uint32_t)0x00000001U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH1] Bits */
+#define DMA_CPU_INT_IMASK_DMACH1_OFS             (1)                             /* !< DMACH1 Offset */
+#define DMA_CPU_INT_IMASK_DMACH1_MASK            ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH1_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH1_SET             ((uint32_t)0x00000002U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH2] Bits */
+#define DMA_CPU_INT_IMASK_DMACH2_OFS             (2)                             /* !< DMACH2 Offset */
+#define DMA_CPU_INT_IMASK_DMACH2_MASK            ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH2_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH2_SET             ((uint32_t)0x00000004U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH3] Bits */
+#define DMA_CPU_INT_IMASK_DMACH3_OFS             (3)                             /* !< DMACH3 Offset */
+#define DMA_CPU_INT_IMASK_DMACH3_MASK            ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH3_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH3_SET             ((uint32_t)0x00000008U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH4] Bits */
+#define DMA_CPU_INT_IMASK_DMACH4_OFS             (4)                             /* !< DMACH4 Offset */
+#define DMA_CPU_INT_IMASK_DMACH4_MASK            ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH4_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH4_SET             ((uint32_t)0x00000010U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH5] Bits */
+#define DMA_CPU_INT_IMASK_DMACH5_OFS             (5)                             /* !< DMACH5 Offset */
+#define DMA_CPU_INT_IMASK_DMACH5_MASK            ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH5_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH5_SET             ((uint32_t)0x00000020U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH6] Bits */
+#define DMA_CPU_INT_IMASK_DMACH6_OFS             (6)                             /* !< DMACH6 Offset */
+#define DMA_CPU_INT_IMASK_DMACH6_MASK            ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH6_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH6_SET             ((uint32_t)0x00000040U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH7] Bits */
+#define DMA_CPU_INT_IMASK_DMACH7_OFS             (7)                             /* !< DMACH7 Offset */
+#define DMA_CPU_INT_IMASK_DMACH7_MASK            ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH7_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH7_SET             ((uint32_t)0x00000080U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH8] Bits */
+#define DMA_CPU_INT_IMASK_DMACH8_OFS             (8)                             /* !< DMACH8 Offset */
+#define DMA_CPU_INT_IMASK_DMACH8_MASK            ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH8_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH8_SET             ((uint32_t)0x00000100U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH9] Bits */
+#define DMA_CPU_INT_IMASK_DMACH9_OFS             (9)                             /* !< DMACH9 Offset */
+#define DMA_CPU_INT_IMASK_DMACH9_MASK            ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH9_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH9_SET             ((uint32_t)0x00000200U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH10] Bits */
+#define DMA_CPU_INT_IMASK_DMACH10_OFS            (10)                            /* !< DMACH10 Offset */
+#define DMA_CPU_INT_IMASK_DMACH10_MASK           ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH10_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH10_SET            ((uint32_t)0x00000400U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH11] Bits */
+#define DMA_CPU_INT_IMASK_DMACH11_OFS            (11)                            /* !< DMACH11 Offset */
+#define DMA_CPU_INT_IMASK_DMACH11_MASK           ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH11_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH11_SET            ((uint32_t)0x00000800U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH12] Bits */
+#define DMA_CPU_INT_IMASK_DMACH12_OFS            (12)                            /* !< DMACH12 Offset */
+#define DMA_CPU_INT_IMASK_DMACH12_MASK           ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH12_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH12_SET            ((uint32_t)0x00001000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH13] Bits */
+#define DMA_CPU_INT_IMASK_DMACH13_OFS            (13)                            /* !< DMACH13 Offset */
+#define DMA_CPU_INT_IMASK_DMACH13_MASK           ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH13_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH13_SET            ((uint32_t)0x00002000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH14] Bits */
+#define DMA_CPU_INT_IMASK_DMACH14_OFS            (14)                            /* !< DMACH14 Offset */
+#define DMA_CPU_INT_IMASK_DMACH14_MASK           ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH14_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH14_SET            ((uint32_t)0x00004000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DMACH15] Bits */
+#define DMA_CPU_INT_IMASK_DMACH15_OFS            (15)                            /* !< DMACH15 Offset */
+#define DMA_CPU_INT_IMASK_DMACH15_MASK           ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signal.
+                                                                                    Size counter reached zero (DMASZ=0). */
+#define DMA_CPU_INT_IMASK_DMACH15_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DMACH15_SET            ((uint32_t)0x00008000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH0] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH0_OFS          (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH0_MASK         ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH0_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH0_SET          ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH1] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH1_OFS          (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH1_MASK         ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH1_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH1_SET          ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH2] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH2_OFS          (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH2_MASK         ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH2_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH2_SET          ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH3] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH3_OFS          (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH3_MASK         ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH3_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH3_SET          ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH4] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH4_OFS          (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH4_MASK         ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH4_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH4_SET          ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH5] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH5_OFS          (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH5_MASK         ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH5_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH5_SET          ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH6] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH6_OFS          (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH6_MASK         ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH6_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH6_SET          ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[PREIRQCH7] Bits */
+#define DMA_CPU_INT_IMASK_PREIRQCH7_OFS          (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_CPU_INT_IMASK_PREIRQCH7_MASK         ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_IMASK_PREIRQCH7_CLR          ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_PREIRQCH7_SET          ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[ADDRERR] Bits */
+#define DMA_CPU_INT_IMASK_ADDRERR_OFS            (24)                            /* !< ADDRERR Offset */
+#define DMA_CPU_INT_IMASK_ADDRERR_MASK           ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_IMASK_ADDRERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_ADDRERR_SET            ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_IMASK[DATAERR] Bits */
+#define DMA_CPU_INT_IMASK_DATAERR_OFS            (25)                            /* !< DATAERR Offset */
+#define DMA_CPU_INT_IMASK_DATAERR_MASK           ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+#define DMA_CPU_INT_IMASK_DATAERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_IMASK_DATAERR_SET            ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+
+/* DMA_CPU_INT_RIS Bits */
+/* DMA_CPU_INT_RIS[DMACH0] Bits */
+#define DMA_CPU_INT_RIS_DMACH0_OFS               (0)                             /* !< DMACH0 Offset */
+#define DMA_CPU_INT_RIS_DMACH0_MASK              ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH0_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH1] Bits */
+#define DMA_CPU_INT_RIS_DMACH1_OFS               (1)                             /* !< DMACH1 Offset */
+#define DMA_CPU_INT_RIS_DMACH1_MASK              ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH1_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH2] Bits */
+#define DMA_CPU_INT_RIS_DMACH2_OFS               (2)                             /* !< DMACH2 Offset */
+#define DMA_CPU_INT_RIS_DMACH2_MASK              ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH2_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH2_SET               ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH3] Bits */
+#define DMA_CPU_INT_RIS_DMACH3_OFS               (3)                             /* !< DMACH3 Offset */
+#define DMA_CPU_INT_RIS_DMACH3_MASK              ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH3_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH3_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH4] Bits */
+#define DMA_CPU_INT_RIS_DMACH4_OFS               (4)                             /* !< DMACH4 Offset */
+#define DMA_CPU_INT_RIS_DMACH4_MASK              ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH4_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH4_SET               ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH5] Bits */
+#define DMA_CPU_INT_RIS_DMACH5_OFS               (5)                             /* !< DMACH5 Offset */
+#define DMA_CPU_INT_RIS_DMACH5_MASK              ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH5_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH5_SET               ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH6] Bits */
+#define DMA_CPU_INT_RIS_DMACH6_OFS               (6)                             /* !< DMACH6 Offset */
+#define DMA_CPU_INT_RIS_DMACH6_MASK              ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH6_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH6_SET               ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH7] Bits */
+#define DMA_CPU_INT_RIS_DMACH7_OFS               (7)                             /* !< DMACH7 Offset */
+#define DMA_CPU_INT_RIS_DMACH7_MASK              ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH7_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH7_SET               ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH8] Bits */
+#define DMA_CPU_INT_RIS_DMACH8_OFS               (8)                             /* !< DMACH8 Offset */
+#define DMA_CPU_INT_RIS_DMACH8_MASK              ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH8_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH8_SET               ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH9] Bits */
+#define DMA_CPU_INT_RIS_DMACH9_OFS               (9)                             /* !< DMACH9 Offset */
+#define DMA_CPU_INT_RIS_DMACH9_MASK              ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH9_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH9_SET               ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH10] Bits */
+#define DMA_CPU_INT_RIS_DMACH10_OFS              (10)                            /* !< DMACH10 Offset */
+#define DMA_CPU_INT_RIS_DMACH10_MASK             ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH10_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH10_SET              ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH11] Bits */
+#define DMA_CPU_INT_RIS_DMACH11_OFS              (11)                            /* !< DMACH11 Offset */
+#define DMA_CPU_INT_RIS_DMACH11_MASK             ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH11_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH11_SET              ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH12] Bits */
+#define DMA_CPU_INT_RIS_DMACH12_OFS              (12)                            /* !< DMACH12 Offset */
+#define DMA_CPU_INT_RIS_DMACH12_MASK             ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH12_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH12_SET              ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH13] Bits */
+#define DMA_CPU_INT_RIS_DMACH13_OFS              (13)                            /* !< DMACH13 Offset */
+#define DMA_CPU_INT_RIS_DMACH13_MASK             ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH13_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH13_SET              ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH14] Bits */
+#define DMA_CPU_INT_RIS_DMACH14_OFS              (14)                            /* !< DMACH14 Offset */
+#define DMA_CPU_INT_RIS_DMACH14_MASK             ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH14_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH14_SET              ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[DMACH15] Bits */
+#define DMA_CPU_INT_RIS_DMACH15_OFS              (15)                            /* !< DMACH15 Offset */
+#define DMA_CPU_INT_RIS_DMACH15_MASK             ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_RIS_DMACH15_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define DMA_CPU_INT_RIS_DMACH15_SET              ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_RIS[PREIRQCH0] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH0_OFS            (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH0_MASK           ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH0_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH0_SET            ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH1] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH1_OFS            (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH1_MASK           ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH1_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH1_SET            ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH2] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH2_OFS            (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH2_MASK           ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH2_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH2_SET            ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH3] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH3_OFS            (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH3_MASK           ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH3_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH3_SET            ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH4] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH4_OFS            (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH4_MASK           ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH4_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH4_SET            ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH5] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH5_OFS            (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH5_MASK           ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH5_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH5_SET            ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH6] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH6_OFS            (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH6_MASK           ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH6_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH6_SET            ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[PREIRQCH7] Bits */
+#define DMA_CPU_INT_RIS_PREIRQCH7_OFS            (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_CPU_INT_RIS_PREIRQCH7_MASK           ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_RIS_PREIRQCH7_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_PREIRQCH7_SET            ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[ADDRERR] Bits */
+#define DMA_CPU_INT_RIS_ADDRERR_OFS              (24)                            /* !< ADDRERR Offset */
+#define DMA_CPU_INT_RIS_ADDRERR_MASK             ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_RIS_ADDRERR_CLR              ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_ADDRERR_SET              ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_RIS[DATAERR] Bits */
+#define DMA_CPU_INT_RIS_DATAERR_OFS              (25)                            /* !< DATAERR Offset */
+#define DMA_CPU_INT_RIS_DATAERR_MASK             ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+#define DMA_CPU_INT_RIS_DATAERR_CLR              ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_RIS_DATAERR_SET              ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+
+/* DMA_CPU_INT_MIS Bits */
+/* DMA_CPU_INT_MIS[DMACH0] Bits */
+#define DMA_CPU_INT_MIS_DMACH0_OFS               (0)                             /* !< DMACH0 Offset */
+#define DMA_CPU_INT_MIS_DMACH0_MASK              ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH0_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH1] Bits */
+#define DMA_CPU_INT_MIS_DMACH1_OFS               (1)                             /* !< DMACH1 Offset */
+#define DMA_CPU_INT_MIS_DMACH1_MASK              ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH1_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH2] Bits */
+#define DMA_CPU_INT_MIS_DMACH2_OFS               (2)                             /* !< DMACH2 Offset */
+#define DMA_CPU_INT_MIS_DMACH2_MASK              ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH2_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH2_SET               ((uint32_t)0x00000004U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH3] Bits */
+#define DMA_CPU_INT_MIS_DMACH3_OFS               (3)                             /* !< DMACH3 Offset */
+#define DMA_CPU_INT_MIS_DMACH3_MASK              ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH3_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH3_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH4] Bits */
+#define DMA_CPU_INT_MIS_DMACH4_OFS               (4)                             /* !< DMACH4 Offset */
+#define DMA_CPU_INT_MIS_DMACH4_MASK              ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH4_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH4_SET               ((uint32_t)0x00000010U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH5] Bits */
+#define DMA_CPU_INT_MIS_DMACH5_OFS               (5)                             /* !< DMACH5 Offset */
+#define DMA_CPU_INT_MIS_DMACH5_MASK              ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH5_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH5_SET               ((uint32_t)0x00000020U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH6] Bits */
+#define DMA_CPU_INT_MIS_DMACH6_OFS               (6)                             /* !< DMACH6 Offset */
+#define DMA_CPU_INT_MIS_DMACH6_MASK              ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH6_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH6_SET               ((uint32_t)0x00000040U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH7] Bits */
+#define DMA_CPU_INT_MIS_DMACH7_OFS               (7)                             /* !< DMACH7 Offset */
+#define DMA_CPU_INT_MIS_DMACH7_MASK              ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH7_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH7_SET               ((uint32_t)0x00000080U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH8] Bits */
+#define DMA_CPU_INT_MIS_DMACH8_OFS               (8)                             /* !< DMACH8 Offset */
+#define DMA_CPU_INT_MIS_DMACH8_MASK              ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH8_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH8_SET               ((uint32_t)0x00000100U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH9] Bits */
+#define DMA_CPU_INT_MIS_DMACH9_OFS               (9)                             /* !< DMACH9 Offset */
+#define DMA_CPU_INT_MIS_DMACH9_MASK              ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH9_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH9_SET               ((uint32_t)0x00000200U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH10] Bits */
+#define DMA_CPU_INT_MIS_DMACH10_OFS              (10)                            /* !< DMACH10 Offset */
+#define DMA_CPU_INT_MIS_DMACH10_MASK             ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH10_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH10_SET              ((uint32_t)0x00000400U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH11] Bits */
+#define DMA_CPU_INT_MIS_DMACH11_OFS              (11)                            /* !< DMACH11 Offset */
+#define DMA_CPU_INT_MIS_DMACH11_MASK             ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH11_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH11_SET              ((uint32_t)0x00000800U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH12] Bits */
+#define DMA_CPU_INT_MIS_DMACH12_OFS              (12)                            /* !< DMACH12 Offset */
+#define DMA_CPU_INT_MIS_DMACH12_MASK             ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH12_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH12_SET              ((uint32_t)0x00001000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH13] Bits */
+#define DMA_CPU_INT_MIS_DMACH13_OFS              (13)                            /* !< DMACH13 Offset */
+#define DMA_CPU_INT_MIS_DMACH13_MASK             ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH13_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH13_SET              ((uint32_t)0x00002000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH14] Bits */
+#define DMA_CPU_INT_MIS_DMACH14_OFS              (14)                            /* !< DMACH14 Offset */
+#define DMA_CPU_INT_MIS_DMACH14_MASK             ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH14_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH14_SET              ((uint32_t)0x00004000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[DMACH15] Bits */
+#define DMA_CPU_INT_MIS_DMACH15_OFS              (15)                            /* !< DMACH15 Offset */
+#define DMA_CPU_INT_MIS_DMACH15_MASK             ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_MIS_DMACH15_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur or is
+                                                                                    masked out */
+#define DMA_CPU_INT_MIS_DMACH15_SET              ((uint32_t)0x00008000U)         /* !< Interrupt occurred */
+/* DMA_CPU_INT_MIS[PREIRQCH0] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH0_OFS            (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH0_MASK           ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH0_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH0_SET            ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH1] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH1_OFS            (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH1_MASK           ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH1_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH1_SET            ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH2] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH2_OFS            (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH2_MASK           ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH2_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH2_SET            ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH3] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH3_OFS            (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH3_MASK           ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH3_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH3_SET            ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH4] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH4_OFS            (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH4_MASK           ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH4_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH4_SET            ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH5] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH5_OFS            (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH5_MASK           ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH5_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH5_SET            ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH6] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH6_OFS            (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH6_MASK           ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH6_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH6_SET            ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[PREIRQCH7] Bits */
+#define DMA_CPU_INT_MIS_PREIRQCH7_OFS            (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_CPU_INT_MIS_PREIRQCH7_MASK           ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_MIS_PREIRQCH7_CLR            ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_PREIRQCH7_SET            ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[ADDRERR] Bits */
+#define DMA_CPU_INT_MIS_ADDRERR_OFS              (24)                            /* !< ADDRERR Offset */
+#define DMA_CPU_INT_MIS_ADDRERR_MASK             ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_MIS_ADDRERR_CLR              ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_ADDRERR_SET              ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_MIS[DATAERR] Bits */
+#define DMA_CPU_INT_MIS_DATAERR_OFS              (25)                            /* !< DATAERR Offset */
+#define DMA_CPU_INT_MIS_DATAERR_MASK             ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+#define DMA_CPU_INT_MIS_DATAERR_CLR              ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_MIS_DATAERR_SET              ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+
+/* DMA_CPU_INT_ISET Bits */
+/* DMA_CPU_INT_ISET[DMACH0] Bits */
+#define DMA_CPU_INT_ISET_DMACH0_OFS              (0)                             /* !< DMACH0 Offset */
+#define DMA_CPU_INT_ISET_DMACH0_MASK             ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH0_SET              ((uint32_t)0x00000001U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH1] Bits */
+#define DMA_CPU_INT_ISET_DMACH1_OFS              (1)                             /* !< DMACH1 Offset */
+#define DMA_CPU_INT_ISET_DMACH1_MASK             ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH1_SET              ((uint32_t)0x00000002U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH2] Bits */
+#define DMA_CPU_INT_ISET_DMACH2_OFS              (2)                             /* !< DMACH2 Offset */
+#define DMA_CPU_INT_ISET_DMACH2_MASK             ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH2_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH2_SET              ((uint32_t)0x00000004U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH3] Bits */
+#define DMA_CPU_INT_ISET_DMACH3_OFS              (3)                             /* !< DMACH3 Offset */
+#define DMA_CPU_INT_ISET_DMACH3_MASK             ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH3_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH3_SET              ((uint32_t)0x00000008U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH4] Bits */
+#define DMA_CPU_INT_ISET_DMACH4_OFS              (4)                             /* !< DMACH4 Offset */
+#define DMA_CPU_INT_ISET_DMACH4_MASK             ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH4_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH4_SET              ((uint32_t)0x00000010U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH5] Bits */
+#define DMA_CPU_INT_ISET_DMACH5_OFS              (5)                             /* !< DMACH5 Offset */
+#define DMA_CPU_INT_ISET_DMACH5_MASK             ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH5_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH5_SET              ((uint32_t)0x00000020U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH6] Bits */
+#define DMA_CPU_INT_ISET_DMACH6_OFS              (6)                             /* !< DMACH6 Offset */
+#define DMA_CPU_INT_ISET_DMACH6_MASK             ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH6_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH6_SET              ((uint32_t)0x00000040U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH7] Bits */
+#define DMA_CPU_INT_ISET_DMACH7_OFS              (7)                             /* !< DMACH7 Offset */
+#define DMA_CPU_INT_ISET_DMACH7_MASK             ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH7_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH7_SET              ((uint32_t)0x00000080U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH8] Bits */
+#define DMA_CPU_INT_ISET_DMACH8_OFS              (8)                             /* !< DMACH8 Offset */
+#define DMA_CPU_INT_ISET_DMACH8_MASK             ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH8_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH8_SET              ((uint32_t)0x00000100U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH9] Bits */
+#define DMA_CPU_INT_ISET_DMACH9_OFS              (9)                             /* !< DMACH9 Offset */
+#define DMA_CPU_INT_ISET_DMACH9_MASK             ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH9_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH9_SET              ((uint32_t)0x00000200U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH10] Bits */
+#define DMA_CPU_INT_ISET_DMACH10_OFS             (10)                            /* !< DMACH10 Offset */
+#define DMA_CPU_INT_ISET_DMACH10_MASK            ((uint32_t)0x00000400U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH10_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH10_SET             ((uint32_t)0x00000400U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH11] Bits */
+#define DMA_CPU_INT_ISET_DMACH11_OFS             (11)                            /* !< DMACH11 Offset */
+#define DMA_CPU_INT_ISET_DMACH11_MASK            ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH11_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH11_SET             ((uint32_t)0x00000800U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH12] Bits */
+#define DMA_CPU_INT_ISET_DMACH12_OFS             (12)                            /* !< DMACH12 Offset */
+#define DMA_CPU_INT_ISET_DMACH12_MASK            ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH12_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH12_SET             ((uint32_t)0x00001000U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH13] Bits */
+#define DMA_CPU_INT_ISET_DMACH13_OFS             (13)                            /* !< DMACH13 Offset */
+#define DMA_CPU_INT_ISET_DMACH13_MASK            ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH13_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH13_SET             ((uint32_t)0x00002000U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH14] Bits */
+#define DMA_CPU_INT_ISET_DMACH14_OFS             (14)                            /* !< DMACH14 Offset */
+#define DMA_CPU_INT_ISET_DMACH14_MASK            ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH14_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH14_SET             ((uint32_t)0x00004000U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[DMACH15] Bits */
+#define DMA_CPU_INT_ISET_DMACH15_OFS             (15)                            /* !< DMACH15 Offset */
+#define DMA_CPU_INT_ISET_DMACH15_MASK            ((uint32_t)0x00008000U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ISET_DMACH15_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ISET_DMACH15_SET             ((uint32_t)0x00008000U)         /* !< Set interrupt */
+/* DMA_CPU_INT_ISET[PREIRQCH0] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH0_OFS           (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH0_MASK          ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH0_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH0_SET           ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH1] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH1_OFS           (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH1_MASK          ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH1_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH1_SET           ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH2] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH2_OFS           (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH2_MASK          ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH2_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH2_SET           ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH3] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH3_OFS           (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH3_MASK          ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH3_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH3_SET           ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH4] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH4_OFS           (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH4_MASK          ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH4_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH4_SET           ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH5] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH5_OFS           (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH5_MASK          ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH5_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH5_SET           ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH6] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH6_OFS           (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH6_MASK          ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH6_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH6_SET           ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[PREIRQCH7] Bits */
+#define DMA_CPU_INT_ISET_PREIRQCH7_OFS           (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_CPU_INT_ISET_PREIRQCH7_MASK          ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ISET_PREIRQCH7_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_PREIRQCH7_SET           ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[ADDRERR] Bits */
+#define DMA_CPU_INT_ISET_ADDRERR_OFS             (24)                            /* !< ADDRERR Offset */
+#define DMA_CPU_INT_ISET_ADDRERR_MASK            ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_ISET_ADDRERR_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_ADDRERR_SET             ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ISET[DATAERR] Bits */
+#define DMA_CPU_INT_ISET_DATAERR_OFS             (25)                            /* !< DATAERR Offset */
+#define DMA_CPU_INT_ISET_DATAERR_MASK            ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+#define DMA_CPU_INT_ISET_DATAERR_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ISET_DATAERR_SET             ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
+
+/* DMA_CPU_INT_ICLR Bits */
+/* DMA_CPU_INT_ICLR[DMACH0] Bits */
+#define DMA_CPU_INT_ICLR_DMACH0_OFS              (0)                             /* !< DMACH0 Offset */
+#define DMA_CPU_INT_ICLR_DMACH0_MASK             ((uint32_t)0x00000001U)         /* !< DMA Channel 0 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH0_CLR              ((uint32_t)0x00000001U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH1] Bits */
+#define DMA_CPU_INT_ICLR_DMACH1_OFS              (1)                             /* !< DMACH1 Offset */
+#define DMA_CPU_INT_ICLR_DMACH1_MASK             ((uint32_t)0x00000002U)         /* !< DMA Channel 1 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH1_CLR              ((uint32_t)0x00000002U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH2] Bits */
+#define DMA_CPU_INT_ICLR_DMACH2_OFS              (2)                             /* !< DMACH2 Offset */
+#define DMA_CPU_INT_ICLR_DMACH2_MASK             ((uint32_t)0x00000004U)         /* !< DMA Channel 2 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH2_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH2_CLR              ((uint32_t)0x00000004U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH3] Bits */
+#define DMA_CPU_INT_ICLR_DMACH3_OFS              (3)                             /* !< DMACH3 Offset */
+#define DMA_CPU_INT_ICLR_DMACH3_MASK             ((uint32_t)0x00000008U)         /* !< DMA Channel 3 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH3_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH3_CLR              ((uint32_t)0x00000008U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH4] Bits */
+#define DMA_CPU_INT_ICLR_DMACH4_OFS              (4)                             /* !< DMACH4 Offset */
+#define DMA_CPU_INT_ICLR_DMACH4_MASK             ((uint32_t)0x00000010U)         /* !< DMA Channel 4 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH4_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH4_CLR              ((uint32_t)0x00000010U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH5] Bits */
+#define DMA_CPU_INT_ICLR_DMACH5_OFS              (5)                             /* !< DMACH5 Offset */
+#define DMA_CPU_INT_ICLR_DMACH5_MASK             ((uint32_t)0x00000020U)         /* !< DMA Channel 5 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH5_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH5_CLR              ((uint32_t)0x00000020U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH6] Bits */
+#define DMA_CPU_INT_ICLR_DMACH6_OFS              (6)                             /* !< DMACH6 Offset */
+#define DMA_CPU_INT_ICLR_DMACH6_MASK             ((uint32_t)0x00000040U)         /* !< DMA Channel 6 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH6_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH6_CLR              ((uint32_t)0x00000040U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH7] Bits */
+#define DMA_CPU_INT_ICLR_DMACH7_OFS              (7)                             /* !< DMACH7 Offset */
+#define DMA_CPU_INT_ICLR_DMACH7_MASK             ((uint32_t)0x00000080U)         /* !< DMA Channel 7 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH7_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH7_CLR              ((uint32_t)0x00000080U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH8] Bits */
+#define DMA_CPU_INT_ICLR_DMACH8_OFS              (8)                             /* !< DMACH8 Offset */
+#define DMA_CPU_INT_ICLR_DMACH8_MASK             ((uint32_t)0x00000100U)         /* !< DMA Channel 8 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH8_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH8_CLR              ((uint32_t)0x00000100U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH9] Bits */
+#define DMA_CPU_INT_ICLR_DMACH9_OFS              (9)                             /* !< DMACH9 Offset */
+#define DMA_CPU_INT_ICLR_DMACH9_MASK             ((uint32_t)0x00000200U)         /* !< DMA Channel 9 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH9_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH9_CLR              ((uint32_t)0x00000200U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH10] Bits */
+#define DMA_CPU_INT_ICLR_DMACH10_OFS             (10)                            /* !< DMACH10 Offset */
+#define DMA_CPU_INT_ICLR_DMACH10_MASK            ((uint32_t)0x00000400U)         /* !< DMA Channel 10 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH10_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH10_CLR             ((uint32_t)0x00000400U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH11] Bits */
+#define DMA_CPU_INT_ICLR_DMACH11_OFS             (11)                            /* !< DMACH11 Offset */
+#define DMA_CPU_INT_ICLR_DMACH11_MASK            ((uint32_t)0x00000800U)         /* !< DMA Channel 11 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH11_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH11_CLR             ((uint32_t)0x00000800U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH12] Bits */
+#define DMA_CPU_INT_ICLR_DMACH12_OFS             (12)                            /* !< DMACH12 Offset */
+#define DMA_CPU_INT_ICLR_DMACH12_MASK            ((uint32_t)0x00001000U)         /* !< DMA Channel 12 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH12_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH12_CLR             ((uint32_t)0x00001000U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH13] Bits */
+#define DMA_CPU_INT_ICLR_DMACH13_OFS             (13)                            /* !< DMACH13 Offset */
+#define DMA_CPU_INT_ICLR_DMACH13_MASK            ((uint32_t)0x00002000U)         /* !< DMA Channel 13 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH13_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH13_CLR             ((uint32_t)0x00002000U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH14] Bits */
+#define DMA_CPU_INT_ICLR_DMACH14_OFS             (14)                            /* !< DMACH14 Offset */
+#define DMA_CPU_INT_ICLR_DMACH14_MASK            ((uint32_t)0x00004000U)         /* !< DMA Channel 14 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH14_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH14_CLR             ((uint32_t)0x00004000U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[DMACH15] Bits */
+#define DMA_CPU_INT_ICLR_DMACH15_OFS             (15)                            /* !< DMACH15 Offset */
+#define DMA_CPU_INT_ICLR_DMACH15_MASK            ((uint32_t)0x00008000U)         /* !< DMA Channel 15 interrupt signals
+                                                                                    that size counter reached zero
+                                                                                    (DMASZ=0). */
+#define DMA_CPU_INT_ICLR_DMACH15_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define DMA_CPU_INT_ICLR_DMACH15_CLR             ((uint32_t)0x00008000U)         /* !< Clear interrupt */
+/* DMA_CPU_INT_ICLR[PREIRQCH0] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH0_OFS           (16)                            /* !< PREIRQCH0 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH0_MASK          ((uint32_t)0x00010000U)         /* !< Pre-IRQ for Channel 0. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH0_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH0_SET           ((uint32_t)0x00010000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH1] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH1_OFS           (17)                            /* !< PREIRQCH1 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH1_MASK          ((uint32_t)0x00020000U)         /* !< Pre-IRQ for Channel 1. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH1_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH1_SET           ((uint32_t)0x00020000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH2] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH2_OFS           (18)                            /* !< PREIRQCH2 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH2_MASK          ((uint32_t)0x00040000U)         /* !< Pre-IRQ for Channel 2. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH2_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH2_SET           ((uint32_t)0x00040000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH3] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH3_OFS           (19)                            /* !< PREIRQCH3 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH3_MASK          ((uint32_t)0x00080000U)         /* !< Pre-IRQ for Channel 3. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH3_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH3_SET           ((uint32_t)0x00080000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH4] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH4_OFS           (20)                            /* !< PREIRQCH4 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH4_MASK          ((uint32_t)0x00100000U)         /* !< Pre-IRQ for Channel 4. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH4_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH4_SET           ((uint32_t)0x00100000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH5] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH5_OFS           (21)                            /* !< PREIRQCH5 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH5_MASK          ((uint32_t)0x00200000U)         /* !< Pre-IRQ for Channel 5. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH5_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH5_SET           ((uint32_t)0x00200000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH6] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH6_OFS           (22)                            /* !< PREIRQCH6 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH6_MASK          ((uint32_t)0x00400000U)         /* !< Pre-IRQ for Channel 6. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH6_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH6_SET           ((uint32_t)0x00400000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[PREIRQCH7] Bits */
+#define DMA_CPU_INT_ICLR_PREIRQCH7_OFS           (23)                            /* !< PREIRQCH7 Offset */
+#define DMA_CPU_INT_ICLR_PREIRQCH7_MASK          ((uint32_t)0x00800000U)         /* !< Pre-IRQ for Channel 7. Size counter
+                                                                                    reached Pre-IRQ threshold. */
+#define DMA_CPU_INT_ICLR_PREIRQCH7_CLR           ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_PREIRQCH7_SET           ((uint32_t)0x00800000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[ADDRERR] Bits */
+#define DMA_CPU_INT_ICLR_ADDRERR_OFS             (24)                            /* !< ADDRERR Offset */
+#define DMA_CPU_INT_ICLR_ADDRERR_MASK            ((uint32_t)0x01000000U)         /* !< DMA address error, SRC address not
+                                                                                    reachable. */
+#define DMA_CPU_INT_ICLR_ADDRERR_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_ADDRERR_SET             ((uint32_t)0x01000000U)         /* !< Set interrupt mask bit */
+/* DMA_CPU_INT_ICLR[DATAERR] Bits */
+#define DMA_CPU_INT_ICLR_DATAERR_OFS             (25)                            /* !< DATAERR Offset */
+#define DMA_CPU_INT_ICLR_DATAERR_MASK            ((uint32_t)0x02000000U)         /* !< DMA data error, SRC data might be
+                                                                                    corrupted (PAR or ECC error). */
+#define DMA_CPU_INT_ICLR_DATAERR_CLR             ((uint32_t)0x00000000U)         /* !< Clear interrupt mask bit */
+#define DMA_CPU_INT_ICLR_DATAERR_SET             ((uint32_t)0x02000000U)         /* !< Set interrupt mask bit */
 
 /* DMA_FSUB_0 Bits */
 /* DMA_FSUB_0[CHANID] Bits */

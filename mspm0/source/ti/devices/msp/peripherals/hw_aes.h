@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_aes__include
 #define ti_devices_msp_peripherals_hw_aes__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspaes */
-/* MMR revision: e2d5805977d48721e4fa65a7dfb253e04d160949 */
-/* Generator revision: afa1be4cbe82a83b3176187f7032046ba90f61f9
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_aes.h */
+/* Revised: 2023-06-13 16:16:59 */
+/* Revision: af41564566f5317723aed3e5efba7edbc3faf9e6 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,14 +68,14 @@
 /******************************************************************************
 * AES Registers
 ******************************************************************************/
-#define AES_INT_EVENT3_OFS                       ((uint32_t)0x000010B0U)
-#define AES_INT_EVENT2_OFS                       ((uint32_t)0x00001080U)
-#define AES_INT_EVENT1_OFS                       ((uint32_t)0x00001050U)
-#define AES_INT_EVENT0_OFS                       ((uint32_t)0x00001020U)
+#define AES_DMA_TRIG2_OFS                        ((uint32_t)0x000010B0U)
+#define AES_DMA_TRIG1_OFS                        ((uint32_t)0x00001080U)
+#define AES_DMA_TRIG0_OFS                        ((uint32_t)0x00001050U)
+#define AES_CPU_INT_OFS                          ((uint32_t)0x00001020U)
 #define AES_GPRCM_OFS                            ((uint32_t)0x00000800U)
 
 
-/** @addtogroup AES_INT_EVENT3
+/** @addtogroup AES_DMA_TRIG2
   @{
 */
 
@@ -93,11 +91,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010D0) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010D8) Interrupt clear */
-} AES_INT_EVENT3_Regs;
+} AES_DMA_TRIG2_Regs;
 
-/*@}*/ /* end of group AES_INT_EVENT3 */
+/*@}*/ /* end of group AES_DMA_TRIG2 */
 
-/** @addtogroup AES_INT_EVENT2
+/** @addtogroup AES_DMA_TRIG1
   @{
 */
 
@@ -113,11 +111,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear */
-} AES_INT_EVENT2_Regs;
+} AES_DMA_TRIG1_Regs;
 
-/*@}*/ /* end of group AES_INT_EVENT2 */
+/*@}*/ /* end of group AES_DMA_TRIG1 */
 
-/** @addtogroup AES_INT_EVENT1
+/** @addtogroup AES_DMA_TRIG0
   @{
 */
 
@@ -133,11 +131,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} AES_INT_EVENT1_Regs;
+} AES_DMA_TRIG0_Regs;
 
-/*@}*/ /* end of group AES_INT_EVENT1 */
+/*@}*/ /* end of group AES_DMA_TRIG0 */
 
-/** @addtogroup AES_INT_EVENT0
+/** @addtogroup AES_CPU_INT
   @{
 */
 
@@ -153,9 +151,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} AES_INT_EVENT0_Regs;
+} AES_CPU_INT_Regs;
 
-/*@}*/ /* end of group AES_INT_EVENT0 */
+/*@}*/ /* end of group AES_CPU_INT */
 
 /** @addtogroup AES_GPRCM
   @{
@@ -180,13 +178,13 @@ typedef struct {
        uint32_t RESERVED1[512];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED2;
-  AES_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  AES_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED3;
-  AES_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  AES_DMA_TRIG0_Regs  DMA_TRIG0;                         /* !< (@ 0x00001050) */
        uint32_t RESERVED4;
-  AES_INT_EVENT2_Regs  INT_EVENT2;                        /* !< (@ 0x00001080) */
+  AES_DMA_TRIG1_Regs  DMA_TRIG1;                         /* !< (@ 0x00001080) */
        uint32_t RESERVED5;
-  AES_INT_EVENT3_Regs  INT_EVENT3;                        /* !< (@ 0x000010B0) */
+  AES_DMA_TRIG2_Regs  DMA_TRIG2;                         /* !< (@ 0x000010B0) */
        uint32_t RESERVED6;
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
        uint32_t RESERVED7[7];
@@ -213,191 +211,191 @@ typedef struct {
 * AES Register Control Bits
 ******************************************************************************/
 
-/* AES_INT_EVENT3_IIDX Bits */
-/* AES_INT_EVENT3_IIDX[STAT] Bits */
-#define AES_INT_EVENT3_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define AES_INT_EVENT3_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define AES_INT_EVENT3_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define AES_INT_EVENT3_IIDX_STAT_DMA2            ((uint32_t)0x00000004U)         /* !< AES trigger 2 DMA */
+/* AES_DMA_TRIG2_IIDX Bits */
+/* AES_DMA_TRIG2_IIDX[STAT] Bits */
+#define AES_DMA_TRIG2_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define AES_DMA_TRIG2_IIDX_STAT_MASK             ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define AES_DMA_TRIG2_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define AES_DMA_TRIG2_IIDX_STAT_DMA2             ((uint32_t)0x00000004U)         /* !< AES trigger 2 DMA */
 
-/* AES_INT_EVENT3_IMASK Bits */
-/* AES_INT_EVENT3_IMASK[DMA2] Bits */
-#define AES_INT_EVENT3_IMASK_DMA2_OFS            (3)                             /* !< DMA2 Offset */
-#define AES_INT_EVENT3_IMASK_DMA2_MASK           ((uint32_t)0x00000008U)         /* !< DMA2 event mask. */
-#define AES_INT_EVENT3_IMASK_DMA2_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define AES_INT_EVENT3_IMASK_DMA2_SET            ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
+/* AES_DMA_TRIG2_IMASK Bits */
+/* AES_DMA_TRIG2_IMASK[DMA2] Bits */
+#define AES_DMA_TRIG2_IMASK_DMA2_OFS             (3)                             /* !< DMA2 Offset */
+#define AES_DMA_TRIG2_IMASK_DMA2_MASK            ((uint32_t)0x00000008U)         /* !< DMA2 event mask. */
+#define AES_DMA_TRIG2_IMASK_DMA2_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define AES_DMA_TRIG2_IMASK_DMA2_SET             ((uint32_t)0x00000008U)         /* !< Set Interrrupt Mask */
 
-/* AES_INT_EVENT3_RIS Bits */
-/* AES_INT_EVENT3_RIS[DMA2] Bits */
-#define AES_INT_EVENT3_RIS_DMA2_OFS              (3)                             /* !< DMA2 Offset */
-#define AES_INT_EVENT3_RIS_DMA2_MASK             ((uint32_t)0x00000008U)         /* !< DMA2 event */
-#define AES_INT_EVENT3_RIS_DMA2_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT3_RIS_DMA2_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG2_RIS Bits */
+/* AES_DMA_TRIG2_RIS[DMA2] Bits */
+#define AES_DMA_TRIG2_RIS_DMA2_OFS               (3)                             /* !< DMA2 Offset */
+#define AES_DMA_TRIG2_RIS_DMA2_MASK              ((uint32_t)0x00000008U)         /* !< DMA2 event */
+#define AES_DMA_TRIG2_RIS_DMA2_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG2_RIS_DMA2_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT3_MIS Bits */
-/* AES_INT_EVENT3_MIS[DMA2] Bits */
-#define AES_INT_EVENT3_MIS_DMA2_OFS              (3)                             /* !< DMA2 Offset */
-#define AES_INT_EVENT3_MIS_DMA2_MASK             ((uint32_t)0x00000008U)         /* !< DMA2 event */
-#define AES_INT_EVENT3_MIS_DMA2_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT3_MIS_DMA2_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG2_MIS Bits */
+/* AES_DMA_TRIG2_MIS[DMA2] Bits */
+#define AES_DMA_TRIG2_MIS_DMA2_OFS               (3)                             /* !< DMA2 Offset */
+#define AES_DMA_TRIG2_MIS_DMA2_MASK              ((uint32_t)0x00000008U)         /* !< DMA2 event */
+#define AES_DMA_TRIG2_MIS_DMA2_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG2_MIS_DMA2_SET               ((uint32_t)0x00000008U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT3_ISET Bits */
-/* AES_INT_EVENT3_ISET[DMA2] Bits */
-#define AES_INT_EVENT3_ISET_DMA2_OFS             (3)                             /* !< DMA2 Offset */
-#define AES_INT_EVENT3_ISET_DMA2_MASK            ((uint32_t)0x00000008U)         /* !< DMA2 event */
-#define AES_INT_EVENT3_ISET_DMA2_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT3_ISET_DMA2_SET             ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* AES_DMA_TRIG2_ISET Bits */
+/* AES_DMA_TRIG2_ISET[DMA2] Bits */
+#define AES_DMA_TRIG2_ISET_DMA2_OFS              (3)                             /* !< DMA2 Offset */
+#define AES_DMA_TRIG2_ISET_DMA2_MASK             ((uint32_t)0x00000008U)         /* !< DMA2 event */
+#define AES_DMA_TRIG2_ISET_DMA2_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG2_ISET_DMA2_SET              ((uint32_t)0x00000008U)         /* !< Set Interrupt */
 
-/* AES_INT_EVENT3_ICLR Bits */
-/* AES_INT_EVENT3_ICLR[DMA2] Bits */
-#define AES_INT_EVENT3_ICLR_DMA2_OFS             (3)                             /* !< DMA2 Offset */
-#define AES_INT_EVENT3_ICLR_DMA2_MASK            ((uint32_t)0x00000008U)         /* !< DMA2 event */
-#define AES_INT_EVENT3_ICLR_DMA2_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT3_ICLR_DMA2_CLR             ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
+/* AES_DMA_TRIG2_ICLR Bits */
+/* AES_DMA_TRIG2_ICLR[DMA2] Bits */
+#define AES_DMA_TRIG2_ICLR_DMA2_OFS              (3)                             /* !< DMA2 Offset */
+#define AES_DMA_TRIG2_ICLR_DMA2_MASK             ((uint32_t)0x00000008U)         /* !< DMA2 event */
+#define AES_DMA_TRIG2_ICLR_DMA2_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG2_ICLR_DMA2_CLR              ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
 
-/* AES_INT_EVENT2_IIDX Bits */
-/* AES_INT_EVENT2_IIDX[STAT] Bits */
-#define AES_INT_EVENT2_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define AES_INT_EVENT2_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define AES_INT_EVENT2_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define AES_INT_EVENT2_IIDX_STAT_DMA1            ((uint32_t)0x00000003U)         /* !< AES trigger 1 DMA */
+/* AES_DMA_TRIG1_IIDX Bits */
+/* AES_DMA_TRIG1_IIDX[STAT] Bits */
+#define AES_DMA_TRIG1_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define AES_DMA_TRIG1_IIDX_STAT_MASK             ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define AES_DMA_TRIG1_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define AES_DMA_TRIG1_IIDX_STAT_DMA1             ((uint32_t)0x00000003U)         /* !< AES trigger 1 DMA */
 
-/* AES_INT_EVENT2_IMASK Bits */
-/* AES_INT_EVENT2_IMASK[DMA1] Bits */
-#define AES_INT_EVENT2_IMASK_DMA1_OFS            (2)                             /* !< DMA1 Offset */
-#define AES_INT_EVENT2_IMASK_DMA1_MASK           ((uint32_t)0x00000004U)         /* !< DMA1 event mask. */
-#define AES_INT_EVENT2_IMASK_DMA1_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define AES_INT_EVENT2_IMASK_DMA1_SET            ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
+/* AES_DMA_TRIG1_IMASK Bits */
+/* AES_DMA_TRIG1_IMASK[DMA1] Bits */
+#define AES_DMA_TRIG1_IMASK_DMA1_OFS             (2)                             /* !< DMA1 Offset */
+#define AES_DMA_TRIG1_IMASK_DMA1_MASK            ((uint32_t)0x00000004U)         /* !< DMA1 event mask. */
+#define AES_DMA_TRIG1_IMASK_DMA1_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define AES_DMA_TRIG1_IMASK_DMA1_SET             ((uint32_t)0x00000004U)         /* !< Set Interrrupt Mask */
 
-/* AES_INT_EVENT2_RIS Bits */
-/* AES_INT_EVENT2_RIS[DMA1] Bits */
-#define AES_INT_EVENT2_RIS_DMA1_OFS              (2)                             /* !< DMA1 Offset */
-#define AES_INT_EVENT2_RIS_DMA1_MASK             ((uint32_t)0x00000004U)         /* !< DMA1 event */
-#define AES_INT_EVENT2_RIS_DMA1_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT2_RIS_DMA1_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG1_RIS Bits */
+/* AES_DMA_TRIG1_RIS[DMA1] Bits */
+#define AES_DMA_TRIG1_RIS_DMA1_OFS               (2)                             /* !< DMA1 Offset */
+#define AES_DMA_TRIG1_RIS_DMA1_MASK              ((uint32_t)0x00000004U)         /* !< DMA1 event */
+#define AES_DMA_TRIG1_RIS_DMA1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG1_RIS_DMA1_SET               ((uint32_t)0x00000004U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT2_MIS Bits */
-/* AES_INT_EVENT2_MIS[DMA1] Bits */
-#define AES_INT_EVENT2_MIS_DMA1_OFS              (2)                             /* !< DMA1 Offset */
-#define AES_INT_EVENT2_MIS_DMA1_MASK             ((uint32_t)0x00000004U)         /* !< DMA1 event */
-#define AES_INT_EVENT2_MIS_DMA1_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT2_MIS_DMA1_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG1_MIS Bits */
+/* AES_DMA_TRIG1_MIS[DMA1] Bits */
+#define AES_DMA_TRIG1_MIS_DMA1_OFS               (2)                             /* !< DMA1 Offset */
+#define AES_DMA_TRIG1_MIS_DMA1_MASK              ((uint32_t)0x00000004U)         /* !< DMA1 event */
+#define AES_DMA_TRIG1_MIS_DMA1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG1_MIS_DMA1_SET               ((uint32_t)0x00000004U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT2_ISET Bits */
-/* AES_INT_EVENT2_ISET[DMA1] Bits */
-#define AES_INT_EVENT2_ISET_DMA1_OFS             (2)                             /* !< DMA1 Offset */
-#define AES_INT_EVENT2_ISET_DMA1_MASK            ((uint32_t)0x00000004U)         /* !< DMA1 event */
-#define AES_INT_EVENT2_ISET_DMA1_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT2_ISET_DMA1_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt */
+/* AES_DMA_TRIG1_ISET Bits */
+/* AES_DMA_TRIG1_ISET[DMA1] Bits */
+#define AES_DMA_TRIG1_ISET_DMA1_OFS              (2)                             /* !< DMA1 Offset */
+#define AES_DMA_TRIG1_ISET_DMA1_MASK             ((uint32_t)0x00000004U)         /* !< DMA1 event */
+#define AES_DMA_TRIG1_ISET_DMA1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG1_ISET_DMA1_SET              ((uint32_t)0x00000004U)         /* !< Set Interrupt */
 
-/* AES_INT_EVENT2_ICLR Bits */
-/* AES_INT_EVENT2_ICLR[DMA1] Bits */
-#define AES_INT_EVENT2_ICLR_DMA1_OFS             (2)                             /* !< DMA1 Offset */
-#define AES_INT_EVENT2_ICLR_DMA1_MASK            ((uint32_t)0x00000004U)         /* !< DMA1 event */
-#define AES_INT_EVENT2_ICLR_DMA1_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT2_ICLR_DMA1_CLR             ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
+/* AES_DMA_TRIG1_ICLR Bits */
+/* AES_DMA_TRIG1_ICLR[DMA1] Bits */
+#define AES_DMA_TRIG1_ICLR_DMA1_OFS              (2)                             /* !< DMA1 Offset */
+#define AES_DMA_TRIG1_ICLR_DMA1_MASK             ((uint32_t)0x00000004U)         /* !< DMA1 event */
+#define AES_DMA_TRIG1_ICLR_DMA1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG1_ICLR_DMA1_CLR              ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
 
-/* AES_INT_EVENT1_IIDX Bits */
-/* AES_INT_EVENT1_IIDX[STAT] Bits */
-#define AES_INT_EVENT1_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define AES_INT_EVENT1_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define AES_INT_EVENT1_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define AES_INT_EVENT1_IIDX_STAT_DMA0            ((uint32_t)0x00000002U)         /* !< AES trigger 0 DMA */
+/* AES_DMA_TRIG0_IIDX Bits */
+/* AES_DMA_TRIG0_IIDX[STAT] Bits */
+#define AES_DMA_TRIG0_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define AES_DMA_TRIG0_IIDX_STAT_MASK             ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define AES_DMA_TRIG0_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define AES_DMA_TRIG0_IIDX_STAT_DMA0             ((uint32_t)0x00000002U)         /* !< AES trigger 0 DMA */
 
-/* AES_INT_EVENT1_IMASK Bits */
-/* AES_INT_EVENT1_IMASK[DMA0] Bits */
-#define AES_INT_EVENT1_IMASK_DMA0_OFS            (1)                             /* !< DMA0 Offset */
-#define AES_INT_EVENT1_IMASK_DMA0_MASK           ((uint32_t)0x00000002U)         /* !< DMA0 event mask. */
-#define AES_INT_EVENT1_IMASK_DMA0_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define AES_INT_EVENT1_IMASK_DMA0_SET            ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
+/* AES_DMA_TRIG0_IMASK Bits */
+/* AES_DMA_TRIG0_IMASK[DMA0] Bits */
+#define AES_DMA_TRIG0_IMASK_DMA0_OFS             (1)                             /* !< DMA0 Offset */
+#define AES_DMA_TRIG0_IMASK_DMA0_MASK            ((uint32_t)0x00000002U)         /* !< DMA0 event mask. */
+#define AES_DMA_TRIG0_IMASK_DMA0_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define AES_DMA_TRIG0_IMASK_DMA0_SET             ((uint32_t)0x00000002U)         /* !< Set Interrrupt Mask */
 
-/* AES_INT_EVENT1_RIS Bits */
-/* AES_INT_EVENT1_RIS[DMA0] Bits */
-#define AES_INT_EVENT1_RIS_DMA0_OFS              (1)                             /* !< DMA0 Offset */
-#define AES_INT_EVENT1_RIS_DMA0_MASK             ((uint32_t)0x00000002U)         /* !< DMA0 event */
-#define AES_INT_EVENT1_RIS_DMA0_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT1_RIS_DMA0_SET              ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG0_RIS Bits */
+/* AES_DMA_TRIG0_RIS[DMA0] Bits */
+#define AES_DMA_TRIG0_RIS_DMA0_OFS               (1)                             /* !< DMA0 Offset */
+#define AES_DMA_TRIG0_RIS_DMA0_MASK              ((uint32_t)0x00000002U)         /* !< DMA0 event */
+#define AES_DMA_TRIG0_RIS_DMA0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG0_RIS_DMA0_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT1_MIS Bits */
-/* AES_INT_EVENT1_MIS[DMA0] Bits */
-#define AES_INT_EVENT1_MIS_DMA0_OFS              (1)                             /* !< DMA0 Offset */
-#define AES_INT_EVENT1_MIS_DMA0_MASK             ((uint32_t)0x00000002U)         /* !< DMA0 event */
-#define AES_INT_EVENT1_MIS_DMA0_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT1_MIS_DMA0_SET              ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* AES_DMA_TRIG0_MIS Bits */
+/* AES_DMA_TRIG0_MIS[DMA0] Bits */
+#define AES_DMA_TRIG0_MIS_DMA0_OFS               (1)                             /* !< DMA0 Offset */
+#define AES_DMA_TRIG0_MIS_DMA0_MASK              ((uint32_t)0x00000002U)         /* !< DMA0 event */
+#define AES_DMA_TRIG0_MIS_DMA0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_DMA_TRIG0_MIS_DMA0_SET               ((uint32_t)0x00000002U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT1_ISET Bits */
-/* AES_INT_EVENT1_ISET[DMA0] Bits */
-#define AES_INT_EVENT1_ISET_DMA0_OFS             (1)                             /* !< DMA0 Offset */
-#define AES_INT_EVENT1_ISET_DMA0_MASK            ((uint32_t)0x00000002U)         /* !< DMA0 */
-#define AES_INT_EVENT1_ISET_DMA0_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT1_ISET_DMA0_SET             ((uint32_t)0x00000002U)         /* !< Set Interrupt */
+/* AES_DMA_TRIG0_ISET Bits */
+/* AES_DMA_TRIG0_ISET[DMA0] Bits */
+#define AES_DMA_TRIG0_ISET_DMA0_OFS              (1)                             /* !< DMA0 Offset */
+#define AES_DMA_TRIG0_ISET_DMA0_MASK             ((uint32_t)0x00000002U)         /* !< DMA0 */
+#define AES_DMA_TRIG0_ISET_DMA0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG0_ISET_DMA0_SET              ((uint32_t)0x00000002U)         /* !< Set Interrupt */
 
-/* AES_INT_EVENT1_ICLR Bits */
-/* AES_INT_EVENT1_ICLR[DMA0] Bits */
-#define AES_INT_EVENT1_ICLR_DMA0_OFS             (1)                             /* !< DMA0 Offset */
-#define AES_INT_EVENT1_ICLR_DMA0_MASK            ((uint32_t)0x00000002U)         /* !< DMA0 event */
-#define AES_INT_EVENT1_ICLR_DMA0_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT1_ICLR_DMA0_CLR             ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
+/* AES_DMA_TRIG0_ICLR Bits */
+/* AES_DMA_TRIG0_ICLR[DMA0] Bits */
+#define AES_DMA_TRIG0_ICLR_DMA0_OFS              (1)                             /* !< DMA0 Offset */
+#define AES_DMA_TRIG0_ICLR_DMA0_MASK             ((uint32_t)0x00000002U)         /* !< DMA0 event */
+#define AES_DMA_TRIG0_ICLR_DMA0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_DMA_TRIG0_ICLR_DMA0_CLR              ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
 
-/* AES_INT_EVENT0_IIDX Bits */
-/* AES_INT_EVENT0_IIDX[STAT] Bits */
-#define AES_INT_EVENT0_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
-#define AES_INT_EVENT0_IIDX_STAT_MASK            ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define AES_INT_EVENT0_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define AES_INT_EVENT0_IIDX_STAT_AESRDY          ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_IIDX Bits */
+/* AES_CPU_INT_IIDX[STAT] Bits */
+#define AES_CPU_INT_IIDX_STAT_OFS                (0)                             /* !< STAT Offset */
+#define AES_CPU_INT_IIDX_STAT_MASK               ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define AES_CPU_INT_IIDX_STAT_NO_INTR            ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define AES_CPU_INT_IIDX_STAT_AESRDY             ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT */
 
-/* AES_INT_EVENT0_IMASK Bits */
-/* AES_INT_EVENT0_IMASK[AESRDY] Bits */
-#define AES_INT_EVENT0_IMASK_AESRDY_OFS          (0)                             /* !< AESRDY Offset */
-#define AES_INT_EVENT0_IMASK_AESRDY_MASK         ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_IMASK Bits */
+/* AES_CPU_INT_IMASK[AESRDY] Bits */
+#define AES_CPU_INT_IMASK_AESRDY_OFS             (0)                             /* !< AESRDY Offset */
+#define AES_CPU_INT_IMASK_AESRDY_MASK            ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT. */
-#define AES_INT_EVENT0_IMASK_AESRDY_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define AES_INT_EVENT0_IMASK_AESRDY_SET          ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
+#define AES_CPU_INT_IMASK_AESRDY_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define AES_CPU_INT_IMASK_AESRDY_SET             ((uint32_t)0x00000001U)         /* !< Set Interrrupt Mask */
 
-/* AES_INT_EVENT0_RIS Bits */
-/* AES_INT_EVENT0_RIS[AESRDY] Bits */
-#define AES_INT_EVENT0_RIS_AESRDY_OFS            (0)                             /* !< AESRDY Offset */
-#define AES_INT_EVENT0_RIS_AESRDY_MASK           ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_RIS Bits */
+/* AES_CPU_INT_RIS[AESRDY] Bits */
+#define AES_CPU_INT_RIS_AESRDY_OFS               (0)                             /* !< AESRDY Offset */
+#define AES_CPU_INT_RIS_AESRDY_MASK              ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT. */
-#define AES_INT_EVENT0_RIS_AESRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT0_RIS_AESRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+#define AES_CPU_INT_RIS_AESRDY_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_CPU_INT_RIS_AESRDY_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT0_MIS Bits */
-/* AES_INT_EVENT0_MIS[AESRDY] Bits */
-#define AES_INT_EVENT0_MIS_AESRDY_OFS            (0)                             /* !< AESRDY Offset */
-#define AES_INT_EVENT0_MIS_AESRDY_MASK           ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_MIS Bits */
+/* AES_CPU_INT_MIS[AESRDY] Bits */
+#define AES_CPU_INT_MIS_AESRDY_OFS               (0)                             /* !< AESRDY Offset */
+#define AES_CPU_INT_MIS_AESRDY_MASK              ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT. */
-#define AES_INT_EVENT0_MIS_AESRDY_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define AES_INT_EVENT0_MIS_AESRDY_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+#define AES_CPU_INT_MIS_AESRDY_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define AES_CPU_INT_MIS_AESRDY_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
 
-/* AES_INT_EVENT0_ISET Bits */
-/* AES_INT_EVENT0_ISET[AESRDY] Bits */
-#define AES_INT_EVENT0_ISET_AESRDY_OFS           (0)                             /* !< AESRDY Offset */
-#define AES_INT_EVENT0_ISET_AESRDY_MASK          ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_ISET Bits */
+/* AES_CPU_INT_ISET[AESRDY] Bits */
+#define AES_CPU_INT_ISET_AESRDY_OFS              (0)                             /* !< AESRDY Offset */
+#define AES_CPU_INT_ISET_AESRDY_MASK             ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT. */
-#define AES_INT_EVENT0_ISET_AESRDY_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT0_ISET_AESRDY_SET           ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+#define AES_CPU_INT_ISET_AESRDY_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_CPU_INT_ISET_AESRDY_SET              ((uint32_t)0x00000001U)         /* !< Set Interrupt */
 
-/* AES_INT_EVENT0_ICLR Bits */
-/* AES_INT_EVENT0_ICLR[AESRDY] Bits */
-#define AES_INT_EVENT0_ICLR_AESRDY_OFS           (0)                             /* !< AESRDY Offset */
-#define AES_INT_EVENT0_ICLR_AESRDY_MASK          ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
+/* AES_CPU_INT_ICLR Bits */
+/* AES_CPU_INT_ICLR[AESRDY] Bits */
+#define AES_CPU_INT_ICLR_AESRDY_OFS              (0)                             /* !< AESRDY Offset */
+#define AES_CPU_INT_ICLR_AESRDY_MASK             ((uint32_t)0x00000001U)         /* !< AES ready interrupt, set when the
                                                                                     selected AES operation was completed
                                                                                     and the result can be read from
                                                                                     AESADOUT. */
-#define AES_INT_EVENT0_ICLR_AESRDY_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define AES_INT_EVENT0_ICLR_AESRDY_CLR           ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+#define AES_CPU_INT_ICLR_AESRDY_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define AES_CPU_INT_ICLR_AESRDY_CLR              ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
 
 /* AES_PWREN Bits */
 /* AES_PWREN[ENABLE] Bits */

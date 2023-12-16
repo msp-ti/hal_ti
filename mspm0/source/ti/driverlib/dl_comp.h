@@ -69,19 +69,19 @@ extern "C" {
 /*!
  * @brief Comparator output ready interrupt
  */
-#define DL_COMP_INTERRUPT_OUTPUT_READY               (COMP_IMASK_OUTRDYIFG_SET)
+#define DL_COMP_INTERRUPT_OUTPUT_READY               (COMP_CPU_INT_IMASK_OUTRDYIFG_SET)
 
 /*!
  * @brief Rising or falling edge of comparator output (selected by IES bit)
  *        interrupt
  */
-#define DL_COMP_INTERRUPT_OUTPUT_EDGE                  (COMP_IMASK_COMPIFG_SET)
+#define DL_COMP_INTERRUPT_OUTPUT_EDGE                  (COMP_CPU_INT_IMASK_COMPIFG_SET)
 
 /*!
  * @brief Rising or falling edge of comparator inverted output (selected by
  *        IES bit) interrupt
  */
-#define DL_COMP_INTERRUPT_OUTPUT_EDGE_INV           (COMP_IMASK_COMPINVIFG_SET)
+#define DL_COMP_INTERRUPT_OUTPUT_EDGE_INV           (COMP_CPU_INT_IMASK_COMPINVIFG_SET)
 
 /** @}*/
 
@@ -91,19 +91,19 @@ extern "C" {
 /*!
  * @brief Comparator output ready event
  */
-#define DL_COMP_EVENT_OUTPUT_READY               (COMP_IMASK_OUTRDYIFG_SET)
+#define DL_COMP_EVENT_OUTPUT_READY               (COMP_GEN_EVENT_IMASK_OUTRDYIFG_SET)
 
 /*!
  * @brief Rising or falling edge of comparator output (selected by IES bit)
  *        event
  */
-#define DL_COMP_EVENT_OUTPUT_EDGE                  (COMP_IMASK_COMPIFG_SET)
+#define DL_COMP_EVENT_OUTPUT_EDGE                  (COMP_GEN_EVENT_IMASK_COMPIFG_SET)
 
 /*!
  * @brief Rising or falling edge of comparator inverted output (selected by
  *        IES bit) event
  */
-#define DL_COMP_EVENT_OUTPUT_EDGE_INV           (COMP_IMASK_COMPINVIFG_SET)
+#define DL_COMP_EVENT_OUTPUT_EDGE_INV           (COMP_GEN_EVENT_IMASK_COMPINVIFG_SET)
 
 /** @}*/
 
@@ -112,15 +112,15 @@ extern "C" {
 /*! @enum DL_COMP_IIDX */
 typedef enum {
     /*! COMP interrupt index for no interrupt */
-    DL_COMP_IIDX_NO_INTERRUPT = COMP_IIDX_STAT_NO_INTR,
+    DL_COMP_IIDX_NO_INTERRUPT = COMP_CPU_INT_IIDX_STAT_NO_INTR,
     /*! COMP interrupt index for comparator output ready interrupt */
-    DL_COMP_IIDX_OUTPUT_READY = COMP_IIDX_STAT_OUTRDYIFG,
+    DL_COMP_IIDX_OUTPUT_READY = COMP_CPU_INT_IIDX_STAT_OUTRDYIFG,
     /*! COMP interrupt index for rising or falling edge of comparator output
      * (selected by IES bit) interrupt */
-    DL_COMP_IIDX_OUTPUT_EDGE = COMP_IIDX_STAT_COMPIFG,
+    DL_COMP_IIDX_OUTPUT_EDGE = COMP_CPU_INT_IIDX_STAT_COMPIFG,
     /*! COMP interrupt index for rising or falling edge of comparator inverted
      * output (selected by IES bit) interrupt */
-    DL_COMP_IIDX_OUTPUT_EDGE_INV = COMP_IIDX_STAT_COMPINVIFG,
+    DL_COMP_IIDX_OUTPUT_EDGE_INV = COMP_CPU_INT_IIDX_STAT_COMPINVIFG,
 } DL_COMP_IIDX;
 
 /*! @enum DL_COMP_MODE */
@@ -1178,9 +1178,9 @@ __STATIC_INLINE void DL_COMP_setDACCode1(COMP_Regs *comp, uint32_t value)
  *
  *  @retval     Value between 0x0 - 0xFF
  */
-__STATIC_INLINE uint32_t DL_COMP_getDACInputCode1(COMP_Regs *comp)
+__STATIC_INLINE uint32_t DL_COMP_getDACCode1(COMP_Regs *comp)
 {
-    return (comp->CTL3 & (COMP_CTL3_DACCODE1_MASK >> COMP_CTL3_DACCODE1_OFS));
+    return ((comp->CTL3 & COMP_CTL3_DACCODE1_MASK) >> COMP_CTL3_DACCODE1_OFS);
 }
 
 /**
@@ -1279,7 +1279,7 @@ __STATIC_INLINE uint8_t DL_COMP_getSubscriberChanID(
 __STATIC_INLINE void DL_COMP_enableInterrupt(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    comp->INT_EVENT[0].IMASK |= interruptMask;
+    comp->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -1293,7 +1293,7 @@ __STATIC_INLINE void DL_COMP_enableInterrupt(
 __STATIC_INLINE void DL_COMP_disableInterrupt(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    comp->INT_EVENT[0].IMASK &= ~(interruptMask);
+    comp->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -1311,7 +1311,7 @@ __STATIC_INLINE void DL_COMP_disableInterrupt(
 __STATIC_INLINE uint32_t DL_COMP_getEnabledInterrupts(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    return (comp->INT_EVENT[0].IMASK & interruptMask);
+    return (comp->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -1334,7 +1334,7 @@ __STATIC_INLINE uint32_t DL_COMP_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_COMP_getEnabledInterruptStatus(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    return (comp->INT_EVENT[0].MIS & interruptMask);
+    return (comp->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -1355,7 +1355,7 @@ __STATIC_INLINE uint32_t DL_COMP_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_COMP_getRawInterruptStatus(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    return (comp->INT_EVENT[0].RIS & interruptMask);
+    return (comp->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -1371,7 +1371,7 @@ __STATIC_INLINE uint32_t DL_COMP_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_COMP_IIDX DL_COMP_getPendingInterrupt(COMP_Regs *comp)
 {
-    return (DL_COMP_IIDX)(comp->INT_EVENT[0].IIDX);
+    return (DL_COMP_IIDX)(comp->CPU_INT.IIDX);
 }
 
 /**
@@ -1385,7 +1385,7 @@ __STATIC_INLINE DL_COMP_IIDX DL_COMP_getPendingInterrupt(COMP_Regs *comp)
 __STATIC_INLINE void DL_COMP_clearInterruptStatus(
     COMP_Regs *comp, uint32_t interruptMask)
 {
-    comp->INT_EVENT[0].ICLR = interruptMask;
+    comp->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -1425,7 +1425,7 @@ __STATIC_INLINE uint8_t DL_COMP_getPublisherChanID(COMP_Regs *comp)
  */
 __STATIC_INLINE void DL_COMP_enableEvent(COMP_Regs *comp, uint32_t eventMask)
 {
-    comp->INT_EVENT[1].IMASK |= (eventMask);
+    comp->GEN_EVENT.IMASK |= (eventMask);
 }
 
 /**
@@ -1438,7 +1438,7 @@ __STATIC_INLINE void DL_COMP_enableEvent(COMP_Regs *comp, uint32_t eventMask)
  */
 __STATIC_INLINE void DL_COMP_disableEvent(COMP_Regs *comp, uint32_t eventMask)
 {
-    comp->INT_EVENT[1].IMASK &= ~(eventMask);
+    comp->GEN_EVENT.IMASK &= ~(eventMask);
 }
 
 /**
@@ -1456,7 +1456,7 @@ __STATIC_INLINE void DL_COMP_disableEvent(COMP_Regs *comp, uint32_t eventMask)
 __STATIC_INLINE uint32_t DL_COMP_getEnabledEvents(
     COMP_Regs *comp, uint32_t eventMask)
 {
-    return ((comp->INT_EVENT[1].IMASK) & (eventMask));
+    return ((comp->GEN_EVENT.IMASK) & (eventMask));
 }
 
 /**
@@ -1479,7 +1479,7 @@ __STATIC_INLINE uint32_t DL_COMP_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_COMP_getEnabledEventStatus(
     COMP_Regs *comp, uint32_t eventMask)
 {
-    return ((comp->INT_EVENT[1].MIS) & eventMask);
+    return ((comp->GEN_EVENT.MIS) & eventMask);
 }
 
 /**
@@ -1500,7 +1500,7 @@ __STATIC_INLINE uint32_t DL_COMP_getEnabledEventStatus(
 __STATIC_INLINE uint32_t DL_COMP_getRawEventsStatus(
     COMP_Regs *comp, uint32_t eventMask)
 {
-    return ((comp->INT_EVENT[1].RIS) & eventMask);
+    return ((comp->GEN_EVENT.RIS) & eventMask);
 }
 
 /**
@@ -1514,7 +1514,7 @@ __STATIC_INLINE uint32_t DL_COMP_getRawEventsStatus(
 __STATIC_INLINE void DL_COMP_clearEventsStatus(
     COMP_Regs *comp, uint32_t eventMask)
 {
-    comp->INT_EVENT[1].ICLR |= (eventMask);
+    comp->GEN_EVENT.ICLR |= (eventMask);
 }
 
 /* clang-format on */

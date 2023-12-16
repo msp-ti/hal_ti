@@ -80,6 +80,7 @@ extern "C" {
  */
 __STATIC_INLINE void DL_SYSTICK_init(uint32_t period)
 {
+    SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk;
     SysTick->LOAD = period - (uint32_t) 1;
     SysTick->VAL  = 0;
 }
@@ -159,7 +160,7 @@ __STATIC_INLINE void DL_SYSTICK_disableInterrupt(void)
  */
 __STATIC_INLINE void DL_SYSTICK_enable(void)
 {
-    (SysTick->CTRL |= (uint32_t) SysTick_CTRL_ENABLE_Msk);
+    SysTick->CTRL |= (SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk);
 }
 
 /**

@@ -32,12 +32,12 @@
 
 *****************************************************************************/
 
-#ifndef ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l11xx_l13xx__include
-#define ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l11xx_l13xx__include
+#ifndef ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include
+#define ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include
 
-/* Filename: hw_sysctl_mspm0l11xx_l13xx.h */
-/* Revised: 2023-05-10 22:02:57 */
-/* Revision: b49f666483ca5daed24b338ee5f46878c932893a */
+/* Filename: hw_sysctl_mspm0c110x.h */
+/* Revised: 2023-06-23 01:32:23 */
+/* Revision: af7a237c500c65d01b6badd22c9f78ed92a778a3 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -68,25 +68,33 @@
 /******************************************************************************
 * SYSCTL Registers
 ******************************************************************************/
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_OFS        ((uint32_t)0x00860800U)
 #define SYSCTL_MGMT_SPI0_OFS                     ((uint32_t)0x00468800U)
 #define SYSCTL_MGMT_CRC0_OFS                     ((uint32_t)0x00440800U)
 #define SYSCTL_MGMT_UARTADVLP0_OFS               ((uint32_t)0x00108800U)
-#define SYSCTL_MGMT_UARTLP0_OFS                  ((uint32_t)0x00100800U)
-#define SYSCTL_MGMT_I2C1_OFS                     ((uint32_t)0x000F2800U)
 #define SYSCTL_MGMT_I2C0_OFS                     ((uint32_t)0x000F0800U)
 #define SYSCTL_MGMT_GPIO0_OFS                    ((uint32_t)0x000A0800U)
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_OFS       ((uint32_t)0x0008C800U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_OFS         ((uint32_t)0x00088800U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_OFS         ((uint32_t)0x00086800U)
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_OFS      ((uint32_t)0x00090800U)
 #define SYSCTL_MGMT_GPTIMER16B2CCLP0_OFS         ((uint32_t)0x00084800U)
 #define SYSCTL_MGMT_WWDTLP0_OFS                  ((uint32_t)0x00080800U)
 #define SYSCTL_MGMT_VREF_OFS                     ((uint32_t)0x00030800U)
-#define SYSCTL_MGMT_OPAMP1_OFS                   ((uint32_t)0x00022800U)
-#define SYSCTL_MGMT_OPAMP0_OFS                   ((uint32_t)0x00020800U)
-#define SYSCTL_MGMT_ANACOMP0_OFS                 ((uint32_t)0x00008800U)
 #define SYSCTL_MGMT_ADC12B1MSPS0_OFS             ((uint32_t)0x00004800U)
 #define SYSCTL_SOCLOCK_OFS                       ((uint32_t)0x00001000U)
 
+
+/** @addtogroup SYSCTL_MGMT_GPTIMER16BADV4CC0
+  @{
+*/
+
+typedef struct {
+  __IO uint32_t PWREN;                             /* !< (@ 0x00860800) IP Enable Register */
+  __O  uint32_t RSTCTL;                            /* !< (@ 0x00860804) Power Control Register - Write Only Register,
+                                                      Always Read as 0 */
+       uint32_t RESERVED0[3];
+  __I  uint32_t STAT;                              /* !< (@ 0x00860814) IP State Register - Read Only */
+} SYSCTL_MGMT_GPTIMER16BADV4CC0_Regs;
+
+/*@}*/ /* end of group SYSCTL_MGMT_GPTIMER16BADV4CC0 */
 
 /** @addtogroup SYSCTL_MGMT_SPI0
   @{
@@ -132,36 +140,6 @@ typedef struct {
 
 /*@}*/ /* end of group SYSCTL_MGMT_UARTADVLP0 */
 
-/** @addtogroup SYSCTL_MGMT_UARTLP0
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00100800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00100804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-  __IO uint32_t CLKCFG;                            /* !< (@ 0x00100808) IP Clock Configuration Register */
-       uint32_t RESERVED0[2];
-  __I  uint32_t STAT;                              /* !< (@ 0x00100814) IP State Register - Read Only */
-} SYSCTL_MGMT_UARTLP0_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_UARTLP0 */
-
-/** @addtogroup SYSCTL_MGMT_I2C1
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x000F2800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x000F2804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-  __IO uint32_t CLKCFG;                            /* !< (@ 0x000F2808) IP Clock Configuration Register */
-       uint32_t RESERVED0[2];
-  __I  uint32_t STAT;                              /* !< (@ 0x000F2814) IP State Register - Read Only */
-} SYSCTL_MGMT_I2C1_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_I2C1 */
-
 /** @addtogroup SYSCTL_MGMT_I2C0
   @{
 */
@@ -191,47 +169,19 @@ typedef struct {
 
 /*@}*/ /* end of group SYSCTL_MGMT_GPIO0 */
 
-/** @addtogroup SYSCTL_MGMT_GPTIMER16B2CCSPLP0
+/** @addtogroup SYSCTL_MGMT_GPTIMER16B2CCQEILP0
   @{
 */
 
 typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x0008C800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x0008C804) Power Control Register - Write Only Register,
+  __IO uint32_t PWREN;                             /* !< (@ 0x00090800) IP Enable Register */
+  __O  uint32_t RSTCTL;                            /* !< (@ 0x00090804) Power Control Register - Write Only Register,
                                                       Always Read as 0 */
        uint32_t RESERVED0[3];
-  __I  uint32_t STAT;                              /* !< (@ 0x0008C814) IP State Register - Read Only */
-} SYSCTL_MGMT_GPTIMER16B2CCSPLP0_Regs;
+  __I  uint32_t STAT;                              /* !< (@ 0x00090814) IP State Register - Read Only */
+} SYSCTL_MGMT_GPTIMER16B2CCQEILP0_Regs;
 
-/*@}*/ /* end of group SYSCTL_MGMT_GPTIMER16B2CCSPLP0 */
-
-/** @addtogroup SYSCTL_MGMT_GPTIMER16B2CCLP2
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00088800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00088804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-       uint32_t RESERVED0[3];
-  __I  uint32_t STAT;                              /* !< (@ 0x00088814) IP State Register - Read Only */
-} SYSCTL_MGMT_GPTIMER16B2CCLP2_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_GPTIMER16B2CCLP2 */
-
-/** @addtogroup SYSCTL_MGMT_GPTIMER16B2CCLP1
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00086800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00086804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-       uint32_t RESERVED0[3];
-  __I  uint32_t STAT;                              /* !< (@ 0x00086814) IP State Register - Read Only */
-} SYSCTL_MGMT_GPTIMER16B2CCLP1_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_GPTIMER16B2CCLP1 */
+/*@}*/ /* end of group SYSCTL_MGMT_GPTIMER16B2CCQEILP0 */
 
 /** @addtogroup SYSCTL_MGMT_GPTIMER16B2CCLP0
   @{
@@ -274,49 +224,6 @@ typedef struct {
 } SYSCTL_MGMT_VREF_Regs;
 
 /*@}*/ /* end of group SYSCTL_MGMT_VREF */
-
-/** @addtogroup SYSCTL_MGMT_OPAMP1
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00022800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00022804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-       uint32_t RESERVED0[3];
-  __I  uint32_t STAT;                              /* !< (@ 0x00022814) IP State Register - Read Only */
-} SYSCTL_MGMT_OPAMP1_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_OPAMP1 */
-
-/** @addtogroup SYSCTL_MGMT_OPAMP0
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00020800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00020804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-       uint32_t RESERVED0[3];
-  __I  uint32_t STAT;                              /* !< (@ 0x00020814) IP State Register - Read Only */
-} SYSCTL_MGMT_OPAMP0_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_OPAMP0 */
-
-/** @addtogroup SYSCTL_MGMT_ANACOMP0
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t PWREN;                             /* !< (@ 0x00008800) IP Enable Register */
-  __O  uint32_t RSTCTL;                            /* !< (@ 0x00008804) Power Control Register - Write Only Register,
-                                                      Always Read as 0 */
-  __IO uint32_t CLKCFG;                            /* !< (@ 0x00008808) IP Clock Configuration Register */
-       uint32_t RESERVED0[2];
-  __I  uint32_t STAT;                              /* !< (@ 0x00008814) IP State Register - Read Only */
-} SYSCTL_MGMT_ANACOMP0_Regs;
-
-/*@}*/ /* end of group SYSCTL_MGMT_ANACOMP0 */
 
 /** @addtogroup SYSCTL_MGMT_ADC12B1MSPS0
   @{
@@ -361,19 +268,20 @@ typedef struct {
        uint32_t RESERVED10[33];
   __IO uint32_t SYSOSCCFG;                         /* !< (@ 0x00001100) SYSOSC configuration */
   __IO uint32_t MCLKCFG;                           /* !< (@ 0x00001104) Main clock (MCLK) configuration */
-       uint32_t RESERVED11[12];
+  __IO uint32_t HSCLKEN;                           /* !< (@ 0x00001108) High-speed clock (HSCLK) source enable/disable */
+       uint32_t RESERVED11[11];
   __IO uint32_t GENCLKCFG;                         /* !< (@ 0x00001138) General clock configuration */
   __IO uint32_t GENCLKEN;                          /* !< (@ 0x0000113C) General clock enable control */
   __IO uint32_t PMODECFG;                          /* !< (@ 0x00001140) Power mode configuration */
        uint32_t RESERVED12[3];
   __I  uint32_t FCC;                               /* !< (@ 0x00001150) Frequency clock counter (FCC) count */
-       uint32_t RESERVED13[7];
-  __IO uint32_t SYSOSCTRIMUSER;                    /* !< (@ 0x00001170) SYSOSC user-specified trim */
-       uint32_t RESERVED14;
+       uint32_t RESERVED13[9];
   __IO uint32_t SRAMBOUNDARY;                      /* !< (@ 0x00001178) SRAM Write Boundary */
-       uint32_t RESERVED15;
+       uint32_t RESERVED14;
   __IO uint32_t SYSTEMCFG;                         /* !< (@ 0x00001180) System configuration */
-       uint32_t RESERVED16[31];
+       uint32_t RESERVED15[3];
+  __IO uint32_t BEEPCFG;                           /* !< (@ 0x00001190) BEEPER Configuration */
+       uint32_t RESERVED16[27];
   __IO uint32_t WRITELOCK;                         /* !< (@ 0x00001200) SYSCTL register write lockout */
   __I  uint32_t CLKSTATUS;                         /* !< (@ 0x00001204) Clock module (CKM) status */
   __I  uint32_t SYSSTATUS;                         /* !< (@ 0x00001208) System status information */
@@ -386,15 +294,14 @@ typedef struct {
   __IO uint32_t BORTHRESHOLD;                      /* !< (@ 0x00001308) BOR threshold selection */
   __O  uint32_t BORCLRCMD;                         /* !< (@ 0x0000130C) Set the BOR threshold */
   __O  uint32_t SYSOSCFCLCTL;                      /* !< (@ 0x00001310) SYSOSC frequency correction loop (FCL) ROSC enable */
-       uint32_t RESERVED19[2];
+       uint32_t RESERVED19;
+  __O  uint32_t EXLFCTL;                           /* !< (@ 0x00001318) LFCLK_IN and LFCLK control */
   __O  uint32_t SHDNIOREL;                         /* !< (@ 0x0000131C) SHUTDOWN IO release control */
   __O  uint32_t EXRSTPIN;                          /* !< (@ 0x00001320) Disable the reset function of the NRST pin */
   __O  uint32_t SYSSTATUSCLR;                      /* !< (@ 0x00001324) Clear sticky bits of SYSSTATUS */
   __O  uint32_t SWDCFG;                            /* !< (@ 0x00001328) Disable the SWD function on the SWD pins */
   __O  uint32_t FCCCMD;                            /* !< (@ 0x0000132C) Frequency clock counter start capture */
-       uint32_t RESERVED20[20];
-  __IO uint32_t PMUOPAMP;                          /* !< (@ 0x00001380) GPAMP control */
-       uint32_t RESERVED21[31];
+       uint32_t RESERVED20[52];
   __IO uint32_t SHUTDNSTORE0;                      /* !< (@ 0x00001400) Shutdown storage memory (byte 0) */
   __IO uint32_t SHUTDNSTORE1;                      /* !< (@ 0x00001404) Shutdown storage memory (byte 1) */
   __IO uint32_t SHUTDNSTORE2;                      /* !< (@ 0x00001408) Shutdown storage memory (byte 2) */
@@ -412,38 +319,26 @@ typedef struct {
   SYSCTL_SOCLOCK_Regs  SOCLOCK;                           /* !< (@ 0x00001000) SYSCTL SOCLOCK Region */
        uint32_t RESERVED1[3324];
   SYSCTL_MGMT_ADC12B1MSPS0_Regs  MGMT_ADC12B1MSPS0;                 /* !< (@ 0x00004800) SYSCTL Mgmt sub-region for IPD adc12b1msps0 */
-       uint32_t RESERVED2[4090];
-  SYSCTL_MGMT_ANACOMP0_Regs  MGMT_ANACOMP0;                     /* !< (@ 0x00008800) SYSCTL Mgmt sub-region for IPD anacomp0 */
-       uint32_t RESERVED3[24570];
-  SYSCTL_MGMT_OPAMP0_Regs  MGMT_OPAMP0;                       /* !< (@ 0x00020800) SYSCTL Mgmt sub-region for IPD opamp0 */
-       uint32_t RESERVED4[2042];
-  SYSCTL_MGMT_OPAMP1_Regs  MGMT_OPAMP1;                       /* !< (@ 0x00022800) SYSCTL Mgmt sub-region for IPD opamp1 */
-       uint32_t RESERVED5[14330];
+       uint32_t RESERVED2[45050];
   SYSCTL_MGMT_VREF_Regs  MGMT_VREF;                         /* !< (@ 0x00030800) SYSCTL Mgmt sub-region for IPD vref */
-       uint32_t RESERVED6[81914];
+       uint32_t RESERVED3[81914];
   SYSCTL_MGMT_WWDTLP0_Regs  MGMT_WWDTLP0;                      /* !< (@ 0x00080800) SYSCTL Mgmt sub-region for IPD wwdtlp0 */
-       uint32_t RESERVED7[4090];
+       uint32_t RESERVED4[4090];
   SYSCTL_MGMT_GPTIMER16B2CCLP0_Regs  MGMT_GPTIMER16B2CCLP0;             /* !< (@ 0x00084800) SYSCTL Mgmt sub-region for IPD gptimer16b2cclp0 */
-       uint32_t RESERVED8[2042];
-  SYSCTL_MGMT_GPTIMER16B2CCLP1_Regs  MGMT_GPTIMER16B2CCLP1;             /* !< (@ 0x00086800) SYSCTL Mgmt sub-region for IPD gptimer16b2cclp1 */
-       uint32_t RESERVED9[2042];
-  SYSCTL_MGMT_GPTIMER16B2CCLP2_Regs  MGMT_GPTIMER16B2CCLP2;             /* !< (@ 0x00088800) SYSCTL Mgmt sub-region for IPD gptimer16b2cclp2 */
-       uint32_t RESERVED10[4090];
-  SYSCTL_MGMT_GPTIMER16B2CCSPLP0_Regs  MGMT_GPTIMER16B2CCSPLP0;           /* !< (@ 0x0008C800) SYSCTL Mgmt sub-region for IPD gptimer16b2ccsplp0 */
-       uint32_t RESERVED11[20474];
+       uint32_t RESERVED5[12282];
+  SYSCTL_MGMT_GPTIMER16B2CCQEILP0_Regs  MGMT_GPTIMER16B2CCQEILP0;          /* !< (@ 0x00090800) SYSCTL Mgmt sub-region for IPD gptimer16b2ccqeilp0 */
+       uint32_t RESERVED6[16378];
   SYSCTL_MGMT_GPIO0_Regs  MGMT_GPIO0;                        /* !< (@ 0x000A0800) SYSCTL Mgmt sub-region for IPD gpio0 */
-       uint32_t RESERVED12[81914];
+       uint32_t RESERVED7[81914];
   SYSCTL_MGMT_I2C0_Regs  MGMT_I2C0;                         /* !< (@ 0x000F0800) SYSCTL Mgmt sub-region for IPD i2c0 */
-       uint32_t RESERVED13[2042];
-  SYSCTL_MGMT_I2C1_Regs  MGMT_I2C1;                         /* !< (@ 0x000F2800) SYSCTL Mgmt sub-region for IPD i2c1 */
-       uint32_t RESERVED14[14330];
-  SYSCTL_MGMT_UARTLP0_Regs  MGMT_UARTLP0;                      /* !< (@ 0x00100800) SYSCTL Mgmt sub-region for IPD uartlp0 */
-       uint32_t RESERVED15[8186];
+       uint32_t RESERVED8[24570];
   SYSCTL_MGMT_UARTADVLP0_Regs  MGMT_UARTADVLP0;                   /* !< (@ 0x00108800) SYSCTL Mgmt sub-region for IPD uartadvlp0 */
-       uint32_t RESERVED16[843770];
+       uint32_t RESERVED9[843770];
   SYSCTL_MGMT_CRC0_Regs  MGMT_CRC0;                         /* !< (@ 0x00440800) SYSCTL Mgmt sub-region for IPD crc0 */
-       uint32_t RESERVED17[40954];
+       uint32_t RESERVED10[40954];
   SYSCTL_MGMT_SPI0_Regs  MGMT_SPI0;                         /* !< (@ 0x00468800) SYSCTL Mgmt sub-region for IPD spi0 */
+       uint32_t RESERVED11[1040378];
+  SYSCTL_MGMT_GPTIMER16BADV4CC0_Regs  MGMT_GPTIMER16BADV4CC0;            /* !< (@ 0x00860800) SYSCTL Mgmt sub-region for IPD gptimer16badv4cc0 */
 } SYSCTL_Regs;
 
 /*@}*/ /* end of group SYSCTL */
@@ -457,6 +352,39 @@ typedef struct {
 /******************************************************************************
 * SYSCTL Register Control Bits
 ******************************************************************************/
+
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN Bits */
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN[KEY] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_KEY_OFS (24)                            /* !< KEY Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
+                                                                                    0x26 */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_KEY_UNLOCK ((uint32_t)0x26000000U)
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN[ENABLE] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_ENABLE_OFS (0)                             /* !< ENABLE Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_ENABLE_MASK ((uint32_t)0x00000001U)         /* !< IP Enable */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
+
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL Bits */
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL[KEY] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_KEY_OFS (24)                            /* !< KEY Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_KEY_UNLOCK ((uint32_t)0xB1000000U)
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL[RESETSTKYCLR] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL[RESETASSERT] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
+
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT Bits */
+/* SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT[RESETSTKY] Bits */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT_RESETSTKY_OFS (16)                            /* !< RESETSTKY Offset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
+#define SYSCTL_MGMT_GPTIMER16BADV4CC0_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
 
 /* SYSCTL_MGMT_SPI0_PWREN Bits */
 /* SYSCTL_MGMT_SPI0_PWREN[KEY] Bits */
@@ -583,98 +511,6 @@ typedef struct {
 #define SYSCTL_MGMT_UARTADVLP0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
 #define SYSCTL_MGMT_UARTADVLP0_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
 
-/* SYSCTL_MGMT_UARTLP0_PWREN Bits */
-/* SYSCTL_MGMT_UARTLP0_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_UARTLP0_PWREN_KEY_OFS        (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_UARTLP0_PWREN_KEY_MASK       ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_UARTLP0_PWREN_KEY_UNLOCK     ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_UARTLP0_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_UARTLP0_PWREN_ENABLE_OFS     (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_UARTLP0_PWREN_ENABLE_MASK    ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_UARTLP0_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_UARTLP0_PWREN_ENABLE_ENABLE  ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_UARTLP0_RSTCTL Bits */
-/* SYSCTL_MGMT_UARTLP0_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_KEY_OFS       (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_KEY_MASK      ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_KEY_UNLOCK    ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_UARTLP0_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_UARTLP0_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_UARTLP0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_UARTLP0_CLKCFG Bits */
-/* SYSCTL_MGMT_UARTLP0_CLKCFG[KEY] Bits */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_KEY_OFS       (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_KEY_MASK      ((uint32_t)0xFF000000U)         /* !< KEY to Allow State Change -- 0xA9 */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_KEY_UNLOCK    ((uint32_t)0xA9000000U)
-/* SYSCTL_MGMT_UARTLP0_CLKCFG[BLOCKASYNC] Bits */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_BLOCKASYNC_OFS (8)                             /* !< BLOCKASYNC Offset */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_BLOCKASYNC_MASK ((uint32_t)0x00000100U)         /* !< Async Clock Request is blocked from
-                                                                                    starting SYSOSC or forcing bus clock
-                                                                                    to 32MHz */
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_BLOCKASYNC_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_UARTLP0_CLKCFG_BLOCKASYNC_ENABLE ((uint32_t)0x00000100U)
-
-/* SYSCTL_MGMT_UARTLP0_STAT Bits */
-/* SYSCTL_MGMT_UARTLP0_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_UARTLP0_STAT_RESETSTKY_OFS   (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_UARTLP0_STAT_RESETSTKY_MASK  ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_UARTLP0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_UARTLP0_STAT_RESETSTKY_SET   ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_I2C1_PWREN Bits */
-/* SYSCTL_MGMT_I2C1_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_I2C1_PWREN_KEY_OFS           (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_I2C1_PWREN_KEY_MASK          ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_I2C1_PWREN_KEY_UNLOCK        ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_I2C1_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_I2C1_PWREN_ENABLE_OFS        (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_I2C1_PWREN_ENABLE_MASK       ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_I2C1_PWREN_ENABLE_DISABLE    ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_I2C1_PWREN_ENABLE_ENABLE     ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_I2C1_RSTCTL Bits */
-/* SYSCTL_MGMT_I2C1_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_I2C1_RSTCTL_KEY_OFS          (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_I2C1_RSTCTL_KEY_MASK         ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_I2C1_RSTCTL_KEY_UNLOCK       ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_I2C1_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_I2C1_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETASSERT_OFS  (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_I2C1_RSTCTL_RESETASSERT_DO   ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_I2C1_CLKCFG Bits */
-/* SYSCTL_MGMT_I2C1_CLKCFG[KEY] Bits */
-#define SYSCTL_MGMT_I2C1_CLKCFG_KEY_OFS          (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_I2C1_CLKCFG_KEY_MASK         ((uint32_t)0xFF000000U)         /* !< KEY to Allow State Change -- 0xA9 */
-#define SYSCTL_MGMT_I2C1_CLKCFG_KEY_UNLOCK       ((uint32_t)0xA9000000U)
-/* SYSCTL_MGMT_I2C1_CLKCFG[BLOCKASYNC] Bits */
-#define SYSCTL_MGMT_I2C1_CLKCFG_BLOCKASYNC_OFS   (8)                             /* !< BLOCKASYNC Offset */
-#define SYSCTL_MGMT_I2C1_CLKCFG_BLOCKASYNC_MASK  ((uint32_t)0x00000100U)         /* !< Async Clock Request is blocked from
-                                                                                    starting SYSOSC or forcing bus clock
-                                                                                    to 32MHz */
-#define SYSCTL_MGMT_I2C1_CLKCFG_BLOCKASYNC_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_I2C1_CLKCFG_BLOCKASYNC_ENABLE ((uint32_t)0x00000100U)
-
-/* SYSCTL_MGMT_I2C1_STAT Bits */
-/* SYSCTL_MGMT_I2C1_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_I2C1_STAT_RESETSTKY_OFS      (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_I2C1_STAT_RESETSTKY_MASK     ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_I2C1_STAT_RESETSTKY_CLEAR    ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_I2C1_STAT_RESETSTKY_SET      ((uint32_t)0x00010000U)
-
 /* SYSCTL_MGMT_I2C0_PWREN Bits */
 /* SYSCTL_MGMT_I2C0_PWREN[KEY] Bits */
 #define SYSCTL_MGMT_I2C0_PWREN_KEY_OFS           (24)                            /* !< KEY Offset */
@@ -754,104 +590,38 @@ typedef struct {
 #define SYSCTL_MGMT_GPIO0_STAT_RESETSTKY_CLEAR   ((uint32_t)0x00000000U)
 #define SYSCTL_MGMT_GPIO0_STAT_RESETSTKY_SET     ((uint32_t)0x00010000U)
 
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN Bits */
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN[KEY] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_KEY_OFS (24)                            /* !< KEY Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
                                                                                     0x26 */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_KEY_UNLOCK ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_ENABLE_OFS (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_ENABLE_MASK ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_KEY_UNLOCK ((uint32_t)0x26000000U)
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN[ENABLE] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_ENABLE_OFS (0)                             /* !< ENABLE Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_ENABLE_MASK ((uint32_t)0x00000001U)         /* !< IP Enable */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
 
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_KEY_UNLOCK ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL Bits */
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL[KEY] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_KEY_OFS (24)                            /* !< KEY Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_KEY_UNLOCK ((uint32_t)0xB1000000U)
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL[RESETSTKYCLR] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL[RESETASSERT] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
 
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT_RESETSTKY_OFS (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCSPLP0_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_KEY_UNLOCK ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_ENABLE_OFS (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_ENABLE_MASK ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_KEY_UNLOCK ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT_RESETSTKY_OFS (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP2_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_KEY_UNLOCK ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_ENABLE_OFS (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_ENABLE_MASK ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_KEY_OFS (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_KEY_MASK ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_KEY_UNLOCK ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT Bits */
-/* SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT_RESETSTKY_OFS (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_GPTIMER16B2CCLP1_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT Bits */
+/* SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT[RESETSTKY] Bits */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT_RESETSTKY_OFS (16)                            /* !< RESETSTKY Offset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
+#define SYSCTL_MGMT_GPTIMER16B2CCQEILP0_STAT_RESETSTKY_SET ((uint32_t)0x00010000U)
 
 /* SYSCTL_MGMT_GPTIMER16B2CCLP0_PWREN Bits */
 /* SYSCTL_MGMT_GPTIMER16B2CCLP0_PWREN[KEY] Bits */
@@ -951,118 +721,6 @@ typedef struct {
 #define SYSCTL_MGMT_VREF_STAT_RESETSTKY_MASK     ((uint32_t)0x00010000U)         /* !< IP has been Reset */
 #define SYSCTL_MGMT_VREF_STAT_RESETSTKY_CLEAR    ((uint32_t)0x00000000U)
 #define SYSCTL_MGMT_VREF_STAT_RESETSTKY_SET      ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_OPAMP1_PWREN Bits */
-/* SYSCTL_MGMT_OPAMP1_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_OPAMP1_PWREN_KEY_OFS         (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_OPAMP1_PWREN_KEY_MASK        ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_OPAMP1_PWREN_KEY_UNLOCK      ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_OPAMP1_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_OPAMP1_PWREN_ENABLE_OFS      (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_OPAMP1_PWREN_ENABLE_MASK     ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_OPAMP1_PWREN_ENABLE_DISABLE  ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_OPAMP1_PWREN_ENABLE_ENABLE   ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_OPAMP1_RSTCTL Bits */
-/* SYSCTL_MGMT_OPAMP1_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_KEY_OFS        (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_KEY_MASK       ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_KEY_UNLOCK     ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_OPAMP1_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_OPAMP1_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_OPAMP1_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_OPAMP1_STAT Bits */
-/* SYSCTL_MGMT_OPAMP1_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_OPAMP1_STAT_RESETSTKY_OFS    (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_OPAMP1_STAT_RESETSTKY_MASK   ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_OPAMP1_STAT_RESETSTKY_CLEAR  ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_OPAMP1_STAT_RESETSTKY_SET    ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_OPAMP0_PWREN Bits */
-/* SYSCTL_MGMT_OPAMP0_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_OPAMP0_PWREN_KEY_OFS         (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_OPAMP0_PWREN_KEY_MASK        ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_OPAMP0_PWREN_KEY_UNLOCK      ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_OPAMP0_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_OPAMP0_PWREN_ENABLE_OFS      (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_OPAMP0_PWREN_ENABLE_MASK     ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_OPAMP0_PWREN_ENABLE_DISABLE  ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_OPAMP0_PWREN_ENABLE_ENABLE   ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_OPAMP0_RSTCTL Bits */
-/* SYSCTL_MGMT_OPAMP0_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_KEY_OFS        (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_KEY_MASK       ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_KEY_UNLOCK     ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_OPAMP0_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_OPAMP0_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_OPAMP0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_OPAMP0_STAT Bits */
-/* SYSCTL_MGMT_OPAMP0_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_OPAMP0_STAT_RESETSTKY_OFS    (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_OPAMP0_STAT_RESETSTKY_MASK   ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_OPAMP0_STAT_RESETSTKY_CLEAR  ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_OPAMP0_STAT_RESETSTKY_SET    ((uint32_t)0x00010000U)
-
-/* SYSCTL_MGMT_ANACOMP0_PWREN Bits */
-/* SYSCTL_MGMT_ANACOMP0_PWREN[KEY] Bits */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_KEY_OFS       (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_KEY_MASK      ((uint32_t)0xFF000000U)         /* !< KEY to Allow Enable State Change --
-                                                                                    0x26 */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_KEY_UNLOCK    ((uint32_t)0x26000000U)
-/* SYSCTL_MGMT_ANACOMP0_PWREN[ENABLE] Bits */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_ENABLE_OFS    (0)                             /* !< ENABLE Offset */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_ENABLE_MASK   ((uint32_t)0x00000001U)         /* !< IP Enable */
-#define SYSCTL_MGMT_ANACOMP0_PWREN_ENABLE_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_ANACOMP0_PWREN_ENABLE_ENABLE ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_ANACOMP0_RSTCTL Bits */
-/* SYSCTL_MGMT_ANACOMP0_RSTCTL[KEY] Bits */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_KEY_OFS      (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_KEY_MASK     ((uint32_t)0xFF000000U)         /* !< KEY to Allow Reset -- 0xb1 */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_KEY_UNLOCK   ((uint32_t)0xB1000000U)
-/* SYSCTL_MGMT_ANACOMP0_RSTCTL[RESETSTKYCLR] Bits */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETSTKYCLR_OFS (1)                             /* !< RESETSTKYCLR Offset */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETSTKYCLR_MASK ((uint32_t)0x00000002U)         /* !< Clear the RESET STICKY Bit */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETSTKYCLR_CLEAR ((uint32_t)0x00000002U)
-/* SYSCTL_MGMT_ANACOMP0_RSTCTL[RESETASSERT] Bits */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETASSERT_OFS (0)                             /* !< RESETASSERT Offset */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETASSERT_MASK ((uint32_t)0x00000001U)         /* !< Assert Reset to IP Domain. */
-#define SYSCTL_MGMT_ANACOMP0_RSTCTL_RESETASSERT_DO ((uint32_t)0x00000001U)
-
-/* SYSCTL_MGMT_ANACOMP0_CLKCFG Bits */
-/* SYSCTL_MGMT_ANACOMP0_CLKCFG[KEY] Bits */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_KEY_OFS      (24)                            /* !< KEY Offset */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_KEY_MASK     ((uint32_t)0xFF000000U)         /* !< KEY to Allow State Change -- 0xA9 */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_KEY_UNLOCK   ((uint32_t)0xA9000000U)
-/* SYSCTL_MGMT_ANACOMP0_CLKCFG[BLOCKASYNC] Bits */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_BLOCKASYNC_OFS (8)                             /* !< BLOCKASYNC Offset */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_BLOCKASYNC_MASK ((uint32_t)0x00000100U)         /* !< Async Clock Request is blocked from
-                                                                                    starting SYSOSC or forcing bus clock
-                                                                                    to 32MHz */
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_BLOCKASYNC_DISABLE ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_ANACOMP0_CLKCFG_BLOCKASYNC_ENABLE ((uint32_t)0x00000100U)
-
-/* SYSCTL_MGMT_ANACOMP0_STAT Bits */
-/* SYSCTL_MGMT_ANACOMP0_STAT[RESETSTKY] Bits */
-#define SYSCTL_MGMT_ANACOMP0_STAT_RESETSTKY_OFS  (16)                            /* !< RESETSTKY Offset */
-#define SYSCTL_MGMT_ANACOMP0_STAT_RESETSTKY_MASK ((uint32_t)0x00010000U)         /* !< IP has been Reset */
-#define SYSCTL_MGMT_ANACOMP0_STAT_RESETSTKY_CLEAR ((uint32_t)0x00000000U)
-#define SYSCTL_MGMT_ANACOMP0_STAT_RESETSTKY_SET  ((uint32_t)0x00010000U)
 
 /* SYSCTL_MGMT_ADC12B1MSPS0_PWREN Bits */
 /* SYSCTL_MGMT_ADC12B1MSPS0_PWREN[KEY] Bits */
@@ -1256,17 +914,6 @@ typedef struct {
 #define SYSCTL_NMIICLR_WWDT0_CLR                 ((uint32_t)0x00000002U)
 
 /* SYSCTL_SYSOSCCFG Bits */
-/* SYSCTL_SYSOSCCFG[USE4MHZSTOP] Bits */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_OFS         (8)                             /* !< USE4MHZSTOP Offset */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK        ((uint32_t)0x00000100U)         /* !< USE4MHZSTOP sets the SYSOSC stop
-                                                                                    mode frequency policy.  When entering
-                                                                                    STOP mode, the SYSOSC frequency may
-                                                                                    be automatically switched to 4MHz to
-                                                                                    reduce SYSOSC power consumption. */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_DISABLE     ((uint32_t)0x00000000U)         /* !< Do not gear shift the SYSOSC to
-                                                                                    4MHz in STOP mode */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_ENABLE      ((uint32_t)0x00000100U)         /* !< Gear shift SYSOSC to 4MHz in STOP
-                                                                                    mode */
 /* SYSCTL_SYSOSCCFG[DISABLESTOP] Bits */
 #define SYSCTL_SYSOSCCFG_DISABLESTOP_OFS         (9)                             /* !< DISABLESTOP Offset */
 #define SYSCTL_SYSOSCCFG_DISABLESTOP_MASK        ((uint32_t)0x00000200U)         /* !< DISABLESTOP sets the SYSOSC stop
@@ -1321,7 +968,6 @@ typedef struct {
 #define SYSCTL_SYSOSCCFG_FREQ_SYSOSC4M           ((uint32_t)0x00000001U)         /* !< Low frequency (4MHz) */
 #define SYSCTL_SYSOSCCFG_FREQ_SYSOSCUSER         ((uint32_t)0x00000002U)         /* !< User-trimmed frequency (16 or 24
                                                                                     MHz) */
-#define SYSCTL_SYSOSCCFG_FREQ_SYSOSCTURBO        ((uint32_t)0x00000003U)         /* !< Turbo frequency (48MHz) */
 
 /* SYSCTL_MCLKCFG Bits */
 /* SYSCTL_MCLKCFG[USEMFTICK] Bits */
@@ -1345,6 +991,17 @@ typedef struct {
                                                                                     corresponds to /16 (divide-by-16).
                                                                                     MDIV may be set between /1 and /16 on
                                                                                     an integer basis. */
+/* SYSCTL_MCLKCFG[USEHSCLK] Bits */
+#define SYSCTL_MCLKCFG_USEHSCLK_OFS              (16)                            /* !< USEHSCLK Offset */
+#define SYSCTL_MCLKCFG_USEHSCLK_MASK             ((uint32_t)0x00010000U)         /* !< USEHSCLK, together with USELFCLK,
+                                                                                    sets the MCLK source policy.  Set
+                                                                                    USEHSCLK to use HSCLK (HFCLK or
+                                                                                    SYSPLL) as the MCLK source in RUN and
+                                                                                    SLEEP modes. */
+#define SYSCTL_MCLKCFG_USEHSCLK_DISABLE          ((uint32_t)0x00000000U)         /* !< MCLK will not use the high speed
+                                                                                    clock (HSCLK) */
+#define SYSCTL_MCLKCFG_USEHSCLK_ENABLE           ((uint32_t)0x00010000U)         /* !< MCLK will use the high speed clock
+                                                                                    (HSCLK) in RUN and SLEEP mode */
 /* SYSCTL_MCLKCFG[USELFCLK] Bits */
 #define SYSCTL_MCLKCFG_USELFCLK_OFS              (20)                            /* !< USELFCLK Offset */
 #define SYSCTL_MCLKCFG_USELFCLK_MASK             ((uint32_t)0x00100000U)         /* !< USELFCLK sets the MCLK source
@@ -1372,16 +1029,6 @@ typedef struct {
 #define SYSCTL_MCLKCFG_STOPCLKSTBY_ENABLE        ((uint32_t)0x00200000U)         /* !< ULPCLK/LFCLK is disabled to all
                                                                                     peripherals in STANDBY mode except
                                                                                     TIMG0 and TIMG1 */
-/* SYSCTL_MCLKCFG[FLASHWAIT] Bits */
-#define SYSCTL_MCLKCFG_FLASHWAIT_OFS             (8)                             /* !< FLASHWAIT Offset */
-#define SYSCTL_MCLKCFG_FLASHWAIT_MASK            ((uint32_t)0x00000F00U)         /* !< FLASHWAIT specifies the number of
-                                                                                    flash wait states when MCLK is
-                                                                                    sourced from HSCLK.  FLASHWAIT has no
-                                                                                    effect when MCLK is sourced from
-                                                                                    SYSOSC or LFCLK. */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT0           ((uint32_t)0x00000000U)         /* !< No flash wait states are applied */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT1           ((uint32_t)0x00000100U)         /* !< One flash wait state is applied */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT2           ((uint32_t)0x00000200U)         /* !< 2 flash wait states are applied */
 /* SYSCTL_MCLKCFG[MCLKDEADCHK] Bits */
 #define SYSCTL_MCLKCFG_MCLKDEADCHK_OFS           (22)                            /* !< MCLKDEADCHK Offset */
 #define SYSCTL_MCLKCFG_MCLKDEADCHK_MASK          ((uint32_t)0x00400000U)         /* !< MCLKDEADCHK enables or disables the
@@ -1393,7 +1040,66 @@ typedef struct {
 #define SYSCTL_MCLKCFG_MCLKDEADCHK_ENABLE        ((uint32_t)0x00400000U)         /* !< The MCLK dead check monitor is
                                                                                     enabled */
 
+/* SYSCTL_HSCLKEN Bits */
+/* SYSCTL_HSCLKEN[USEEXTHFCLK] Bits */
+#define SYSCTL_HSCLKEN_USEEXTHFCLK_OFS           (16)                            /* !< USEEXTHFCLK Offset */
+#define SYSCTL_HSCLKEN_USEEXTHFCLK_MASK          ((uint32_t)0x00010000U)         /* !< USEEXTHFCLK selects the HFCLK_IN
+                                                                                    digital clock input to be the source
+                                                                                    for HFCLK.  When disabled, HFXT is
+                                                                                    the HFCLK source and HFXTEN may be
+                                                                                    set.  Do not set HFXTEN and
+                                                                                    USEEXTHFCLK simultaneously. */
+#define SYSCTL_HSCLKEN_USEEXTHFCLK_DISABLE       ((uint32_t)0x00000000U)         /* !< Use HFXT as the HFCLK source */
+#define SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE        ((uint32_t)0x00010000U)         /* !< Use the HFCLK_IN digital clock
+                                                                                    input as the HFCLK source */
+
 /* SYSCTL_GENCLKCFG Bits */
+/* SYSCTL_GENCLKCFG[HFCLK4MFPCLKDIV] Bits */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_OFS     (12)                            /* !< HFCLK4MFPCLKDIV Offset */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_MASK    ((uint32_t)0x0000F000U)         /* !< HFCLK4MFPCLKDIV selects the divider
+                                                                                    applied to HFCLK when HFCLK is used
+                                                                                    as the MFPCLK source.  Integer
+                                                                                    dividers from /1 to /16 may be
+                                                                                    selected. */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV1    ((uint32_t)0x00000000U)         /* !< HFCLK is not divided before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV2    ((uint32_t)0x00001000U)         /* !< HFCLK is divided by 2 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV3    ((uint32_t)0x00002000U)         /* !< HFCLK is divided by 3 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV4    ((uint32_t)0x00003000U)         /* !< HFCLK is divided by 4 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV5    ((uint32_t)0x00004000U)         /* !< HFCLK is divided by 5 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV6    ((uint32_t)0x00005000U)         /* !< HFCLK is divided by 6 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV7    ((uint32_t)0x00006000U)         /* !< HFCLK is divided by 7 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV8    ((uint32_t)0x00007000U)         /* !< HFCLK is divided by 8 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV9    ((uint32_t)0x00008000U)         /* !< HFCLK is divided by 9 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV10   ((uint32_t)0x00009000U)         /* !< HFCLK is divided by 10 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV11   ((uint32_t)0x0000A000U)         /* !< HFCLK is divided by 11 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV12   ((uint32_t)0x0000B000U)         /* !< HFCLK is divided by 12 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV13   ((uint32_t)0x0000C000U)         /* !< HFCLK is divided by 13 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV14   ((uint32_t)0x0000D000U)         /* !< HFCLK is divided by 14 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV15   ((uint32_t)0x0000E000U)         /* !< HFCLK is divided by 15 before being
+                                                                                    used for MFPCLK */
+#define SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_DIV16   ((uint32_t)0x0000F000U)         /* !< HFCLK is divided by 16 before being
+                                                                                    used for MFPCLK */
+/* SYSCTL_GENCLKCFG[MFPCLKSRC] Bits */
+#define SYSCTL_GENCLKCFG_MFPCLKSRC_OFS           (9)                             /* !< MFPCLKSRC Offset */
+#define SYSCTL_GENCLKCFG_MFPCLKSRC_MASK          ((uint32_t)0x00000200U)         /* !< MFPCLKSRC selects the MFPCLK
+                                                                                    (middle frequency precision clock)
+                                                                                    source. */
+#define SYSCTL_GENCLKCFG_MFPCLKSRC_SYSOSC        ((uint32_t)0x00000000U)         /* !< MFPCLK is sourced from SYSOSC */
+#define SYSCTL_GENCLKCFG_MFPCLKSRC_HFCLK         ((uint32_t)0x00000200U)         /* !< MFPCLK is sourced from HFCLK */
 /* SYSCTL_GENCLKCFG[FCCTRIGCNT] Bits */
 #define SYSCTL_GENCLKCFG_FCCTRIGCNT_OFS          (24)                            /* !< FCCTRIGCNT Offset */
 #define SYSCTL_GENCLKCFG_FCCTRIGCNT_MASK         ((uint32_t)0x1F000000U)         /* !< FCCTRIGCNT specifies the number of
@@ -1417,6 +1123,7 @@ typedef struct {
                                                                                     clock counter (FCC) clock source. */
 #define SYSCTL_GENCLKCFG_FCCSELCLK_MCLK          ((uint32_t)0x00000000U)         /* !< FCC clock is MCLK */
 #define SYSCTL_GENCLKCFG_FCCSELCLK_SYSOSC        ((uint32_t)0x00010000U)         /* !< FCC clock is SYSOSC */
+#define SYSCTL_GENCLKCFG_FCCSELCLK_HFCLK         ((uint32_t)0x00020000U)         /* !< FCC clock is HFCLK */
 #define SYSCTL_GENCLKCFG_FCCSELCLK_EXTCLK        ((uint32_t)0x00030000U)         /* !< FCC clock is the CLK_OUT selection */
 #define SYSCTL_GENCLKCFG_FCCSELCLK_FCCIN         ((uint32_t)0x00070000U)         /* !< FCC clock is the FCCIN external
                                                                                     input */
@@ -1445,6 +1152,7 @@ typedef struct {
 #define SYSCTL_GENCLKCFG_EXCLKSRC_LFCLK          ((uint32_t)0x00000002U)         /* !< CLK_OUT is LFCLK */
 #define SYSCTL_GENCLKCFG_EXCLKSRC_MFPCLK         ((uint32_t)0x00000003U)         /* !< CLK_OUT is MFPCLK (EXCLKDIVEN must
                                                                                     be enabled) */
+#define SYSCTL_GENCLKCFG_EXCLKSRC_HFCLK          ((uint32_t)0x00000004U)         /* !< CLK_OUT is HFCLK */
 /* SYSCTL_GENCLKCFG[EXCLKDIVVAL] Bits */
 #define SYSCTL_GENCLKCFG_EXCLKDIVVAL_OFS         (4)                             /* !< EXCLKDIVVAL Offset */
 #define SYSCTL_GENCLKCFG_EXCLKDIVVAL_MASK        ((uint32_t)0x00000070U)         /* !< EXCLKDIVVAL selects the divider
@@ -1484,15 +1192,6 @@ typedef struct {
 #define SYSCTL_GENCLKEN_MFPCLKEN_ENABLE          ((uint32_t)0x00000010U)         /* !< MFPCLK is enabled */
 
 /* SYSCTL_PMODECFG Bits */
-/* SYSCTL_PMODECFG[SYSSRAMONSTOP] Bits */
-#define SYSCTL_PMODECFG_SYSSRAMONSTOP_OFS        (5)                             /* !< SYSSRAMONSTOP Offset */
-#define SYSCTL_PMODECFG_SYSSRAMONSTOP_MASK       ((uint32_t)0x00000020U)         /* !< SYSSRAMONSTOP selects whether the
-                                                                                    SRAM controller is enabled or
-                                                                                    disabled in STOP mode. */
-#define SYSCTL_PMODECFG_SYSSRAMONSTOP_DISABLE    ((uint32_t)0x00000000U)         /* !< SRAM controller is disabled in STOP
-                                                                                    mode (lower power consumption) */
-#define SYSCTL_PMODECFG_SYSSRAMONSTOP_ENABLE     ((uint32_t)0x00000020U)         /* !< SRAM controller is left enabled in
-                                                                                    STOP mode (faster wake-up) */
 /* SYSCTL_PMODECFG[DSLEEP] Bits */
 #define SYSCTL_PMODECFG_DSLEEP_OFS               (0)                             /* !< DSLEEP Offset */
 #define SYSCTL_PMODECFG_DSLEEP_MASK              ((uint32_t)0x00000003U)         /* !< DSLEEP selects the operating mode
@@ -1507,35 +1206,6 @@ typedef struct {
 #define SYSCTL_FCC_DATA_OFS                      (0)                             /* !< DATA Offset */
 #define SYSCTL_FCC_DATA_MASK                     ((uint32_t)0x003FFFFFU)         /* !< Frequency clock counter (FCC) count
                                                                                     value. */
-
-/* SYSCTL_SYSOSCTRIMUSER Bits */
-/* SYSCTL_SYSOSCTRIMUSER[RESCOARSE] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RESCOARSE_OFS      (8)                             /* !< RESCOARSE Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RESCOARSE_MASK     ((uint32_t)0x00003F00U)         /* !< RESCOARSE specifies the resister
-                                                                                    coarse trim.  This value changes with
-                                                                                    the target frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[RESFINE] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RESFINE_OFS        (16)                            /* !< RESFINE Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RESFINE_MASK       ((uint32_t)0x000F0000U)         /* !< RESFINE specifies the resister fine
-                                                                                    trim.  This value changes with the
-                                                                                    target frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[RDIV] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RDIV_OFS           (20)                            /* !< RDIV Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RDIV_MASK          ((uint32_t)0x1FF00000U)         /* !< RDIV specifies the frequency
-                                                                                    correction loop (FCL) resistor trim.
-                                                                                    This value changes with the target
-                                                                                    frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[FREQ] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_OFS           (0)                             /* !< FREQ Offset */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_MASK          ((uint32_t)0x00000003U)         /* !< FREQ specifies the target
-                                                                                    user-trimmed frequency for SYSOSC. */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC16M     ((uint32_t)0x00000001U)         /* !< 16MHz user frequency */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC24M     ((uint32_t)0x00000002U)         /* !< 24MHz user frequency */
-/* SYSCTL_SYSOSCTRIMUSER[CAP] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_CAP_OFS            (4)                             /* !< CAP Offset */
-#define SYSCTL_SYSOSCTRIMUSER_CAP_MASK           ((uint32_t)0x00000070U)         /* !< CAP specifies the SYSOSC capacitor
-                                                                                    trim.  This value changes with the
-                                                                                    target frequency. */
 
 /* SYSCTL_SRAMBOUNDARY Bits */
 /* SYSCTL_SRAMBOUNDARY[ADDR] Bits */
@@ -1569,6 +1239,21 @@ typedef struct {
 #define SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_TRUE      ((uint32_t)0x00000001U)         /* !< WWDTLP0 Error Event will trigger an
                                                                                     NMI */
 
+/* SYSCTL_BEEPCFG Bits */
+/* SYSCTL_BEEPCFG[FREQ] Bits */
+#define SYSCTL_BEEPCFG_FREQ_OFS                  (4)                             /* !< FREQ Offset */
+#define SYSCTL_BEEPCFG_FREQ_MASK                 ((uint32_t)0x00000030U)         /* !< Beeper Output Frequency
+                                                                                    Configuration */
+#define SYSCTL_BEEPCFG_FREQ_8KHZ                 ((uint32_t)0x00000000U)         /* !< Beeper runs at 8KHz */
+#define SYSCTL_BEEPCFG_FREQ_4KHZ                 ((uint32_t)0x00000010U)         /* !< Beeper runs at 4KHz */
+#define SYSCTL_BEEPCFG_FREQ_2KHZ                 ((uint32_t)0x00000020U)         /* !< Beeper runs at 2KHz */
+#define SYSCTL_BEEPCFG_FREQ_1KHZ                 ((uint32_t)0x00000030U)         /* !< Beeper runs at 1KHz */
+/* SYSCTL_BEEPCFG[EN] Bits */
+#define SYSCTL_BEEPCFG_EN_OFS                    (0)                             /* !< EN Offset */
+#define SYSCTL_BEEPCFG_EN_MASK                   ((uint32_t)0x00000001U)         /* !< Beeper Output Enable */
+#define SYSCTL_BEEPCFG_EN_DISABLE                ((uint32_t)0x00000000U)         /* !< Beeper Output Disabled */
+#define SYSCTL_BEEPCFG_EN_ENABLE                 ((uint32_t)0x00000001U)         /* !< Beeper Output Enabled */
+
 /* SYSCTL_WRITELOCK Bits */
 /* SYSCTL_WRITELOCK[ACTIVE] Bits */
 #define SYSCTL_WRITELOCK_ACTIVE_OFS              (0)                             /* !< ACTIVE Offset */
@@ -1580,15 +1265,6 @@ typedef struct {
                                                                                     registers */
 
 /* SYSCTL_CLKSTATUS Bits */
-/* SYSCTL_CLKSTATUS[OPAMPCLKERR] Bits */
-#define SYSCTL_CLKSTATUS_OPAMPCLKERR_OFS         (30)                            /* !< OPAMPCLKERR Offset */
-#define SYSCTL_CLKSTATUS_OPAMPCLKERR_MASK        ((uint32_t)0x40000000U)         /* !< OPAMPCLKERR is set when the device
-                                                                                    clock configuration does not support
-                                                                                    an enabled OPA mode and the OPA may
-                                                                                    not be functioning as expected. */
-#define SYSCTL_CLKSTATUS_OPAMPCLKERR_FALSE       ((uint32_t)0x00000000U)         /* !< No OPA clock generation errors
-                                                                                    detected */
-#define SYSCTL_CLKSTATUS_OPAMPCLKERR_TRUE        ((uint32_t)0x40000000U)         /* !< OPA clock generation error detected */
 /* SYSCTL_CLKSTATUS[LFOSCGOOD] Bits */
 #define SYSCTL_CLKSTATUS_LFOSCGOOD_OFS           (11)                            /* !< LFOSCGOOD Offset */
 #define SYSCTL_CLKSTATUS_LFOSCGOOD_MASK          ((uint32_t)0x00000800U)         /* !< LFOSCGOOD indicates when the LFOSC
@@ -1605,6 +1281,13 @@ typedef struct {
                                                                                     functioning as expected. */
 #define SYSCTL_CLKSTATUS_ANACLKERR_FALSE         ((uint32_t)0x00000000U)         /* !< No analog clock errors detected */
 #define SYSCTL_CLKSTATUS_ANACLKERR_TRUE          ((uint32_t)0x80000000U)         /* !< Analog clock error detected */
+/* SYSCTL_CLKSTATUS[HSCLKMUX] Bits */
+#define SYSCTL_CLKSTATUS_HSCLKMUX_OFS            (4)                             /* !< HSCLKMUX Offset */
+#define SYSCTL_CLKSTATUS_HSCLKMUX_MASK           ((uint32_t)0x00000010U)         /* !< HSCLKMUX indicates if MCLK is
+                                                                                    currently sourced from the high-speed
+                                                                                    clock (HSCLK). */
+#define SYSCTL_CLKSTATUS_HSCLKMUX_SYSOSC         ((uint32_t)0x00000000U)         /* !< MCLK is not sourced from HSCLK */
+#define SYSCTL_CLKSTATUS_HSCLKMUX_HSCLK          ((uint32_t)0x00000010U)         /* !< MCLK is sourced from HSCLK */
 /* SYSCTL_CLKSTATUS[LFCLKMUX] Bits */
 #define SYSCTL_CLKSTATUS_LFCLKMUX_OFS            (6)                             /* !< LFCLKMUX Offset */
 #define SYSCTL_CLKSTATUS_LFCLKMUX_MASK           ((uint32_t)0x000000C0U)         /* !< LFCLKMUX indicates if LFCLK is
@@ -1812,6 +1495,21 @@ typedef struct {
                                                                                     until the next BOOTRST. */
 #define SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE       ((uint32_t)0x00000001U)         /* !< Enable the SYSOSC FCL */
 
+/* SYSCTL_EXLFCTL Bits */
+/* SYSCTL_EXLFCTL[KEY] Bits */
+#define SYSCTL_EXLFCTL_KEY_OFS                   (24)                            /* !< KEY Offset */
+#define SYSCTL_EXLFCTL_KEY_MASK                  ((uint32_t)0xFF000000U)         /* !< The key value of 36h (54) must be
+                                                                                    written to KEY together with
+                                                                                    SETUSEEXLF to set SETUSEEXLF. */
+#define SYSCTL_EXLFCTL_KEY_VALUE                 ((uint32_t)0x36000000U)         /* !< Issue command */
+/* SYSCTL_EXLFCTL[SETUSEEXLF] Bits */
+#define SYSCTL_EXLFCTL_SETUSEEXLF_OFS            (0)                             /* !< SETUSEEXLF Offset */
+#define SYSCTL_EXLFCTL_SETUSEEXLF_MASK           ((uint32_t)0x00000001U)         /* !< Set SETUSEEXLF to switch LFCLK to
+                                                                                    the LFCLK_IN digital clock input.
+                                                                                    Once set, SETUSEEXLF remains set
+                                                                                    until the next BOOTRST. */
+#define SYSCTL_EXLFCTL_SETUSEEXLF_TRUE           ((uint32_t)0x00000001U)         /* !< Use LFCLK_IN as the LFCLK source */
+
 /* SYSCTL_SHDNIOREL Bits */
 /* SYSCTL_SHDNIOREL[KEY] Bits */
 #define SYSCTL_SHDNIOREL_KEY_OFS                 (24)                            /* !< KEY Offset */
@@ -1882,62 +1580,6 @@ typedef struct {
                                                                                     frequency clock counter (FCC). */
 #define SYSCTL_FCCCMD_GO_TRUE                    ((uint32_t)0x00000001U)
 
-/* SYSCTL_PMUOPAMP Bits */
-/* SYSCTL_PMUOPAMP[RRI] Bits */
-#define SYSCTL_PMUOPAMP_RRI_OFS                  (4)                             /* !< RRI Offset */
-#define SYSCTL_PMUOPAMP_RRI_MASK                 ((uint32_t)0x00000030U)         /* !< RRI selects the rail-to-rail input
-                                                                                    mode. */
-#define SYSCTL_PMUOPAMP_RRI_MODE0                ((uint32_t)0x00000000U)         /* !< PMOS input pairs */
-#define SYSCTL_PMUOPAMP_RRI_MODE1                ((uint32_t)0x00000010U)         /* !< NMOS input pairs */
-#define SYSCTL_PMUOPAMP_RRI_MODE2                ((uint32_t)0x00000020U)         /* !< Rail-to-rail mode */
-#define SYSCTL_PMUOPAMP_RRI_MODE3                ((uint32_t)0x00000030U)         /* !< Rail-to-rail mode */
-/* SYSCTL_PMUOPAMP[NSEL] Bits */
-#define SYSCTL_PMUOPAMP_NSEL_OFS                 (2)                             /* !< NSEL Offset */
-#define SYSCTL_PMUOPAMP_NSEL_MASK                ((uint32_t)0x0000000CU)         /* !< NSEL selects the GPAMP negative
-                                                                                    channel input. */
-#define SYSCTL_PMUOPAMP_NSEL_SEL0                ((uint32_t)0x00000000U)         /* !< GPAMP_OUT pin connected to negative
-                                                                                    channel */
-#define SYSCTL_PMUOPAMP_NSEL_SEL1                ((uint32_t)0x00000004U)         /* !< GPAMP_IN- pin connected to negative
-                                                                                    channel */
-#define SYSCTL_PMUOPAMP_NSEL_SEL2                ((uint32_t)0x00000008U)         /* !< GPAMP_OUT signal connected to
-                                                                                    negative channel */
-#define SYSCTL_PMUOPAMP_NSEL_SEL3                ((uint32_t)0x0000000CU)         /* !< No channel selected */
-/* SYSCTL_PMUOPAMP[CHOPCLKMODE] Bits */
-#define SYSCTL_PMUOPAMP_CHOPCLKMODE_OFS          (10)                            /* !< CHOPCLKMODE Offset */
-#define SYSCTL_PMUOPAMP_CHOPCLKMODE_MASK         ((uint32_t)0x00000C00U)         /* !< CHOPCLKMODE selects the GPAMP
-                                                                                    chopping mode. */
-#define SYSCTL_PMUOPAMP_CHOPCLKMODE_CHOPDISABLED ((uint32_t)0x00000000U)         /* !< Chopping disabled */
-#define SYSCTL_PMUOPAMP_CHOPCLKMODE_REGCHOP      ((uint32_t)0x00000400U)         /* !< Normal chopping */
-#define SYSCTL_PMUOPAMP_CHOPCLKMODE_ADCASSIST    ((uint32_t)0x00000800U)         /* !< ADC Assisted chopping */
-/* SYSCTL_PMUOPAMP[OUTENABLE] Bits */
-#define SYSCTL_PMUOPAMP_OUTENABLE_OFS            (6)                             /* !< OUTENABLE Offset */
-#define SYSCTL_PMUOPAMP_OUTENABLE_MASK           ((uint32_t)0x00000040U)         /* !< Set OUTENABLE to connect the GPAMP
-                                                                                    output signal to the GPAMP_OUT pin */
-#define SYSCTL_PMUOPAMP_OUTENABLE_FALSE          ((uint32_t)0x00000000U)         /* !< GPAMP_OUT signal is not connected
-                                                                                    to the GPAMP_OUT pin */
-#define SYSCTL_PMUOPAMP_OUTENABLE_TRUE           ((uint32_t)0x00000040U)         /* !< GPAMP_OUT signal is connected to
-                                                                                    the GPAMP_OUT pin */
-/* SYSCTL_PMUOPAMP[ENABLE] Bits */
-#define SYSCTL_PMUOPAMP_ENABLE_OFS               (0)                             /* !< ENABLE Offset */
-#define SYSCTL_PMUOPAMP_ENABLE_MASK              ((uint32_t)0x00000001U)         /* !< Set ENABLE to turn on the GPAMP. */
-#define SYSCTL_PMUOPAMP_ENABLE_FALSE             ((uint32_t)0x00000000U)         /* !< GPAMP is disabled */
-#define SYSCTL_PMUOPAMP_ENABLE_TRUE              ((uint32_t)0x00000001U)         /* !< GPAMP is enabled */
-/* SYSCTL_PMUOPAMP[CHOPCLKFREQ] Bits */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_OFS          (8)                             /* !< CHOPCLKFREQ Offset */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_MASK         ((uint32_t)0x00000300U)         /* !< CHOPCLKFREQ selects the GPAMP
-                                                                                    chopping clock frequency */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_CLK16KHZ     ((uint32_t)0x00000000U)         /* !< 16kHz */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_CLK8KHZ      ((uint32_t)0x00000100U)         /* !< 8kHz */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_CLK4KHZ      ((uint32_t)0x00000200U)         /* !< 4kHz */
-#define SYSCTL_PMUOPAMP_CHOPCLKFREQ_CLK2KHZ      ((uint32_t)0x00000300U)         /* !< 2kHz */
-/* SYSCTL_PMUOPAMP[PCHENABLE] Bits */
-#define SYSCTL_PMUOPAMP_PCHENABLE_OFS            (1)                             /* !< PCHENABLE Offset */
-#define SYSCTL_PMUOPAMP_PCHENABLE_MASK           ((uint32_t)0x00000002U)         /* !< Set PCHENABLE to enable the
-                                                                                    positive channel input. */
-#define SYSCTL_PMUOPAMP_PCHENABLE_FALSE          ((uint32_t)0x00000000U)         /* !< Positive channel disabled */
-#define SYSCTL_PMUOPAMP_PCHENABLE_TRUE           ((uint32_t)0x00000002U)         /* !< GPAMP_IN+ connected to positive
-                                                                                    channel */
-
 /* SYSCTL_SHUTDNSTORE0 Bits */
 /* SYSCTL_SHUTDNSTORE0[DATA] Bits */
 #define SYSCTL_SHUTDNSTORE0_DATA_OFS             (0)                             /* !< DATA Offset */
@@ -1963,4 +1605,4 @@ typedef struct {
 }
 #endif
 
-#endif /* ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l11xx_l13xx__include */
+#endif /* ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include */

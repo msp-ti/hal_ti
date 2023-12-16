@@ -35,7 +35,8 @@
 #ifndef ti_devices_msp_m0p_mspm0g310x__include
 #define ti_devices_msp_m0p_mspm0g310x__include
 
-/* This preliminary header file does not have a version number -  build date: 2023-02-03 08:37:25 */
+/* Filename: mspm0g310x.h */
+/* Revised: 2023-02-03 08:37:25 */
 
 /* Use standard integer types with explicit width */
 #include <stdint.h>
@@ -202,6 +203,7 @@ typedef enum IRQn
 #define __MSPM0_HAS_ADC12__
 #define __MSPM0_HAS_AES__
 #define __MSPM0_HAS_CRC__
+#define __MSPM0_HAS_GPAMP__
 #define __MSPM0_HAS_GPIO__
 #define __MSPM0_HAS_TIMER_A__
 #define __MSPM0_HAS_TIMER_G__
@@ -214,6 +216,8 @@ typedef enum IRQn
 #define __MSPM0_HAS_UART_MAIN__
 #define __MSPM0_HAS_VREF__
 #define __MSPM0_HAS_WWDT__
+
+#define __MSPM0_HAS_ECC__
 
 /*@}*/ /* end of group MSPM0G310X_Peripherals */
 
@@ -320,7 +324,11 @@ static DEBUGSS_Regs                             * const DEBUGSS                 
 #define DMA_SYS_N_DMA_FULL_CHANNEL                    (3)       /* !< Number of FULL-DMA channels implemented in DMA. */
 #define CRC_SYS_CRC32_ENABLE                          (1)       /* !< Parameter to exclude or include 32-bit CRC. */
 #define FLASHCTL_SYS_DATAWIDTH                        (64)      /* !< Data bit width of a single flash word. */
-
+#define ADC_SYS_NUM_ANALOG_CHAN                       (16)      /* !< Number of analog channels. */
+#define I2C_SYS_FENTRIES                              (8)       /* !< Number of FIFO entries */
+#define FLASHCTL_SYS_WEPROTAWIDTH                     (32)      /* !< Bit width of WEPROTA register */
+#define FLASHCTL_SYS_WEPROTBWIDTH                     (12)      /* !< Bit width of WEPROTB register */
+#define FLASHCTL_SYS_WEPROTCWIDTH                     (0)       /* !< Bit width of WEPROTC register */
 
 /******************************************************************************
 * DMA Triggers                                                                *
@@ -328,6 +336,8 @@ static DEBUGSS_Regs                             * const DEBUGSS                 
 
 /* External DMA Triggers */
 #define DMA_SOFTWARE_TRIG                             (0)
+#define DMA_GENERIC_SUB0_TRIG                         (1)
+#define DMA_GENERIC_SUB1_TRIG                         (2)
 #define DMA_AES_AES_0_TRIG                            (3)
 #define DMA_AES_AES_1_TRIG                            (4)
 #define DMA_AES_AES_2_TRIG                            (5)

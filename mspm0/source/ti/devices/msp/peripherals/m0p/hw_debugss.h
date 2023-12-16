@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_m0p_hw_debugss__include
 #define ti_devices_msp_peripherals_m0p_hw_debugss__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspdebugssm0p */
-/* MMR revision: 79e46d5862c48686dd9c44f1ecbf202f3a5624da */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_debugss.h */
+/* Revised: 2023-05-10 21:16:53 */
+/* Revision: 2f29710894b537f621c6ebedd563efb234664827 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,7 +68,28 @@
 /******************************************************************************
 * DEBUGSS Registers
 ******************************************************************************/
+#define DEBUGSS_CPU_INT_OFS                      ((uint32_t)0x00001020U)
 
+
+/** @addtogroup DEBUGSS_CPU_INT
+  @{
+*/
+
+typedef struct {
+  __I  uint32_t IIDX;                              /* !< (@ 0x00001020) Interrupt index */
+       uint32_t RESERVED0;
+  __IO uint32_t IMASK;                             /* !< (@ 0x00001028) Interrupt mask */
+       uint32_t RESERVED1;
+  __I  uint32_t RIS;                               /* !< (@ 0x00001030) Raw interrupt status */
+       uint32_t RESERVED2;
+  __I  uint32_t MIS;                               /* !< (@ 0x00001038) Masked interrupt status */
+       uint32_t RESERVED3;
+  __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
+       uint32_t RESERVED4;
+  __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
+} DEBUGSS_CPU_INT_Regs;
+
+/*@}*/ /* end of group DEBUGSS_CPU_INT */
 
 /** @addtogroup DEBUGSS
   @{
@@ -78,28 +97,18 @@
 
 typedef struct {
        uint32_t RESERVED0[1032];
-  __I  uint32_t IIDX;                              /* !< (@ 0x00001020) Interrupt index */
-       uint32_t RESERVED1;
-  __IO uint32_t IMASK;                             /* !< (@ 0x00001028) Interrupt mask */
-       uint32_t RESERVED2;
-  __I  uint32_t RIS;                               /* !< (@ 0x00001030) Raw interrupt status */
-       uint32_t RESERVED3;
-  __I  uint32_t MIS;                               /* !< (@ 0x00001038) Masked interrupt status */
-       uint32_t RESERVED4;
-  __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
-       uint32_t RESERVED5;
-  __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-       uint32_t RESERVED6[37];
+  DEBUGSS_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
+       uint32_t RESERVED1[37];
   __I  uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
-       uint32_t RESERVED7[6];
+       uint32_t RESERVED2[6];
   __I  uint32_t DESC;                              /* !< (@ 0x000010FC) Module Description */
   __I  uint32_t TXD;                               /* !< (@ 0x00001100) Transmit data register */
   __I  uint32_t TXCTL;                             /* !< (@ 0x00001104) Transmit control register */
   __IO uint32_t RXD;                               /* !< (@ 0x00001108) Receive data register */
   __IO uint32_t RXCTL;                             /* !< (@ 0x0000110C) Receive control register */
-       uint32_t RESERVED8[60];
+       uint32_t RESERVED3[60];
   __I  uint32_t SPECIAL_AUTH;                      /* !< (@ 0x00001200) Special enable authorization register */
-       uint32_t RESERVED9[3];
+       uint32_t RESERVED4[3];
   __I  uint32_t APP_AUTH;                          /* !< (@ 0x00001210) Application CPU0 authorization register */
 } DEBUGSS_Regs;
 

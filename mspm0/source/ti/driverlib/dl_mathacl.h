@@ -475,6 +475,10 @@ __STATIC_INLINE void DL_MathACL_waitForOperation(MATHACL_Regs *mathacl)
 /**
  *  @brief      Configure and execute a Math accelerator operation
  *
+ *  @pre        Call @ref DL_MathACL_clearResults when configuring the MATHACL
+ *              for performing @ref DL_MATHACL_OP_TYPE_MAC and
+ *              @ref DL_MATHACL_OP_TYPE_SAC operations.
+ *
  *  @param[in]  mathacl   Pointer to the register overlay for the peripheral
  *
  *  @param[in]  opConfig  Pointer to the configuration structure for the
@@ -488,6 +492,46 @@ __STATIC_INLINE void DL_MathACL_waitForOperation(MATHACL_Regs *mathacl)
  */
 void DL_MathACL_configOperation(MATHACL_Regs *mathacl,
     const DL_MathACL_operationConfig *opConfig, uint32_t op1, uint32_t op2);
+
+/**
+ *  @brief      Clears the RES1 register
+ *
+ *  Clears the Result 1 (RES1) register
+ *
+ *  @param[in]  mathacl Pointer to the register overlay for the peripheral
+ *
+ */
+__STATIC_INLINE void DL_MathACL_clearResultOne(MATHACL_Regs *mathacl)
+{
+    mathacl->RES1 = 0;
+}
+
+/**
+ *  @brief      Clears the RES2 register
+ *
+ *  Clears the Result 2 (RES2) register
+ *
+ *  @param[in]  mathacl Pointer to the register overlay for the peripheral
+ *
+ */
+__STATIC_INLINE void DL_MathACL_clearResultTwo(MATHACL_Regs *mathacl)
+{
+    mathacl->RES2 = 0;
+}
+
+/**
+ *  @brief      Clears the RES1 and RES2 registers
+ *
+ *  Clears the Result 1 (RES1) and Result 2 (RES2) registers
+ *
+ *  @param[in]  mathacl Pointer to the register overlay for the peripheral
+ *
+ */
+__STATIC_INLINE void DL_MathACL_clearResults(MATHACL_Regs *mathacl)
+{
+    mathacl->RES1 = 0;
+    mathacl->RES2 = 0;
+}
 
 #ifdef __cplusplus
 }

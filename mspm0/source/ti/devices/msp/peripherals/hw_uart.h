@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_uart__include
 #define ti_devices_msp_peripherals_hw_uart__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspuart */
-/* MMR revision: 7f50f03becc68f4a753ca261a17176af1161a3e7 */
-/* Generator revision: 6c77486b97563371f117f1fe42680bcbdf12e305
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_uart.h */
+/* Revised: 2023-05-01 11:26:08 */
+/* Revision: 04a99860157777ec8b82069fbacd72235a1fb09e */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,13 +68,13 @@
 /******************************************************************************
 * UART Registers
 ******************************************************************************/
-#define UART_INT_EVENT2_OFS                      ((uint32_t)0x00001080U)
-#define UART_INT_EVENT1_OFS                      ((uint32_t)0x00001050U)
-#define UART_INT_EVENT0_OFS                      ((uint32_t)0x00001020U)
+#define UART_DMA_TRIG_TX_OFS                     ((uint32_t)0x00001080U)
+#define UART_DMA_TRIG_RX_OFS                     ((uint32_t)0x00001050U)
+#define UART_CPU_INT_OFS                         ((uint32_t)0x00001020U)
 #define UART_GPRCM_OFS                           ((uint32_t)0x00000800U)
 
 
-/** @addtogroup UART_INT_EVENT2
+/** @addtogroup UART_DMA_TRIG_TX
   @{
 */
 
@@ -92,11 +90,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear */
-} UART_INT_EVENT2_Regs;
+} UART_DMA_TRIG_TX_Regs;
 
-/*@}*/ /* end of group UART_INT_EVENT2 */
+/*@}*/ /* end of group UART_DMA_TRIG_TX */
 
-/** @addtogroup UART_INT_EVENT1
+/** @addtogroup UART_DMA_TRIG_RX
   @{
 */
 
@@ -112,11 +110,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} UART_INT_EVENT1_Regs;
+} UART_DMA_TRIG_RX_Regs;
 
-/*@}*/ /* end of group UART_INT_EVENT1 */
+/*@}*/ /* end of group UART_DMA_TRIG_RX */
 
-/** @addtogroup UART_INT_EVENT0
+/** @addtogroup UART_CPU_INT
   @{
 */
 
@@ -132,9 +130,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} UART_INT_EVENT0_Regs;
+} UART_CPU_INT_Regs;
 
-/*@}*/ /* end of group UART_INT_EVENT0 */
+/*@}*/ /* end of group UART_CPU_INT */
 
 /** @addtogroup UART_GPRCM
   @{
@@ -164,11 +162,11 @@ typedef struct {
        uint32_t RESERVED3[3];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED4;
-  UART_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  UART_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED5;
-  UART_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  UART_DMA_TRIG_RX_Regs  DMA_TRIG_RX;                       /* !< (@ 0x00001050) */
        uint32_t RESERVED6;
-  UART_INT_EVENT2_Regs  INT_EVENT2;                        /* !< (@ 0x00001080) */
+  UART_DMA_TRIG_TX_Regs  DMA_TRIG_TX;                       /* !< (@ 0x00001080) */
        uint32_t RESERVED7[13];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
   __IO uint32_t INTCTL;                            /* !< (@ 0x000010E4) Interrupt control register */
@@ -208,718 +206,718 @@ typedef struct {
 * UART Register Control Bits
 ******************************************************************************/
 
-/* UART_INT_EVENT2_IIDX Bits */
-/* UART_INT_EVENT2_IIDX[STAT] Bits */
-#define UART_INT_EVENT2_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define UART_INT_EVENT2_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
+/* UART_DMA_TRIG_TX_IIDX Bits */
+/* UART_DMA_TRIG_TX_IIDX[STAT] Bits */
+#define UART_DMA_TRIG_TX_IIDX_STAT_OFS           (0)                             /* !< STAT Offset */
+#define UART_DMA_TRIG_TX_IIDX_STAT_MASK          ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
                                                                                     This register provides the highes
                                                                                     priority interrupt index. A read
                                                                                     clears the corresponding interrupt
                                                                                     flag in UARTRIS and UARTMISC. 15h-1Fh
                                                                                     = Reserved */
-#define UART_INT_EVENT2_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define UART_INT_EVENT2_IIDX_STAT_TXIFG          ((uint32_t)0x0000000CU)         /* !< UART transmit interrupt; Interrupt
+#define UART_DMA_TRIG_TX_IIDX_STAT_NO_INTR       ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define UART_DMA_TRIG_TX_IIDX_STAT_TXIFG         ((uint32_t)0x0000000CU)         /* !< UART transmit interrupt; Interrupt
                                                                                     Flag: TX */
 
-/* UART_INT_EVENT2_IMASK Bits */
-/* UART_INT_EVENT2_IMASK[TXINT] Bits */
-#define UART_INT_EVENT2_IMASK_TXINT_OFS          (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT2_IMASK_TXINT_MASK         ((uint32_t)0x00000800U)         /* !< Enable UART Transmit Interrupt. */
-#define UART_INT_EVENT2_IMASK_TXINT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT2_IMASK_TXINT_SET          ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
+/* UART_DMA_TRIG_TX_IMASK Bits */
+/* UART_DMA_TRIG_TX_IMASK[TXINT] Bits */
+#define UART_DMA_TRIG_TX_IMASK_TXINT_OFS         (11)                            /* !< TXINT Offset */
+#define UART_DMA_TRIG_TX_IMASK_TXINT_MASK        ((uint32_t)0x00000800U)         /* !< Enable UART Transmit Interrupt. */
+#define UART_DMA_TRIG_TX_IMASK_TXINT_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_DMA_TRIG_TX_IMASK_TXINT_SET         ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
 
-/* UART_INT_EVENT2_RIS Bits */
-/* UART_INT_EVENT2_RIS[TXINT] Bits */
-#define UART_INT_EVENT2_RIS_TXINT_OFS            (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT2_RIS_TXINT_MASK           ((uint32_t)0x00000800U)         /* !< UART Transmit Interrupt. */
-#define UART_INT_EVENT2_RIS_TXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT2_RIS_TXINT_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occured */
+/* UART_DMA_TRIG_TX_RIS Bits */
+/* UART_DMA_TRIG_TX_RIS[TXINT] Bits */
+#define UART_DMA_TRIG_TX_RIS_TXINT_OFS           (11)                            /* !< TXINT Offset */
+#define UART_DMA_TRIG_TX_RIS_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< UART Transmit Interrupt. */
+#define UART_DMA_TRIG_TX_RIS_TXINT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_TX_RIS_TXINT_SET           ((uint32_t)0x00000800U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT2_MIS Bits */
-/* UART_INT_EVENT2_MIS[TXINT] Bits */
-#define UART_INT_EVENT2_MIS_TXINT_OFS            (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT2_MIS_TXINT_MASK           ((uint32_t)0x00000800U)         /* !< Masked UART Transmit Interrupt. */
-#define UART_INT_EVENT2_MIS_TXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT2_MIS_TXINT_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occured */
+/* UART_DMA_TRIG_TX_MIS Bits */
+/* UART_DMA_TRIG_TX_MIS[TXINT] Bits */
+#define UART_DMA_TRIG_TX_MIS_TXINT_OFS           (11)                            /* !< TXINT Offset */
+#define UART_DMA_TRIG_TX_MIS_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< Masked UART Transmit Interrupt. */
+#define UART_DMA_TRIG_TX_MIS_TXINT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_TX_MIS_TXINT_SET           ((uint32_t)0x00000800U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT2_ISET Bits */
-/* UART_INT_EVENT2_ISET[TXINT] Bits */
-#define UART_INT_EVENT2_ISET_TXINT_OFS           (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT2_ISET_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< Set UART Transmit Interrupt. */
-#define UART_INT_EVENT2_ISET_TXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT2_ISET_TXINT_SET           ((uint32_t)0x00000800U)         /* !< Set Interrupt */
+/* UART_DMA_TRIG_TX_ISET Bits */
+/* UART_DMA_TRIG_TX_ISET[TXINT] Bits */
+#define UART_DMA_TRIG_TX_ISET_TXINT_OFS          (11)                            /* !< TXINT Offset */
+#define UART_DMA_TRIG_TX_ISET_TXINT_MASK         ((uint32_t)0x00000800U)         /* !< Set UART Transmit Interrupt. */
+#define UART_DMA_TRIG_TX_ISET_TXINT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_TX_ISET_TXINT_SET          ((uint32_t)0x00000800U)         /* !< Set Interrupt */
 
-/* UART_INT_EVENT2_ICLR Bits */
-/* UART_INT_EVENT2_ICLR[TXINT] Bits */
-#define UART_INT_EVENT2_ICLR_TXINT_OFS           (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT2_ICLR_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< Clear UART Transmit Interrupt. */
-#define UART_INT_EVENT2_ICLR_TXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT2_ICLR_TXINT_CLR           ((uint32_t)0x00000800U)         /* !< Clear Interrupt */
+/* UART_DMA_TRIG_TX_ICLR Bits */
+/* UART_DMA_TRIG_TX_ICLR[TXINT] Bits */
+#define UART_DMA_TRIG_TX_ICLR_TXINT_OFS          (11)                            /* !< TXINT Offset */
+#define UART_DMA_TRIG_TX_ICLR_TXINT_MASK         ((uint32_t)0x00000800U)         /* !< Clear UART Transmit Interrupt. */
+#define UART_DMA_TRIG_TX_ICLR_TXINT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_TX_ICLR_TXINT_CLR          ((uint32_t)0x00000800U)         /* !< Clear Interrupt */
 
-/* UART_INT_EVENT1_IIDX Bits */
-/* UART_INT_EVENT1_IIDX[STAT] Bits */
-#define UART_INT_EVENT1_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define UART_INT_EVENT1_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
+/* UART_DMA_TRIG_RX_IIDX Bits */
+/* UART_DMA_TRIG_RX_IIDX[STAT] Bits */
+#define UART_DMA_TRIG_RX_IIDX_STAT_OFS           (0)                             /* !< STAT Offset */
+#define UART_DMA_TRIG_RX_IIDX_STAT_MASK          ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
                                                                                     This register provides the highes
                                                                                     priority interrupt index. A read
                                                                                     clears the corresponding interrupt
                                                                                     flag in UARTRIS and UARTMISC. 15h-1Fh
                                                                                     = Reserved */
-#define UART_INT_EVENT1_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define UART_INT_EVENT1_IIDX_STAT_RTFG           ((uint32_t)0x00000001U)         /* !< UART receive time-out interrupt;
+#define UART_DMA_TRIG_RX_IIDX_STAT_NO_INTR       ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define UART_DMA_TRIG_RX_IIDX_STAT_RTFG          ((uint32_t)0x00000001U)         /* !< UART receive time-out interrupt;
                                                                                     Interrupt Flag: RT; Interrupt
                                                                                     Priority: Highest */
-#define UART_INT_EVENT1_IIDX_STAT_RXIFG          ((uint32_t)0x0000000BU)         /* !< UART receive interrupt; Interrupt
+#define UART_DMA_TRIG_RX_IIDX_STAT_RXIFG         ((uint32_t)0x0000000BU)         /* !< UART receive interrupt; Interrupt
                                                                                     Flag: RX */
 
-/* UART_INT_EVENT1_IMASK Bits */
-/* UART_INT_EVENT1_IMASK[RTOUT] Bits */
-#define UART_INT_EVENT1_IMASK_RTOUT_OFS          (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT1_IMASK_RTOUT_MASK         ((uint32_t)0x00000001U)         /* !< Enable UARTOUT Receive Time-Out
+/* UART_DMA_TRIG_RX_IMASK Bits */
+/* UART_DMA_TRIG_RX_IMASK[RTOUT] Bits */
+#define UART_DMA_TRIG_RX_IMASK_RTOUT_OFS         (0)                             /* !< RTOUT Offset */
+#define UART_DMA_TRIG_RX_IMASK_RTOUT_MASK        ((uint32_t)0x00000001U)         /* !< Enable UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT1_IMASK_RTOUT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT1_IMASK_RTOUT_SET          ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT1_IMASK[RXINT] Bits */
-#define UART_INT_EVENT1_IMASK_RXINT_OFS          (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT1_IMASK_RXINT_MASK         ((uint32_t)0x00000400U)         /* !< Enable UART Receive Interrupt. */
-#define UART_INT_EVENT1_IMASK_RXINT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT1_IMASK_RXINT_SET          ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+#define UART_DMA_TRIG_RX_IMASK_RTOUT_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_DMA_TRIG_RX_IMASK_RTOUT_SET         ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
+/* UART_DMA_TRIG_RX_IMASK[RXINT] Bits */
+#define UART_DMA_TRIG_RX_IMASK_RXINT_OFS         (10)                            /* !< RXINT Offset */
+#define UART_DMA_TRIG_RX_IMASK_RXINT_MASK        ((uint32_t)0x00000400U)         /* !< Enable UART Receive Interrupt. */
+#define UART_DMA_TRIG_RX_IMASK_RXINT_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_DMA_TRIG_RX_IMASK_RXINT_SET         ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
 
-/* UART_INT_EVENT1_RIS Bits */
-/* UART_INT_EVENT1_RIS[RTOUT] Bits */
-#define UART_INT_EVENT1_RIS_RTOUT_OFS            (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT1_RIS_RTOUT_MASK           ((uint32_t)0x00000001U)         /* !< UARTOUT Receive Time-Out Interrupt. */
-#define UART_INT_EVENT1_RIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT1_RIS_RTOUT_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* UART_INT_EVENT1_RIS[RXINT] Bits */
-#define UART_INT_EVENT1_RIS_RXINT_OFS            (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT1_RIS_RXINT_MASK           ((uint32_t)0x00000400U)         /* !< UART Receive Interrupt. */
-#define UART_INT_EVENT1_RIS_RXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT1_RIS_RXINT_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occured */
+/* UART_DMA_TRIG_RX_RIS Bits */
+/* UART_DMA_TRIG_RX_RIS[RTOUT] Bits */
+#define UART_DMA_TRIG_RX_RIS_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
+#define UART_DMA_TRIG_RX_RIS_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< UARTOUT Receive Time-Out Interrupt. */
+#define UART_DMA_TRIG_RX_RIS_RTOUT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_RX_RIS_RTOUT_SET           ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* UART_DMA_TRIG_RX_RIS[RXINT] Bits */
+#define UART_DMA_TRIG_RX_RIS_RXINT_OFS           (10)                            /* !< RXINT Offset */
+#define UART_DMA_TRIG_RX_RIS_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< UART Receive Interrupt. */
+#define UART_DMA_TRIG_RX_RIS_RXINT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_RX_RIS_RXINT_SET           ((uint32_t)0x00000400U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT1_MIS Bits */
-/* UART_INT_EVENT1_MIS[RTOUT] Bits */
-#define UART_INT_EVENT1_MIS_RTOUT_OFS            (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT1_MIS_RTOUT_MASK           ((uint32_t)0x00000001U)         /* !< Masked UARTOUT Receive Time-Out
+/* UART_DMA_TRIG_RX_MIS Bits */
+/* UART_DMA_TRIG_RX_MIS[RTOUT] Bits */
+#define UART_DMA_TRIG_RX_MIS_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
+#define UART_DMA_TRIG_RX_MIS_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< Masked UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT1_MIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT1_MIS_RTOUT_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* UART_INT_EVENT1_MIS[RXINT] Bits */
-#define UART_INT_EVENT1_MIS_RXINT_OFS            (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT1_MIS_RXINT_MASK           ((uint32_t)0x00000400U)         /* !< Masked UART Receive Interrupt. */
-#define UART_INT_EVENT1_MIS_RXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT1_MIS_RXINT_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occured */
+#define UART_DMA_TRIG_RX_MIS_RTOUT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_RX_MIS_RTOUT_SET           ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* UART_DMA_TRIG_RX_MIS[RXINT] Bits */
+#define UART_DMA_TRIG_RX_MIS_RXINT_OFS           (10)                            /* !< RXINT Offset */
+#define UART_DMA_TRIG_RX_MIS_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< Masked UART Receive Interrupt. */
+#define UART_DMA_TRIG_RX_MIS_RXINT_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_DMA_TRIG_RX_MIS_RXINT_SET           ((uint32_t)0x00000400U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT1_ISET Bits */
-/* UART_INT_EVENT1_ISET[RTOUT] Bits */
-#define UART_INT_EVENT1_ISET_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT1_ISET_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< Set UARTOUT Receive Time-Out
+/* UART_DMA_TRIG_RX_ISET Bits */
+/* UART_DMA_TRIG_RX_ISET[RTOUT] Bits */
+#define UART_DMA_TRIG_RX_ISET_RTOUT_OFS          (0)                             /* !< RTOUT Offset */
+#define UART_DMA_TRIG_RX_ISET_RTOUT_MASK         ((uint32_t)0x00000001U)         /* !< Set UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT1_ISET_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT1_ISET_RTOUT_SET           ((uint32_t)0x00000001U)         /* !< Set Interrupt */
-/* UART_INT_EVENT1_ISET[RXINT] Bits */
-#define UART_INT_EVENT1_ISET_RXINT_OFS           (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT1_ISET_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< Set UART Receive Interrupt. */
-#define UART_INT_EVENT1_ISET_RXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT1_ISET_RXINT_SET           ((uint32_t)0x00000400U)         /* !< Set Interrupt */
+#define UART_DMA_TRIG_RX_ISET_RTOUT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_RX_ISET_RTOUT_SET          ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+/* UART_DMA_TRIG_RX_ISET[RXINT] Bits */
+#define UART_DMA_TRIG_RX_ISET_RXINT_OFS          (10)                            /* !< RXINT Offset */
+#define UART_DMA_TRIG_RX_ISET_RXINT_MASK         ((uint32_t)0x00000400U)         /* !< Set UART Receive Interrupt. */
+#define UART_DMA_TRIG_RX_ISET_RXINT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_RX_ISET_RXINT_SET          ((uint32_t)0x00000400U)         /* !< Set Interrupt */
 
-/* UART_INT_EVENT1_ICLR Bits */
-/* UART_INT_EVENT1_ICLR[RTOUT] Bits */
-#define UART_INT_EVENT1_ICLR_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT1_ICLR_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< Clear UARTOUT Receive Time-Out
+/* UART_DMA_TRIG_RX_ICLR Bits */
+/* UART_DMA_TRIG_RX_ICLR[RTOUT] Bits */
+#define UART_DMA_TRIG_RX_ICLR_RTOUT_OFS          (0)                             /* !< RTOUT Offset */
+#define UART_DMA_TRIG_RX_ICLR_RTOUT_MASK         ((uint32_t)0x00000001U)         /* !< Clear UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT1_ICLR_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT1_ICLR_RTOUT_CLR           ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT1_ICLR[RXINT] Bits */
-#define UART_INT_EVENT1_ICLR_RXINT_OFS           (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT1_ICLR_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< Clear UART Receive Interrupt. */
-#define UART_INT_EVENT1_ICLR_RXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT1_ICLR_RXINT_CLR           ((uint32_t)0x00000400U)         /* !< Clear Interrupt */
+#define UART_DMA_TRIG_RX_ICLR_RTOUT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_RX_ICLR_RTOUT_CLR          ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+/* UART_DMA_TRIG_RX_ICLR[RXINT] Bits */
+#define UART_DMA_TRIG_RX_ICLR_RXINT_OFS          (10)                            /* !< RXINT Offset */
+#define UART_DMA_TRIG_RX_ICLR_RXINT_MASK         ((uint32_t)0x00000400U)         /* !< Clear UART Receive Interrupt. */
+#define UART_DMA_TRIG_RX_ICLR_RXINT_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_DMA_TRIG_RX_ICLR_RXINT_CLR          ((uint32_t)0x00000400U)         /* !< Clear Interrupt */
 
-/* UART_INT_EVENT0_IIDX Bits */
-/* UART_INT_EVENT0_IIDX[STAT] Bits */
-#define UART_INT_EVENT0_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
-#define UART_INT_EVENT0_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
+/* UART_CPU_INT_IIDX Bits */
+/* UART_CPU_INT_IIDX[STAT] Bits */
+#define UART_CPU_INT_IIDX_STAT_OFS               (0)                             /* !< STAT Offset */
+#define UART_CPU_INT_IIDX_STAT_MASK              ((uint32_t)0x000000FFU)         /* !< UART Module Interrupt Vector Value.
                                                                                     This register provides the highes
                                                                                     priority interrupt index. A read
                                                                                     clears the corresponding interrupt
                                                                                     flag in RIS and MIS registers.
                                                                                     15h-1Fh = Reserved */
-#define UART_INT_EVENT0_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define UART_INT_EVENT0_IIDX_STAT_RTFG           ((uint32_t)0x00000001U)         /* !< UART receive time-out interrupt;
+#define UART_CPU_INT_IIDX_STAT_NO_INTR           ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define UART_CPU_INT_IIDX_STAT_RTFG              ((uint32_t)0x00000001U)         /* !< UART receive time-out interrupt;
                                                                                     Interrupt Flag: RT; Interrupt
                                                                                     Priority: Highest */
-#define UART_INT_EVENT0_IIDX_STAT_FEFG           ((uint32_t)0x00000002U)         /* !< UART framing error interrupt;
+#define UART_CPU_INT_IIDX_STAT_FEFG              ((uint32_t)0x00000002U)         /* !< UART framing error interrupt;
                                                                                     Interrupt Flag: FE */
-#define UART_INT_EVENT0_IIDX_STAT_PEFG           ((uint32_t)0x00000003U)         /* !< UART parity error interrupt;
+#define UART_CPU_INT_IIDX_STAT_PEFG              ((uint32_t)0x00000003U)         /* !< UART parity error interrupt;
                                                                                     Interrupt Flag: PE */
-#define UART_INT_EVENT0_IIDX_STAT_BEFG           ((uint32_t)0x00000004U)         /* !< UART break error interrupt;
+#define UART_CPU_INT_IIDX_STAT_BEFG              ((uint32_t)0x00000004U)         /* !< UART break error interrupt;
                                                                                     Interrupt Flag: BE */
-#define UART_INT_EVENT0_IIDX_STAT_OEFG           ((uint32_t)0x00000005U)         /* !< UART receive overrun error
+#define UART_CPU_INT_IIDX_STAT_OEFG              ((uint32_t)0x00000005U)         /* !< UART receive overrun error
                                                                                     interrupt; Interrupt Flag: OE */
-#define UART_INT_EVENT0_IIDX_STAT_RXNE           ((uint32_t)0x00000006U)         /* !< Negative edge on UARTxRXD
+#define UART_CPU_INT_IIDX_STAT_RXNE              ((uint32_t)0x00000006U)         /* !< Negative edge on UARTxRXD
                                                                                     interrupt; Interrupt Flag: RXNE */
-#define UART_INT_EVENT0_IIDX_STAT_RXPE           ((uint32_t)0x00000007U)         /* !< Positive edge on UARTxRXD
+#define UART_CPU_INT_IIDX_STAT_RXPE              ((uint32_t)0x00000007U)         /* !< Positive edge on UARTxRXD
                                                                                     interrupt; Interrupt Flag: RXPE */
-#define UART_INT_EVENT0_IIDX_STAT_LINC0          ((uint32_t)0x00000008U)         /* !< LIN capture 0 / match interrupt;
+#define UART_CPU_INT_IIDX_STAT_LINC0             ((uint32_t)0x00000008U)         /* !< LIN capture 0 / match interrupt;
                                                                                     Interrupt Flag: LINC0 */
-#define UART_INT_EVENT0_IIDX_STAT_LINC1          ((uint32_t)0x00000009U)         /* !< LIN capture 1 interrupt; Interrupt
+#define UART_CPU_INT_IIDX_STAT_LINC1             ((uint32_t)0x00000009U)         /* !< LIN capture 1 interrupt; Interrupt
                                                                                     Flag: LINC1 */
-#define UART_INT_EVENT0_IIDX_STAT_LINOVF         ((uint32_t)0x0000000AU)         /* !< LIN hardware counter overflow
+#define UART_CPU_INT_IIDX_STAT_LINOVF            ((uint32_t)0x0000000AU)         /* !< LIN hardware counter overflow
                                                                                     interrupt; Interrupt Flag: LINOVF */
-#define UART_INT_EVENT0_IIDX_STAT_RXIFG          ((uint32_t)0x0000000BU)         /* !< UART receive interrupt; Interrupt
+#define UART_CPU_INT_IIDX_STAT_RXIFG             ((uint32_t)0x0000000BU)         /* !< UART receive interrupt; Interrupt
                                                                                     Flag: RX */
-#define UART_INT_EVENT0_IIDX_STAT_TXIFG          ((uint32_t)0x0000000CU)         /* !< UART transmit interrupt; Interrupt
+#define UART_CPU_INT_IIDX_STAT_TXIFG             ((uint32_t)0x0000000CU)         /* !< UART transmit interrupt; Interrupt
                                                                                     Flag: TX */
-#define UART_INT_EVENT0_IIDX_STAT_EOT            ((uint32_t)0x0000000DU)         /* !< UART end of transmission interrupt
+#define UART_CPU_INT_IIDX_STAT_EOT               ((uint32_t)0x0000000DU)         /* !< UART end of transmission interrupt
                                                                                     (transmit serializer empty);
                                                                                     Interrupt Flag: EOT */
-#define UART_INT_EVENT0_IIDX_STAT_MODE_9B        ((uint32_t)0x0000000EU)         /* !< 9-bit mode address match interrupt;
+#define UART_CPU_INT_IIDX_STAT_MODE_9B           ((uint32_t)0x0000000EU)         /* !< 9-bit mode address match interrupt;
                                                                                     Interrupt Flag: MODE_9B */
-#define UART_INT_EVENT0_IIDX_STAT_CTS            ((uint32_t)0x0000000FU)         /* !< UART Clear to Send Modem interrupt;
+#define UART_CPU_INT_IIDX_STAT_CTS               ((uint32_t)0x0000000FU)         /* !< UART Clear to Send Modem interrupt;
                                                                                     Interrupt Flag: CTS */
-#define UART_INT_EVENT0_IIDX_STAT_DMA_DONE_RX    ((uint32_t)0x00000010U)         /* !< DMA DONE on RX */
-#define UART_INT_EVENT0_IIDX_STAT_DMA_DONE_TX    ((uint32_t)0x00000011U)         /* !< DMA DONE on TX */
-#define UART_INT_EVENT0_IIDX_STAT_NERR_EVT       ((uint32_t)0x00000012U)         /* !< Noise Error Event */
+#define UART_CPU_INT_IIDX_STAT_DMA_DONE_RX       ((uint32_t)0x00000010U)         /* !< DMA DONE on RX */
+#define UART_CPU_INT_IIDX_STAT_DMA_DONE_TX       ((uint32_t)0x00000011U)         /* !< DMA DONE on TX */
+#define UART_CPU_INT_IIDX_STAT_NERR_EVT          ((uint32_t)0x00000012U)         /* !< Noise Error Event */
 
-/* UART_INT_EVENT0_IMASK Bits */
-/* UART_INT_EVENT0_IMASK[FRMERR] Bits */
-#define UART_INT_EVENT0_IMASK_FRMERR_OFS         (1)                             /* !< FRMERR Offset */
-#define UART_INT_EVENT0_IMASK_FRMERR_MASK        ((uint32_t)0x00000002U)         /* !< Enable UART Framing Error
+/* UART_CPU_INT_IMASK Bits */
+/* UART_CPU_INT_IMASK[FRMERR] Bits */
+#define UART_CPU_INT_IMASK_FRMERR_OFS            (1)                             /* !< FRMERR Offset */
+#define UART_CPU_INT_IMASK_FRMERR_MASK           ((uint32_t)0x00000002U)         /* !< Enable UART Framing Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_FRMERR_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_FRMERR_SET         ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[PARERR] Bits */
-#define UART_INT_EVENT0_IMASK_PARERR_OFS         (2)                             /* !< PARERR Offset */
-#define UART_INT_EVENT0_IMASK_PARERR_MASK        ((uint32_t)0x00000004U)         /* !< Enable UART Parity Error Interrupt. */
-#define UART_INT_EVENT0_IMASK_PARERR_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_PARERR_SET         ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[BRKERR] Bits */
-#define UART_INT_EVENT0_IMASK_BRKERR_OFS         (3)                             /* !< BRKERR Offset */
-#define UART_INT_EVENT0_IMASK_BRKERR_MASK        ((uint32_t)0x00000008U)         /* !< Enable UART Break Error Interrupt. */
-#define UART_INT_EVENT0_IMASK_BRKERR_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_BRKERR_SET         ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[OVRERR] Bits */
-#define UART_INT_EVENT0_IMASK_OVRERR_OFS         (4)                             /* !< OVRERR Offset */
-#define UART_INT_EVENT0_IMASK_OVRERR_MASK        ((uint32_t)0x00000010U)         /* !< Enable UART Receive Overrun Error
+#define UART_CPU_INT_IMASK_FRMERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_FRMERR_SET            ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[PARERR] Bits */
+#define UART_CPU_INT_IMASK_PARERR_OFS            (2)                             /* !< PARERR Offset */
+#define UART_CPU_INT_IMASK_PARERR_MASK           ((uint32_t)0x00000004U)         /* !< Enable UART Parity Error Interrupt. */
+#define UART_CPU_INT_IMASK_PARERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_PARERR_SET            ((uint32_t)0x00000004U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[BRKERR] Bits */
+#define UART_CPU_INT_IMASK_BRKERR_OFS            (3)                             /* !< BRKERR Offset */
+#define UART_CPU_INT_IMASK_BRKERR_MASK           ((uint32_t)0x00000008U)         /* !< Enable UART Break Error Interrupt. */
+#define UART_CPU_INT_IMASK_BRKERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_BRKERR_SET            ((uint32_t)0x00000008U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[OVRERR] Bits */
+#define UART_CPU_INT_IMASK_OVRERR_OFS            (4)                             /* !< OVRERR Offset */
+#define UART_CPU_INT_IMASK_OVRERR_MASK           ((uint32_t)0x00000010U)         /* !< Enable UART Receive Overrun Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_OVRERR_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_OVRERR_SET         ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[RXNE] Bits */
-#define UART_INT_EVENT0_IMASK_RXNE_OFS           (5)                             /* !< RXNE Offset */
-#define UART_INT_EVENT0_IMASK_RXNE_MASK          ((uint32_t)0x00000020U)         /* !< Enable Negative Edge on UARTxRXD
+#define UART_CPU_INT_IMASK_OVRERR_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_OVRERR_SET            ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[RXNE] Bits */
+#define UART_CPU_INT_IMASK_RXNE_OFS              (5)                             /* !< RXNE Offset */
+#define UART_CPU_INT_IMASK_RXNE_MASK             ((uint32_t)0x00000020U)         /* !< Enable Negative Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_RXNE_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_RXNE_SET           ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[RXPE] Bits */
-#define UART_INT_EVENT0_IMASK_RXPE_OFS           (6)                             /* !< RXPE Offset */
-#define UART_INT_EVENT0_IMASK_RXPE_MASK          ((uint32_t)0x00000040U)         /* !< Enable Positive Edge on UARTxRXD
+#define UART_CPU_INT_IMASK_RXNE_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_RXNE_SET              ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[RXPE] Bits */
+#define UART_CPU_INT_IMASK_RXPE_OFS              (6)                             /* !< RXPE Offset */
+#define UART_CPU_INT_IMASK_RXPE_MASK             ((uint32_t)0x00000040U)         /* !< Enable Positive Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_RXPE_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_RXPE_SET           ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[LINOVF] Bits */
-#define UART_INT_EVENT0_IMASK_LINOVF_OFS         (9)                             /* !< LINOVF Offset */
-#define UART_INT_EVENT0_IMASK_LINOVF_MASK        ((uint32_t)0x00000200U)         /* !< Enable LIN Hardware Counter
+#define UART_CPU_INT_IMASK_RXPE_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_RXPE_SET              ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[LINOVF] Bits */
+#define UART_CPU_INT_IMASK_LINOVF_OFS            (9)                             /* !< LINOVF Offset */
+#define UART_CPU_INT_IMASK_LINOVF_MASK           ((uint32_t)0x00000200U)         /* !< Enable LIN Hardware Counter
                                                                                     Overflow Interrupt. */
-#define UART_INT_EVENT0_IMASK_LINOVF_CLR         ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_LINOVF_SET         ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[RXINT] Bits */
-#define UART_INT_EVENT0_IMASK_RXINT_OFS          (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT0_IMASK_RXINT_MASK         ((uint32_t)0x00000400U)         /* !< Enable UART Receive Interrupt. */
-#define UART_INT_EVENT0_IMASK_RXINT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_RXINT_SET          ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[TXINT] Bits */
-#define UART_INT_EVENT0_IMASK_TXINT_OFS          (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT0_IMASK_TXINT_MASK         ((uint32_t)0x00000800U)         /* !< Enable UART Transmit Interrupt. */
-#define UART_INT_EVENT0_IMASK_TXINT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_TXINT_SET          ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[EOT] Bits */
-#define UART_INT_EVENT0_IMASK_EOT_OFS            (12)                            /* !< EOT Offset */
-#define UART_INT_EVENT0_IMASK_EOT_MASK           ((uint32_t)0x00001000U)         /* !< Enable UART End of Transmission
+#define UART_CPU_INT_IMASK_LINOVF_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_LINOVF_SET            ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[RXINT] Bits */
+#define UART_CPU_INT_IMASK_RXINT_OFS             (10)                            /* !< RXINT Offset */
+#define UART_CPU_INT_IMASK_RXINT_MASK            ((uint32_t)0x00000400U)         /* !< Enable UART Receive Interrupt. */
+#define UART_CPU_INT_IMASK_RXINT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_RXINT_SET             ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[TXINT] Bits */
+#define UART_CPU_INT_IMASK_TXINT_OFS             (11)                            /* !< TXINT Offset */
+#define UART_CPU_INT_IMASK_TXINT_MASK            ((uint32_t)0x00000800U)         /* !< Enable UART Transmit Interrupt. */
+#define UART_CPU_INT_IMASK_TXINT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_TXINT_SET             ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[EOT] Bits */
+#define UART_CPU_INT_IMASK_EOT_OFS               (12)                            /* !< EOT Offset */
+#define UART_CPU_INT_IMASK_EOT_MASK              ((uint32_t)0x00001000U)         /* !< Enable UART End of Transmission
                                                                                     Interrupt Indicates that the last bit
                                                                                     of all transmitted data and flags has
                                                                                     left the serializer and without any
                                                                                     further Data in the TX Fifo or
                                                                                     Buffer. */
-#define UART_INT_EVENT0_IMASK_EOT_CLR            ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_EOT_SET            ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[ADDR_MATCH] Bits */
-#define UART_INT_EVENT0_IMASK_ADDR_MATCH_OFS     (13)                            /* !< ADDR_MATCH Offset */
-#define UART_INT_EVENT0_IMASK_ADDR_MATCH_MASK    ((uint32_t)0x00002000U)         /* !< Enable Address Match Interrupt. */
-#define UART_INT_EVENT0_IMASK_ADDR_MATCH_CLR     ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_ADDR_MATCH_SET     ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[CTS] Bits */
-#define UART_INT_EVENT0_IMASK_CTS_OFS            (14)                            /* !< CTS Offset */
-#define UART_INT_EVENT0_IMASK_CTS_MASK           ((uint32_t)0x00004000U)         /* !< Enable UART Clear to Send Modem
+#define UART_CPU_INT_IMASK_EOT_CLR               ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_EOT_SET               ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[ADDR_MATCH] Bits */
+#define UART_CPU_INT_IMASK_ADDR_MATCH_OFS        (13)                            /* !< ADDR_MATCH Offset */
+#define UART_CPU_INT_IMASK_ADDR_MATCH_MASK       ((uint32_t)0x00002000U)         /* !< Enable Address Match Interrupt. */
+#define UART_CPU_INT_IMASK_ADDR_MATCH_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_ADDR_MATCH_SET        ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[CTS] Bits */
+#define UART_CPU_INT_IMASK_CTS_OFS               (14)                            /* !< CTS Offset */
+#define UART_CPU_INT_IMASK_CTS_MASK              ((uint32_t)0x00004000U)         /* !< Enable UART Clear to Send Modem
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_CTS_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_IMASK_CTS_SET            ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[DMA_DONE_RX] Bits */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_RX_OFS    (15)                            /* !< DMA_DONE_RX Offset */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_RX_MASK   ((uint32_t)0x00008000U)         /* !< Enable DMA Done on RX Event Channel
+#define UART_CPU_INT_IMASK_CTS_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_IMASK_CTS_SET               ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[DMA_DONE_RX] Bits */
+#define UART_CPU_INT_IMASK_DMA_DONE_RX_OFS       (15)                            /* !< DMA_DONE_RX Offset */
+#define UART_CPU_INT_IMASK_DMA_DONE_RX_MASK      ((uint32_t)0x00008000U)         /* !< Enable DMA Done on RX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_RX_CLR    ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_RX_SET    ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[DMA_DONE_TX] Bits */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_TX_OFS    (16)                            /* !< DMA_DONE_TX Offset */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_TX_MASK   ((uint32_t)0x00010000U)         /* !< Enable DMA Done on TX Event Channel
+#define UART_CPU_INT_IMASK_DMA_DONE_RX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_IMASK_DMA_DONE_RX_SET       ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[DMA_DONE_TX] Bits */
+#define UART_CPU_INT_IMASK_DMA_DONE_TX_OFS       (16)                            /* !< DMA_DONE_TX Offset */
+#define UART_CPU_INT_IMASK_DMA_DONE_TX_MASK      ((uint32_t)0x00010000U)         /* !< Enable DMA Done on TX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_TX_CLR    ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_IMASK_DMA_DONE_TX_SET    ((uint32_t)0x00010000U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[RTOUT] Bits */
-#define UART_INT_EVENT0_IMASK_RTOUT_OFS          (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT0_IMASK_RTOUT_MASK         ((uint32_t)0x00000001U)         /* !< Enable UARTOUT Receive Time-Out
+#define UART_CPU_INT_IMASK_DMA_DONE_TX_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_IMASK_DMA_DONE_TX_SET       ((uint32_t)0x00010000U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[RTOUT] Bits */
+#define UART_CPU_INT_IMASK_RTOUT_OFS             (0)                             /* !< RTOUT Offset */
+#define UART_CPU_INT_IMASK_RTOUT_MASK            ((uint32_t)0x00000001U)         /* !< Enable UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_IMASK_RTOUT_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_RTOUT_SET          ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[LINC0] Bits */
-#define UART_INT_EVENT0_IMASK_LINC0_OFS          (7)                             /* !< LINC0 Offset */
-#define UART_INT_EVENT0_IMASK_LINC0_MASK         ((uint32_t)0x00000080U)         /* !< Enable LIN Capture 0 / Match
+#define UART_CPU_INT_IMASK_RTOUT_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_RTOUT_SET             ((uint32_t)0x00000001U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[LINC0] Bits */
+#define UART_CPU_INT_IMASK_LINC0_OFS             (7)                             /* !< LINC0 Offset */
+#define UART_CPU_INT_IMASK_LINC0_MASK            ((uint32_t)0x00000080U)         /* !< Enable LIN Capture 0 / Match
                                                                                     Interrupt . */
-#define UART_INT_EVENT0_IMASK_LINC0_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_LINC0_SET          ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[LINC1] Bits */
-#define UART_INT_EVENT0_IMASK_LINC1_OFS          (8)                             /* !< LINC1 Offset */
-#define UART_INT_EVENT0_IMASK_LINC1_MASK         ((uint32_t)0x00000100U)         /* !< Enable LIN Capture 1 Interrupt. */
-#define UART_INT_EVENT0_IMASK_LINC1_CLR          ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_LINC1_SET          ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
-/* UART_INT_EVENT0_IMASK[NERR] Bits */
-#define UART_INT_EVENT0_IMASK_NERR_OFS           (17)                            /* !< NERR Offset */
-#define UART_INT_EVENT0_IMASK_NERR_MASK          ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
+#define UART_CPU_INT_IMASK_LINC0_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_LINC0_SET             ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[LINC1] Bits */
+#define UART_CPU_INT_IMASK_LINC1_OFS             (8)                             /* !< LINC1 Offset */
+#define UART_CPU_INT_IMASK_LINC1_MASK            ((uint32_t)0x00000100U)         /* !< Enable LIN Capture 1 Interrupt. */
+#define UART_CPU_INT_IMASK_LINC1_CLR             ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_LINC1_SET             ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
+/* UART_CPU_INT_IMASK[NERR] Bits */
+#define UART_CPU_INT_IMASK_NERR_OFS              (17)                            /* !< NERR Offset */
+#define UART_CPU_INT_IMASK_NERR_MASK             ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
                                                                                     Asserted when the 3 samples of
                                                                                     majority voting are not equal */
-#define UART_INT_EVENT0_IMASK_NERR_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define UART_INT_EVENT0_IMASK_NERR_SET           ((uint32_t)0x00020000U)         /* !< Set Interrupt Mask */
+#define UART_CPU_INT_IMASK_NERR_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define UART_CPU_INT_IMASK_NERR_SET              ((uint32_t)0x00020000U)         /* !< Set Interrupt Mask */
 
-/* UART_INT_EVENT0_RIS Bits */
-/* UART_INT_EVENT0_RIS[RTOUT] Bits */
-#define UART_INT_EVENT0_RIS_RTOUT_OFS            (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT0_RIS_RTOUT_MASK           ((uint32_t)0x00000001U)         /* !< UARTOUT Receive Time-Out Interrupt. */
-#define UART_INT_EVENT0_RIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_RTOUT_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[FRMERR] Bits */
-#define UART_INT_EVENT0_RIS_FRMERR_OFS           (1)                             /* !< FRMERR Offset */
-#define UART_INT_EVENT0_RIS_FRMERR_MASK          ((uint32_t)0x00000002U)         /* !< UART Framing Error Interrupt. */
-#define UART_INT_EVENT0_RIS_FRMERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_FRMERR_SET           ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[PARERR] Bits */
-#define UART_INT_EVENT0_RIS_PARERR_OFS           (2)                             /* !< PARERR Offset */
-#define UART_INT_EVENT0_RIS_PARERR_MASK          ((uint32_t)0x00000004U)         /* !< UART Parity Error Interrupt. */
-#define UART_INT_EVENT0_RIS_PARERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_PARERR_SET           ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[BRKERR] Bits */
-#define UART_INT_EVENT0_RIS_BRKERR_OFS           (3)                             /* !< BRKERR Offset */
-#define UART_INT_EVENT0_RIS_BRKERR_MASK          ((uint32_t)0x00000008U)         /* !< UART Break Error Interrupt. */
-#define UART_INT_EVENT0_RIS_BRKERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_BRKERR_SET           ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[OVRERR] Bits */
-#define UART_INT_EVENT0_RIS_OVRERR_OFS           (4)                             /* !< OVRERR Offset */
-#define UART_INT_EVENT0_RIS_OVRERR_MASK          ((uint32_t)0x00000010U)         /* !< UART Receive Overrun Error
+/* UART_CPU_INT_RIS Bits */
+/* UART_CPU_INT_RIS[RTOUT] Bits */
+#define UART_CPU_INT_RIS_RTOUT_OFS               (0)                             /* !< RTOUT Offset */
+#define UART_CPU_INT_RIS_RTOUT_MASK              ((uint32_t)0x00000001U)         /* !< UARTOUT Receive Time-Out Interrupt. */
+#define UART_CPU_INT_RIS_RTOUT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_RTOUT_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[FRMERR] Bits */
+#define UART_CPU_INT_RIS_FRMERR_OFS              (1)                             /* !< FRMERR Offset */
+#define UART_CPU_INT_RIS_FRMERR_MASK             ((uint32_t)0x00000002U)         /* !< UART Framing Error Interrupt. */
+#define UART_CPU_INT_RIS_FRMERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_FRMERR_SET              ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[PARERR] Bits */
+#define UART_CPU_INT_RIS_PARERR_OFS              (2)                             /* !< PARERR Offset */
+#define UART_CPU_INT_RIS_PARERR_MASK             ((uint32_t)0x00000004U)         /* !< UART Parity Error Interrupt. */
+#define UART_CPU_INT_RIS_PARERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_PARERR_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[BRKERR] Bits */
+#define UART_CPU_INT_RIS_BRKERR_OFS              (3)                             /* !< BRKERR Offset */
+#define UART_CPU_INT_RIS_BRKERR_MASK             ((uint32_t)0x00000008U)         /* !< UART Break Error Interrupt. */
+#define UART_CPU_INT_RIS_BRKERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_BRKERR_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[OVRERR] Bits */
+#define UART_CPU_INT_RIS_OVRERR_OFS              (4)                             /* !< OVRERR Offset */
+#define UART_CPU_INT_RIS_OVRERR_MASK             ((uint32_t)0x00000010U)         /* !< UART Receive Overrun Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_RIS_OVRERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_OVRERR_SET           ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[RXNE] Bits */
-#define UART_INT_EVENT0_RIS_RXNE_OFS             (5)                             /* !< RXNE Offset */
-#define UART_INT_EVENT0_RIS_RXNE_MASK            ((uint32_t)0x00000020U)         /* !< Negative Edge on UARTxRXD
+#define UART_CPU_INT_RIS_OVRERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_OVRERR_SET              ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[RXNE] Bits */
+#define UART_CPU_INT_RIS_RXNE_OFS                (5)                             /* !< RXNE Offset */
+#define UART_CPU_INT_RIS_RXNE_MASK               ((uint32_t)0x00000020U)         /* !< Negative Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_RIS_RXNE_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_RXNE_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[RXPE] Bits */
-#define UART_INT_EVENT0_RIS_RXPE_OFS             (6)                             /* !< RXPE Offset */
-#define UART_INT_EVENT0_RIS_RXPE_MASK            ((uint32_t)0x00000040U)         /* !< Positive Edge on UARTxRXD
+#define UART_CPU_INT_RIS_RXNE_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_RXNE_SET                ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[RXPE] Bits */
+#define UART_CPU_INT_RIS_RXPE_OFS                (6)                             /* !< RXPE Offset */
+#define UART_CPU_INT_RIS_RXPE_MASK               ((uint32_t)0x00000040U)         /* !< Positive Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_RIS_RXPE_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_RXPE_SET             ((uint32_t)0x00000040U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[LINC0] Bits */
-#define UART_INT_EVENT0_RIS_LINC0_OFS            (7)                             /* !< LINC0 Offset */
-#define UART_INT_EVENT0_RIS_LINC0_MASK           ((uint32_t)0x00000080U)         /* !< LIN Capture 0 / Match Interrupt . */
-#define UART_INT_EVENT0_RIS_LINC0_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_LINC0_SET            ((uint32_t)0x00000080U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[LINC1] Bits */
-#define UART_INT_EVENT0_RIS_LINC1_OFS            (8)                             /* !< LINC1 Offset */
-#define UART_INT_EVENT0_RIS_LINC1_MASK           ((uint32_t)0x00000100U)         /* !< LIN Capture 1 Interrupt. */
-#define UART_INT_EVENT0_RIS_LINC1_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_LINC1_SET            ((uint32_t)0x00000100U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[LINOVF] Bits */
-#define UART_INT_EVENT0_RIS_LINOVF_OFS           (9)                             /* !< LINOVF Offset */
-#define UART_INT_EVENT0_RIS_LINOVF_MASK          ((uint32_t)0x00000200U)         /* !< LIN Hardware Counter Overflow
+#define UART_CPU_INT_RIS_RXPE_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_RXPE_SET                ((uint32_t)0x00000040U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[LINC0] Bits */
+#define UART_CPU_INT_RIS_LINC0_OFS               (7)                             /* !< LINC0 Offset */
+#define UART_CPU_INT_RIS_LINC0_MASK              ((uint32_t)0x00000080U)         /* !< LIN Capture 0 / Match Interrupt . */
+#define UART_CPU_INT_RIS_LINC0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_LINC0_SET               ((uint32_t)0x00000080U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[LINC1] Bits */
+#define UART_CPU_INT_RIS_LINC1_OFS               (8)                             /* !< LINC1 Offset */
+#define UART_CPU_INT_RIS_LINC1_MASK              ((uint32_t)0x00000100U)         /* !< LIN Capture 1 Interrupt. */
+#define UART_CPU_INT_RIS_LINC1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_LINC1_SET               ((uint32_t)0x00000100U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[LINOVF] Bits */
+#define UART_CPU_INT_RIS_LINOVF_OFS              (9)                             /* !< LINOVF Offset */
+#define UART_CPU_INT_RIS_LINOVF_MASK             ((uint32_t)0x00000200U)         /* !< LIN Hardware Counter Overflow
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_RIS_LINOVF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_LINOVF_SET           ((uint32_t)0x00000200U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[RXINT] Bits */
-#define UART_INT_EVENT0_RIS_RXINT_OFS            (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT0_RIS_RXINT_MASK           ((uint32_t)0x00000400U)         /* !< UART Receive Interrupt. */
-#define UART_INT_EVENT0_RIS_RXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_RXINT_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[TXINT] Bits */
-#define UART_INT_EVENT0_RIS_TXINT_OFS            (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT0_RIS_TXINT_MASK           ((uint32_t)0x00000800U)         /* !< UART Transmit Interrupt. */
-#define UART_INT_EVENT0_RIS_TXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_TXINT_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[EOT] Bits */
-#define UART_INT_EVENT0_RIS_EOT_OFS              (12)                            /* !< EOT Offset */
-#define UART_INT_EVENT0_RIS_EOT_MASK             ((uint32_t)0x00001000U)         /* !< UART End of Transmission Interrupt
+#define UART_CPU_INT_RIS_LINOVF_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_LINOVF_SET              ((uint32_t)0x00000200U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[RXINT] Bits */
+#define UART_CPU_INT_RIS_RXINT_OFS               (10)                            /* !< RXINT Offset */
+#define UART_CPU_INT_RIS_RXINT_MASK              ((uint32_t)0x00000400U)         /* !< UART Receive Interrupt. */
+#define UART_CPU_INT_RIS_RXINT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_RXINT_SET               ((uint32_t)0x00000400U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[TXINT] Bits */
+#define UART_CPU_INT_RIS_TXINT_OFS               (11)                            /* !< TXINT Offset */
+#define UART_CPU_INT_RIS_TXINT_MASK              ((uint32_t)0x00000800U)         /* !< UART Transmit Interrupt. */
+#define UART_CPU_INT_RIS_TXINT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_TXINT_SET               ((uint32_t)0x00000800U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[EOT] Bits */
+#define UART_CPU_INT_RIS_EOT_OFS                 (12)                            /* !< EOT Offset */
+#define UART_CPU_INT_RIS_EOT_MASK                ((uint32_t)0x00001000U)         /* !< UART End of Transmission Interrupt
                                                                                     Indicates that the last bit of all
                                                                                     transmitted data and flags has left
                                                                                     the serializer and without any
                                                                                     further Data in the TX Fifo or
                                                                                     Buffer. */
-#define UART_INT_EVENT0_RIS_EOT_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_EOT_SET              ((uint32_t)0x00001000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[ADDR_MATCH] Bits */
-#define UART_INT_EVENT0_RIS_ADDR_MATCH_OFS       (13)                            /* !< ADDR_MATCH Offset */
-#define UART_INT_EVENT0_RIS_ADDR_MATCH_MASK      ((uint32_t)0x00002000U)         /* !< Address Match Interrupt. */
-#define UART_INT_EVENT0_RIS_ADDR_MATCH_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_ADDR_MATCH_SET       ((uint32_t)0x00002000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[CTS] Bits */
-#define UART_INT_EVENT0_RIS_CTS_OFS              (14)                            /* !< CTS Offset */
-#define UART_INT_EVENT0_RIS_CTS_MASK             ((uint32_t)0x00004000U)         /* !< UART Clear to Send Modem Interrupt. */
-#define UART_INT_EVENT0_RIS_CTS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_RIS_CTS_SET              ((uint32_t)0x00004000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[DMA_DONE_RX] Bits */
-#define UART_INT_EVENT0_RIS_DMA_DONE_RX_OFS      (15)                            /* !< DMA_DONE_RX Offset */
-#define UART_INT_EVENT0_RIS_DMA_DONE_RX_MASK     ((uint32_t)0x00008000U)         /* !< DMA Done on RX Event Channel
+#define UART_CPU_INT_RIS_EOT_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_EOT_SET                 ((uint32_t)0x00001000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[ADDR_MATCH] Bits */
+#define UART_CPU_INT_RIS_ADDR_MATCH_OFS          (13)                            /* !< ADDR_MATCH Offset */
+#define UART_CPU_INT_RIS_ADDR_MATCH_MASK         ((uint32_t)0x00002000U)         /* !< Address Match Interrupt. */
+#define UART_CPU_INT_RIS_ADDR_MATCH_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_ADDR_MATCH_SET          ((uint32_t)0x00002000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[CTS] Bits */
+#define UART_CPU_INT_RIS_CTS_OFS                 (14)                            /* !< CTS Offset */
+#define UART_CPU_INT_RIS_CTS_MASK                ((uint32_t)0x00004000U)         /* !< UART Clear to Send Modem Interrupt. */
+#define UART_CPU_INT_RIS_CTS_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_RIS_CTS_SET                 ((uint32_t)0x00004000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[DMA_DONE_RX] Bits */
+#define UART_CPU_INT_RIS_DMA_DONE_RX_OFS         (15)                            /* !< DMA_DONE_RX Offset */
+#define UART_CPU_INT_RIS_DMA_DONE_RX_MASK        ((uint32_t)0x00008000U)         /* !< DMA Done on RX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_RIS_DMA_DONE_RX_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_RIS_DMA_DONE_RX_SET      ((uint32_t)0x00008000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[DMA_DONE_TX] Bits */
-#define UART_INT_EVENT0_RIS_DMA_DONE_TX_OFS      (16)                            /* !< DMA_DONE_TX Offset */
-#define UART_INT_EVENT0_RIS_DMA_DONE_TX_MASK     ((uint32_t)0x00010000U)         /* !< DMA Done on TX Event Channel
+#define UART_CPU_INT_RIS_DMA_DONE_RX_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_RIS_DMA_DONE_RX_SET         ((uint32_t)0x00008000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[DMA_DONE_TX] Bits */
+#define UART_CPU_INT_RIS_DMA_DONE_TX_OFS         (16)                            /* !< DMA_DONE_TX Offset */
+#define UART_CPU_INT_RIS_DMA_DONE_TX_MASK        ((uint32_t)0x00010000U)         /* !< DMA Done on TX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_RIS_DMA_DONE_TX_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_RIS_DMA_DONE_TX_SET      ((uint32_t)0x00010000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_RIS[NERR] Bits */
-#define UART_INT_EVENT0_RIS_NERR_OFS             (17)                            /* !< NERR Offset */
-#define UART_INT_EVENT0_RIS_NERR_MASK            ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
+#define UART_CPU_INT_RIS_DMA_DONE_TX_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_RIS_DMA_DONE_TX_SET         ((uint32_t)0x00010000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_RIS[NERR] Bits */
+#define UART_CPU_INT_RIS_NERR_OFS                (17)                            /* !< NERR Offset */
+#define UART_CPU_INT_RIS_NERR_MASK               ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
                                                                                     Asserted when the 3 samples of
                                                                                     majority voting are not equal */
-#define UART_INT_EVENT0_RIS_NERR_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_RIS_NERR_SET             ((uint32_t)0x00020000U)         /* !< Interrupt occured */
+#define UART_CPU_INT_RIS_NERR_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_RIS_NERR_SET                ((uint32_t)0x00020000U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT0_MIS Bits */
-/* UART_INT_EVENT0_MIS[RTOUT] Bits */
-#define UART_INT_EVENT0_MIS_RTOUT_OFS            (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT0_MIS_RTOUT_MASK           ((uint32_t)0x00000001U)         /* !< Masked UARTOUT Receive Time-Out
+/* UART_CPU_INT_MIS Bits */
+/* UART_CPU_INT_MIS[RTOUT] Bits */
+#define UART_CPU_INT_MIS_RTOUT_OFS               (0)                             /* !< RTOUT Offset */
+#define UART_CPU_INT_MIS_RTOUT_MASK              ((uint32_t)0x00000001U)         /* !< Masked UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_RTOUT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_RTOUT_SET            ((uint32_t)0x00000001U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[FRMERR] Bits */
-#define UART_INT_EVENT0_MIS_FRMERR_OFS           (1)                             /* !< FRMERR Offset */
-#define UART_INT_EVENT0_MIS_FRMERR_MASK          ((uint32_t)0x00000002U)         /* !< Masked UART Framing Error
+#define UART_CPU_INT_MIS_RTOUT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_RTOUT_SET               ((uint32_t)0x00000001U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[FRMERR] Bits */
+#define UART_CPU_INT_MIS_FRMERR_OFS              (1)                             /* !< FRMERR Offset */
+#define UART_CPU_INT_MIS_FRMERR_MASK             ((uint32_t)0x00000002U)         /* !< Masked UART Framing Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_FRMERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_FRMERR_SET           ((uint32_t)0x00000002U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[PARERR] Bits */
-#define UART_INT_EVENT0_MIS_PARERR_OFS           (2)                             /* !< PARERR Offset */
-#define UART_INT_EVENT0_MIS_PARERR_MASK          ((uint32_t)0x00000004U)         /* !< Masked UART Parity Error Interrupt. */
-#define UART_INT_EVENT0_MIS_PARERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_PARERR_SET           ((uint32_t)0x00000004U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[BRKERR] Bits */
-#define UART_INT_EVENT0_MIS_BRKERR_OFS           (3)                             /* !< BRKERR Offset */
-#define UART_INT_EVENT0_MIS_BRKERR_MASK          ((uint32_t)0x00000008U)         /* !< Masked UART Break Error Interrupt. */
-#define UART_INT_EVENT0_MIS_BRKERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_BRKERR_SET           ((uint32_t)0x00000008U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[OVRERR] Bits */
-#define UART_INT_EVENT0_MIS_OVRERR_OFS           (4)                             /* !< OVRERR Offset */
-#define UART_INT_EVENT0_MIS_OVRERR_MASK          ((uint32_t)0x00000010U)         /* !< Masked UART Receive Overrun Error
+#define UART_CPU_INT_MIS_FRMERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_FRMERR_SET              ((uint32_t)0x00000002U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[PARERR] Bits */
+#define UART_CPU_INT_MIS_PARERR_OFS              (2)                             /* !< PARERR Offset */
+#define UART_CPU_INT_MIS_PARERR_MASK             ((uint32_t)0x00000004U)         /* !< Masked UART Parity Error Interrupt. */
+#define UART_CPU_INT_MIS_PARERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_PARERR_SET              ((uint32_t)0x00000004U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[BRKERR] Bits */
+#define UART_CPU_INT_MIS_BRKERR_OFS              (3)                             /* !< BRKERR Offset */
+#define UART_CPU_INT_MIS_BRKERR_MASK             ((uint32_t)0x00000008U)         /* !< Masked UART Break Error Interrupt. */
+#define UART_CPU_INT_MIS_BRKERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_BRKERR_SET              ((uint32_t)0x00000008U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[OVRERR] Bits */
+#define UART_CPU_INT_MIS_OVRERR_OFS              (4)                             /* !< OVRERR Offset */
+#define UART_CPU_INT_MIS_OVRERR_MASK             ((uint32_t)0x00000010U)         /* !< Masked UART Receive Overrun Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_OVRERR_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_OVRERR_SET           ((uint32_t)0x00000010U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[RXNE] Bits */
-#define UART_INT_EVENT0_MIS_RXNE_OFS             (5)                             /* !< RXNE Offset */
-#define UART_INT_EVENT0_MIS_RXNE_MASK            ((uint32_t)0x00000020U)         /* !< Masked Negative Edge on UARTxRXD
+#define UART_CPU_INT_MIS_OVRERR_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_OVRERR_SET              ((uint32_t)0x00000010U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[RXNE] Bits */
+#define UART_CPU_INT_MIS_RXNE_OFS                (5)                             /* !< RXNE Offset */
+#define UART_CPU_INT_MIS_RXNE_MASK               ((uint32_t)0x00000020U)         /* !< Masked Negative Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_RXNE_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_RXNE_SET             ((uint32_t)0x00000020U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[RXPE] Bits */
-#define UART_INT_EVENT0_MIS_RXPE_OFS             (6)                             /* !< RXPE Offset */
-#define UART_INT_EVENT0_MIS_RXPE_MASK            ((uint32_t)0x00000040U)         /* !< Masked Positive Edge on UARTxRXD
+#define UART_CPU_INT_MIS_RXNE_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_RXNE_SET                ((uint32_t)0x00000020U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[RXPE] Bits */
+#define UART_CPU_INT_MIS_RXPE_OFS                (6)                             /* !< RXPE Offset */
+#define UART_CPU_INT_MIS_RXPE_MASK               ((uint32_t)0x00000040U)         /* !< Masked Positive Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_RXPE_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_RXPE_SET             ((uint32_t)0x00000040U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[LINC0] Bits */
-#define UART_INT_EVENT0_MIS_LINC0_OFS            (7)                             /* !< LINC0 Offset */
-#define UART_INT_EVENT0_MIS_LINC0_MASK           ((uint32_t)0x00000080U)         /* !< Masked LIN Capture 0 / Match
+#define UART_CPU_INT_MIS_RXPE_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_RXPE_SET                ((uint32_t)0x00000040U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[LINC0] Bits */
+#define UART_CPU_INT_MIS_LINC0_OFS               (7)                             /* !< LINC0 Offset */
+#define UART_CPU_INT_MIS_LINC0_MASK              ((uint32_t)0x00000080U)         /* !< Masked LIN Capture 0 / Match
                                                                                     Interrupt . */
-#define UART_INT_EVENT0_MIS_LINC0_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_LINC0_SET            ((uint32_t)0x00000080U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[LINC1] Bits */
-#define UART_INT_EVENT0_MIS_LINC1_OFS            (8)                             /* !< LINC1 Offset */
-#define UART_INT_EVENT0_MIS_LINC1_MASK           ((uint32_t)0x00000100U)         /* !< Masked LIN Capture 1 Interrupt. */
-#define UART_INT_EVENT0_MIS_LINC1_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_LINC1_SET            ((uint32_t)0x00000100U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[LINOVF] Bits */
-#define UART_INT_EVENT0_MIS_LINOVF_OFS           (9)                             /* !< LINOVF Offset */
-#define UART_INT_EVENT0_MIS_LINOVF_MASK          ((uint32_t)0x00000200U)         /* !< Masked LIN Hardware Counter
+#define UART_CPU_INT_MIS_LINC0_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_LINC0_SET               ((uint32_t)0x00000080U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[LINC1] Bits */
+#define UART_CPU_INT_MIS_LINC1_OFS               (8)                             /* !< LINC1 Offset */
+#define UART_CPU_INT_MIS_LINC1_MASK              ((uint32_t)0x00000100U)         /* !< Masked LIN Capture 1 Interrupt. */
+#define UART_CPU_INT_MIS_LINC1_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_LINC1_SET               ((uint32_t)0x00000100U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[LINOVF] Bits */
+#define UART_CPU_INT_MIS_LINOVF_OFS              (9)                             /* !< LINOVF Offset */
+#define UART_CPU_INT_MIS_LINOVF_MASK             ((uint32_t)0x00000200U)         /* !< Masked LIN Hardware Counter
                                                                                     Overflow Interrupt. */
-#define UART_INT_EVENT0_MIS_LINOVF_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_LINOVF_SET           ((uint32_t)0x00000200U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[RXINT] Bits */
-#define UART_INT_EVENT0_MIS_RXINT_OFS            (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT0_MIS_RXINT_MASK           ((uint32_t)0x00000400U)         /* !< Masked UART Receive Interrupt. */
-#define UART_INT_EVENT0_MIS_RXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_RXINT_SET            ((uint32_t)0x00000400U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[TXINT] Bits */
-#define UART_INT_EVENT0_MIS_TXINT_OFS            (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT0_MIS_TXINT_MASK           ((uint32_t)0x00000800U)         /* !< Masked UART Transmit Interrupt. */
-#define UART_INT_EVENT0_MIS_TXINT_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_TXINT_SET            ((uint32_t)0x00000800U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[EOT] Bits */
-#define UART_INT_EVENT0_MIS_EOT_OFS              (12)                            /* !< EOT Offset */
-#define UART_INT_EVENT0_MIS_EOT_MASK             ((uint32_t)0x00001000U)         /* !< UART End of Transmission Interrupt
+#define UART_CPU_INT_MIS_LINOVF_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_LINOVF_SET              ((uint32_t)0x00000200U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[RXINT] Bits */
+#define UART_CPU_INT_MIS_RXINT_OFS               (10)                            /* !< RXINT Offset */
+#define UART_CPU_INT_MIS_RXINT_MASK              ((uint32_t)0x00000400U)         /* !< Masked UART Receive Interrupt. */
+#define UART_CPU_INT_MIS_RXINT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_RXINT_SET               ((uint32_t)0x00000400U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[TXINT] Bits */
+#define UART_CPU_INT_MIS_TXINT_OFS               (11)                            /* !< TXINT Offset */
+#define UART_CPU_INT_MIS_TXINT_MASK              ((uint32_t)0x00000800U)         /* !< Masked UART Transmit Interrupt. */
+#define UART_CPU_INT_MIS_TXINT_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_TXINT_SET               ((uint32_t)0x00000800U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[EOT] Bits */
+#define UART_CPU_INT_MIS_EOT_OFS                 (12)                            /* !< EOT Offset */
+#define UART_CPU_INT_MIS_EOT_MASK                ((uint32_t)0x00001000U)         /* !< UART End of Transmission Interrupt
                                                                                     Indicates that the last bit of all
                                                                                     transmitted data and flags has left
                                                                                     the serializer and without any
                                                                                     further Data in the TX Fifo or
                                                                                     Buffer. */
-#define UART_INT_EVENT0_MIS_EOT_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_EOT_SET              ((uint32_t)0x00001000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[ADDR_MATCH] Bits */
-#define UART_INT_EVENT0_MIS_ADDR_MATCH_OFS       (13)                            /* !< ADDR_MATCH Offset */
-#define UART_INT_EVENT0_MIS_ADDR_MATCH_MASK      ((uint32_t)0x00002000U)         /* !< Masked Address Match Interrupt. */
-#define UART_INT_EVENT0_MIS_ADDR_MATCH_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_ADDR_MATCH_SET       ((uint32_t)0x00002000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[CTS] Bits */
-#define UART_INT_EVENT0_MIS_CTS_OFS              (14)                            /* !< CTS Offset */
-#define UART_INT_EVENT0_MIS_CTS_MASK             ((uint32_t)0x00004000U)         /* !< Masked UART Clear to Send Modem
+#define UART_CPU_INT_MIS_EOT_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_EOT_SET                 ((uint32_t)0x00001000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[ADDR_MATCH] Bits */
+#define UART_CPU_INT_MIS_ADDR_MATCH_OFS          (13)                            /* !< ADDR_MATCH Offset */
+#define UART_CPU_INT_MIS_ADDR_MATCH_MASK         ((uint32_t)0x00002000U)         /* !< Masked Address Match Interrupt. */
+#define UART_CPU_INT_MIS_ADDR_MATCH_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_ADDR_MATCH_SET          ((uint32_t)0x00002000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[CTS] Bits */
+#define UART_CPU_INT_MIS_CTS_OFS                 (14)                            /* !< CTS Offset */
+#define UART_CPU_INT_MIS_CTS_MASK                ((uint32_t)0x00004000U)         /* !< Masked UART Clear to Send Modem
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_MIS_CTS_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_CTS_SET              ((uint32_t)0x00004000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[DMA_DONE_RX] Bits */
-#define UART_INT_EVENT0_MIS_DMA_DONE_RX_OFS      (15)                            /* !< DMA_DONE_RX Offset */
-#define UART_INT_EVENT0_MIS_DMA_DONE_RX_MASK     ((uint32_t)0x00008000U)         /* !< Masked DMA Done on RX Event Channel
+#define UART_CPU_INT_MIS_CTS_CLR                 ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_CTS_SET                 ((uint32_t)0x00004000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[DMA_DONE_RX] Bits */
+#define UART_CPU_INT_MIS_DMA_DONE_RX_OFS         (15)                            /* !< DMA_DONE_RX Offset */
+#define UART_CPU_INT_MIS_DMA_DONE_RX_MASK        ((uint32_t)0x00008000U)         /* !< Masked DMA Done on RX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_MIS_DMA_DONE_RX_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_DMA_DONE_RX_SET      ((uint32_t)0x00008000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[DMA_DONE_TX] Bits */
-#define UART_INT_EVENT0_MIS_DMA_DONE_TX_OFS      (16)                            /* !< DMA_DONE_TX Offset */
-#define UART_INT_EVENT0_MIS_DMA_DONE_TX_MASK     ((uint32_t)0x00010000U)         /* !< Masked DMA Done on TX Event Channel
+#define UART_CPU_INT_MIS_DMA_DONE_RX_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_DMA_DONE_RX_SET         ((uint32_t)0x00008000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[DMA_DONE_TX] Bits */
+#define UART_CPU_INT_MIS_DMA_DONE_TX_OFS         (16)                            /* !< DMA_DONE_TX Offset */
+#define UART_CPU_INT_MIS_DMA_DONE_TX_MASK        ((uint32_t)0x00010000U)         /* !< Masked DMA Done on TX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_MIS_DMA_DONE_TX_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_DMA_DONE_TX_SET      ((uint32_t)0x00010000U)         /* !< Interrupt occured */
-/* UART_INT_EVENT0_MIS[NERR] Bits */
-#define UART_INT_EVENT0_MIS_NERR_OFS             (17)                            /* !< NERR Offset */
-#define UART_INT_EVENT0_MIS_NERR_MASK            ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
+#define UART_CPU_INT_MIS_DMA_DONE_TX_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_DMA_DONE_TX_SET         ((uint32_t)0x00010000U)         /* !< Interrupt occured */
+/* UART_CPU_INT_MIS[NERR] Bits */
+#define UART_CPU_INT_MIS_NERR_OFS                (17)                            /* !< NERR Offset */
+#define UART_CPU_INT_MIS_NERR_MASK               ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
                                                                                     Asserted when the 3 samples of
                                                                                     majority voting are not equal */
-#define UART_INT_EVENT0_MIS_NERR_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
-#define UART_INT_EVENT0_MIS_NERR_SET             ((uint32_t)0x00020000U)         /* !< Interrupt occured */
+#define UART_CPU_INT_MIS_NERR_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt did not occur */
+#define UART_CPU_INT_MIS_NERR_SET                ((uint32_t)0x00020000U)         /* !< Interrupt occured */
 
-/* UART_INT_EVENT0_ISET Bits */
-/* UART_INT_EVENT0_ISET[FRMERR] Bits */
-#define UART_INT_EVENT0_ISET_FRMERR_OFS          (1)                             /* !< FRMERR Offset */
-#define UART_INT_EVENT0_ISET_FRMERR_MASK         ((uint32_t)0x00000002U)         /* !< Set UART Framing Error Interrupt. */
-#define UART_INT_EVENT0_ISET_FRMERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_FRMERR_SET          ((uint32_t)0x00000002U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[PARERR] Bits */
-#define UART_INT_EVENT0_ISET_PARERR_OFS          (2)                             /* !< PARERR Offset */
-#define UART_INT_EVENT0_ISET_PARERR_MASK         ((uint32_t)0x00000004U)         /* !< Set UART Parity Error Interrupt. */
-#define UART_INT_EVENT0_ISET_PARERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_PARERR_SET          ((uint32_t)0x00000004U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[BRKERR] Bits */
-#define UART_INT_EVENT0_ISET_BRKERR_OFS          (3)                             /* !< BRKERR Offset */
-#define UART_INT_EVENT0_ISET_BRKERR_MASK         ((uint32_t)0x00000008U)         /* !< Set UART Break Error Interrupt. */
-#define UART_INT_EVENT0_ISET_BRKERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_BRKERR_SET          ((uint32_t)0x00000008U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[OVRERR] Bits */
-#define UART_INT_EVENT0_ISET_OVRERR_OFS          (4)                             /* !< OVRERR Offset */
-#define UART_INT_EVENT0_ISET_OVRERR_MASK         ((uint32_t)0x00000010U)         /* !< Set  UART Receive Overrun Error
+/* UART_CPU_INT_ISET Bits */
+/* UART_CPU_INT_ISET[FRMERR] Bits */
+#define UART_CPU_INT_ISET_FRMERR_OFS             (1)                             /* !< FRMERR Offset */
+#define UART_CPU_INT_ISET_FRMERR_MASK            ((uint32_t)0x00000002U)         /* !< Set UART Framing Error Interrupt. */
+#define UART_CPU_INT_ISET_FRMERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_FRMERR_SET             ((uint32_t)0x00000002U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[PARERR] Bits */
+#define UART_CPU_INT_ISET_PARERR_OFS             (2)                             /* !< PARERR Offset */
+#define UART_CPU_INT_ISET_PARERR_MASK            ((uint32_t)0x00000004U)         /* !< Set UART Parity Error Interrupt. */
+#define UART_CPU_INT_ISET_PARERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_PARERR_SET             ((uint32_t)0x00000004U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[BRKERR] Bits */
+#define UART_CPU_INT_ISET_BRKERR_OFS             (3)                             /* !< BRKERR Offset */
+#define UART_CPU_INT_ISET_BRKERR_MASK            ((uint32_t)0x00000008U)         /* !< Set UART Break Error Interrupt. */
+#define UART_CPU_INT_ISET_BRKERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_BRKERR_SET             ((uint32_t)0x00000008U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[OVRERR] Bits */
+#define UART_CPU_INT_ISET_OVRERR_OFS             (4)                             /* !< OVRERR Offset */
+#define UART_CPU_INT_ISET_OVRERR_MASK            ((uint32_t)0x00000010U)         /* !< Set  UART Receive Overrun Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_OVRERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_OVRERR_SET          ((uint32_t)0x00000010U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[RXNE] Bits */
-#define UART_INT_EVENT0_ISET_RXNE_OFS            (5)                             /* !< RXNE Offset */
-#define UART_INT_EVENT0_ISET_RXNE_MASK           ((uint32_t)0x00000020U)         /* !< Set Negative Edge on UARTxRXD
+#define UART_CPU_INT_ISET_OVRERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_OVRERR_SET             ((uint32_t)0x00000010U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[RXNE] Bits */
+#define UART_CPU_INT_ISET_RXNE_OFS               (5)                             /* !< RXNE Offset */
+#define UART_CPU_INT_ISET_RXNE_MASK              ((uint32_t)0x00000020U)         /* !< Set Negative Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_RXNE_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_RXNE_SET            ((uint32_t)0x00000020U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[RXPE] Bits */
-#define UART_INT_EVENT0_ISET_RXPE_OFS            (6)                             /* !< RXPE Offset */
-#define UART_INT_EVENT0_ISET_RXPE_MASK           ((uint32_t)0x00000040U)         /* !< Set Positive Edge on UARTxRXD
+#define UART_CPU_INT_ISET_RXNE_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_RXNE_SET               ((uint32_t)0x00000020U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[RXPE] Bits */
+#define UART_CPU_INT_ISET_RXPE_OFS               (6)                             /* !< RXPE Offset */
+#define UART_CPU_INT_ISET_RXPE_MASK              ((uint32_t)0x00000040U)         /* !< Set Positive Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_RXPE_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_RXPE_SET            ((uint32_t)0x00000040U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[LINC0] Bits */
-#define UART_INT_EVENT0_ISET_LINC0_OFS           (7)                             /* !< LINC0 Offset */
-#define UART_INT_EVENT0_ISET_LINC0_MASK          ((uint32_t)0x00000080U)         /* !< Set LIN Capture 0 / Match Interrupt
+#define UART_CPU_INT_ISET_RXPE_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_RXPE_SET               ((uint32_t)0x00000040U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[LINC0] Bits */
+#define UART_CPU_INT_ISET_LINC0_OFS              (7)                             /* !< LINC0 Offset */
+#define UART_CPU_INT_ISET_LINC0_MASK             ((uint32_t)0x00000080U)         /* !< Set LIN Capture 0 / Match Interrupt
                                                                                     . */
-#define UART_INT_EVENT0_ISET_LINC0_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_LINC0_SET           ((uint32_t)0x00000080U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[LINC1] Bits */
-#define UART_INT_EVENT0_ISET_LINC1_OFS           (8)                             /* !< LINC1 Offset */
-#define UART_INT_EVENT0_ISET_LINC1_MASK          ((uint32_t)0x00000100U)         /* !< Set LIN Capture 1 Interrupt. */
-#define UART_INT_EVENT0_ISET_LINC1_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_LINC1_SET           ((uint32_t)0x00000100U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[LINOVF] Bits */
-#define UART_INT_EVENT0_ISET_LINOVF_OFS          (9)                             /* !< LINOVF Offset */
-#define UART_INT_EVENT0_ISET_LINOVF_MASK         ((uint32_t)0x00000200U)         /* !< Set LIN Hardware Counter Overflow
+#define UART_CPU_INT_ISET_LINC0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_LINC0_SET              ((uint32_t)0x00000080U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[LINC1] Bits */
+#define UART_CPU_INT_ISET_LINC1_OFS              (8)                             /* !< LINC1 Offset */
+#define UART_CPU_INT_ISET_LINC1_MASK             ((uint32_t)0x00000100U)         /* !< Set LIN Capture 1 Interrupt. */
+#define UART_CPU_INT_ISET_LINC1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_LINC1_SET              ((uint32_t)0x00000100U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[LINOVF] Bits */
+#define UART_CPU_INT_ISET_LINOVF_OFS             (9)                             /* !< LINOVF Offset */
+#define UART_CPU_INT_ISET_LINOVF_MASK            ((uint32_t)0x00000200U)         /* !< Set LIN Hardware Counter Overflow
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_LINOVF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_LINOVF_SET          ((uint32_t)0x00000200U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[RXINT] Bits */
-#define UART_INT_EVENT0_ISET_RXINT_OFS           (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT0_ISET_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< Set UART Receive Interrupt. */
-#define UART_INT_EVENT0_ISET_RXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_RXINT_SET           ((uint32_t)0x00000400U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[TXINT] Bits */
-#define UART_INT_EVENT0_ISET_TXINT_OFS           (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT0_ISET_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< Set UART Transmit Interrupt. */
-#define UART_INT_EVENT0_ISET_TXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_TXINT_SET           ((uint32_t)0x00000800U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[EOT] Bits */
-#define UART_INT_EVENT0_ISET_EOT_OFS             (12)                            /* !< EOT Offset */
-#define UART_INT_EVENT0_ISET_EOT_MASK            ((uint32_t)0x00001000U)         /* !< Set UART End of Transmission
+#define UART_CPU_INT_ISET_LINOVF_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_LINOVF_SET             ((uint32_t)0x00000200U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[RXINT] Bits */
+#define UART_CPU_INT_ISET_RXINT_OFS              (10)                            /* !< RXINT Offset */
+#define UART_CPU_INT_ISET_RXINT_MASK             ((uint32_t)0x00000400U)         /* !< Set UART Receive Interrupt. */
+#define UART_CPU_INT_ISET_RXINT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_RXINT_SET              ((uint32_t)0x00000400U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[TXINT] Bits */
+#define UART_CPU_INT_ISET_TXINT_OFS              (11)                            /* !< TXINT Offset */
+#define UART_CPU_INT_ISET_TXINT_MASK             ((uint32_t)0x00000800U)         /* !< Set UART Transmit Interrupt. */
+#define UART_CPU_INT_ISET_TXINT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_TXINT_SET              ((uint32_t)0x00000800U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[EOT] Bits */
+#define UART_CPU_INT_ISET_EOT_OFS                (12)                            /* !< EOT Offset */
+#define UART_CPU_INT_ISET_EOT_MASK               ((uint32_t)0x00001000U)         /* !< Set UART End of Transmission
                                                                                     Interrupt Indicates that the last bit
                                                                                     of all transmitted data and flags has
                                                                                     left the serializer and without any
                                                                                     further Data in the TX Fifo or
                                                                                     Buffer. */
-#define UART_INT_EVENT0_ISET_EOT_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_EOT_SET             ((uint32_t)0x00001000U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[ADDR_MATCH] Bits */
-#define UART_INT_EVENT0_ISET_ADDR_MATCH_OFS      (13)                            /* !< ADDR_MATCH Offset */
-#define UART_INT_EVENT0_ISET_ADDR_MATCH_MASK     ((uint32_t)0x00002000U)         /* !< Set Address Match Interrupt. */
-#define UART_INT_EVENT0_ISET_ADDR_MATCH_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_ADDR_MATCH_SET      ((uint32_t)0x00002000U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[CTS] Bits */
-#define UART_INT_EVENT0_ISET_CTS_OFS             (14)                            /* !< CTS Offset */
-#define UART_INT_EVENT0_ISET_CTS_MASK            ((uint32_t)0x00004000U)         /* !< Set UART Clear to Send Modem
+#define UART_CPU_INT_ISET_EOT_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_EOT_SET                ((uint32_t)0x00001000U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[ADDR_MATCH] Bits */
+#define UART_CPU_INT_ISET_ADDR_MATCH_OFS         (13)                            /* !< ADDR_MATCH Offset */
+#define UART_CPU_INT_ISET_ADDR_MATCH_MASK        ((uint32_t)0x00002000U)         /* !< Set Address Match Interrupt. */
+#define UART_CPU_INT_ISET_ADDR_MATCH_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_ADDR_MATCH_SET         ((uint32_t)0x00002000U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[CTS] Bits */
+#define UART_CPU_INT_ISET_CTS_OFS                (14)                            /* !< CTS Offset */
+#define UART_CPU_INT_ISET_CTS_MASK               ((uint32_t)0x00004000U)         /* !< Set UART Clear to Send Modem
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_CTS_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_CTS_SET             ((uint32_t)0x00004000U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[DMA_DONE_RX] Bits */
-#define UART_INT_EVENT0_ISET_DMA_DONE_RX_OFS     (15)                            /* !< DMA_DONE_RX Offset */
-#define UART_INT_EVENT0_ISET_DMA_DONE_RX_MASK    ((uint32_t)0x00008000U)         /* !< Set DMA Done on RX Event Channel
+#define UART_CPU_INT_ISET_CTS_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_CTS_SET                ((uint32_t)0x00004000U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[DMA_DONE_RX] Bits */
+#define UART_CPU_INT_ISET_DMA_DONE_RX_OFS        (15)                            /* !< DMA_DONE_RX Offset */
+#define UART_CPU_INT_ISET_DMA_DONE_RX_MASK       ((uint32_t)0x00008000U)         /* !< Set DMA Done on RX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_ISET_DMA_DONE_RX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_ISET_DMA_DONE_RX_SET     ((uint32_t)0x00008000U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[DMA_DONE_TX] Bits */
-#define UART_INT_EVENT0_ISET_DMA_DONE_TX_OFS     (16)                            /* !< DMA_DONE_TX Offset */
-#define UART_INT_EVENT0_ISET_DMA_DONE_TX_MASK    ((uint32_t)0x00010000U)         /* !< Set DMA Done on TX Event Channel
+#define UART_CPU_INT_ISET_DMA_DONE_RX_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_ISET_DMA_DONE_RX_SET        ((uint32_t)0x00008000U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[DMA_DONE_TX] Bits */
+#define UART_CPU_INT_ISET_DMA_DONE_TX_OFS        (16)                            /* !< DMA_DONE_TX Offset */
+#define UART_CPU_INT_ISET_DMA_DONE_TX_MASK       ((uint32_t)0x00010000U)         /* !< Set DMA Done on TX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_ISET_DMA_DONE_TX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_ISET_DMA_DONE_TX_SET     ((uint32_t)0x00010000U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[RTOUT] Bits */
-#define UART_INT_EVENT0_ISET_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT0_ISET_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< Set UARTOUT Receive Time-Out
+#define UART_CPU_INT_ISET_DMA_DONE_TX_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_ISET_DMA_DONE_TX_SET        ((uint32_t)0x00010000U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[RTOUT] Bits */
+#define UART_CPU_INT_ISET_RTOUT_OFS              (0)                             /* !< RTOUT Offset */
+#define UART_CPU_INT_ISET_RTOUT_MASK             ((uint32_t)0x00000001U)         /* !< Set UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ISET_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ISET_RTOUT_SET           ((uint32_t)0x00000001U)         /* !< Set Interrupt */
-/* UART_INT_EVENT0_ISET[NERR] Bits */
-#define UART_INT_EVENT0_ISET_NERR_OFS            (17)                            /* !< NERR Offset */
-#define UART_INT_EVENT0_ISET_NERR_MASK           ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
+#define UART_CPU_INT_ISET_RTOUT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ISET_RTOUT_SET              ((uint32_t)0x00000001U)         /* !< Set Interrupt */
+/* UART_CPU_INT_ISET[NERR] Bits */
+#define UART_CPU_INT_ISET_NERR_OFS               (17)                            /* !< NERR Offset */
+#define UART_CPU_INT_ISET_NERR_MASK              ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
                                                                                     Asserted when the 3 samples of
                                                                                     majority voting are not equal */
-#define UART_INT_EVENT0_ISET_NERR_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing this has no effect */
-#define UART_INT_EVENT0_ISET_NERR_SET            ((uint32_t)0x00020000U)         /* !< Set the interrupt */
+#define UART_CPU_INT_ISET_NERR_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing this has no effect */
+#define UART_CPU_INT_ISET_NERR_SET               ((uint32_t)0x00020000U)         /* !< Set the interrupt */
 
-/* UART_INT_EVENT0_ICLR Bits */
-/* UART_INT_EVENT0_ICLR[FRMERR] Bits */
-#define UART_INT_EVENT0_ICLR_FRMERR_OFS          (1)                             /* !< FRMERR Offset */
-#define UART_INT_EVENT0_ICLR_FRMERR_MASK         ((uint32_t)0x00000002U)         /* !< Clear UART Framing Error Interrupt. */
-#define UART_INT_EVENT0_ICLR_FRMERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_FRMERR_CLR          ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[PARERR] Bits */
-#define UART_INT_EVENT0_ICLR_PARERR_OFS          (2)                             /* !< PARERR Offset */
-#define UART_INT_EVENT0_ICLR_PARERR_MASK         ((uint32_t)0x00000004U)         /* !< Clear UART Parity Error Interrupt. */
-#define UART_INT_EVENT0_ICLR_PARERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_PARERR_CLR          ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[BRKERR] Bits */
-#define UART_INT_EVENT0_ICLR_BRKERR_OFS          (3)                             /* !< BRKERR Offset */
-#define UART_INT_EVENT0_ICLR_BRKERR_MASK         ((uint32_t)0x00000008U)         /* !< Clear UART Break Error Interrupt. */
-#define UART_INT_EVENT0_ICLR_BRKERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_BRKERR_CLR          ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[OVRERR] Bits */
-#define UART_INT_EVENT0_ICLR_OVRERR_OFS          (4)                             /* !< OVRERR Offset */
-#define UART_INT_EVENT0_ICLR_OVRERR_MASK         ((uint32_t)0x00000010U)         /* !< Clear UART Receive Overrun Error
+/* UART_CPU_INT_ICLR Bits */
+/* UART_CPU_INT_ICLR[FRMERR] Bits */
+#define UART_CPU_INT_ICLR_FRMERR_OFS             (1)                             /* !< FRMERR Offset */
+#define UART_CPU_INT_ICLR_FRMERR_MASK            ((uint32_t)0x00000002U)         /* !< Clear UART Framing Error Interrupt. */
+#define UART_CPU_INT_ICLR_FRMERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_FRMERR_CLR             ((uint32_t)0x00000002U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[PARERR] Bits */
+#define UART_CPU_INT_ICLR_PARERR_OFS             (2)                             /* !< PARERR Offset */
+#define UART_CPU_INT_ICLR_PARERR_MASK            ((uint32_t)0x00000004U)         /* !< Clear UART Parity Error Interrupt. */
+#define UART_CPU_INT_ICLR_PARERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_PARERR_CLR             ((uint32_t)0x00000004U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[BRKERR] Bits */
+#define UART_CPU_INT_ICLR_BRKERR_OFS             (3)                             /* !< BRKERR Offset */
+#define UART_CPU_INT_ICLR_BRKERR_MASK            ((uint32_t)0x00000008U)         /* !< Clear UART Break Error Interrupt. */
+#define UART_CPU_INT_ICLR_BRKERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_BRKERR_CLR             ((uint32_t)0x00000008U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[OVRERR] Bits */
+#define UART_CPU_INT_ICLR_OVRERR_OFS             (4)                             /* !< OVRERR Offset */
+#define UART_CPU_INT_ICLR_OVRERR_MASK            ((uint32_t)0x00000010U)         /* !< Clear UART Receive Overrun Error
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_OVRERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_OVRERR_CLR          ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[RXNE] Bits */
-#define UART_INT_EVENT0_ICLR_RXNE_OFS            (5)                             /* !< RXNE Offset */
-#define UART_INT_EVENT0_ICLR_RXNE_MASK           ((uint32_t)0x00000020U)         /* !< Clear Negative Edge on UARTxRXD
+#define UART_CPU_INT_ICLR_OVRERR_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_OVRERR_CLR             ((uint32_t)0x00000010U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[RXNE] Bits */
+#define UART_CPU_INT_ICLR_RXNE_OFS               (5)                             /* !< RXNE Offset */
+#define UART_CPU_INT_ICLR_RXNE_MASK              ((uint32_t)0x00000020U)         /* !< Clear Negative Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_RXNE_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_RXNE_CLR            ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[RXPE] Bits */
-#define UART_INT_EVENT0_ICLR_RXPE_OFS            (6)                             /* !< RXPE Offset */
-#define UART_INT_EVENT0_ICLR_RXPE_MASK           ((uint32_t)0x00000040U)         /* !< Clear Positive Edge on UARTxRXD
+#define UART_CPU_INT_ICLR_RXNE_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_RXNE_CLR               ((uint32_t)0x00000020U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[RXPE] Bits */
+#define UART_CPU_INT_ICLR_RXPE_OFS               (6)                             /* !< RXPE Offset */
+#define UART_CPU_INT_ICLR_RXPE_MASK              ((uint32_t)0x00000040U)         /* !< Clear Positive Edge on UARTxRXD
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_RXPE_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_RXPE_CLR            ((uint32_t)0x00000040U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[LINC0] Bits */
-#define UART_INT_EVENT0_ICLR_LINC0_OFS           (7)                             /* !< LINC0 Offset */
-#define UART_INT_EVENT0_ICLR_LINC0_MASK          ((uint32_t)0x00000080U)         /* !< Clear LIN Capture 0 / Match
+#define UART_CPU_INT_ICLR_RXPE_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_RXPE_CLR               ((uint32_t)0x00000040U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[LINC0] Bits */
+#define UART_CPU_INT_ICLR_LINC0_OFS              (7)                             /* !< LINC0 Offset */
+#define UART_CPU_INT_ICLR_LINC0_MASK             ((uint32_t)0x00000080U)         /* !< Clear LIN Capture 0 / Match
                                                                                     Interrupt . */
-#define UART_INT_EVENT0_ICLR_LINC0_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_LINC0_CLR           ((uint32_t)0x00000080U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[LINC1] Bits */
-#define UART_INT_EVENT0_ICLR_LINC1_OFS           (8)                             /* !< LINC1 Offset */
-#define UART_INT_EVENT0_ICLR_LINC1_MASK          ((uint32_t)0x00000100U)         /* !< Clear LIN Capture 1 Interrupt. */
-#define UART_INT_EVENT0_ICLR_LINC1_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_LINC1_CLR           ((uint32_t)0x00000100U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[LINOVF] Bits */
-#define UART_INT_EVENT0_ICLR_LINOVF_OFS          (9)                             /* !< LINOVF Offset */
-#define UART_INT_EVENT0_ICLR_LINOVF_MASK         ((uint32_t)0x00000200U)         /* !< Clear LIN Hardware Counter Overflow
+#define UART_CPU_INT_ICLR_LINC0_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_LINC0_CLR              ((uint32_t)0x00000080U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[LINC1] Bits */
+#define UART_CPU_INT_ICLR_LINC1_OFS              (8)                             /* !< LINC1 Offset */
+#define UART_CPU_INT_ICLR_LINC1_MASK             ((uint32_t)0x00000100U)         /* !< Clear LIN Capture 1 Interrupt. */
+#define UART_CPU_INT_ICLR_LINC1_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_LINC1_CLR              ((uint32_t)0x00000100U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[LINOVF] Bits */
+#define UART_CPU_INT_ICLR_LINOVF_OFS             (9)                             /* !< LINOVF Offset */
+#define UART_CPU_INT_ICLR_LINOVF_MASK            ((uint32_t)0x00000200U)         /* !< Clear LIN Hardware Counter Overflow
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_LINOVF_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_LINOVF_CLR          ((uint32_t)0x00000200U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[RXINT] Bits */
-#define UART_INT_EVENT0_ICLR_RXINT_OFS           (10)                            /* !< RXINT Offset */
-#define UART_INT_EVENT0_ICLR_RXINT_MASK          ((uint32_t)0x00000400U)         /* !< Clear UART Receive Interrupt. */
-#define UART_INT_EVENT0_ICLR_RXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_RXINT_CLR           ((uint32_t)0x00000400U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[TXINT] Bits */
-#define UART_INT_EVENT0_ICLR_TXINT_OFS           (11)                            /* !< TXINT Offset */
-#define UART_INT_EVENT0_ICLR_TXINT_MASK          ((uint32_t)0x00000800U)         /* !< Clear UART Transmit Interrupt. */
-#define UART_INT_EVENT0_ICLR_TXINT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_TXINT_CLR           ((uint32_t)0x00000800U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[EOT] Bits */
-#define UART_INT_EVENT0_ICLR_EOT_OFS             (12)                            /* !< EOT Offset */
-#define UART_INT_EVENT0_ICLR_EOT_MASK            ((uint32_t)0x00001000U)         /* !< Clear UART End of Transmission
+#define UART_CPU_INT_ICLR_LINOVF_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_LINOVF_CLR             ((uint32_t)0x00000200U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[RXINT] Bits */
+#define UART_CPU_INT_ICLR_RXINT_OFS              (10)                            /* !< RXINT Offset */
+#define UART_CPU_INT_ICLR_RXINT_MASK             ((uint32_t)0x00000400U)         /* !< Clear UART Receive Interrupt. */
+#define UART_CPU_INT_ICLR_RXINT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_RXINT_CLR              ((uint32_t)0x00000400U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[TXINT] Bits */
+#define UART_CPU_INT_ICLR_TXINT_OFS              (11)                            /* !< TXINT Offset */
+#define UART_CPU_INT_ICLR_TXINT_MASK             ((uint32_t)0x00000800U)         /* !< Clear UART Transmit Interrupt. */
+#define UART_CPU_INT_ICLR_TXINT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_TXINT_CLR              ((uint32_t)0x00000800U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[EOT] Bits */
+#define UART_CPU_INT_ICLR_EOT_OFS                (12)                            /* !< EOT Offset */
+#define UART_CPU_INT_ICLR_EOT_MASK               ((uint32_t)0x00001000U)         /* !< Clear UART End of Transmission
                                                                                     Interrupt Indicates that the last bit
                                                                                     of all transmitted data and flags has
                                                                                     left the serializer and without any
                                                                                     further Data in the TX Fifo or
                                                                                     Buffer. */
-#define UART_INT_EVENT0_ICLR_EOT_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_EOT_CLR             ((uint32_t)0x00001000U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[ADDR_MATCH] Bits */
-#define UART_INT_EVENT0_ICLR_ADDR_MATCH_OFS      (13)                            /* !< ADDR_MATCH Offset */
-#define UART_INT_EVENT0_ICLR_ADDR_MATCH_MASK     ((uint32_t)0x00002000U)         /* !< Clear Address Match Interrupt. */
-#define UART_INT_EVENT0_ICLR_ADDR_MATCH_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_ADDR_MATCH_CLR      ((uint32_t)0x00002000U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[CTS] Bits */
-#define UART_INT_EVENT0_ICLR_CTS_OFS             (14)                            /* !< CTS Offset */
-#define UART_INT_EVENT0_ICLR_CTS_MASK            ((uint32_t)0x00004000U)         /* !< Clear UART Clear to Send Modem
+#define UART_CPU_INT_ICLR_EOT_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_EOT_CLR                ((uint32_t)0x00001000U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[ADDR_MATCH] Bits */
+#define UART_CPU_INT_ICLR_ADDR_MATCH_OFS         (13)                            /* !< ADDR_MATCH Offset */
+#define UART_CPU_INT_ICLR_ADDR_MATCH_MASK        ((uint32_t)0x00002000U)         /* !< Clear Address Match Interrupt. */
+#define UART_CPU_INT_ICLR_ADDR_MATCH_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_ADDR_MATCH_CLR         ((uint32_t)0x00002000U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[CTS] Bits */
+#define UART_CPU_INT_ICLR_CTS_OFS                (14)                            /* !< CTS Offset */
+#define UART_CPU_INT_ICLR_CTS_MASK               ((uint32_t)0x00004000U)         /* !< Clear UART Clear to Send Modem
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_CTS_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_CTS_CLR             ((uint32_t)0x00004000U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[DMA_DONE_RX] Bits */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_RX_OFS     (15)                            /* !< DMA_DONE_RX Offset */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_RX_MASK    ((uint32_t)0x00008000U)         /* !< Clear DMA Done on RX Event Channel
+#define UART_CPU_INT_ICLR_CTS_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_CTS_CLR                ((uint32_t)0x00004000U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[DMA_DONE_RX] Bits */
+#define UART_CPU_INT_ICLR_DMA_DONE_RX_OFS        (15)                            /* !< DMA_DONE_RX Offset */
+#define UART_CPU_INT_ICLR_DMA_DONE_RX_MASK       ((uint32_t)0x00008000U)         /* !< Clear DMA Done on RX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_RX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_RX_CLR     ((uint32_t)0x00008000U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[DMA_DONE_TX] Bits */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_TX_OFS     (16)                            /* !< DMA_DONE_TX Offset */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_TX_MASK    ((uint32_t)0x00010000U)         /* !< Clear DMA Done on TX Event Channel
+#define UART_CPU_INT_ICLR_DMA_DONE_RX_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_ICLR_DMA_DONE_RX_CLR        ((uint32_t)0x00008000U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[DMA_DONE_TX] Bits */
+#define UART_CPU_INT_ICLR_DMA_DONE_TX_OFS        (16)                            /* !< DMA_DONE_TX Offset */
+#define UART_CPU_INT_ICLR_DMA_DONE_TX_MASK       ((uint32_t)0x00010000U)         /* !< Clear DMA Done on TX Event Channel
                                                                                     Interrupt */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_TX_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
-#define UART_INT_EVENT0_ICLR_DMA_DONE_TX_CLR     ((uint32_t)0x00010000U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[RTOUT] Bits */
-#define UART_INT_EVENT0_ICLR_RTOUT_OFS           (0)                             /* !< RTOUT Offset */
-#define UART_INT_EVENT0_ICLR_RTOUT_MASK          ((uint32_t)0x00000001U)         /* !< Clear UARTOUT Receive Time-Out
+#define UART_CPU_INT_ICLR_DMA_DONE_TX_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
+#define UART_CPU_INT_ICLR_DMA_DONE_TX_CLR        ((uint32_t)0x00010000U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[RTOUT] Bits */
+#define UART_CPU_INT_ICLR_RTOUT_OFS              (0)                             /* !< RTOUT Offset */
+#define UART_CPU_INT_ICLR_RTOUT_MASK             ((uint32_t)0x00000001U)         /* !< Clear UARTOUT Receive Time-Out
                                                                                     Interrupt. */
-#define UART_INT_EVENT0_ICLR_RTOUT_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_RTOUT_CLR           ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
-/* UART_INT_EVENT0_ICLR[NERR] Bits */
-#define UART_INT_EVENT0_ICLR_NERR_OFS            (17)                            /* !< NERR Offset */
-#define UART_INT_EVENT0_ICLR_NERR_MASK           ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
+#define UART_CPU_INT_ICLR_RTOUT_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_RTOUT_CLR              ((uint32_t)0x00000001U)         /* !< Clear Interrupt */
+/* UART_CPU_INT_ICLR[NERR] Bits */
+#define UART_CPU_INT_ICLR_NERR_OFS               (17)                            /* !< NERR Offset */
+#define UART_CPU_INT_ICLR_NERR_MASK              ((uint32_t)0x00020000U)         /* !< Noise Error on triple voting.
                                                                                     Asserted when the 3 samples of
                                                                                     majority voting are not equal */
-#define UART_INT_EVENT0_ICLR_NERR_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
-#define UART_INT_EVENT0_ICLR_NERR_CLR            ((uint32_t)0x00020000U)         /* !< Clear Interrupt */
+#define UART_CPU_INT_ICLR_NERR_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect */
+#define UART_CPU_INT_ICLR_NERR_CLR               ((uint32_t)0x00020000U)         /* !< Clear Interrupt */
 
 /* UART_PWREN Bits */
 /* UART_PWREN[ENABLE] Bits */
@@ -1124,11 +1122,9 @@ typedef struct {
                                                                                     bit is set). */
 #define UART_CTL0_HSE_OVS16                      ((uint32_t)0x00000000U)         /* !< 16x oversampling. */
 #define UART_CTL0_HSE_OVS8                       ((uint32_t)0x00008000U)         /* !< 8x oversampling. */
-#define UART_CTL0_HSE_OVS3                       ((uint32_t)0x00010000U)         /* !< 3x oversampling. It is intended to
-                                                                                    support 9600 Baud Rate when clock is
-                                                                                    32K. IrDA, Manchester and DALI
-                                                                                    couldnt support when 3x oversampling
-                                                                                    is enabled. */
+#define UART_CTL0_HSE_OVS3                       ((uint32_t)0x00010000U)         /* !< 3x oversampling. IrDA, Manchester
+                                                                                    and DALI not supported when 3x
+                                                                                    oversampling is enabled. */
 /* UART_CTL0[LBE] Bits */
 #define UART_CTL0_LBE_OFS                        (2)                             /* !< LBE Offset */
 #define UART_CTL0_LBE_MASK                       ((uint32_t)0x00000004U)         /* !< UART Loop Back Enable */
@@ -1843,4 +1839,3 @@ typedef struct {
 #endif
 
 #endif /* ti_devices_msp_peripherals_hw_uart__include */
-

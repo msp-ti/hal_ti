@@ -64,6 +64,13 @@ extern "C" {
 
 /* clang-format off */
 
+#if (ADC_SYS_NUM_ANALOG_CHAN > 16)
+/*
+ * @brief Device has more than 16 ADC input channels
+ */
+#define DEVICE_HAS_GREATER_THAN_16_INPUT_CHAN
+#endif
+
  /** @addtogroup DL_ADC12_SEQ_END_ADDR
  * @{
  */
@@ -421,6 +428,89 @@ extern "C" {
  */
 #define DL_ADC12_INPUT_CHAN_15                    (ADC12_MEMCTL_CHANSEL_CHAN_15)
 
+#ifdef DEVICE_HAS_GREATER_THAN_16_INPUT_CHAN
+/*!
+ * @brief ADC12 input channel 16 selected
+ */
+#define DL_ADC12_INPUT_CHAN_16                    (ADC12_MEMCTL_CHANSEL_CHAN_16)
+
+/*!
+ * @brief ADC12 input channel 17 selected
+ */
+#define DL_ADC12_INPUT_CHAN_17                    (ADC12_MEMCTL_CHANSEL_CHAN_17)
+
+/*!
+ * @brief ADC12 input channel 18 selected
+ */
+#define DL_ADC12_INPUT_CHAN_18                    (ADC12_MEMCTL_CHANSEL_CHAN_18)
+
+/*!
+ * @brief ADC12 input channel 19 selected
+ */
+#define DL_ADC12_INPUT_CHAN_19                    (ADC12_MEMCTL_CHANSEL_CHAN_19)
+
+/*!
+ * @brief ADC12 input channel 20 selected
+ */
+#define DL_ADC12_INPUT_CHAN_20                    (ADC12_MEMCTL_CHANSEL_CHAN_20)
+
+/*!
+ * @brief ADC12 input channel 21 selected
+ */
+#define DL_ADC12_INPUT_CHAN_21                    (ADC12_MEMCTL_CHANSEL_CHAN_21)
+
+/*!
+ * @brief ADC12 input channel 22 selected
+ */
+#define DL_ADC12_INPUT_CHAN_22                    (ADC12_MEMCTL_CHANSEL_CHAN_22)
+
+/*!
+ * @brief ADC12 input channel 23 selected
+ */
+#define DL_ADC12_INPUT_CHAN_23                    (ADC12_MEMCTL_CHANSEL_CHAN_23)
+
+/*!
+ * @brief ADC12 input channel 24 selected
+ */
+#define DL_ADC12_INPUT_CHAN_24                    (ADC12_MEMCTL_CHANSEL_CHAN_24)
+
+/*!
+ * @brief ADC12 input channel 25 selected
+ */
+#define DL_ADC12_INPUT_CHAN_25                    (ADC12_MEMCTL_CHANSEL_CHAN_25)
+
+/*!
+ * @brief ADC12 input channel 26 selected
+ */
+#define DL_ADC12_INPUT_CHAN_26                    (ADC12_MEMCTL_CHANSEL_CHAN_26)
+
+/*!
+ * @brief ADC12 input channel 27 selected
+ */
+#define DL_ADC12_INPUT_CHAN_27                    (ADC12_MEMCTL_CHANSEL_CHAN_27)
+
+/*!
+ * @brief ADC12 input channel 28 selected
+ */
+#define DL_ADC12_INPUT_CHAN_28                    (ADC12_MEMCTL_CHANSEL_CHAN_28)
+
+/*!
+ * @brief ADC12 input channel 29 selected
+ */
+#define DL_ADC12_INPUT_CHAN_29                    (ADC12_MEMCTL_CHANSEL_CHAN_29)
+
+/*!
+ * @brief ADC12 input channel 30 selected
+ */
+#define DL_ADC12_INPUT_CHAN_30                    (ADC12_MEMCTL_CHANSEL_CHAN_30)
+
+/*!
+ * @brief ADC12 input channel 31 selected
+ */
+#define DL_ADC12_INPUT_CHAN_31                    (ADC12_MEMCTL_CHANSEL_CHAN_31)
+
+#endif /* DEVICE_HAS_GREATER_THAN_16_INPUT_CHAN */
+
 /** @}*/
 
 /** @addtogroup DL_ADC12_REFERENCE_VOLTAGE
@@ -563,110 +653,110 @@ extern "C" {
 /*!
  * @brief ADC12 MEMRESX overflow
  */
-#define DL_ADC12_INTERRUPT_OVERFLOW           (ADC12_INT_EVENT0_IMASK_OVIFG_SET)
+#define DL_ADC12_INTERRUPT_OVERFLOW           (ADC12_CPU_INT_IMASK_OVIFG_SET)
 
 /*!
  * @brief ADC12 sequence conversion trigger overflow
  */
-#define DL_ADC12_INTERRUPT_TRIG_OVF      (ADC12_INT_EVENT0_IMASK_TOVIFG_SET)
+#define DL_ADC12_INTERRUPT_TRIG_OVF      (ADC12_CPU_INT_IMASK_TOVIFG_SET)
 
 /*!
  * @brief ADC12 MEMRESx result higher than window comparator high threshold
  */
-#define DL_ADC12_INTERRUPT_WINDOW_COMP_HIGH (ADC12_INT_EVENT0_IMASK_HIGHIFG_SET)
+#define DL_ADC12_INTERRUPT_WINDOW_COMP_HIGH (ADC12_CPU_INT_IMASK_HIGHIFG_SET)
 
 /*!
  * @brief ADC12 MEMRESx result lower than window comparator low threshold
  */
-#define DL_ADC12_INTERRUPT_WINDOW_COMP_LOW   (ADC12_INT_EVENT0_IMASK_LOWIFG_SET)
+#define DL_ADC12_INTERRUPT_WINDOW_COMP_LOW   (ADC12_CPU_INT_IMASK_LOWIFG_SET)
 
 /*!
  * @brief ADC12 MEMRESx result is between low and high window comparator
  *        threshold
  */
-#define DL_ADC12_INTERRUPT_INIFG              (ADC12_INT_EVENT0_IMASK_INIFG_SET)
+#define DL_ADC12_INTERRUPT_INIFG              (ADC12_CPU_INT_IMASK_INIFG_SET)
 
 /*!
  * @brief ADC12 DMA done
  */
-#define DL_ADC12_INTERRUPT_DMA_DONE         (ADC12_INT_EVENT0_IMASK_DMADONE_SET)
+#define DL_ADC12_INTERRUPT_DMA_DONE         (ADC12_CPU_INT_IMASK_DMADONE_SET)
 
 /*!
  * @brief ADC12 MEMRESX underflow
  */
-#define DL_ADC12_INTERRUPT_UNDERFLOW          (ADC12_INT_EVENT0_IMASK_UVIFG_SET)
+#define DL_ADC12_INTERRUPT_UNDERFLOW          (ADC12_CPU_INT_IMASK_UVIFG_SET)
 
 /*!
  * @brief ADC12 MEM0 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM0_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG0_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG0_SET)
 
 /*!
  * @brief ADC12 MEM1 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM1_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG1_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG1_SET)
 
 /*!
  * @brief ADC12 MEM2 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM2_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG2_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG2_SET)
 
 /*!
  * @brief ADC12 MEM3 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM3_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG3_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG3_SET)
 
 /*!
  * @brief ADC12 MEM4 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM4_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG4_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG4_SET)
 
 /*!
  * @brief ADC12 MEM5 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM5_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG5_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG5_SET)
 
 /*!
  * @brief ADC12 MEM6 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM6_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG6_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG6_SET)
 
 /*!
  * @brief ADC12 MEM7 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM7_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG7_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG7_SET)
 
 /*!
  * @brief ADC12 MEM8 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM8_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG8_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG8_SET)
 
 /*!
  * @brief ADC12 MEM9 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM9_RESULT_LOADED \
-                                         (ADC12_INT_EVENT0_IMASK_MEMRESIFG9_SET)
+                                         (ADC12_CPU_INT_IMASK_MEMRESIFG9_SET)
 
 /*!
  * @brief ADC12 MEM10 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM10_RESULT_LOADED \
-                                        (ADC12_INT_EVENT0_IMASK_MEMRESIFG10_SET)
+                                        (ADC12_CPU_INT_IMASK_MEMRESIFG10_SET)
 
 /*!
  * @brief ADC12 MEM12 result loaded interrupt
  */
 #define DL_ADC12_INTERRUPT_MEM11_RESULT_LOADED \
-                                        (ADC12_INT_EVENT0_IMASK_MEMRESIFG11_SET)
+                                        (ADC12_CPU_INT_IMASK_MEMRESIFG11_SET)
 
 /** @}*/
 
@@ -677,23 +767,23 @@ extern "C" {
 /*!
  * @brief ADC12 MEMRESx result higher than window comparator high threshold
  */
-#define DL_ADC12_EVENT_WINDOW_COMP_HIGH     (ADC12_INT_EVENT1_IMASK_HIGHIFG_SET)
+#define DL_ADC12_EVENT_WINDOW_COMP_HIGH     (ADC12_GEN_EVENT_IMASK_HIGHIFG_SET)
 
 /*!
  * @brief ADC12 MEMRESx result lower than window comparator low threshold
  */
-#define DL_ADC12_EVENT_WINDOW_COMP_LOW       (ADC12_INT_EVENT1_IMASK_LOWIFG_SET)
+#define DL_ADC12_EVENT_WINDOW_COMP_LOW       (ADC12_GEN_EVENT_IMASK_LOWIFG_SET)
 
 /*!
  * @brief ADC12 MEMRESx result between high and low window comparator threshold
  */
-#define DL_ADC12_EVENT_INIFG                  (ADC12_INT_EVENT1_IMASK_INIFG_SET)
+#define DL_ADC12_EVENT_INIFG                  (ADC12_GEN_EVENT_IMASK_INIFG_SET)
 
 /*!
  * @brief ADC12 MEM0 result loaded interrupt
  */
 #define DL_ADC12_EVENT_MEM0_RESULT_LOADED \
-                                         (ADC12_INT_EVENT1_IMASK_MEMRESIFG0_SET)
+                                         (ADC12_GEN_EVENT_IMASK_MEMRESIFG0_SET)
 
 /** @}*/
 
@@ -704,64 +794,64 @@ extern "C" {
 /*!
  * @brief ADC12 MEM0 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM0_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG0_SET)
+#define DL_ADC12_DMA_MEM0_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG0_SET)
 
 /*!
  * @brief ADC12 MEM1 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM1_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG1_SET)
+#define DL_ADC12_DMA_MEM1_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG1_SET)
 
 /*!
  * @brief ADC12 MEM2 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM2_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG2_SET)
+#define DL_ADC12_DMA_MEM2_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG2_SET)
 
 /*!
  * @brief ADC12 MEM3 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM3_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG3_SET)
+#define DL_ADC12_DMA_MEM3_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG3_SET)
 
 /*!
  * @brief ADC12 MEM4 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM4_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG4_SET)
+#define DL_ADC12_DMA_MEM4_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG4_SET)
 
 /*!
  * @brief ADC12 MEM5 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM5_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG5_SET)
+#define DL_ADC12_DMA_MEM5_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG5_SET)
 
 /*!
  * @brief ADC12 MEM6 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM6_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG6_SET)
+#define DL_ADC12_DMA_MEM6_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG6_SET)
 
 /*!
  * @brief ADC12 MEM7 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM7_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG7_SET)
+#define DL_ADC12_DMA_MEM7_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG7_SET)
 
 /*!
  * @brief ADC12 MEM8 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM8_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG8_SET)
+#define DL_ADC12_DMA_MEM8_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG8_SET)
 
 /*!
  * @brief ADC12 MEM9 result loaded interrupt
  */
-#define DL_ADC12_DMA_MEM9_RESULT_LOADED  (ADC12_INT_EVENT2_IMASK_MEMRESIFG9_SET)
+#define DL_ADC12_DMA_MEM9_RESULT_LOADED  (ADC12_DMA_TRIG_IMASK_MEMRESIFG9_SET)
 
 /*!
  * @brief ADC12 MEM10 result loaded interrupt
  */
 #define DL_ADC12_DMA_MEM10_RESULT_LOADED \
-                                        (ADC12_INT_EVENT2_IMASK_MEMRESIFG10_SET)
+                                        (ADC12_DMA_TRIG_IMASK_MEMRESIFG10_SET)
 
 /*!
  * @brief ADC12 MEM11 result loaded interrupt
  */
 #define DL_ADC12_DMA_MEM11_RESULT_LOADED \
-                                        (ADC12_INT_EVENT2_IMASK_MEMRESIFG11_SET)
+                                        (ADC12_DMA_TRIG_IMASK_MEMRESIFG11_SET)
 
 /** @}*/
 
@@ -867,63 +957,63 @@ typedef enum {
 /*! @enum DL_ADC12_IIDX */
 typedef enum {
     /*! ADC12 interrupt index for MEMRESX overflow */
-    DL_ADC12_IIDX_OVERFLOW = ADC12_INT_EVENT0_IIDX_STAT_OVIFG,
+    DL_ADC12_IIDX_OVERFLOW = ADC12_CPU_INT_IIDX_STAT_OVIFG,
 
     /*! ADC12 interrupt index for sequence conversion trigger overflow */
-    DL_ADC12_IIDX_TRIG_OVERFLOW = ADC12_INT_EVENT0_IIDX_STAT_TOVIFG,
+    DL_ADC12_IIDX_TRIG_OVERFLOW = ADC12_CPU_INT_IIDX_STAT_TOVIFG,
 
     /*! ADC12 interrupt index for MEMRESx result higher than window
      * comparator high threshold */
-    DL_ADC12_IIDX_WINDOW_COMP_HIGH = ADC12_INT_EVENT0_IIDX_STAT_HIGHIFG,
+    DL_ADC12_IIDX_WINDOW_COMP_HIGH = ADC12_CPU_INT_IIDX_STAT_HIGHIFG,
 
     /*! ADC12 interrupt index for MEMRESx result lower than window
     *  comparator low threshold */
-    DL_ADC12_IIDX_WINDOW_COMP_LOW = ADC12_INT_EVENT0_IIDX_STAT_LOWIFG,
+    DL_ADC12_IIDX_WINDOW_COMP_LOW = ADC12_CPU_INT_IIDX_STAT_LOWIFG,
 
     /*! ADC12 interrupt index for result in range */
-    DL_ADC12_IIDX_INIFG = ADC12_INT_EVENT0_IIDX_STAT_INIFG,
+    DL_ADC12_IIDX_INIFG = ADC12_CPU_INT_IIDX_STAT_INIFG,
 
     /*! ADC12 interrupt index for DMA done */
-    DL_ADC12_IIDX_DMA_DONE = ADC12_INT_EVENT0_IIDX_STAT_DMADONE,
+    DL_ADC12_IIDX_DMA_DONE = ADC12_CPU_INT_IIDX_STAT_DMADONE,
 
     /*! ADC12 interrupt index for MEMRESX underflow */
-    DL_ADC12_IIDX_UNDERFLOW = ADC12_INT_EVENT0_IIDX_STAT_UVIFG,
+    DL_ADC12_IIDX_UNDERFLOW = ADC12_CPU_INT_IIDX_STAT_UVIFG,
 
     /*! ADC12 interrupt index for MEM0 result loaded interrupt */
-    DL_ADC12_IIDX_MEM0_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG0,
+    DL_ADC12_IIDX_MEM0_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG0,
 
     /*! ADC12 interrupt index for MEM1 result loaded interrupt */
-    DL_ADC12_IIDX_MEM1_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG1,
+    DL_ADC12_IIDX_MEM1_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG1,
 
     /*! ADC12 interrupt index for MEM2 result loaded interrupt */
-    DL_ADC12_IIDX_MEM2_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG2,
+    DL_ADC12_IIDX_MEM2_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG2,
 
     /*! ADC12 interrupt index for MEM3 result loaded interrupt */
-    DL_ADC12_IIDX_MEM3_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG3,
+    DL_ADC12_IIDX_MEM3_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG3,
 
     /*! ADC12 interrupt index for MEM4 result loaded interrupt */
-    DL_ADC12_IIDX_MEM4_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG4,
+    DL_ADC12_IIDX_MEM4_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG4,
 
     /*! ADC12 interrupt index for MEM5 result loaded interrupt */
-    DL_ADC12_IIDX_MEM5_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG5,
+    DL_ADC12_IIDX_MEM5_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG5,
 
     /*! ADC12 interrupt index for MEM6 result loaded interrupt */
-    DL_ADC12_IIDX_MEM6_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG6,
+    DL_ADC12_IIDX_MEM6_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG6,
 
     /*! ADC12 interrupt index for MEM7 result loaded interrupt */
-    DL_ADC12_IIDX_MEM7_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG7,
+    DL_ADC12_IIDX_MEM7_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG7,
 
     /*! ADC12 interrupt index for MEM8 result loaded interrupt */
-    DL_ADC12_IIDX_MEM8_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG8,
+    DL_ADC12_IIDX_MEM8_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG8,
 
     /*! ADC12 interrupt index for MEM9 result loaded interrupt */
-    DL_ADC12_IIDX_MEM9_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG9,
+    DL_ADC12_IIDX_MEM9_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG9,
 
     /*! ADC12 interrupt index for MEM10 result loaded interrupt */
-    DL_ADC12_IIDX_MEM10_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG10,
+    DL_ADC12_IIDX_MEM10_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG10,
 
     /*! ADC12 interrupt index for MEM10 result loaded interrupt */
-    DL_ADC12_IIDX_MEM11_RESULT_LOADED = ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG11,
+    DL_ADC12_IIDX_MEM11_RESULT_LOADED = ADC12_CPU_INT_IIDX_STAT_MEMRESIFG11,
 } DL_ADC12_IIDX;
 
 /* clang-format on */
@@ -1770,7 +1860,7 @@ __STATIC_INLINE void DL_ADC12_forceSYSOSCOnInStopMode(ADC12_Regs *adc12)
 __STATIC_INLINE void DL_ADC12_enableInterrupt(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    adc12->ULLMEM.INT_EVENT0.IMASK |= (interruptMask);
+    adc12->ULLMEM.CPU_INT.IMASK |= (interruptMask);
 }
 
 /**
@@ -1785,7 +1875,7 @@ __STATIC_INLINE void DL_ADC12_enableInterrupt(
 __STATIC_INLINE void DL_ADC12_disableInterrupt(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    adc12->ULLMEM.INT_EVENT0.IMASK &= ~(interruptMask);
+    adc12->ULLMEM.CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -1803,7 +1893,7 @@ __STATIC_INLINE void DL_ADC12_disableInterrupt(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledInterrupts(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    return (adc12->ULLMEM.INT_EVENT0.IMASK & interruptMask);
+    return (adc12->ULLMEM.CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -1823,7 +1913,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledInterruptStatus(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    return (adc12->ULLMEM.INT_EVENT0.MIS & interruptMask);
+    return (adc12->ULLMEM.CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -1843,7 +1933,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_ADC12_getRawInterruptStatus(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    return (adc12->ULLMEM.INT_EVENT0.RIS & interruptMask);
+    return (adc12->ULLMEM.CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -1860,7 +1950,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_ADC12_IIDX DL_ADC12_getPendingInterrupt(ADC12_Regs *adc12)
 {
-    return ((DL_ADC12_IIDX) adc12->ULLMEM.INT_EVENT0.IIDX);
+    return ((DL_ADC12_IIDX) adc12->ULLMEM.CPU_INT.IIDX);
 }
 
 /**
@@ -1875,7 +1965,7 @@ __STATIC_INLINE DL_ADC12_IIDX DL_ADC12_getPendingInterrupt(ADC12_Regs *adc12)
 __STATIC_INLINE void DL_ADC12_clearInterruptStatus(
     ADC12_Regs *adc12, uint32_t interruptMask)
 {
-    adc12->ULLMEM.INT_EVENT0.ICLR |= (interruptMask);
+    adc12->ULLMEM.CPU_INT.ICLR |= (interruptMask);
 }
 
 /**
@@ -1945,7 +2035,7 @@ __STATIC_INLINE uint8_t DL_ADC12_getSubscriberChanID(ADC12_Regs *adc12)
 __STATIC_INLINE void DL_ADC12_enableEvent(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    adc12->ULLMEM.INT_EVENT1.IMASK |= (eventMask);
+    adc12->ULLMEM.GEN_EVENT.IMASK |= (eventMask);
 }
 
 /**
@@ -1959,7 +2049,7 @@ __STATIC_INLINE void DL_ADC12_enableEvent(
 __STATIC_INLINE void DL_ADC12_disableEvent(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    adc12->ULLMEM.INT_EVENT1.IMASK &= ~(eventMask);
+    adc12->ULLMEM.GEN_EVENT.IMASK &= ~(eventMask);
 }
 
 /**
@@ -1977,7 +2067,7 @@ __STATIC_INLINE void DL_ADC12_disableEvent(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledEvents(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    return (adc12->ULLMEM.INT_EVENT1.IMASK & eventMask);
+    return (adc12->ULLMEM.GEN_EVENT.IMASK & eventMask);
 }
 
 /**
@@ -2000,7 +2090,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledEventStatus(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    return (adc12->ULLMEM.INT_EVENT1.MIS & ~(eventMask));
+    return (adc12->ULLMEM.GEN_EVENT.MIS & ~(eventMask));
 }
 
 /**
@@ -2021,7 +2111,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledEventStatus(
 __STATIC_INLINE uint32_t DL_ADC12_getRawEventsStatus(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    return (adc12->ULLMEM.INT_EVENT1.RIS & ~(eventMask));
+    return (adc12->ULLMEM.GEN_EVENT.RIS & ~(eventMask));
 }
 
 /**
@@ -2035,7 +2125,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getRawEventsStatus(
 __STATIC_INLINE void DL_ADC12_clearEventsStatus(
     ADC12_Regs *adc12, uint32_t eventMask)
 {
-    adc12->ULLMEM.INT_EVENT1.ICLR |= (eventMask);
+    adc12->ULLMEM.GEN_EVENT.ICLR |= (eventMask);
 }
 
 /**
@@ -2049,7 +2139,7 @@ __STATIC_INLINE void DL_ADC12_clearEventsStatus(
 __STATIC_INLINE void DL_ADC12_enableDMATrigger(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    adc12->ULLMEM.INT_EVENT2.IMASK |= (dmaMask);
+    adc12->ULLMEM.DMA_TRIG.IMASK |= (dmaMask);
 }
 
 /**
@@ -2063,7 +2153,7 @@ __STATIC_INLINE void DL_ADC12_enableDMATrigger(
 __STATIC_INLINE void DL_ADC12_disableDMATrigger(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    adc12->ULLMEM.INT_EVENT2.IMASK &= ~(dmaMask);
+    adc12->ULLMEM.DMA_TRIG.IMASK &= ~(dmaMask);
 }
 
 /**
@@ -2081,7 +2171,7 @@ __STATIC_INLINE void DL_ADC12_disableDMATrigger(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledDMATrigger(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    return (adc12->ULLMEM.INT_EVENT2.IMASK & dmaMask);
+    return (adc12->ULLMEM.DMA_TRIG.IMASK & dmaMask);
 }
 
 /**
@@ -2104,7 +2194,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledDMATrigger(
 __STATIC_INLINE uint32_t DL_ADC12_getEnabledDMATriggerStatus(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    return (adc12->ULLMEM.INT_EVENT2.MIS & ~(dmaMask));
+    return (adc12->ULLMEM.DMA_TRIG.MIS & ~(dmaMask));
 }
 
 /**
@@ -2125,7 +2215,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getEnabledDMATriggerStatus(
 __STATIC_INLINE uint32_t DL_ADC12_getRawDMATriggerStatus(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    return (adc12->ULLMEM.INT_EVENT2.RIS & ~(dmaMask));
+    return (adc12->ULLMEM.DMA_TRIG.RIS & ~(dmaMask));
 }
 
 /**
@@ -2139,7 +2229,7 @@ __STATIC_INLINE uint32_t DL_ADC12_getRawDMATriggerStatus(
 __STATIC_INLINE void DL_ADC12_clearDMATriggerStatus(
     ADC12_Regs *adc12, uint32_t dmaMask)
 {
-    adc12->ULLMEM.INT_EVENT2.ICLR |= (dmaMask);
+    adc12->ULLMEM.DMA_TRIG.ICLR |= (dmaMask);
 }
 
 #ifdef __cplusplus

@@ -1625,6 +1625,8 @@ typedef enum {
 
 /*! @enum DL_GPIO_WAKEUP */
 typedef enum {
+    /*! Wakeup enabled */
+    DL_GPIO_WAKEUP_ENABLE = IOMUX_PINCM_WUEN_ENABLE,
     /*! Wakeup disabled */
     DL_GPIO_WAKEUP_DISABLE = IOMUX_PINCM_WUEN_DISABLE,
     /*! Wakeup when pin changes to 0 */
@@ -1747,69 +1749,69 @@ typedef enum {
 /*! @enum DL_GPIO_IIDX */
 typedef enum {
     /*! Interrupt index for GPIO DIO0 */
-    DL_GPIO_IIDX_DIO0 = GPIO_INT_EVENT0_IIDX_STAT_DIO0,
+    DL_GPIO_IIDX_DIO0 = GPIO_CPU_INT_IIDX_STAT_DIO0,
     /*! Interrupt index for GPIO DIO1 */
-    DL_GPIO_IIDX_DIO1 = GPIO_INT_EVENT0_IIDX_STAT_DIO1,
+    DL_GPIO_IIDX_DIO1 = GPIO_CPU_INT_IIDX_STAT_DIO1,
     /*! Interrupt index for GPIO DIO2 */
-    DL_GPIO_IIDX_DIO2 = GPIO_INT_EVENT0_IIDX_STAT_DIO2,
+    DL_GPIO_IIDX_DIO2 = GPIO_CPU_INT_IIDX_STAT_DIO2,
     /*! Interrupt index for GPIO DIO3 */
-    DL_GPIO_IIDX_DIO3 = GPIO_INT_EVENT0_IIDX_STAT_DIO3,
+    DL_GPIO_IIDX_DIO3 = GPIO_CPU_INT_IIDX_STAT_DIO3,
     /*! Interrupt index for GPIO DIO4 */
-    DL_GPIO_IIDX_DIO4 = GPIO_INT_EVENT0_IIDX_STAT_DIO4,
+    DL_GPIO_IIDX_DIO4 = GPIO_CPU_INT_IIDX_STAT_DIO4,
     /*! Interrupt index for GPIO DIO5 */
-    DL_GPIO_IIDX_DIO5 = GPIO_INT_EVENT0_IIDX_STAT_DIO5,
+    DL_GPIO_IIDX_DIO5 = GPIO_CPU_INT_IIDX_STAT_DIO5,
     /*! Interrupt index for GPIO DIO6 */
-    DL_GPIO_IIDX_DIO6 = GPIO_INT_EVENT0_IIDX_STAT_DIO6,
+    DL_GPIO_IIDX_DIO6 = GPIO_CPU_INT_IIDX_STAT_DIO6,
     /*! Interrupt index for GPIO DIO7 */
-    DL_GPIO_IIDX_DIO7 = GPIO_INT_EVENT0_IIDX_STAT_DIO7,
+    DL_GPIO_IIDX_DIO7 = GPIO_CPU_INT_IIDX_STAT_DIO7,
     /*! Interrupt index for GPIO DIO8 */
-    DL_GPIO_IIDX_DIO8 = GPIO_INT_EVENT0_IIDX_STAT_DIO8,
+    DL_GPIO_IIDX_DIO8 = GPIO_CPU_INT_IIDX_STAT_DIO8,
     /*! Interrupt index for GPIO DIO9 */
-    DL_GPIO_IIDX_DIO9 = GPIO_INT_EVENT0_IIDX_STAT_DIO9,
+    DL_GPIO_IIDX_DIO9 = GPIO_CPU_INT_IIDX_STAT_DIO9,
     /*! Interrupt index for GPIO DIO10 */
-    DL_GPIO_IIDX_DIO10 = GPIO_INT_EVENT0_IIDX_STAT_DIO10,
+    DL_GPIO_IIDX_DIO10 = GPIO_CPU_INT_IIDX_STAT_DIO10,
     /*! Interrupt index for GPIO DIO11 */
-    DL_GPIO_IIDX_DIO11 = GPIO_INT_EVENT0_IIDX_STAT_DIO11,
+    DL_GPIO_IIDX_DIO11 = GPIO_CPU_INT_IIDX_STAT_DIO11,
     /*! Interrupt index for GPIO DIO12 */
-    DL_GPIO_IIDX_DIO12 = GPIO_INT_EVENT0_IIDX_STAT_DIO12,
+    DL_GPIO_IIDX_DIO12 = GPIO_CPU_INT_IIDX_STAT_DIO12,
     /*! Interrupt index for GPIO DIO13 */
-    DL_GPIO_IIDX_DIO13 = GPIO_INT_EVENT0_IIDX_STAT_DIO13,
+    DL_GPIO_IIDX_DIO13 = GPIO_CPU_INT_IIDX_STAT_DIO13,
     /*! Interrupt index for GPIO DIO14 */
-    DL_GPIO_IIDX_DIO14 = GPIO_INT_EVENT0_IIDX_STAT_DIO14,
+    DL_GPIO_IIDX_DIO14 = GPIO_CPU_INT_IIDX_STAT_DIO14,
     /*! Interrupt index for GPIO DIO15 */
-    DL_GPIO_IIDX_DIO15 = GPIO_INT_EVENT0_IIDX_STAT_DIO15,
+    DL_GPIO_IIDX_DIO15 = GPIO_CPU_INT_IIDX_STAT_DIO15,
     /*! Interrupt index for GPIO DIO16 */
-    DL_GPIO_IIDX_DIO16 = GPIO_INT_EVENT0_IIDX_STAT_DIO16,
+    DL_GPIO_IIDX_DIO16 = GPIO_CPU_INT_IIDX_STAT_DIO16,
     /*! Interrupt index for GPIO DIO17 */
-    DL_GPIO_IIDX_DIO17 = GPIO_INT_EVENT0_IIDX_STAT_DIO17,
+    DL_GPIO_IIDX_DIO17 = GPIO_CPU_INT_IIDX_STAT_DIO17,
     /*! Interrupt index for GPIO DIO18 */
-    DL_GPIO_IIDX_DIO18 = GPIO_INT_EVENT0_IIDX_STAT_DIO18,
+    DL_GPIO_IIDX_DIO18 = GPIO_CPU_INT_IIDX_STAT_DIO18,
     /*! Interrupt index for GPIO DIO19 */
-    DL_GPIO_IIDX_DIO19 = GPIO_INT_EVENT0_IIDX_STAT_DIO19,
+    DL_GPIO_IIDX_DIO19 = GPIO_CPU_INT_IIDX_STAT_DIO19,
     /*! Interrupt index for GPIO DIO20 */
-    DL_GPIO_IIDX_DIO20 = GPIO_INT_EVENT0_IIDX_STAT_DIO20,
+    DL_GPIO_IIDX_DIO20 = GPIO_CPU_INT_IIDX_STAT_DIO20,
     /*! Interrupt index for GPIO DIO21 */
-    DL_GPIO_IIDX_DIO21 = GPIO_INT_EVENT0_IIDX_STAT_DIO21,
+    DL_GPIO_IIDX_DIO21 = GPIO_CPU_INT_IIDX_STAT_DIO21,
     /*! Interrupt index for GPIO DIO22 */
-    DL_GPIO_IIDX_DIO22 = GPIO_INT_EVENT0_IIDX_STAT_DIO22,
+    DL_GPIO_IIDX_DIO22 = GPIO_CPU_INT_IIDX_STAT_DIO22,
     /*! Interrupt index for GPIO DIO23 */
-    DL_GPIO_IIDX_DIO23 = GPIO_INT_EVENT0_IIDX_STAT_DIO23,
+    DL_GPIO_IIDX_DIO23 = GPIO_CPU_INT_IIDX_STAT_DIO23,
     /*! Interrupt index for GPIO DIO24 */
-    DL_GPIO_IIDX_DIO24 = GPIO_INT_EVENT0_IIDX_STAT_DIO24,
+    DL_GPIO_IIDX_DIO24 = GPIO_CPU_INT_IIDX_STAT_DIO24,
     /*! Interrupt index for GPIO DIO25 */
-    DL_GPIO_IIDX_DIO25 = GPIO_INT_EVENT0_IIDX_STAT_DIO25,
+    DL_GPIO_IIDX_DIO25 = GPIO_CPU_INT_IIDX_STAT_DIO25,
     /*! Interrupt index for GPIO DIO26 */
-    DL_GPIO_IIDX_DIO26 = GPIO_INT_EVENT0_IIDX_STAT_DIO26,
+    DL_GPIO_IIDX_DIO26 = GPIO_CPU_INT_IIDX_STAT_DIO26,
     /*! Interrupt index for GPIO DIO27 */
-    DL_GPIO_IIDX_DIO27 = GPIO_INT_EVENT0_IIDX_STAT_DIO27,
+    DL_GPIO_IIDX_DIO27 = GPIO_CPU_INT_IIDX_STAT_DIO27,
     /*! Interrupt index for GPIO DIO28 */
-    DL_GPIO_IIDX_DIO28 = GPIO_INT_EVENT0_IIDX_STAT_DIO28,
+    DL_GPIO_IIDX_DIO28 = GPIO_CPU_INT_IIDX_STAT_DIO28,
     /*! Interrupt index for GPIO DIO29 */
-    DL_GPIO_IIDX_DIO29 = GPIO_INT_EVENT0_IIDX_STAT_DIO29,
+    DL_GPIO_IIDX_DIO29 = GPIO_CPU_INT_IIDX_STAT_DIO29,
     /*! Interrupt index for GPIO DIO30 */
-    DL_GPIO_IIDX_DIO30 = GPIO_INT_EVENT0_IIDX_STAT_DIO30,
+    DL_GPIO_IIDX_DIO30 = GPIO_CPU_INT_IIDX_STAT_DIO30,
     /*! Interrupt index for GPIO DIO31 */
-    DL_GPIO_IIDX_DIO31 = GPIO_INT_EVENT0_IIDX_STAT_DIO31
+    DL_GPIO_IIDX_DIO31 = GPIO_CPU_INT_IIDX_STAT_DIO31
 } DL_GPIO_IIDX;
 
 /**
@@ -1909,6 +1911,42 @@ __STATIC_INLINE void DL_GPIO_initDigitalOutputFeatures(uint32_t pincmIndex,
         IOMUX_PINCM_PC_CONNECTED | ((uint32_t) 0x00000001) |
         (uint32_t) inversion | (uint32_t) internalResistor |
         (uint32_t) driveStrength | (uint32_t) hiZ;
+}
+
+/**
+ *  @brief      Configures internal resistor for digital pin
+ *
+ *  @param[in]  pincmIndex        The PINCM register index that maps to the target
+ *                                GPIO pin.
+ *  @param[in]  internalResistor  Internal resistor to use. One of
+ *                                @ref DL_GPIO_RESISTOR.
+ */
+__STATIC_INLINE void DL_GPIO_setDigitalInternalResistor(
+    uint32_t pincmIndex, DL_GPIO_RESISTOR internalResistor)
+{
+    /* GPIO functionality is always a pin function of 0x00000001 */
+    IOMUX->SECCFG.PINCM[pincmIndex] = IOMUX_PINCM_PC_CONNECTED |
+                                      ((uint32_t) 0x00000001) |
+                                      (uint32_t) internalResistor;
+}
+
+// TODO: verify no need to add input/output variable for the Input/Output enebale functionality
+/**
+ *  @brief      Configures internal resistor for analog pin
+ *
+ *  @param[in]  pincmIndex        The PINCM register index that maps to the target
+ *                                GPIO pin.
+ *  @param[in]  internalResistor  Internal resistor to use. One of
+ *                                @ref DL_GPIO_RESISTOR.
+ */
+__STATIC_INLINE void DL_GPIO_setAnalogInternalResistor(
+    uint32_t pincmIndex, DL_GPIO_RESISTOR internalResistor)
+{
+    /* GPIO functionality is always a pin function of 0x00000001 */
+    /* For analog use case, setting IOMUX input enable */
+    IOMUX->SECCFG.PINCM[pincmIndex] =
+        IOMUX_PINCM_INENA_ENABLE | IOMUX_PINCM_PC_UNCONNECTED |
+        ((uint32_t) 0x00000001) | (uint32_t) internalResistor;
 }
 
 /**
@@ -2062,6 +2100,44 @@ __STATIC_INLINE void DL_GPIO_initPeripheralInputFunctionFeatures(
 __STATIC_INLINE void DL_GPIO_initPeripheralAnalogFunction(uint32_t pincmIndex)
 {
     IOMUX->SECCFG.PINCM[pincmIndex] = IOMUX_PINCM_PC_UNCONNECTED;
+}
+
+/**
+ *  @brief Set GPIO pin's wakeup enable bit.
+ *
+ *  @param[in]  pincmIndex  The PINCM register index that maps to the target
+ *                          GPIO pin.
+ *
+ */
+__STATIC_INLINE void DL_GPIO_enableWakeUp(uint32_t pincmIndex)
+{
+    IOMUX->SECCFG.PINCM[pincmIndex] |= DL_GPIO_WAKEUP_ENABLE;
+}
+
+/**
+ *  @brief Clear GPIO pin's wakeup enable bit.
+ *
+ *  @param[in]  pincmIndex  The PINCM register index that maps to the target
+ *                          GPIO pin.
+ *
+ */
+__STATIC_INLINE void DL_GPIO_disableWakeUp(uint32_t pincmIndex)
+{
+    IOMUX->SECCFG.PINCM[pincmIndex] &= ~(IOMUX_PINCM_WUEN_MASK);
+}
+
+/**
+ *  @brief Returns if GPIO pin's wake up bit is enabled.
+ *
+ *  @param[in]  pincmIndex  The PINCM register index that maps to the target
+ *                          GPIO pin.
+ *
+ *  @return     True if wake up enabled on GPIO pin.
+ */
+__STATIC_INLINE bool DL_GPIO_isWakeUpEnabled(uint32_t pincmIndex)
+{
+    return ((IOMUX->SECCFG.PINCM[pincmIndex] & IOMUX_PINCM_WUEN_MASK) ==
+            IOMUX_PINCM_WUEN_ENABLE);
 }
 
 /**
@@ -2230,7 +2306,7 @@ __STATIC_INLINE uint32_t DL_GPIO_isDMAccessEnabled(
 __STATIC_INLINE void DL_GPIO_setLowerPinsPolarity(
     GPIO_Regs* gpio, uint32_t polarity)
 {
-    gpio->POLARITY15_0 = polarity;
+    gpio->POLARITY15_0 |= polarity;
 }
 
 /**
@@ -2243,7 +2319,7 @@ __STATIC_INLINE void DL_GPIO_setLowerPinsPolarity(
 __STATIC_INLINE void DL_GPIO_setUpperPinsPolarity(
     GPIO_Regs* gpio, uint32_t polarity)
 {
-    gpio->POLARITY31_16 = polarity;
+    gpio->POLARITY31_16 |= polarity;
 }
 
 /**
@@ -2284,7 +2360,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getUpperPinsPolarity(GPIO_Regs* gpio)
 __STATIC_INLINE void DL_GPIO_setLowerPinsInputFilter(
     GPIO_Regs* gpio, uint32_t filter)
 {
-    gpio->FILTEREN15_0 = filter;
+    gpio->FILTEREN15_0 |= filter;
 }
 
 /**
@@ -2297,7 +2373,7 @@ __STATIC_INLINE void DL_GPIO_setLowerPinsInputFilter(
 __STATIC_INLINE void DL_GPIO_setUpperPinsInputFilter(
     GPIO_Regs* gpio, uint32_t filter)
 {
-    gpio->FILTEREN31_16 = filter;
+    gpio->FILTEREN31_16 |= filter;
 }
 
 /**
@@ -2420,7 +2496,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getEnabledFastWakePins(
  */
 __STATIC_INLINE void DL_GPIO_enableInterrupt(GPIO_Regs* gpio, uint32_t pins)
 {
-    gpio->INT_EVENT0.IMASK |= pins;
+    gpio->CPU_INT.IMASK |= pins;
 }
 
 /**
@@ -2432,7 +2508,7 @@ __STATIC_INLINE void DL_GPIO_enableInterrupt(GPIO_Regs* gpio, uint32_t pins)
  */
 __STATIC_INLINE void DL_GPIO_disableInterrupt(GPIO_Regs* gpio, uint32_t pins)
 {
-    gpio->INT_EVENT0.IMASK &= ~(pins);
+    gpio->CPU_INT.IMASK &= ~(pins);
 }
 
 /**
@@ -2449,7 +2525,7 @@ __STATIC_INLINE void DL_GPIO_disableInterrupt(GPIO_Regs* gpio, uint32_t pins)
 __STATIC_INLINE uint32_t DL_GPIO_getEnabledInterrupts(
     GPIO_Regs* gpio, uint32_t pins)
 {
-    return (gpio->INT_EVENT0.IMASK & pins);
+    return (gpio->CPU_INT.IMASK & pins);
 }
 
 /**
@@ -2471,7 +2547,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_GPIO_getEnabledInterruptStatus(
     GPIO_Regs* gpio, uint32_t pins)
 {
-    return (gpio->INT_EVENT0.MIS & pins);
+    return (gpio->CPU_INT.MIS & pins);
 }
 
 /**
@@ -2487,7 +2563,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getEnabledInterruptStatus(
  */
 __STATIC_INLINE void DL_GPIO_setInterrupt(GPIO_Regs* gpio, uint32_t pins)
 {
-    gpio->INT_EVENT0.ISET = pins;
+    gpio->CPU_INT.ISET = pins;
 }
 
 /**
@@ -2508,7 +2584,7 @@ __STATIC_INLINE void DL_GPIO_setInterrupt(GPIO_Regs* gpio, uint32_t pins)
 __STATIC_INLINE uint32_t DL_GPIO_getRawInterruptStatus(
     GPIO_Regs* gpio, uint32_t pins)
 {
-    return (gpio->INT_EVENT0.RIS & pins);
+    return (gpio->CPU_INT.RIS & pins);
 }
 
 /**
@@ -2525,7 +2601,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_GPIO_IIDX DL_GPIO_getPendingInterrupt(GPIO_Regs* gpio)
 {
-    return (DL_GPIO_IIDX)(gpio->INT_EVENT0.IIDX);
+    return (DL_GPIO_IIDX)(gpio->CPU_INT.IIDX);
 }
 
 /**
@@ -2539,7 +2615,7 @@ __STATIC_INLINE DL_GPIO_IIDX DL_GPIO_getPendingInterrupt(GPIO_Regs* gpio)
 __STATIC_INLINE void DL_GPIO_clearInterruptStatus(
     GPIO_Regs* gpio, uint32_t pins)
 {
-    gpio->INT_EVENT0.ICLR |= pins;
+    gpio->CPU_INT.ICLR |= pins;
 }
 
 /**
@@ -2707,10 +2783,10 @@ __STATIC_INLINE void DL_GPIO_enableEvents(
 {
     switch (index) {
         case DL_GPIO_EVENT_ROUTE_1:
-            gpio->INT_EVENT1.IMASK |= (pins & 0x0000FFFFU);
+            gpio->GEN_EVENT0.IMASK |= (pins & 0x0000FFFFU);
             break;
         case DL_GPIO_EVENT_ROUTE_2:
-            gpio->INT_EVENT2.IMASK |= (pins & 0xFFFF0000U);
+            gpio->GEN_EVENT1.IMASK |= (pins & 0xFFFF0000U);
             break;
         default:
             break;
@@ -2734,10 +2810,10 @@ __STATIC_INLINE void DL_GPIO_disableEvents(
 {
     switch (index) {
         case DL_GPIO_EVENT_ROUTE_1:
-            gpio->INT_EVENT1.IMASK &= ~(pins & 0x0000FFFFU);
+            gpio->GEN_EVENT0.IMASK &= ~(pins & 0x0000FFFFU);
             break;
         case DL_GPIO_EVENT_ROUTE_2:
-            gpio->INT_EVENT2.IMASK &= ~(pins & 0xFFFF0000U);
+            gpio->GEN_EVENT1.IMASK &= ~(pins & 0xFFFF0000U);
             break;
         default:
             break;
@@ -2763,7 +2839,7 @@ __STATIC_INLINE void DL_GPIO_disableEvents(
 __STATIC_INLINE uint32_t DL_GPIO_getEnabledEvents(
     GPIO_Regs* gpio, DL_GPIO_EVENT_ROUTE index, uint32_t pins)
 {
-    volatile uint32_t* pReg = &gpio->INT_EVENT1.IMASK;
+    volatile uint32_t* pReg = &gpio->GEN_EVENT0.IMASK;
 
     return ((*(pReg + (uint32_t) index) & pins));
 }
@@ -2789,7 +2865,7 @@ __STATIC_INLINE uint32_t DL_GPIO_getEnabledEvents(
 __STATIC_INLINE uint32_t DL_GPIO_getEnabledEventStatus(
     GPIO_Regs* gpio, DL_GPIO_EVENT_ROUTE index, uint32_t pins)
 {
-    const volatile uint32_t* pReg = &gpio->INT_EVENT1.MIS;
+    const volatile uint32_t* pReg = &gpio->GEN_EVENT0.MIS;
 
     return ((*(pReg + (uint32_t) index) & pins));
 }
@@ -2811,10 +2887,10 @@ __STATIC_INLINE void DL_GPIO_clearEventStatus(
 {
     switch (index) {
         case DL_GPIO_EVENT_ROUTE_1:
-            gpio->INT_EVENT1.ICLR |= (pins & 0x0000FFFFU);
+            gpio->GEN_EVENT0.ICLR |= (pins & 0x0000FFFFU);
             break;
         case DL_GPIO_EVENT_ROUTE_2:
-            gpio->INT_EVENT2.ICLR |= (pins & 0xFFFF0000U);
+            gpio->GEN_EVENT1.ICLR |= (pins & 0xFFFF0000U);
             break;
         default:
             break;

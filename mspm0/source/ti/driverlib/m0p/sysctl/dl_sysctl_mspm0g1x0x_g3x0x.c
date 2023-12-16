@@ -35,10 +35,22 @@
 
 #if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0G1X0X_G3X0X)
 
+#include <ti/driverlib/m0p/dl_core.h>
 #include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.h>
 
 void DL_SYSCTL_configSYSPLL(DL_SYSCTL_SYSPLLConfig *config)
 {
+    /* PLL configurations are retained in lower reset levels. Set default
+     * behavior of disabling the PLL to keep a consistent behavior regardless
+     * of reset level. */
+    DL_SYSCTL_disableSYSPLL();
+
+    /* Check that SYSPLL is disabled before configuration */
+    while ((DL_SYSCTL_getClockStatus() & (DL_SYSCTL_CLK_STATUS_SYSPLL_OFF)) !=
+           (DL_SYSCTL_CLK_STATUS_SYSPLL_OFF)) {
+        ;
+    }
+
     // set SYSPLL reference clock
     DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG0,
         ((uint32_t) config->sysPLLRef), SYSCTL_SYSPLLCFG0_SYSPLLREF_MASK);
@@ -47,11 +59,19 @@ void DL_SYSCTL_configSYSPLL(DL_SYSCTL_SYSPLLConfig *config)
     DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG1, ((uint32_t) config->pDiv),
         SYSCTL_SYSPLLCFG1_PDIV_MASK);
 
+    // save CPUSS CTL state and disable the cache
+    uint32_t ctlTemp = DL_CORE_getInstructionConfig();
+    DL_CORE_configInstruction(DL_CORE_PREFETCH_ENABLED, DL_CORE_CACHE_DISABLED,
+        DL_CORE_LITERAL_CACHE_ENABLED);
+
     // populate SYSPLLPARAM0/1 tuning registers from flash, based on input freq
     SYSCTL->SOCLOCK.SYSPLLPARAM0 =
         *(volatile uint32_t *) ((uint32_t) config->inputFreq);
     SYSCTL->SOCLOCK.SYSPLLPARAM1 =
         *(volatile uint32_t *) ((uint32_t) config->inputFreq + (uint32_t) 0x4);
+
+    // restore CPUSS CTL state
+    CPUSS->CTL = ctlTemp;
 
     // set feedback divider QDIV (multiplies to give output frequency)
     DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG1,
@@ -90,10 +110,8 @@ void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config)
 {
     DL_Common_updateReg(&SYSCTL->SOCLOCK.LFCLKCFG,
         ((uint32_t) config->lowCap << SYSCTL_LFCLKCFG_LOWCAP_OFS) |
-            ((uint32_t) config->monitor << SYSCTL_LFCLKCFG_MONITOR_OFS) |
             (uint32_t) config->xt1Drive,
-        (SYSCTL_LFCLKCFG_XT1DRIVE_MASK | SYSCTL_LFCLKCFG_MONITOR_MASK |
-            SYSCTL_LFCLKCFG_LOWCAP_MASK));
+        (SYSCTL_LFCLKCFG_XT1DRIVE_MASK | SYSCTL_LFCLKCFG_LOWCAP_MASK));
     // start the LFXT oscillator
     SYSCTL->SOCLOCK.LFXTCTL =
         (SYSCTL_LFXTCTL_KEY_VALUE | SYSCTL_LFXTCTL_STARTLFXT_TRUE);
@@ -103,6 +121,11 @@ void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config)
            DL_SYSCTL_CLK_STATUS_LFXT_GOOD) {
         ;
     }
+    if (config->monitor) {
+        // set the LFCLK monitor
+        SYSCTL->SOCLOCK.LFCLKCFG |= SYSCTL_LFCLKCFG_MONITOR_ENABLE;
+    }
+
     // switch LFCLK source from LFOSC to LFXT
     SYSCTL->SOCLOCK.LFXTCTL =
         (SYSCTL_LFXTCTL_KEY_VALUE | SYSCTL_LFXTCTL_SETUSELFXT_TRUE);
@@ -110,17 +133,14 @@ void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config)
 
 void DL_SYSCTL_switchMCLKfromSYSOSCtoLFCLK(bool disableSYSOSC)
 {
-    // Set SYSOSC back to base frequency if left enabled
     if (disableSYSOSC == false) {
+        // Set SYSOSC back to base frequency if left enabled
         DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ_BASE);
-        // Do not set both bits
         SYSCTL->SOCLOCK.SYSOSCCFG &= ~SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
-        SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
     } else {
-        // Do not set both bits
-        SYSCTL->SOCLOCK.MCLKCFG &= ~SYSCTL_MCLKCFG_USELFCLK_ENABLE;
         SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
     }
+    SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
 
     // Verify LFCLK -> MCLK
     while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) !=
@@ -180,6 +200,11 @@ void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void)
 
 void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 {
+    /* Some crystal configurations are retained in lower reset levels. Set
+     * default behavior of HFXT to keep a consistent behavior regardless of
+     * reset level. */
+    DL_SYSCTL_disableHFXT();
+
     DL_SYSCTL_setHFXTFrequencyRange(range);
     /* Set startup time to ~0.512ms based on TYP datasheet recommendation */
     DL_SYSCTL_setHFXTStartupTime(8);
@@ -196,6 +221,11 @@ void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 void DL_SYSCTL_setHFCLKSourceHFXTParams(
     DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable)
 {
+    /* Some crystal configurations are retained in lower reset levels. Set
+     * default behavior of HFXT to keep a consistent behavior regardless of
+     * reset level. */
+    DL_SYSCTL_disableHFXT();
+
     DL_SYSCTL_setHFXTFrequencyRange(range);
     DL_SYSCTL_setHFXTStartupTime(startupTime);
     SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_HFXTEN_ENABLE;

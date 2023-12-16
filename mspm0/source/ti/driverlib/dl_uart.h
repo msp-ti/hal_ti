@@ -75,101 +75,101 @@ extern "C" {
 /*!
  * @brief DMA done on transmit interrupt
  */
-#define DL_UART_INTERRUPT_DMA_DONE_TX   (UART_INT_EVENT0_IMASK_DMA_DONE_TX_SET)
+#define DL_UART_INTERRUPT_DMA_DONE_TX   (UART_CPU_INT_IMASK_DMA_DONE_TX_SET)
 
 /*!
  * @brief DMA done on receive interrupt
  */
-#define DL_UART_INTERRUPT_DMA_DONE_RX   (UART_INT_EVENT0_IMASK_DMA_DONE_RX_SET)
+#define DL_UART_INTERRUPT_DMA_DONE_RX   (UART_CPU_INT_IMASK_DMA_DONE_RX_SET)
 
 /*!
  * @brief Clear to send interrupt
  */
-#define DL_UART_INTERRUPT_CTS_DONE              (UART_INT_EVENT0_IMASK_CTS_SET)
+#define DL_UART_INTERRUPT_CTS_DONE              (UART_CPU_INT_IMASK_CTS_SET)
 
 /*!
  * @brief 9-bit mode address match interrupt
  */
-#define DL_UART_INTERRUPT_ADDRESS_MATCH  (UART_INT_EVENT0_IMASK_ADDR_MATCH_SET)
+#define DL_UART_INTERRUPT_ADDRESS_MATCH  (UART_CPU_INT_IMASK_ADDR_MATCH_SET)
 
 /*!
  * @brief LINC0 match interrupt
  */
-#define DL_UART_INTERRUPT_LINC0_MATCH         (UART_INT_EVENT0_IMASK_LINC0_SET)
+#define DL_UART_INTERRUPT_LINC0_MATCH         (UART_CPU_INT_IMASK_LINC0_SET)
 
 /*!
  * @brief End of transmission interrupt
  */
-#define DL_UART_INTERRUPT_EOT_DONE              (UART_INT_EVENT0_IMASK_EOT_SET)
+#define DL_UART_INTERRUPT_EOT_DONE              (UART_CPU_INT_IMASK_EOT_SET)
 
 /*!
  * @brief UART transmit interrupt
  */
-#define DL_UART_INTERRUPT_TX                  (UART_INT_EVENT0_IMASK_TXINT_SET)
+#define DL_UART_INTERRUPT_TX                  (UART_CPU_INT_IMASK_TXINT_SET)
 
 /*!
  * @brief UART receive interrupt
  */
-#define DL_UART_INTERRUPT_RX                  (UART_INT_EVENT0_IMASK_RXINT_SET)
+#define DL_UART_INTERRUPT_RX                  (UART_CPU_INT_IMASK_RXINT_SET)
 
 /*!
  * @brief LIN hardware counter overflow interrupt
  */
 #define DL_UART_INTERRUPT_LIN_COUNTER_OVERFLOW                                \
-                                             (UART_INT_EVENT0_IMASK_LINOVF_SET)
+                                             (UART_CPU_INT_IMASK_LINOVF_SET)
 
 /*!
  * @brief LIN rising edge LINC1 interrupt
  */
 #define DL_UART_INTERRUPT_LIN_RISING_EDGE                                     \
-                                              (UART_INT_EVENT0_IMASK_LINC1_SET)
+                                              (UART_CPU_INT_IMASK_LINC1_SET)
 
 /*!
  * @brief LIN falling edge LINC0 interrupt
  */
 #define DL_UART_INTERRUPT_LIN_FALLING_EDGE                                    \
-                                              (UART_INT_EVENT0_IMASK_LINC0_SET)
+                                              (UART_CPU_INT_IMASK_LINC0_SET)
 
 /*!
  * @brief Positive Edge on UARTxRXD interrupt
  */
-#define DL_UART_INTERRUPT_RXD_POS_EDGE         (UART_INT_EVENT0_IMASK_RXPE_SET)
+#define DL_UART_INTERRUPT_RXD_POS_EDGE         (UART_CPU_INT_IMASK_RXPE_SET)
 
 /*!
  * @brief Negative Edge on UARTxRXD interrupt
  */
-#define DL_UART_INTERRUPT_RXD_NEG_EDGE         (UART_INT_EVENT0_IMASK_RXNE_SET)
+#define DL_UART_INTERRUPT_RXD_NEG_EDGE         (UART_CPU_INT_IMASK_RXNE_SET)
 
 /*!
  * @brief Overrun error interrupt
  */
-#define DL_UART_INTERRUPT_OVERRUN_ERROR      (UART_INT_EVENT0_IMASK_OVRERR_SET)
+#define DL_UART_INTERRUPT_OVERRUN_ERROR      (UART_CPU_INT_IMASK_OVRERR_SET)
 
 /*!
  * @brief Break error interrupt
  */
-#define DL_UART_INTERRUPT_BREAK_ERROR        (UART_INT_EVENT0_IMASK_BRKERR_SET)
+#define DL_UART_INTERRUPT_BREAK_ERROR        (UART_CPU_INT_IMASK_BRKERR_SET)
 
 /*!
  * @brief Parity error interrupt
  */
-#define DL_UART_INTERRUPT_PARITY_ERROR       (UART_INT_EVENT0_IMASK_PARERR_SET)
+#define DL_UART_INTERRUPT_PARITY_ERROR       (UART_CPU_INT_IMASK_PARERR_SET)
 
 /*!
  * @brief Framing error interrupt
  */
-#define DL_UART_INTERRUPT_FRAMING_ERROR      (UART_INT_EVENT0_IMASK_FRMERR_SET)
+#define DL_UART_INTERRUPT_FRAMING_ERROR      (UART_CPU_INT_IMASK_FRMERR_SET)
 
 /*!
  * @brief Receive timeout interrupt
  */
-#define DL_UART_INTERRUPT_RX_TIMEOUT_ERROR    (UART_INT_EVENT0_IMASK_RTOUT_SET)
+#define DL_UART_INTERRUPT_RX_TIMEOUT_ERROR    (UART_CPU_INT_IMASK_RTOUT_SET)
 
 
 /*!
  * @brief Noise error interrupt
  */
-#define DL_UART_INTERRUPT_NOISE_ERROR          (UART_INT_EVENT0_IMASK_NERR_SET)
+#define DL_UART_INTERRUPT_NOISE_ERROR          (UART_CPU_INT_IMASK_NERR_SET)
 
 
 /** @}*/
@@ -177,61 +177,61 @@ extern "C" {
 /*! @enum DL_UART_IIDX */
 typedef enum {
     /*! UART interrupt index for DMA done on transmit */
-    DL_UART_IIDX_DMA_DONE_TX = UART_INT_EVENT0_IIDX_STAT_DMA_DONE_TX,
+    DL_UART_IIDX_DMA_DONE_TX = UART_CPU_INT_IIDX_STAT_DMA_DONE_TX,
     /*! UART interrupt index for DMA done on receive */
-    DL_UART_IIDX_DMA_DONE_RX = UART_INT_EVENT0_IIDX_STAT_DMA_DONE_RX,
+    DL_UART_IIDX_DMA_DONE_RX = UART_CPU_INT_IIDX_STAT_DMA_DONE_RX,
     /*! UART interrupt index for clear to send */
-    DL_UART_IIDX_CTS_DONE = UART_INT_EVENT0_IIDX_STAT_CTS,
+    DL_UART_IIDX_CTS_DONE = UART_CPU_INT_IIDX_STAT_CTS,
     /*! UART interrupt index for 9-bit mode address match */
-    DL_UART_IIDX_ADDRESS_MATCH = UART_INT_EVENT0_IIDX_STAT_MODE_9B,
+    DL_UART_IIDX_ADDRESS_MATCH = UART_CPU_INT_IIDX_STAT_MODE_9B,
     /*! UART interrupt index for end of transmission */
-    DL_UART_IIDX_EOT_DONE = UART_INT_EVENT0_IIDX_STAT_EOT,
+    DL_UART_IIDX_EOT_DONE = UART_CPU_INT_IIDX_STAT_EOT,
     /*! UART interrupt index for UART transmit */
-    DL_UART_IIDX_TX = UART_INT_EVENT0_IIDX_STAT_TXIFG,
+    DL_UART_IIDX_TX = UART_CPU_INT_IIDX_STAT_TXIFG,
     /*! UART interrupt index for UART receive */
-    DL_UART_IIDX_RX = UART_INT_EVENT0_IIDX_STAT_RXIFG,
+    DL_UART_IIDX_RX = UART_CPU_INT_IIDX_STAT_RXIFG,
     /*! UART interrupt index for LIN hardware counter overflow */
-    DL_UART_IIDX_LIN_COUNTER_OVERFLOW = UART_INT_EVENT0_IIDX_STAT_LINOVF,
+    DL_UART_IIDX_LIN_COUNTER_OVERFLOW = UART_CPU_INT_IIDX_STAT_LINOVF,
     /*! UART interrupt index for LIN rising edge LINC1 */
-    DL_UART_IIDX_LIN_RISING_EDGE = UART_INT_EVENT0_IIDX_STAT_LINC1,
+    DL_UART_IIDX_LIN_RISING_EDGE = UART_CPU_INT_IIDX_STAT_LINC1,
     /*! UART interrupt index for LIN falling edge LINC0 */
-    DL_UART_IIDX_LIN_FALLING_EDGE = UART_INT_EVENT0_IIDX_STAT_LINC0,
+    DL_UART_IIDX_LIN_FALLING_EDGE = UART_CPU_INT_IIDX_STAT_LINC0,
     /*! UART interrupt index for positive edge on UARTxRXD */
-    DL_UART_IIDX_RXD_POS_EDGE = UART_INT_EVENT0_IIDX_STAT_RXPE,
+    DL_UART_IIDX_RXD_POS_EDGE = UART_CPU_INT_IIDX_STAT_RXPE,
     /*! UART interrupt index for negative edge on UARTxRXD */
-    DL_UART_IIDX_RXD_NEG_EDGE = UART_INT_EVENT0_IIDX_STAT_RXNE,
+    DL_UART_IIDX_RXD_NEG_EDGE = UART_CPU_INT_IIDX_STAT_RXNE,
     /*! UART interrupt index for overrun error */
-    DL_UART_IIDX_OVERRUN_ERROR = UART_INT_EVENT0_IIDX_STAT_OEFG,
+    DL_UART_IIDX_OVERRUN_ERROR = UART_CPU_INT_IIDX_STAT_OEFG,
     /*! UART interrupt index for break error */
-    DL_UART_IIDX_BREAK_ERROR = UART_INT_EVENT0_IIDX_STAT_BEFG,
+    DL_UART_IIDX_BREAK_ERROR = UART_CPU_INT_IIDX_STAT_BEFG,
     /*! UART interrupt index for parity error */
-    DL_UART_IIDX_PARITY_ERROR = UART_INT_EVENT0_IIDX_STAT_PEFG,
+    DL_UART_IIDX_PARITY_ERROR = UART_CPU_INT_IIDX_STAT_PEFG,
     /*! UART interrupt index for framing error */
-    DL_UART_IIDX_FRAMING_ERROR = UART_INT_EVENT0_IIDX_STAT_FEFG,
+    DL_UART_IIDX_FRAMING_ERROR = UART_CPU_INT_IIDX_STAT_FEFG,
     /*! UART interrupt index for receive timeout */
-    DL_UART_IIDX_RX_TIMEOUT_ERROR = UART_INT_EVENT0_IIDX_STAT_RTFG,
+    DL_UART_IIDX_RX_TIMEOUT_ERROR = UART_CPU_INT_IIDX_STAT_RTFG,
 
 
     /*! UART interrupt index for noise error */
-    DL_UART_IIDX_NOISE_ERROR = UART_INT_EVENT0_IIDX_STAT_NERR_EVT,
+    DL_UART_IIDX_NOISE_ERROR = UART_CPU_INT_IIDX_STAT_NERR_EVT,
 
 
     /*! UART interrupt index for no interrupt */
-    DL_UART_IIDX_NO_INTERRUPT = UART_INT_EVENT0_IIDX_STAT_NO_INTR
+    DL_UART_IIDX_NO_INTERRUPT = UART_CPU_INT_IIDX_STAT_NO_INTR
 } DL_UART_IIDX;
 
 /*! @enum DL_UART_DMA_IIDX_RX */
 typedef enum {
     /*! UART interrupt index for enabling UART receive as DMA trigger */
-    DL_UART_DMA_IIDX_RX_TRIGGER = UART_INT_EVENT1_IIDX_STAT_RXIFG,
+    DL_UART_DMA_IIDX_RX_TRIGGER = UART_DMA_TRIG_RX_IIDX_STAT_RXIFG,
     /*! UART interrupt index for enabling UART receive timeout as DMA trigger */
-    DL_UART_DMA_IIDX_RX_TIMEOUT_TRIGGER = UART_INT_EVENT1_IIDX_STAT_RTFG
+    DL_UART_DMA_IIDX_RX_TIMEOUT_TRIGGER = UART_DMA_TRIG_RX_IIDX_STAT_RTFG
 } DL_UART_DMA_IIDX_RX;
 
 /*! @enum DL_UART_DMA_IIDX_TX */
 typedef enum {
     /*! UART interrupt index for enabling UART transmit as DMA trigger */
-    DL_UART_DMA_IIDX_TX_TRIGGER = UART_INT_EVENT2_IIDX_STAT_TXIFG
+    DL_UART_DMA_IIDX_TX_TRIGGER = UART_DMA_TRIG_TX_IIDX_STAT_TXIFG
 } DL_UART_DMA_IIDX_TX;
 
 /** @addtogroup DL_UART_DMA_INTERRUPT_RX
@@ -240,19 +240,19 @@ typedef enum {
 /*!
  * @brief UART interrupt for enabling UART receive as DMA trigger
  */
-#define DL_UART_DMA_INTERRUPT_RX              (UART_INT_EVENT1_IMASK_RXINT_SET)
+#define DL_UART_DMA_INTERRUPT_RX              (UART_DMA_TRIG_RX_IMASK_RXINT_SET)
 
 /*!
  * @brief UART interrupt for enabling UART receive timeout as DMA trigger
  */
-#define DL_UART_DMA_INTERRUPT_RX_TIMEOUT      (UART_INT_EVENT1_IMASK_RTOUT_SET)
+#define DL_UART_DMA_INTERRUPT_RX_TIMEOUT      (UART_DMA_TRIG_RX_IMASK_RTOUT_SET)
 
 /** @}*/
 
 /*!
  * @brief UART interrupt for enabling UART transmit as DMA trigger
  */
-#define DL_UART_DMA_INTERRUPT_TX              (UART_INT_EVENT2_IMASK_TXINT_SET)
+#define DL_UART_DMA_INTERRUPT_TX              (UART_DMA_TRIG_TX_IMASK_TXINT_SET)
 
 /** @addtogroup DL_UART_ERROR
  *  @{
@@ -270,7 +270,7 @@ typedef enum {
 /*!
  * @brief Parity error ocurred
  */
-#define DL_UART_ERROR_PARITY                           (UART_RXDATA_BRKERR_SET)
+#define DL_UART_ERROR_PARITY                           (UART_RXDATA_PARERR_SET)
 
 /*!
  * @brief Framing error ocurred
@@ -460,22 +460,42 @@ typedef enum {
 /*! @enum DL_UART_CLOCK_DIVIDE_RATIO */
 typedef enum {
     /*! UART source clock divide ratio set to 1 */
-    DL_UART_CLOCK_DIVIDE_RATIO_1 = UART_CLKDIV2_RATIO_DIV_BY_1,
+    DL_UART_CLOCK_DIVIDE_RATIO_1 = UART_CLKDIV_RATIO_DIV_BY_1,
     /*! UART source clock divide ratio set to 2 */
-    DL_UART_CLOCK_DIVIDE_RATIO_2 = UART_CLKDIV2_RATIO_DIV_BY_2,
+    DL_UART_CLOCK_DIVIDE_RATIO_2 = UART_CLKDIV_RATIO_DIV_BY_2,
     /*! UART source clock divide ratio set to 3 */
-    DL_UART_CLOCK_DIVIDE_RATIO_3 = UART_CLKDIV2_RATIO_DIV_BY_3,
+    DL_UART_CLOCK_DIVIDE_RATIO_3 = UART_CLKDIV_RATIO_DIV_BY_3,
     /*! UART source clock divide ratio set to 4 */
-    DL_UART_CLOCK_DIVIDE_RATIO_4 = UART_CLKDIV2_RATIO_DIV_BY_4,
+    DL_UART_CLOCK_DIVIDE_RATIO_4 = UART_CLKDIV_RATIO_DIV_BY_4,
     /*! UART source clock divide ratio set to 5 */
-    DL_UART_CLOCK_DIVIDE_RATIO_5 = UART_CLKDIV2_RATIO_DIV_BY_5,
+    DL_UART_CLOCK_DIVIDE_RATIO_5 = UART_CLKDIV_RATIO_DIV_BY_5,
     /*! UART source clock divide ratio set to 6 */
-    DL_UART_CLOCK_DIVIDE_RATIO_6 = UART_CLKDIV2_RATIO_DIV_BY_6,
+    DL_UART_CLOCK_DIVIDE_RATIO_6 = UART_CLKDIV_RATIO_DIV_BY_6,
     /*! UART source clock divide ratio set to 7 */
-    DL_UART_CLOCK_DIVIDE_RATIO_7 = UART_CLKDIV2_RATIO_DIV_BY_7,
+    DL_UART_CLOCK_DIVIDE_RATIO_7 = UART_CLKDIV_RATIO_DIV_BY_7,
     /*! UART source clock divide ratio set to 8 */
-    DL_UART_CLOCK_DIVIDE_RATIO_8 = UART_CLKDIV2_RATIO_DIV_BY_8
+    DL_UART_CLOCK_DIVIDE_RATIO_8 = UART_CLKDIV_RATIO_DIV_BY_8
 } DL_UART_CLOCK_DIVIDE_RATIO;
+
+/*! @enum DL_UART_CLOCK_DIVIDE2_RATIO */
+typedef enum {
+    /*! UART source clock divide 2 ratio set to 1 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_1 = UART_CLKDIV2_RATIO_DIV_BY_1,
+    /*! UART source clock divide 2 ratio set to 2 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_2 = UART_CLKDIV2_RATIO_DIV_BY_2,
+    /*! UART source clock divide 2 ratio set to 3 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_3 = UART_CLKDIV2_RATIO_DIV_BY_3,
+    /*! UART source clock divide 2 ratio set to 4 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_4 = UART_CLKDIV2_RATIO_DIV_BY_4,
+    /*! UART source clock divide 2 ratio set to 5 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_5 = UART_CLKDIV2_RATIO_DIV_BY_5,
+    /*! UART source clock divide 2 ratio set to 6 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_6 = UART_CLKDIV2_RATIO_DIV_BY_6,
+    /*! UART source clock divide 2 ratio set to 7 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_7 = UART_CLKDIV2_RATIO_DIV_BY_7,
+    /*! UART source clock divide 2 ratio set to 8 */
+    DL_UART_CLOCK_DIVIDE2_RATIO_8 = UART_CLKDIV2_RATIO_DIV_BY_8
+} DL_UART_CLOCK_DIVIDE2_RATIO;
 
 /* clang-format on */
 
@@ -1936,6 +1956,42 @@ __STATIC_INLINE void DL_UART_setBaudRateDivisor(
 }
 
 /**
+ *  @brief      Set the baud rate divisor for IrDA mode
+ *
+ *  Set the integer baud rate divisor and fractional baud rate divisor
+ *  components of the baud rate divisor
+ *  Divide integerDivisor by clkDivisor2 + 1 as a way of reducing the UART
+ *  clock frequency, which in turn reduces the baud rate divisor further
+ *  in accordance to IrDA standards
+ *
+ *  @param[in]  uart               Pointer to the register overlay for the
+ *                                 peripheral
+ *  @param[in]  integerDivisor     The integer component of the baud rate
+ *                                 divisor
+ *  @param[in]  fractionalDivisor  The fractional component of the baud rate
+ *                                 divisor
+ *  @param[in]  clkDivisor2        The additional factor to divide the clock,
+ *                                 One of @ref DL_UART_CLOCK_DIVIDE2_RATIO
+ *
+ */
+__STATIC_INLINE void DL_UART_setIrDABaudRateDivisor(UART_Regs *uart,
+    uint32_t integerDivisor, uint32_t fractionalDivisor,
+    DL_UART_CLOCK_DIVIDE2_RATIO clkDivisor2)
+{
+    DL_Common_updateReg(&uart->IBRD,
+        (integerDivisor / ((uint32_t) clkDivisor2 + 1)),
+        UART_IBRD_DIVINT_MASK);
+    DL_Common_updateReg(
+        &uart->FBRD, fractionalDivisor, UART_FBRD_DIVFRAC_MASK);
+
+    // When updating the baud-rate divisor (UARTIBRD or UARTIFRD),
+    // the LCRH register must also be written to (any bit in LCRH can
+    // be written to for updating the baud-rate divisor).
+    DL_Common_updateReg(
+        &uart->LCRH, (uart->LCRH & UART_LCRH_BRK_MASK), UART_LCRH_BRK_MASK);
+}
+
+/**
  *  @brief      Set the pulse width select for the digital glitch suppresion
  *
  *  Controls the pulse width select for glitch suppression on the RX line.
@@ -2660,7 +2716,7 @@ __STATIC_INLINE uint32_t DL_UART_getAddress(UART_Regs *uart)
 __STATIC_INLINE void DL_UART_enableInterrupt(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    uart->INT_EVENT0.IMASK |= interruptMask;
+    uart->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -2674,7 +2730,7 @@ __STATIC_INLINE void DL_UART_enableInterrupt(
 __STATIC_INLINE void DL_UART_disableInterrupt(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    uart->INT_EVENT0.IMASK &= ~(interruptMask);
+    uart->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -2692,7 +2748,7 @@ __STATIC_INLINE void DL_UART_disableInterrupt(
 __STATIC_INLINE uint32_t DL_UART_getEnabledInterrupts(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT0.IMASK & interruptMask);
+    return (uart->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -2715,7 +2771,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_UART_getEnabledInterruptStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT0.MIS & interruptMask);
+    return (uart->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -2736,7 +2792,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_UART_getRawInterruptStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT0.RIS & interruptMask);
+    return (uart->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -2754,7 +2810,7 @@ __STATIC_INLINE uint32_t DL_UART_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_UART_IIDX DL_UART_getPendingInterrupt(UART_Regs *uart)
 {
-    return (DL_UART_IIDX)(uart->INT_EVENT0.IIDX);
+    return (DL_UART_IIDX)(uart->CPU_INT.IIDX);
 }
 
 /**
@@ -2768,7 +2824,7 @@ __STATIC_INLINE DL_UART_IIDX DL_UART_getPendingInterrupt(UART_Regs *uart)
 __STATIC_INLINE void DL_UART_clearInterruptStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    uart->INT_EVENT0.ICLR = interruptMask;
+    uart->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -3020,7 +3076,7 @@ uint32_t DL_UART_fillTXFIFO(UART_Regs *uart, uint8_t *buffer, uint32_t count);
  *  @brief      Enable UART interrupt for triggering the DMA receive event
  *
  * Enables the UART interrupt to be used as the condition to generate an
- * event to directly trigger the DMA. This API configures the INT_EVENT1
+ * event to directly trigger the DMA. This API configures the DMA_TRIG_RX
  * register, which is the event publisher used for triggering the DMA to do
  * a receive data transfer.
  *
@@ -3034,32 +3090,32 @@ uint32_t DL_UART_fillTXFIFO(UART_Regs *uart, uint8_t *buffer, uint32_t count);
 __STATIC_INLINE void DL_UART_enableDMAReceiveEvent(
     UART_Regs *uart, uint32_t interrupt)
 {
-    uart->INT_EVENT1.IMASK = interrupt;
+    uart->DMA_TRIG_RX.IMASK = interrupt;
 }
 
 /**
  *  @brief      Enable UART interrupt for triggering the DMA transmit event
  *
  * Enables the UART interrupt to be used as the condition to generate an
- * event to directly trigger the DMA. This API configures the INT_EVENT2
+ * event to directly trigger the DMA. This API configures the DMA_TRIG_TX
  * register, which is the event publisher used for triggering the DMA to do
  * a transmit data transfer.
  *
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  *
  *  @param[in]  uart       Pointer to the register overlay for the
  *                         peripheral
  */
 __STATIC_INLINE void DL_UART_enableDMATransmitEvent(UART_Regs *uart)
 {
-    uart->INT_EVENT2.IMASK = UART_INT_EVENT2_IMASK_TXINT_SET;
+    uart->DMA_TRIG_TX.IMASK = UART_DMA_TRIG_TX_IMASK_TXINT_SET;
 }
 
 /**
  *  @brief      Disables UART interrupt from triggering the DMA receive event
  *
  * Disables the UART interrupt as the condition to generate an event to
- * directly trigger the DMA. This API configures the INT_EVENT1
+ * directly trigger the DMA. This API configures the DMA_TRIG_RX
  * register, which is the event publisher used for triggering the DMA to do
  * a receive data transfer.
  *
@@ -3071,31 +3127,31 @@ __STATIC_INLINE void DL_UART_enableDMATransmitEvent(UART_Regs *uart)
 __STATIC_INLINE void DL_UART_disableDMAReceiveEvent(
     UART_Regs *uart, uint32_t interrupt)
 {
-    uart->INT_EVENT1.IMASK &= ~(interrupt);
+    uart->DMA_TRIG_RX.IMASK &= ~(interrupt);
 }
 
 /**
  *  @brief      Disables UART interrupt from triggering the DMA transmit event
  *
  * Disables the UART interrupt as the condition to generate an event to
- * directly trigger the DMA. This API configures the INT_EVENT2
+ * directly trigger the DMA. This API configures the DMA_TRIG_TX
  * register, which is the event publisher used for triggering the DMA to do
  * a transmit data transfer.
  *
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  *
  *  @param[in]  uart       Pointer to the register overlay for the
  *                         peripheral
  */
 __STATIC_INLINE void DL_UART_disableDMATransmitEvent(UART_Regs *uart)
 {
-    uart->INT_EVENT2.IMASK = UART_INT_EVENT2_IMASK_TXINT_CLR;
+    uart->DMA_TRIG_TX.IMASK = UART_DMA_TRIG_TX_IMASK_TXINT_CLR;
 }
 
 /**
  *  @brief      Check which UART interrupt for DMA receive events is enabled
  *
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3110,13 +3166,13 @@ __STATIC_INLINE void DL_UART_disableDMATransmitEvent(UART_Regs *uart)
 __STATIC_INLINE uint32_t DL_UART_getEnabledDMAReceiveEvent(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT1.IMASK & interruptMask);
+    return (uart->DMA_TRIG_RX.IMASK & interruptMask);
 }
 
 /**
  *  @brief      Check if UART interrupt for DMA transmit event is enabled
  *
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3128,7 +3184,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMAReceiveEvent(
  */
 __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEvent(UART_Regs *uart)
 {
-    return (uart->INT_EVENT2.IMASK & UART_INT_EVENT2_IMASK_TXINT_MASK);
+    return (uart->DMA_TRIG_TX.IMASK & UART_DMA_TRIG_TX_IMASK_TXINT_MASK);
 }
 
 /**
@@ -3136,7 +3192,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEvent(UART_Regs *uart)
  *
  * Checks if any of the UART interrupts for the DMA receive event that were
  * previously enabled are pending.
- * This API checks the INT_EVENT1 register, which is the event publisher used
+ * This API checks the DMA_TRIG_RX register, which is the event publisher used
  * for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3153,7 +3209,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEvent(UART_Regs *uart)
 __STATIC_INLINE uint32_t DL_UART_getEnabledDMAReceiveEventStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT1.MIS & interruptMask);
+    return (uart->DMA_TRIG_RX.MIS & interruptMask);
 }
 
 /**
@@ -3161,7 +3217,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMAReceiveEventStatus(
  *
  * Checks if the UART interrupt for the DMA transmit event that was
  * previously enabled is pending.
- * This API checks the INT_EVENT2 register, which is the event publisher used
+ * This API checks the DMA_TRIG_TX register, which is the event publisher used
  * for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3176,7 +3232,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMAReceiveEventStatus(
 __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEventStatus(
     UART_Regs *uart)
 {
-    return (uart->INT_EVENT2.MIS & UART_INT_EVENT2_MIS_TXINT_MASK);
+    return (uart->DMA_TRIG_TX.MIS & UART_DMA_TRIG_TX_MIS_TXINT_MASK);
 }
 
 /**
@@ -3184,7 +3240,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEventStatus(
  *
  *  Checks if any of the UART interrupts for DMA receive event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3199,7 +3255,7 @@ __STATIC_INLINE uint32_t DL_UART_getEnabledDMATransmitEventStatus(
 __STATIC_INLINE uint32_t DL_UART_getRawDMAReceiveEventStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    return (uart->INT_EVENT1.RIS & interruptMask);
+    return (uart->DMA_TRIG_RX.RIS & interruptMask);
 }
 
 /**
@@ -3207,7 +3263,7 @@ __STATIC_INLINE uint32_t DL_UART_getRawDMAReceiveEventStatus(
  *
  *  Checks if any of the UART interrupts for DMA transmit event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3219,7 +3275,7 @@ __STATIC_INLINE uint32_t DL_UART_getRawDMAReceiveEventStatus(
  */
 __STATIC_INLINE uint32_t DL_UART_getRawDMATransmitEventStatus(UART_Regs *uart)
 {
-    return (uart->INT_EVENT2.RIS & UART_INT_EVENT2_RIS_TXINT_MASK);
+    return (uart->DMA_TRIG_TX.RIS & UART_DMA_TRIG_TX_RIS_TXINT_MASK);
 }
 
 /**
@@ -3227,7 +3283,7 @@ __STATIC_INLINE uint32_t DL_UART_getRawDMATransmitEventStatus(UART_Regs *uart)
  *
  *  Checks if any of the UART interrupts for DMA receive event are pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *
@@ -3241,7 +3297,7 @@ __STATIC_INLINE uint32_t DL_UART_getRawDMATransmitEventStatus(UART_Regs *uart)
 __STATIC_INLINE DL_UART_DMA_IIDX_RX DL_UART_getPendingDMAReceiveEvent(
     UART_Regs *uart)
 {
-    return (DL_UART_DMA_IIDX_RX)(uart->INT_EVENT1.IIDX);
+    return (DL_UART_DMA_IIDX_RX)(uart->DMA_TRIG_RX.IIDX);
 }
 
 /**
@@ -3249,7 +3305,7 @@ __STATIC_INLINE DL_UART_DMA_IIDX_RX DL_UART_getPendingDMAReceiveEvent(
  *
  *  Checks if the UART interrupt for DMA transmit event is pending.
  *  Interrupts do not have to be previously enabled.
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *
@@ -3263,13 +3319,13 @@ __STATIC_INLINE DL_UART_DMA_IIDX_RX DL_UART_getPendingDMAReceiveEvent(
 __STATIC_INLINE DL_UART_DMA_IIDX_TX DL_UART_getPendingDMATransmitEvent(
     UART_Regs *uart)
 {
-    return (DL_UART_DMA_IIDX_TX)(uart->INT_EVENT2.IIDX);
+    return (DL_UART_DMA_IIDX_TX)(uart->DMA_TRIG_TX.IIDX);
 }
 
 /**
  *  @brief      Clear pending UART interrupts for DMA receive event
  *
- *  This API checks the INT_EVENT1 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_RX register, which is the event publisher used
  *  for triggering the DMA to do a receive data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
@@ -3280,22 +3336,22 @@ __STATIC_INLINE DL_UART_DMA_IIDX_TX DL_UART_getPendingDMATransmitEvent(
 __STATIC_INLINE void DL_UART_clearDMAReceiveEventStatus(
     UART_Regs *uart, uint32_t interruptMask)
 {
-    uart->INT_EVENT1.ICLR = interruptMask;
+    uart->DMA_TRIG_RX.ICLR = interruptMask;
 }
 
 /**
  *  @brief      Clear pending UART interrupt for DMA transmit event
  *
- *  This API checks the INT_EVENT2 register, which is the event publisher used
+ *  This API checks the DMA_TRIG_TX register, which is the event publisher used
  *  for triggering the DMA to do a transmit data transfer.
  *
  *  @param[in]  uart           Pointer to the register overlay for the
  *                             peripheral
- * @note INT_EVENT2 only has one transmit interrupt source
+ * @note DMA_TRIG_TX only has one transmit interrupt source
  */
 __STATIC_INLINE void DL_UART_clearDMATransmitEventStatus(UART_Regs *uart)
 {
-    uart->INT_EVENT2.ICLR = UART_INT_EVENT2_ICLR_TXINT_CLR;
+    uart->DMA_TRIG_TX.ICLR = UART_DMA_TRIG_TX_ICLR_TXINT_CLR;
 }
 
 /*!
@@ -3308,7 +3364,7 @@ __STATIC_INLINE void DL_UART_clearDMATransmitEventStatus(UART_Regs *uart)
  *  @param[in]  ratio   The CLKDIV2 value.  One of @ref DL_UART_CLOCK_DIVIDE_RATIO
  */
 __STATIC_INLINE void DL_UART_setClockDivider2(
-    UART_Regs *uart, DL_UART_CLOCK_DIVIDE_RATIO ratio)
+    UART_Regs *uart, DL_UART_CLOCK_DIVIDE2_RATIO ratio)
 {
     uart->CLKDIV2 = (uint32_t) ratio;
 }
@@ -3323,14 +3379,14 @@ __STATIC_INLINE void DL_UART_setClockDivider2(
  *
  *  @return     The clock divider ratio stored in the CLKDIV2 register
  *
- *  @retval     The CLKDIV2 value.  One of @ref DL_UART_CLOCK_DIVIDE_RATIO
+ *  @retval     The CLKDIV2 value.  One of @ref DL_UART_CLOCK_DIVIDE2_RATIO
  */
 
-__STATIC_INLINE DL_UART_CLOCK_DIVIDE_RATIO DL_UART_getClockDivider2(
+__STATIC_INLINE DL_UART_CLOCK_DIVIDE2_RATIO DL_UART_getClockDivider2(
     UART_Regs *uart)
 {
     uint32_t ratio = uart->CLKDIV2;
-    return (DL_UART_CLOCK_DIVIDE_RATIO) ratio;
+    return (DL_UART_CLOCK_DIVIDE2_RATIO) ratio;
 }
 #ifdef __MSPM0_HAS_UART_MAIN__
 

@@ -246,10 +246,10 @@ bool DL_AES_saveConfiguration(AES_Regs *aes, DL_AES_backupConfig *ptr)
     if (stateSaved) {
         ptr->controlWord0   = aes->AESACTL0;
         ptr->controlWord1   = aes->AESACTL1;
-        ptr->interruptMask0 = aes->INT_EVENT0.IMASK;
-        ptr->interruptMask1 = aes->INT_EVENT1.IMASK;
-        ptr->interruptMask2 = aes->INT_EVENT2.IMASK;
-        ptr->interruptMask3 = aes->INT_EVENT3.IMASK;
+        ptr->interruptMask0 = aes->CPU_INT.IMASK;
+        ptr->interruptMask1 = aes->DMA_TRIG0.IMASK;
+        ptr->interruptMask2 = aes->DMA_TRIG1.IMASK;
+        ptr->interruptMask3 = aes->DMA_TRIG2.IMASK;
         ptr->backupRdy      = true;
     }
     return stateSaved;
@@ -259,13 +259,13 @@ bool DL_AES_restoreConfiguration(AES_Regs *aes, DL_AES_backupConfig *ptr)
 {
     bool stateRestored = ptr->backupRdy;
     if (stateRestored) {
-        aes->AESACTL0         = ptr->controlWord0;
-        aes->AESACTL1         = ptr->controlWord1;
-        aes->INT_EVENT0.IMASK = ptr->interruptMask0;
-        aes->INT_EVENT1.IMASK = ptr->interruptMask1;
-        aes->INT_EVENT2.IMASK = ptr->interruptMask2;
-        aes->INT_EVENT3.IMASK = ptr->interruptMask3;
-        ptr->backupRdy        = false;
+        aes->AESACTL0        = ptr->controlWord0;
+        aes->AESACTL1        = ptr->controlWord1;
+        aes->CPU_INT.IMASK   = ptr->interruptMask0;
+        aes->DMA_TRIG0.IMASK = ptr->interruptMask1;
+        aes->DMA_TRIG1.IMASK = ptr->interruptMask2;
+        aes->DMA_TRIG2.IMASK = ptr->interruptMask3;
+        ptr->backupRdy       = false;
     }
     return stateRestored;
 }

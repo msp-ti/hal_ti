@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_mcan__include
 #define ti_devices_msp_peripherals_hw_mcan__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspmcan */
-/* MMR revision: 0aa0003673c0a3f3b184d31a8f6c1e9573e69c15 */
-/* Generator revision: 77992b62fb4e9926f5a9143aae1e89fec6a84738
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_mcan.h */
+/* Revised: 2023-06-13 16:25:08 */
+/* Revision: 80c507b5f57e662daefb523742741547f0b08eb5 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,7 +68,7 @@
 /******************************************************************************
 * MCAN Registers
 ******************************************************************************/
-#define MCAN_INT_EVENT0_OFS                      ((uint32_t)0x00007820U)
+#define MCAN_CPU_INT_OFS                         ((uint32_t)0x00007820U)
 #define MCAN_MSP_OFS                             ((uint32_t)0x00007800U)
 #define MCAN_ECC_REGS_OFS                        ((uint32_t)0x00007400U)
 #define MCAN_REGS_OFS                            ((uint32_t)0x00007200U)
@@ -80,7 +78,7 @@
 #define MCAN_MCANSS_OFS                          ((uint32_t)0x00006000U)
 
 
-/** @addtogroup MCAN_INT_EVENT0
+/** @addtogroup MCAN_CPU_INT
   @{
 */
 
@@ -96,9 +94,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00007840) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00007848) Interrupt clear */
-} MCAN_INT_EVENT0_Regs;
+} MCAN_CPU_INT_Regs;
 
-/*@}*/ /* end of group MCAN_INT_EVENT0 */
+/*@}*/ /* end of group MCAN_CPU_INT */
 
 /** @addtogroup MCAN_MSP
   @{
@@ -106,7 +104,7 @@ typedef struct {
 
 typedef struct {
        uint32_t RESERVED0[8];
-  MCAN_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00007820) */
+  MCAN_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00007820) */
        uint32_t RESERVED1[37];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000078E0) Event Mode */
        uint32_t RESERVED2[6];
@@ -1299,16 +1297,17 @@ typedef struct {
 #define MCAN_DBTP_TDC_MASK                       ((uint32_t)0x00800000U)         /* !< Transmitter Delay Compensation   0
                                                                                     Transmitter Delay Compensation
                                                                                     disabled   1  Transmitter Delay
-                                                                                    Compensation enabled   +I107 */
+                                                                                    Compensation enabled */
 
 /* MCAN_TEST Bits */
 /* MCAN_TEST[LBCK] Bits */
 #define MCAN_TEST_LBCK_OFS                       (4)                             /* !< LBCK Offset */
-#define MCAN_TEST_LBCK_MASK                      ((uint32_t)0x00000010U)         /* !< Loop Back Mode   0  Reset value,
-                                                                                    Loop Back Mode is disabled   1  Loop
-                                                                                    Back Mode is enabled   Qualified
-                                                                                    Write is possible only with
-                                                                                    CCCR.CCE='1' and CCCR.INIT='1'. */
+#define MCAN_TEST_LBCK_MASK                      ((uint32_t)0x00000010U)         /* !< Loop Back Mode. Qualified Write is
+                                                                                    possible only with CCCR.CCE='1' and
+                                                                                    CCCR.INIT='1'. */
+#define MCAN_TEST_LBCK_DISABLE                   ((uint32_t)0x00000000U)         /* !< Reset value, Loop Back Mode is
+                                                                                    disabled */
+#define MCAN_TEST_LBCK_ENABLE                    ((uint32_t)0x00000010U)         /* !< Loop Back Mode is enabled */
 /* MCAN_TEST[TX] Bits */
 #define MCAN_TEST_TX_OFS                         (5)                             /* !< TX Offset */
 #define MCAN_TEST_TX_MASK                        ((uint32_t)0x00000060U)         /* !< Control of Transmit Pin   00  CAN
@@ -1323,10 +1322,11 @@ typedef struct {
 /* MCAN_TEST[RX] Bits */
 #define MCAN_TEST_RX_OFS                         (7)                             /* !< RX Offset */
 #define MCAN_TEST_RX_MASK                        ((uint32_t)0x00000080U)         /* !< Receive Pin. Monitors the actual
-                                                                                    value of the CAN receive pin.   0
-                                                                                    The CAN bus is dominant (CAN RX pin =
-                                                                                    '0')   1  The CAN bus is recessive
-                                                                                    (CAN RX pin = '1') */
+                                                                                    value of the CAN receive pin. */
+#define MCAN_TEST_RX_DOMINANT                    ((uint32_t)0x00000000U)         /* !< The CAN bus is dominant (CAN RX pin
+                                                                                    = '0') */
+#define MCAN_TEST_RX_RECESSIVE                   ((uint32_t)0x00000080U)         /* !< The CAN bus is recessive (CAN RX
+                                                                                    pin = '1') */
 
 /* MCAN_RWD Bits */
 /* MCAN_RWD[WDC] Bits */

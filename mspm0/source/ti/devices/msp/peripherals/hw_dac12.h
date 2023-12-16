@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-  Copyright (C) 2022 Texas Instruments Incorporated - http://www.ti.com/
+  Copyright (C) 2023 Texas Instruments Incorporated - http://www.ti.com/
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_dac12__include
 #define ti_devices_msp_peripherals_hw_dac12__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspdac12 */
-/* MMR revision: 5a82fd1847da9a6342331da97931e2d269c2ba99 */
-/* Generator revision: b581896b67084e57bafba0cd5bf5aa0fc4c1ca1a
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_dac12.h */
+/* Revised: 2023-05-23 20:53:14 */
+/* Revision: ca7bbc3215c1e62bd43f32ecfdd7c7ce7f9b65b3 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -70,11 +68,32 @@
 /******************************************************************************
 * DAC12 Registers
 ******************************************************************************/
-#define DAC12_INT_EVENT_OFS                      ((uint32_t)0x00001020U)
+#define DAC12_GEN_EVENT_OFS                      ((uint32_t)0x00001050U)
+#define DAC12_CPU_INT_OFS                        ((uint32_t)0x00001020U)
 #define DAC12_GPRCM_OFS                          ((uint32_t)0x00000800U)
 
 
-/** @addtogroup DAC12_INT_EVENT
+/** @addtogroup DAC12_GEN_EVENT
+  @{
+*/
+
+typedef struct {
+  __I  uint32_t IIDX;                              /* !< (@ 0x00001050) Interrupt index */
+       uint32_t RESERVED0;
+  __IO uint32_t IMASK;                             /* !< (@ 0x00001058) Interrupt mask */
+       uint32_t RESERVED1;
+  __I  uint32_t RIS;                               /* !< (@ 0x00001060) Raw interrupt status */
+       uint32_t RESERVED2;
+  __I  uint32_t MIS;                               /* !< (@ 0x00001068) Masked interrupt status */
+       uint32_t RESERVED3;
+  __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
+       uint32_t RESERVED4;
+  __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
+} DAC12_GEN_EVENT_Regs;
+
+/*@}*/ /* end of group DAC12_GEN_EVENT */
+
+/** @addtogroup DAC12_CPU_INT
   @{
 */
 
@@ -90,10 +109,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-       uint32_t RESERVED5;
-} DAC12_INT_EVENT_Regs;
+} DAC12_CPU_INT_Regs;
 
-/*@}*/ /* end of group DAC12_INT_EVENT */
+/*@}*/ /* end of group DAC12_CPU_INT */
 
 /** @addtogroup DAC12_GPRCM
   @{
@@ -115,29 +133,30 @@ typedef struct {
 typedef struct {
        uint32_t RESERVED0[256];
   __IO uint32_t FSUB_0;                            /* !< (@ 0x00000400) Subscriber Port 0 */
-  __IO uint32_t FSUB_1;                            /* !< (@ 0x00000404) Subscriber Port 1 */
-       uint32_t RESERVED1[15];
+       uint32_t RESERVED1[16];
   __IO uint32_t FPUB_1;                            /* !< (@ 0x00000444) Publisher port 1 */
        uint32_t RESERVED2[238];
   DAC12_GPRCM_Regs  GPRCM;                             /* !< (@ 0x00000800) */
        uint32_t RESERVED3[514];
-  DAC12_INT_EVENT_Regs  INT_EVENT[2];                      /* !< (@ 0x00001020) */
-       uint32_t RESERVED4[24];
+  DAC12_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
+       uint32_t RESERVED4;
+  DAC12_GEN_EVENT_Regs  GEN_EVENT;                         /* !< (@ 0x00001050) */
+       uint32_t RESERVED5[25];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
-       uint32_t RESERVED5[6];
+       uint32_t RESERVED6[6];
   __I  uint32_t DESC;                              /* !< (@ 0x000010FC) Module Description */
   __IO uint32_t CTL0;                              /* !< (@ 0x00001100) Control 0 */
-       uint32_t RESERVED6[3];
-  __IO uint32_t CTL1;                              /* !< (@ 0x00001110) Control 1 */
        uint32_t RESERVED7[3];
-  __IO uint32_t CTL2;                              /* !< (@ 0x00001120) Control 2 */
+  __IO uint32_t CTL1;                              /* !< (@ 0x00001110) Control 1 */
        uint32_t RESERVED8[3];
-  __IO uint32_t CTL3;                              /* !< (@ 0x00001130) Control 3 */
+  __IO uint32_t CTL2;                              /* !< (@ 0x00001120) Control 2 */
        uint32_t RESERVED9[3];
+  __IO uint32_t CTL3;                              /* !< (@ 0x00001130) Control 3 */
+       uint32_t RESERVED10[3];
   __IO uint32_t CALCTL;                            /* !< (@ 0x00001140) Calibration control */
-       uint32_t RESERVED10[7];
+       uint32_t RESERVED11[7];
   __I  uint32_t CALDATA;                           /* !< (@ 0x00001160) Calibration data */
-       uint32_t RESERVED11[39];
+       uint32_t RESERVED12[39];
   __IO uint32_t DATA0;                             /* !< (@ 0x00001200) Data 0 */
 } DAC12_Regs;
 
@@ -153,294 +172,584 @@ typedef struct {
 * DAC12 Register Control Bits
 ******************************************************************************/
 
-/* DAC12_IIDX Bits */
-/* DAC12_IIDX[STAT] Bits */
-#define DAC12_IIDX_STAT_OFS                      (0)                             /* !< STAT Offset */
-#define DAC12_IIDX_STAT_MASK                     ((uint32_t)0x0000000FU)         /* !< Interrupt index status */
-#define DAC12_IIDX_STAT_NO_INTR                  ((uint32_t)0x00000000U)         /* !< No pending interrupt */
-#define DAC12_IIDX_STAT_MODRDYIFG                ((uint32_t)0x00000002U)         /* !< Module ready interrupt */
-#define DAC12_IIDX_STAT_FIFOFULLIFG              ((uint32_t)0x00000009U)         /* !< FIFO full interrupt */
-#define DAC12_IIDX_STAT_FIFO1B4IFG               ((uint32_t)0x0000000AU)         /* !< FIFO one fourth empty interrupt */
-#define DAC12_IIDX_STAT_FIFO1B2IFG               ((uint32_t)0x0000000BU)         /* !< FIFO half empty interrupt */
-#define DAC12_IIDX_STAT_FIFO3B4IFG               ((uint32_t)0x0000000CU)         /* !< FIFO three fourth empty interrupt */
-#define DAC12_IIDX_STAT_FIFOEMPTYIFG             ((uint32_t)0x0000000DU)         /* !< FIFO empty interrupt */
-#define DAC12_IIDX_STAT_FIFOURUNIFG              ((uint32_t)0x0000000EU)         /* !< FIFO underrun interrupt */
-#define DAC12_IIDX_STAT_DMADONEIFG               ((uint32_t)0x0000000FU)         /* !< DMA done interrupt */
+/* DAC12_GEN_EVENT_IIDX Bits */
+/* DAC12_GEN_EVENT_IIDX[STAT] Bits */
+#define DAC12_GEN_EVENT_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define DAC12_GEN_EVENT_IIDX_STAT_MASK           ((uint32_t)0x0000000FU)         /* !< Interrupt index status */
+#define DAC12_GEN_EVENT_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No pending interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_MODRDYIFG      ((uint32_t)0x00000002U)         /* !< Module ready interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFOFULLIFG    ((uint32_t)0x00000009U)         /* !< FIFO full interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFO1B4IFG     ((uint32_t)0x0000000AU)         /* !< FIFO one fourth empty interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFO1B2IFG     ((uint32_t)0x0000000BU)         /* !< FIFO half empty interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFO3B4IFG     ((uint32_t)0x0000000CU)         /* !< FIFO three fourth empty interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFOEMPTYIFG   ((uint32_t)0x0000000DU)         /* !< FIFO empty interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_FIFOURUNIFG    ((uint32_t)0x0000000EU)         /* !< FIFO underrun interrupt */
+#define DAC12_GEN_EVENT_IIDX_STAT_DMADONEIFG     ((uint32_t)0x0000000FU)         /* !< DMA done interrupt */
 
-/* DAC12_IMASK Bits */
-/* DAC12_IMASK[MODRDYIFG] Bits */
-#define DAC12_IMASK_MODRDYIFG_OFS                (1)                             /* !< MODRDYIFG Offset */
-#define DAC12_IMASK_MODRDYIFG_MASK               ((uint32_t)0x00000002U)         /* !< Masks MODRDYIFG */
-#define DAC12_IMASK_MODRDYIFG_CLR                ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_MODRDYIFG_SET                ((uint32_t)0x00000002U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK Bits */
+/* DAC12_GEN_EVENT_IMASK[MODRDYIFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_MODRDYIFG_OFS      (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_GEN_EVENT_IMASK_MODRDYIFG_MASK     ((uint32_t)0x00000002U)         /* !< Masks MODRDYIFG */
+#define DAC12_GEN_EVENT_IMASK_MODRDYIFG_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_MODRDYIFG_SET      ((uint32_t)0x00000002U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFO1B2IFG] Bits */
-#define DAC12_IMASK_FIFO1B2IFG_OFS               (10)                            /* !< FIFO1B2IFG Offset */
-#define DAC12_IMASK_FIFO1B2IFG_MASK              ((uint32_t)0x00000400U)         /* !< Masks FIFO1B2IFG */
-#define DAC12_IMASK_FIFO1B2IFG_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFO1B2IFG_SET               ((uint32_t)0x00000400U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFO1B2IFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_OFS     (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_MASK    ((uint32_t)0x00000400U)         /* !< Masks FIFO1B2IFG */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_CLR     ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B2IFG_SET     ((uint32_t)0x00000400U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFOEMPTYIFG] Bits */
-#define DAC12_IMASK_FIFOEMPTYIFG_OFS             (12)                            /* !< FIFOEMPTYIFG Offset */
-#define DAC12_IMASK_FIFOEMPTYIFG_MASK            ((uint32_t)0x00001000U)         /* !< Masks FIFOEMPTYIFG */
-#define DAC12_IMASK_FIFOEMPTYIFG_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFOEMPTYIFG_SET             ((uint32_t)0x00001000U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFOEMPTYIFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_OFS   (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_MASK  ((uint32_t)0x00001000U)         /* !< Masks FIFOEMPTYIFG */
+#define DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_CLR   ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFOEMPTYIFG_SET   ((uint32_t)0x00001000U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFO1B4IFG] Bits */
-#define DAC12_IMASK_FIFO1B4IFG_OFS               (9)                             /* !< FIFO1B4IFG Offset */
-#define DAC12_IMASK_FIFO1B4IFG_MASK              ((uint32_t)0x00000200U)         /* !< Masks FIFO1B4IFG */
-#define DAC12_IMASK_FIFO1B4IFG_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFO1B4IFG_SET               ((uint32_t)0x00000200U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFO1B4IFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_OFS     (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_MASK    ((uint32_t)0x00000200U)         /* !< Masks FIFO1B4IFG */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_CLR     ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFO1B4IFG_SET     ((uint32_t)0x00000200U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFO3B4IFG] Bits */
-#define DAC12_IMASK_FIFO3B4IFG_OFS               (11)                            /* !< FIFO3B4IFG Offset */
-#define DAC12_IMASK_FIFO3B4IFG_MASK              ((uint32_t)0x00000800U)         /* !< Masks FIFO3B4IFG */
-#define DAC12_IMASK_FIFO3B4IFG_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFO3B4IFG_SET               ((uint32_t)0x00000800U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFO3B4IFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_OFS     (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_MASK    ((uint32_t)0x00000800U)         /* !< Masks FIFO3B4IFG */
+#define DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_CLR     ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFO3B4IFG_SET     ((uint32_t)0x00000800U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFOFULLIFG] Bits */
-#define DAC12_IMASK_FIFOFULLIFG_OFS              (8)                             /* !< FIFOFULLIFG Offset */
-#define DAC12_IMASK_FIFOFULLIFG_MASK             ((uint32_t)0x00000100U)         /* !< Masks FIFOFULLIFG */
-#define DAC12_IMASK_FIFOFULLIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFOFULLIFG_SET              ((uint32_t)0x00000100U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFOFULLIFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_OFS    (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_MASK   ((uint32_t)0x00000100U)         /* !< Masks FIFOFULLIFG */
+#define DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_CLR    ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFOFULLIFG_SET    ((uint32_t)0x00000100U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[FIFOURUNIFG] Bits */
-#define DAC12_IMASK_FIFOURUNIFG_OFS              (13)                            /* !< FIFOURUNIFG Offset */
-#define DAC12_IMASK_FIFOURUNIFG_MASK             ((uint32_t)0x00002000U)         /* !< Masks FIFOURUNIFG */
-#define DAC12_IMASK_FIFOURUNIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_FIFOURUNIFG_SET              ((uint32_t)0x00002000U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[FIFOURUNIFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_OFS    (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_MASK   ((uint32_t)0x00002000U)         /* !< Masks FIFOURUNIFG */
+#define DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_CLR    ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_FIFOURUNIFG_SET    ((uint32_t)0x00002000U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
-/* DAC12_IMASK[DMADONEIFG] Bits */
-#define DAC12_IMASK_DMADONEIFG_OFS               (14)                            /* !< DMADONEIFG Offset */
-#define DAC12_IMASK_DMADONEIFG_MASK              ((uint32_t)0x00004000U)         /* !< Masks DMADONEIFG */
-#define DAC12_IMASK_DMADONEIFG_CLR               ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
-#define DAC12_IMASK_DMADONEIFG_SET               ((uint32_t)0x00004000U)         /* !< Interrupt will request an interrupt
+/* DAC12_GEN_EVENT_IMASK[DMADONEIFG] Bits */
+#define DAC12_GEN_EVENT_IMASK_DMADONEIFG_OFS     (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_GEN_EVENT_IMASK_DMADONEIFG_MASK    ((uint32_t)0x00004000U)         /* !< Masks DMADONEIFG */
+#define DAC12_GEN_EVENT_IMASK_DMADONEIFG_CLR     ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_GEN_EVENT_IMASK_DMADONEIFG_SET     ((uint32_t)0x00004000U)         /* !< Interrupt will request an interrupt
                                                                                     service routine and corresponding bit
                                                                                     in MIS will be set */
 
-/* DAC12_RIS Bits */
-/* DAC12_RIS[MODRDYIFG] Bits */
-#define DAC12_RIS_MODRDYIFG_OFS                  (1)                             /* !< MODRDYIFG Offset */
-#define DAC12_RIS_MODRDYIFG_MASK                 ((uint32_t)0x00000002U)         /* !< Raw interrupt status for MODRDYIFG */
-#define DAC12_RIS_MODRDYIFG_CLR                  ((uint32_t)0x00000000U)         /* !< DAC module ready event did not
+/* DAC12_GEN_EVENT_RIS Bits */
+/* DAC12_GEN_EVENT_RIS[MODRDYIFG] Bits */
+#define DAC12_GEN_EVENT_RIS_MODRDYIFG_OFS        (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_GEN_EVENT_RIS_MODRDYIFG_MASK       ((uint32_t)0x00000002U)         /* !< Raw interrupt status for MODRDYIFG */
+#define DAC12_GEN_EVENT_RIS_MODRDYIFG_CLR        ((uint32_t)0x00000000U)         /* !< DAC module ready event did not
                                                                                     occur */
-#define DAC12_RIS_MODRDYIFG_SET                  ((uint32_t)0x00000002U)         /* !< DAC module ready event occurred */
-/* DAC12_RIS[FIFOEMPTYIFG] Bits */
-#define DAC12_RIS_FIFOEMPTYIFG_OFS               (12)                            /* !< FIFOEMPTYIFG Offset */
-#define DAC12_RIS_FIFOEMPTYIFG_MASK              ((uint32_t)0x00001000U)         /* !< Raw interrupt status for
+#define DAC12_GEN_EVENT_RIS_MODRDYIFG_SET        ((uint32_t)0x00000002U)         /* !< DAC module ready event occurred */
+/* DAC12_GEN_EVENT_RIS[FIFOEMPTYIFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFOEMPTYIFG_OFS     (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFOEMPTYIFG_MASK    ((uint32_t)0x00001000U)         /* !< Raw interrupt status for
                                                                                     FIFOEMPTYIFG */
-#define DAC12_RIS_FIFOEMPTYIFG_CLR               ((uint32_t)0x00000000U)         /* !< FIFO empty condition did not occur */
-#define DAC12_RIS_FIFOEMPTYIFG_SET               ((uint32_t)0x00001000U)         /* !< FIFO empty condition occurred */
-/* DAC12_RIS[FIFO1B4IFG] Bits */
-#define DAC12_RIS_FIFO1B4IFG_OFS                 (9)                             /* !< FIFO1B4IFG Offset */
-#define DAC12_RIS_FIFO1B4IFG_MASK                ((uint32_t)0x00000200U)         /* !< Raw interrupt status for FIFO1B4IFG */
-#define DAC12_RIS_FIFO1B4IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO one fourth empty condition did
+#define DAC12_GEN_EVENT_RIS_FIFOEMPTYIFG_CLR     ((uint32_t)0x00000000U)         /* !< FIFO empty condition did not occur */
+#define DAC12_GEN_EVENT_RIS_FIFOEMPTYIFG_SET     ((uint32_t)0x00001000U)         /* !< FIFO empty condition occurred */
+/* DAC12_GEN_EVENT_RIS[FIFO1B4IFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFO1B4IFG_OFS       (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFO1B4IFG_MASK      ((uint32_t)0x00000200U)         /* !< Raw interrupt status for FIFO1B4IFG */
+#define DAC12_GEN_EVENT_RIS_FIFO1B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO one fourth empty condition did
                                                                                     not occur */
-#define DAC12_RIS_FIFO1B4IFG_SET                 ((uint32_t)0x00000200U)         /* !< FIFO one fourth empty condition
+#define DAC12_GEN_EVENT_RIS_FIFO1B4IFG_SET       ((uint32_t)0x00000200U)         /* !< FIFO one fourth empty condition
                                                                                     occurred */
-/* DAC12_RIS[FIFO1B2IFG] Bits */
-#define DAC12_RIS_FIFO1B2IFG_OFS                 (10)                            /* !< FIFO1B2IFG Offset */
-#define DAC12_RIS_FIFO1B2IFG_MASK                ((uint32_t)0x00000400U)         /* !< Raw interrupt status for FIFO1B2IFG */
-#define DAC12_RIS_FIFO1B2IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO half empty condition did not
+/* DAC12_GEN_EVENT_RIS[FIFO1B2IFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFO1B2IFG_OFS       (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFO1B2IFG_MASK      ((uint32_t)0x00000400U)         /* !< Raw interrupt status for FIFO1B2IFG */
+#define DAC12_GEN_EVENT_RIS_FIFO1B2IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO half empty condition did not
                                                                                     occur */
-#define DAC12_RIS_FIFO1B2IFG_SET                 ((uint32_t)0x00000400U)         /* !< FIFO half empty condition occurred */
-/* DAC12_RIS[FIFO3B4IFG] Bits */
-#define DAC12_RIS_FIFO3B4IFG_OFS                 (11)                            /* !< FIFO3B4IFG Offset */
-#define DAC12_RIS_FIFO3B4IFG_MASK                ((uint32_t)0x00000800U)         /* !< Raw interrupt status for FIFO3B4IFG */
-#define DAC12_RIS_FIFO3B4IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO three fourth empty condition
+#define DAC12_GEN_EVENT_RIS_FIFO1B2IFG_SET       ((uint32_t)0x00000400U)         /* !< FIFO half empty condition occurred */
+/* DAC12_GEN_EVENT_RIS[FIFO3B4IFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFO3B4IFG_OFS       (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFO3B4IFG_MASK      ((uint32_t)0x00000800U)         /* !< Raw interrupt status for FIFO3B4IFG */
+#define DAC12_GEN_EVENT_RIS_FIFO3B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO three fourth empty condition
                                                                                     did not occur */
-#define DAC12_RIS_FIFO3B4IFG_SET                 ((uint32_t)0x00000800U)         /* !< FIFO three fourth empty condition
+#define DAC12_GEN_EVENT_RIS_FIFO3B4IFG_SET       ((uint32_t)0x00000800U)         /* !< FIFO three fourth empty condition
                                                                                     occurred */
-/* DAC12_RIS[FIFOFULLIFG] Bits */
-#define DAC12_RIS_FIFOFULLIFG_OFS                (8)                             /* !< FIFOFULLIFG Offset */
-#define DAC12_RIS_FIFOFULLIFG_MASK               ((uint32_t)0x00000100U)         /* !< Raw interrupt status for
+/* DAC12_GEN_EVENT_RIS[FIFOFULLIFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFOFULLIFG_OFS      (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFOFULLIFG_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for
                                                                                     FIFOFULLIFG */
-#define DAC12_RIS_FIFOFULLIFG_CLR                ((uint32_t)0x00000000U)         /* !< FIFO full condition did not occur */
-#define DAC12_RIS_FIFOFULLIFG_SET                ((uint32_t)0x00000100U)         /* !< FIFO full condition occurred */
-/* DAC12_RIS[FIFOURUNIFG] Bits */
-#define DAC12_RIS_FIFOURUNIFG_OFS                (13)                            /* !< FIFOURUNIFG Offset */
-#define DAC12_RIS_FIFOURUNIFG_MASK               ((uint32_t)0x00002000U)         /* !< Raw interrupt status for
+#define DAC12_GEN_EVENT_RIS_FIFOFULLIFG_CLR      ((uint32_t)0x00000000U)         /* !< FIFO full condition did not occur */
+#define DAC12_GEN_EVENT_RIS_FIFOFULLIFG_SET      ((uint32_t)0x00000100U)         /* !< FIFO full condition occurred */
+/* DAC12_GEN_EVENT_RIS[FIFOURUNIFG] Bits */
+#define DAC12_GEN_EVENT_RIS_FIFOURUNIFG_OFS      (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_GEN_EVENT_RIS_FIFOURUNIFG_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for
                                                                                     FIFOURUNIFG */
-#define DAC12_RIS_FIFOURUNIFG_CLR                ((uint32_t)0x00000000U)         /* !< FIFO underrun condition did not
+#define DAC12_GEN_EVENT_RIS_FIFOURUNIFG_CLR      ((uint32_t)0x00000000U)         /* !< FIFO underrun condition did not
                                                                                     occur */
-#define DAC12_RIS_FIFOURUNIFG_SET                ((uint32_t)0x00002000U)         /* !< FIFO underrun condition occurred */
-/* DAC12_RIS[DMADONEIFG] Bits */
-#define DAC12_RIS_DMADONEIFG_OFS                 (14)                            /* !< DMADONEIFG Offset */
-#define DAC12_RIS_DMADONEIFG_MASK                ((uint32_t)0x00004000U)         /* !< Raw interrupt status for DMADONEIFG */
-#define DAC12_RIS_DMADONEIFG_CLR                 ((uint32_t)0x00000000U)         /* !< DMA done condition did not occur */
-#define DAC12_RIS_DMADONEIFG_SET                 ((uint32_t)0x00004000U)         /* !< DMA done condition occurred */
+#define DAC12_GEN_EVENT_RIS_FIFOURUNIFG_SET      ((uint32_t)0x00002000U)         /* !< FIFO underrun condition occurred */
+/* DAC12_GEN_EVENT_RIS[DMADONEIFG] Bits */
+#define DAC12_GEN_EVENT_RIS_DMADONEIFG_OFS       (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_GEN_EVENT_RIS_DMADONEIFG_MASK      ((uint32_t)0x00004000U)         /* !< Raw interrupt status for DMADONEIFG */
+#define DAC12_GEN_EVENT_RIS_DMADONEIFG_CLR       ((uint32_t)0x00000000U)         /* !< DMA done condition did not occur */
+#define DAC12_GEN_EVENT_RIS_DMADONEIFG_SET       ((uint32_t)0x00004000U)         /* !< DMA done condition occurred */
 
-/* DAC12_MIS Bits */
-/* DAC12_MIS[MODRDYIFG] Bits */
-#define DAC12_MIS_MODRDYIFG_OFS                  (1)                             /* !< MODRDYIFG Offset */
-#define DAC12_MIS_MODRDYIFG_MASK                 ((uint32_t)0x00000002U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS Bits */
+/* DAC12_GEN_EVENT_MIS[MODRDYIFG] Bits */
+#define DAC12_GEN_EVENT_MIS_MODRDYIFG_OFS        (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_GEN_EVENT_MIS_MODRDYIFG_MASK       ((uint32_t)0x00000002U)         /* !< Masked interrupt status for
                                                                                     MODRDYIFG */
-#define DAC12_MIS_MODRDYIFG_CLR                  ((uint32_t)0x00000000U)         /* !< MODRDYIFG does not request an
+#define DAC12_GEN_EVENT_MIS_MODRDYIFG_CLR        ((uint32_t)0x00000000U)         /* !< MODRDYIFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_MODRDYIFG_SET                  ((uint32_t)0x00000002U)         /* !< MODRDYIFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_MODRDYIFG_SET        ((uint32_t)0x00000002U)         /* !< MODRDYIFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFOEMPTYIFG] Bits */
-#define DAC12_MIS_FIFOEMPTYIFG_OFS               (12)                            /* !< FIFOEMPTYIFG Offset */
-#define DAC12_MIS_FIFOEMPTYIFG_MASK              ((uint32_t)0x00001000U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFOEMPTYIFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFOEMPTYIFG_OFS     (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFOEMPTYIFG_MASK    ((uint32_t)0x00001000U)         /* !< Masked interrupt status for
                                                                                     FIFOEMPTYIFG */
-#define DAC12_MIS_FIFOEMPTYIFG_CLR               ((uint32_t)0x00000000U)         /* !< FIFOEMPTYIFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFOEMPTYIFG_CLR     ((uint32_t)0x00000000U)         /* !< FIFOEMPTYIFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFOEMPTYIFG_SET               ((uint32_t)0x00001000U)         /* !< FIFOEMPTYIFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFOEMPTYIFG_SET     ((uint32_t)0x00001000U)         /* !< FIFOEMPTYIFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFO1B4IFG] Bits */
-#define DAC12_MIS_FIFO1B4IFG_OFS                 (9)                             /* !< FIFO1B4IFG Offset */
-#define DAC12_MIS_FIFO1B4IFG_MASK                ((uint32_t)0x00000200U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFO1B4IFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFO1B4IFG_OFS       (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFO1B4IFG_MASK      ((uint32_t)0x00000200U)         /* !< Masked interrupt status for
                                                                                     FIFO1B4IFG */
-#define DAC12_MIS_FIFO1B4IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO1B4IFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFO1B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO1B4IFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFO1B4IFG_SET                 ((uint32_t)0x00000200U)         /* !< FIFO1B4IFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFO1B4IFG_SET       ((uint32_t)0x00000200U)         /* !< FIFO1B4IFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFO1B2IFG] Bits */
-#define DAC12_MIS_FIFO1B2IFG_OFS                 (10)                            /* !< FIFO1B2IFG Offset */
-#define DAC12_MIS_FIFO1B2IFG_MASK                ((uint32_t)0x00000400U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFO1B2IFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFO1B2IFG_OFS       (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFO1B2IFG_MASK      ((uint32_t)0x00000400U)         /* !< Masked interrupt status for
                                                                                     FIFO1B2IFG */
-#define DAC12_MIS_FIFO1B2IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO1B2IFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFO1B2IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO1B2IFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFO1B2IFG_SET                 ((uint32_t)0x00000400U)         /* !< FIFO1B2IFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFO1B2IFG_SET       ((uint32_t)0x00000400U)         /* !< FIFO1B2IFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFO3B4IFG] Bits */
-#define DAC12_MIS_FIFO3B4IFG_OFS                 (11)                            /* !< FIFO3B4IFG Offset */
-#define DAC12_MIS_FIFO3B4IFG_MASK                ((uint32_t)0x00000800U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFO3B4IFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFO3B4IFG_OFS       (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFO3B4IFG_MASK      ((uint32_t)0x00000800U)         /* !< Masked interrupt status for
                                                                                     FIFO3B4IFG */
-#define DAC12_MIS_FIFO3B4IFG_CLR                 ((uint32_t)0x00000000U)         /* !< FIFO3B4IFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFO3B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO3B4IFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFO3B4IFG_SET                 ((uint32_t)0x00000800U)         /* !< FIFO3B4IFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFO3B4IFG_SET       ((uint32_t)0x00000800U)         /* !< FIFO3B4IFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFOFULLIFG] Bits */
-#define DAC12_MIS_FIFOFULLIFG_OFS                (8)                             /* !< FIFOFULLIFG Offset */
-#define DAC12_MIS_FIFOFULLIFG_MASK               ((uint32_t)0x00000100U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFOFULLIFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFOFULLIFG_OFS      (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFOFULLIFG_MASK     ((uint32_t)0x00000100U)         /* !< Masked interrupt status for
                                                                                     FIFOFULLIFG */
-#define DAC12_MIS_FIFOFULLIFG_CLR                ((uint32_t)0x00000000U)         /* !< FIFOFULLIFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFOFULLIFG_CLR      ((uint32_t)0x00000000U)         /* !< FIFOFULLIFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFOFULLIFG_SET                ((uint32_t)0x00000100U)         /* !< FIFOFULLIFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFOFULLIFG_SET      ((uint32_t)0x00000100U)         /* !< FIFOFULLIFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[FIFOURUNIFG] Bits */
-#define DAC12_MIS_FIFOURUNIFG_OFS                (13)                            /* !< FIFOURUNIFG Offset */
-#define DAC12_MIS_FIFOURUNIFG_MASK               ((uint32_t)0x00002000U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[FIFOURUNIFG] Bits */
+#define DAC12_GEN_EVENT_MIS_FIFOURUNIFG_OFS      (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_GEN_EVENT_MIS_FIFOURUNIFG_MASK     ((uint32_t)0x00002000U)         /* !< Masked interrupt status for
                                                                                     FIFOURUNIFG */
-#define DAC12_MIS_FIFOURUNIFG_CLR                ((uint32_t)0x00000000U)         /* !< FIFOURUNIFG does not request an
+#define DAC12_GEN_EVENT_MIS_FIFOURUNIFG_CLR      ((uint32_t)0x00000000U)         /* !< FIFOURUNIFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_FIFOURUNIFG_SET                ((uint32_t)0x00002000U)         /* !< FIFOURUNIFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_FIFOURUNIFG_SET      ((uint32_t)0x00002000U)         /* !< FIFOURUNIFG requests an interrupt
                                                                                     service routine */
-/* DAC12_MIS[DMADONEIFG] Bits */
-#define DAC12_MIS_DMADONEIFG_OFS                 (14)                            /* !< DMADONEIFG Offset */
-#define DAC12_MIS_DMADONEIFG_MASK                ((uint32_t)0x00004000U)         /* !< Masked interrupt status for
+/* DAC12_GEN_EVENT_MIS[DMADONEIFG] Bits */
+#define DAC12_GEN_EVENT_MIS_DMADONEIFG_OFS       (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_GEN_EVENT_MIS_DMADONEIFG_MASK      ((uint32_t)0x00004000U)         /* !< Masked interrupt status for
                                                                                     DMADONEIFG */
-#define DAC12_MIS_DMADONEIFG_CLR                 ((uint32_t)0x00000000U)         /* !< DMADONEIFG does not request an
+#define DAC12_GEN_EVENT_MIS_DMADONEIFG_CLR       ((uint32_t)0x00000000U)         /* !< DMADONEIFG does not request an
                                                                                     interrupt service routine */
-#define DAC12_MIS_DMADONEIFG_SET                 ((uint32_t)0x00004000U)         /* !< DMADONEIFG requests an interrupt
+#define DAC12_GEN_EVENT_MIS_DMADONEIFG_SET       ((uint32_t)0x00004000U)         /* !< DMADONEIFG requests an interrupt
                                                                                     service routine */
 
-/* DAC12_ISET Bits */
-/* DAC12_ISET[MODRDYIFG] Bits */
-#define DAC12_ISET_MODRDYIFG_OFS                 (1)                             /* !< MODRDYIFG Offset */
-#define DAC12_ISET_MODRDYIFG_MASK                ((uint32_t)0x00000002U)         /* !< Sets MODRDYIFG in RIS register */
-#define DAC12_ISET_MODRDYIFG_NO_EFFECT           ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_MODRDYIFG_SET                 ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
+/* DAC12_GEN_EVENT_ISET Bits */
+/* DAC12_GEN_EVENT_ISET[MODRDYIFG] Bits */
+#define DAC12_GEN_EVENT_ISET_MODRDYIFG_OFS       (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_GEN_EVENT_ISET_MODRDYIFG_MASK      ((uint32_t)0x00000002U)         /* !< Sets MODRDYIFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_MODRDYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_MODRDYIFG_SET       ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
                                                                                     is set */
-/* DAC12_ISET[FIFOEMPTYIFG] Bits */
-#define DAC12_ISET_FIFOEMPTYIFG_OFS              (12)                            /* !< FIFOEMPTYIFG Offset */
-#define DAC12_ISET_FIFOEMPTYIFG_MASK             ((uint32_t)0x00001000U)         /* !< Sets FIFOEMPTYIFG in RIS register */
-#define DAC12_ISET_FIFOEMPTYIFG_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFOEMPTYIFG_SET              ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ISET[FIFOEMPTYIFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFOEMPTYIFG_OFS    (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFOEMPTYIFG_MASK   ((uint32_t)0x00001000U)         /* !< Sets FIFOEMPTYIFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFOEMPTYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFOEMPTYIFG_SET    ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
                                                                                     FIFOEMPTYIFG is set */
-/* DAC12_ISET[FIFO1B4IFG] Bits */
-#define DAC12_ISET_FIFO1B4IFG_OFS                (9)                             /* !< FIFO1B4IFG Offset */
-#define DAC12_ISET_FIFO1B4IFG_MASK               ((uint32_t)0x00000200U)         /* !< Sets FIFO1B4IFG in RIS register */
-#define DAC12_ISET_FIFO1B4IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFO1B4IFG_SET                ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
+/* DAC12_GEN_EVENT_ISET[FIFO1B4IFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFO1B4IFG_OFS      (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFO1B4IFG_MASK     ((uint32_t)0x00000200U)         /* !< Sets FIFO1B4IFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFO1B4IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFO1B4IFG_SET      ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
                                                                                     is set */
-/* DAC12_ISET[FIFO1B2IFG] Bits */
-#define DAC12_ISET_FIFO1B2IFG_OFS                (10)                            /* !< FIFO1B2IFG Offset */
-#define DAC12_ISET_FIFO1B2IFG_MASK               ((uint32_t)0x00000400U)         /* !< Sets FIFO1B2IFG in RIS register */
-#define DAC12_ISET_FIFO1B2IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFO1B2IFG_SET                ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
+/* DAC12_GEN_EVENT_ISET[FIFO1B2IFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFO1B2IFG_OFS      (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFO1B2IFG_MASK     ((uint32_t)0x00000400U)         /* !< Sets FIFO1B2IFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFO1B2IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFO1B2IFG_SET      ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
                                                                                     is set */
-/* DAC12_ISET[FIFO3B4IFG] Bits */
-#define DAC12_ISET_FIFO3B4IFG_OFS                (11)                            /* !< FIFO3B4IFG Offset */
-#define DAC12_ISET_FIFO3B4IFG_MASK               ((uint32_t)0x00000800U)         /* !< Sets FIFO3B4IFG in RIS register */
-#define DAC12_ISET_FIFO3B4IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFO3B4IFG_SET                ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
+/* DAC12_GEN_EVENT_ISET[FIFO3B4IFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFO3B4IFG_OFS      (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFO3B4IFG_MASK     ((uint32_t)0x00000800U)         /* !< Sets FIFO3B4IFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFO3B4IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFO3B4IFG_SET      ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
                                                                                     is set */
-/* DAC12_ISET[FIFOFULLIFG] Bits */
-#define DAC12_ISET_FIFOFULLIFG_OFS               (8)                             /* !< FIFOFULLIFG Offset */
-#define DAC12_ISET_FIFOFULLIFG_MASK              ((uint32_t)0x00000100U)         /* !< Sets FIFOFULLIFG in RIS register */
-#define DAC12_ISET_FIFOFULLIFG_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFOFULLIFG_SET               ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ISET[FIFOFULLIFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFOFULLIFG_OFS     (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFOFULLIFG_MASK    ((uint32_t)0x00000100U)         /* !< Sets FIFOFULLIFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFOFULLIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFOFULLIFG_SET     ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
                                                                                     FIFOFULLIFG is set */
-/* DAC12_ISET[FIFOURUNIFG] Bits */
-#define DAC12_ISET_FIFOURUNIFG_OFS               (13)                            /* !< FIFOURUNIFG Offset */
-#define DAC12_ISET_FIFOURUNIFG_MASK              ((uint32_t)0x00002000U)         /* !< Sets FIFOURUNIFG in RIS register */
-#define DAC12_ISET_FIFOURUNIFG_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_FIFOURUNIFG_SET               ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ISET[FIFOURUNIFG] Bits */
+#define DAC12_GEN_EVENT_ISET_FIFOURUNIFG_OFS     (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_GEN_EVENT_ISET_FIFOURUNIFG_MASK    ((uint32_t)0x00002000U)         /* !< Sets FIFOURUNIFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_FIFOURUNIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_FIFOURUNIFG_SET     ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
                                                                                     FIFOURUNIFG is set */
-/* DAC12_ISET[DMADONEIFG] Bits */
-#define DAC12_ISET_DMADONEIFG_OFS                (14)                            /* !< DMADONEIFG Offset */
-#define DAC12_ISET_DMADONEIFG_MASK               ((uint32_t)0x00004000U)         /* !< Sets DMADONEIFG in RIS register */
-#define DAC12_ISET_DMADONEIFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ISET_DMADONEIFG_SET                ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
+/* DAC12_GEN_EVENT_ISET[DMADONEIFG] Bits */
+#define DAC12_GEN_EVENT_ISET_DMADONEIFG_OFS      (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_GEN_EVENT_ISET_DMADONEIFG_MASK     ((uint32_t)0x00004000U)         /* !< Sets DMADONEIFG in RIS register */
+#define DAC12_GEN_EVENT_ISET_DMADONEIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ISET_DMADONEIFG_SET      ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
                                                                                     is set */
 
-/* DAC12_ICLR Bits */
-/* DAC12_ICLR[MODRDYIFG] Bits */
-#define DAC12_ICLR_MODRDYIFG_OFS                 (1)                             /* !< MODRDYIFG Offset */
-#define DAC12_ICLR_MODRDYIFG_MASK                ((uint32_t)0x00000002U)         /* !< Clears MODRDYIFG in RIS register */
-#define DAC12_ICLR_MODRDYIFG_NO_EFFECT           ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_MODRDYIFG_CLR                 ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
+/* DAC12_GEN_EVENT_ICLR Bits */
+/* DAC12_GEN_EVENT_ICLR[MODRDYIFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_MODRDYIFG_OFS       (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_GEN_EVENT_ICLR_MODRDYIFG_MASK      ((uint32_t)0x00000002U)         /* !< Clears MODRDYIFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_MODRDYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_MODRDYIFG_CLR       ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
                                                                                     is cleared */
-/* DAC12_ICLR[FIFOEMPTYIFG] Bits */
-#define DAC12_ICLR_FIFOEMPTYIFG_OFS              (12)                            /* !< FIFOEMPTYIFG Offset */
-#define DAC12_ICLR_FIFOEMPTYIFG_MASK             ((uint32_t)0x00001000U)         /* !< Clears FIFOEMPTYIFG in RIS register */
-#define DAC12_ICLR_FIFOEMPTYIFG_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFOEMPTYIFG_CLR              ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ICLR[FIFOEMPTYIFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFOEMPTYIFG_OFS    (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFOEMPTYIFG_MASK   ((uint32_t)0x00001000U)         /* !< Clears FIFOEMPTYIFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFOEMPTYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFOEMPTYIFG_CLR    ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
                                                                                     FIFOEMPTYIFG is cleared */
-/* DAC12_ICLR[FIFO1B4IFG] Bits */
-#define DAC12_ICLR_FIFO1B4IFG_OFS                (9)                             /* !< FIFO1B4IFG Offset */
-#define DAC12_ICLR_FIFO1B4IFG_MASK               ((uint32_t)0x00000200U)         /* !< Clears FIFO1B4IFG in RIS register */
-#define DAC12_ICLR_FIFO1B4IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFO1B4IFG_CLR                ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
+/* DAC12_GEN_EVENT_ICLR[FIFO1B4IFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B4IFG_OFS      (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B4IFG_MASK     ((uint32_t)0x00000200U)         /* !< Clears FIFO1B4IFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B4IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B4IFG_CLR      ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
                                                                                     is cleared */
-/* DAC12_ICLR[FIFO1B2IFG] Bits */
-#define DAC12_ICLR_FIFO1B2IFG_OFS                (10)                            /* !< FIFO1B2IFG Offset */
-#define DAC12_ICLR_FIFO1B2IFG_MASK               ((uint32_t)0x00000400U)         /* !< Clears FIFO1B2IFG in RIS register */
-#define DAC12_ICLR_FIFO1B2IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFO1B2IFG_CLR                ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
+/* DAC12_GEN_EVENT_ICLR[FIFO1B2IFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B2IFG_OFS      (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B2IFG_MASK     ((uint32_t)0x00000400U)         /* !< Clears FIFO1B2IFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B2IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFO1B2IFG_CLR      ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
                                                                                     is cleared */
-/* DAC12_ICLR[FIFO3B4IFG] Bits */
-#define DAC12_ICLR_FIFO3B4IFG_OFS                (11)                            /* !< FIFO3B4IFG Offset */
-#define DAC12_ICLR_FIFO3B4IFG_MASK               ((uint32_t)0x00000800U)         /* !< Clears FIFO3B4IFG in RIS register */
-#define DAC12_ICLR_FIFO3B4IFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFO3B4IFG_CLR                ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
+/* DAC12_GEN_EVENT_ICLR[FIFO3B4IFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFO3B4IFG_OFS      (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFO3B4IFG_MASK     ((uint32_t)0x00000800U)         /* !< Clears FIFO3B4IFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFO3B4IFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFO3B4IFG_CLR      ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
                                                                                     is cleared */
-/* DAC12_ICLR[FIFOFULLIFG] Bits */
-#define DAC12_ICLR_FIFOFULLIFG_OFS               (8)                             /* !< FIFOFULLIFG Offset */
-#define DAC12_ICLR_FIFOFULLIFG_MASK              ((uint32_t)0x00000100U)         /* !< Clears FIFOFULLIFG in RIS register */
-#define DAC12_ICLR_FIFOFULLIFG_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFOFULLIFG_CLR               ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ICLR[FIFOFULLIFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFOFULLIFG_OFS     (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFOFULLIFG_MASK    ((uint32_t)0x00000100U)         /* !< Clears FIFOFULLIFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFOFULLIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFOFULLIFG_CLR     ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
                                                                                     FIFOFULLIFG is cleared */
-/* DAC12_ICLR[FIFOURUNIFG] Bits */
-#define DAC12_ICLR_FIFOURUNIFG_OFS               (13)                            /* !< FIFOURUNIFG Offset */
-#define DAC12_ICLR_FIFOURUNIFG_MASK              ((uint32_t)0x00002000U)         /* !< Clears FIFOURUNIFG in RIS register */
-#define DAC12_ICLR_FIFOURUNIFG_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_FIFOURUNIFG_CLR               ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
+/* DAC12_GEN_EVENT_ICLR[FIFOURUNIFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_FIFOURUNIFG_OFS     (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_GEN_EVENT_ICLR_FIFOURUNIFG_MASK    ((uint32_t)0x00002000U)         /* !< Clears FIFOURUNIFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_FIFOURUNIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_FIFOURUNIFG_CLR     ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
                                                                                     FIFOURUNIFG is cleared */
-/* DAC12_ICLR[DMADONEIFG] Bits */
-#define DAC12_ICLR_DMADONEIFG_OFS                (14)                            /* !< DMADONEIFG Offset */
-#define DAC12_ICLR_DMADONEIFG_MASK               ((uint32_t)0x00004000U)         /* !< Clears DMADONEIFG in RIS register */
-#define DAC12_ICLR_DMADONEIFG_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
-#define DAC12_ICLR_DMADONEIFG_CLR                ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
+/* DAC12_GEN_EVENT_ICLR[DMADONEIFG] Bits */
+#define DAC12_GEN_EVENT_ICLR_DMADONEIFG_OFS      (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_GEN_EVENT_ICLR_DMADONEIFG_MASK     ((uint32_t)0x00004000U)         /* !< Clears DMADONEIFG in RIS register */
+#define DAC12_GEN_EVENT_ICLR_DMADONEIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_GEN_EVENT_ICLR_DMADONEIFG_CLR      ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
+                                                                                    is cleared */
+
+/* DAC12_CPU_INT_IIDX Bits */
+/* DAC12_CPU_INT_IIDX[STAT] Bits */
+#define DAC12_CPU_INT_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define DAC12_CPU_INT_IIDX_STAT_MASK             ((uint32_t)0x0000000FU)         /* !< Interrupt index status */
+#define DAC12_CPU_INT_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No pending interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_MODRDYIFG        ((uint32_t)0x00000002U)         /* !< Module ready interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFOFULLIFG      ((uint32_t)0x00000009U)         /* !< FIFO full interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFO1B4IFG       ((uint32_t)0x0000000AU)         /* !< FIFO one fourth empty interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFO1B2IFG       ((uint32_t)0x0000000BU)         /* !< FIFO half empty interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFO3B4IFG       ((uint32_t)0x0000000CU)         /* !< FIFO three fourth empty interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFOEMPTYIFG     ((uint32_t)0x0000000DU)         /* !< FIFO empty interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_FIFOURUNIFG      ((uint32_t)0x0000000EU)         /* !< FIFO underrun interrupt */
+#define DAC12_CPU_INT_IIDX_STAT_DMADONEIFG       ((uint32_t)0x0000000FU)         /* !< DMA done interrupt */
+
+/* DAC12_CPU_INT_IMASK Bits */
+/* DAC12_CPU_INT_IMASK[MODRDYIFG] Bits */
+#define DAC12_CPU_INT_IMASK_MODRDYIFG_OFS        (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_CPU_INT_IMASK_MODRDYIFG_MASK       ((uint32_t)0x00000002U)         /* !< Masks MODRDYIFG */
+#define DAC12_CPU_INT_IMASK_MODRDYIFG_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_MODRDYIFG_SET        ((uint32_t)0x00000002U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFO1B2IFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFO1B2IFG_OFS       (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFO1B2IFG_MASK      ((uint32_t)0x00000400U)         /* !< Masks FIFO1B2IFG */
+#define DAC12_CPU_INT_IMASK_FIFO1B2IFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFO1B2IFG_SET       ((uint32_t)0x00000400U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFOEMPTYIFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFOEMPTYIFG_OFS     (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFOEMPTYIFG_MASK    ((uint32_t)0x00001000U)         /* !< Masks FIFOEMPTYIFG */
+#define DAC12_CPU_INT_IMASK_FIFOEMPTYIFG_CLR     ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFOEMPTYIFG_SET     ((uint32_t)0x00001000U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFO1B4IFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFO1B4IFG_OFS       (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFO1B4IFG_MASK      ((uint32_t)0x00000200U)         /* !< Masks FIFO1B4IFG */
+#define DAC12_CPU_INT_IMASK_FIFO1B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFO1B4IFG_SET       ((uint32_t)0x00000200U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFO3B4IFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFO3B4IFG_OFS       (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFO3B4IFG_MASK      ((uint32_t)0x00000800U)         /* !< Masks FIFO3B4IFG */
+#define DAC12_CPU_INT_IMASK_FIFO3B4IFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFO3B4IFG_SET       ((uint32_t)0x00000800U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFOFULLIFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFOFULLIFG_OFS      (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFOFULLIFG_MASK     ((uint32_t)0x00000100U)         /* !< Masks FIFOFULLIFG */
+#define DAC12_CPU_INT_IMASK_FIFOFULLIFG_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFOFULLIFG_SET      ((uint32_t)0x00000100U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[FIFOURUNIFG] Bits */
+#define DAC12_CPU_INT_IMASK_FIFOURUNIFG_OFS      (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_CPU_INT_IMASK_FIFOURUNIFG_MASK     ((uint32_t)0x00002000U)         /* !< Masks FIFOURUNIFG */
+#define DAC12_CPU_INT_IMASK_FIFOURUNIFG_CLR      ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_FIFOURUNIFG_SET      ((uint32_t)0x00002000U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+/* DAC12_CPU_INT_IMASK[DMADONEIFG] Bits */
+#define DAC12_CPU_INT_IMASK_DMADONEIFG_OFS       (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_CPU_INT_IMASK_DMADONEIFG_MASK      ((uint32_t)0x00004000U)         /* !< Masks DMADONEIFG */
+#define DAC12_CPU_INT_IMASK_DMADONEIFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is masked out */
+#define DAC12_CPU_INT_IMASK_DMADONEIFG_SET       ((uint32_t)0x00004000U)         /* !< Interrupt will request an interrupt
+                                                                                    service routine and corresponding bit
+                                                                                    in MIS will be set */
+
+/* DAC12_CPU_INT_RIS Bits */
+/* DAC12_CPU_INT_RIS[MODRDYIFG] Bits */
+#define DAC12_CPU_INT_RIS_MODRDYIFG_OFS          (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_CPU_INT_RIS_MODRDYIFG_MASK         ((uint32_t)0x00000002U)         /* !< Raw interrupt status for MODRDYIFG */
+#define DAC12_CPU_INT_RIS_MODRDYIFG_CLR          ((uint32_t)0x00000000U)         /* !< DAC module ready event did not
+                                                                                    occur */
+#define DAC12_CPU_INT_RIS_MODRDYIFG_SET          ((uint32_t)0x00000002U)         /* !< DAC module ready event occurred */
+/* DAC12_CPU_INT_RIS[FIFOEMPTYIFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFOEMPTYIFG_OFS       (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_CPU_INT_RIS_FIFOEMPTYIFG_MASK      ((uint32_t)0x00001000U)         /* !< Raw interrupt status for
+                                                                                    FIFOEMPTYIFG */
+#define DAC12_CPU_INT_RIS_FIFOEMPTYIFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFO empty condition did not occur */
+#define DAC12_CPU_INT_RIS_FIFOEMPTYIFG_SET       ((uint32_t)0x00001000U)         /* !< FIFO empty condition occurred */
+/* DAC12_CPU_INT_RIS[FIFO1B4IFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFO1B4IFG_OFS         (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_CPU_INT_RIS_FIFO1B4IFG_MASK        ((uint32_t)0x00000200U)         /* !< Raw interrupt status for FIFO1B4IFG */
+#define DAC12_CPU_INT_RIS_FIFO1B4IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO one fourth empty condition did
+                                                                                    not occur */
+#define DAC12_CPU_INT_RIS_FIFO1B4IFG_SET         ((uint32_t)0x00000200U)         /* !< FIFO one fourth empty condition
+                                                                                    occurred */
+/* DAC12_CPU_INT_RIS[FIFO1B2IFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFO1B2IFG_OFS         (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_CPU_INT_RIS_FIFO1B2IFG_MASK        ((uint32_t)0x00000400U)         /* !< Raw interrupt status for FIFO1B2IFG */
+#define DAC12_CPU_INT_RIS_FIFO1B2IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO half empty condition did not
+                                                                                    occur */
+#define DAC12_CPU_INT_RIS_FIFO1B2IFG_SET         ((uint32_t)0x00000400U)         /* !< FIFO half empty condition occurred */
+/* DAC12_CPU_INT_RIS[FIFO3B4IFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFO3B4IFG_OFS         (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_CPU_INT_RIS_FIFO3B4IFG_MASK        ((uint32_t)0x00000800U)         /* !< Raw interrupt status for FIFO3B4IFG */
+#define DAC12_CPU_INT_RIS_FIFO3B4IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO three fourth empty condition
+                                                                                    did not occur */
+#define DAC12_CPU_INT_RIS_FIFO3B4IFG_SET         ((uint32_t)0x00000800U)         /* !< FIFO three fourth empty condition
+                                                                                    occurred */
+/* DAC12_CPU_INT_RIS[FIFOFULLIFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFOFULLIFG_OFS        (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_CPU_INT_RIS_FIFOFULLIFG_MASK       ((uint32_t)0x00000100U)         /* !< Raw interrupt status for
+                                                                                    FIFOFULLIFG */
+#define DAC12_CPU_INT_RIS_FIFOFULLIFG_CLR        ((uint32_t)0x00000000U)         /* !< FIFO full condition did not occur */
+#define DAC12_CPU_INT_RIS_FIFOFULLIFG_SET        ((uint32_t)0x00000100U)         /* !< FIFO full condition occurred */
+/* DAC12_CPU_INT_RIS[FIFOURUNIFG] Bits */
+#define DAC12_CPU_INT_RIS_FIFOURUNIFG_OFS        (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_CPU_INT_RIS_FIFOURUNIFG_MASK       ((uint32_t)0x00002000U)         /* !< Raw interrupt status for
+                                                                                    FIFOURUNIFG */
+#define DAC12_CPU_INT_RIS_FIFOURUNIFG_CLR        ((uint32_t)0x00000000U)         /* !< FIFO underrun condition did not
+                                                                                    occur */
+#define DAC12_CPU_INT_RIS_FIFOURUNIFG_SET        ((uint32_t)0x00002000U)         /* !< FIFO underrun condition occurred */
+/* DAC12_CPU_INT_RIS[DMADONEIFG] Bits */
+#define DAC12_CPU_INT_RIS_DMADONEIFG_OFS         (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_CPU_INT_RIS_DMADONEIFG_MASK        ((uint32_t)0x00004000U)         /* !< Raw interrupt status for DMADONEIFG */
+#define DAC12_CPU_INT_RIS_DMADONEIFG_CLR         ((uint32_t)0x00000000U)         /* !< DMA done condition did not occur */
+#define DAC12_CPU_INT_RIS_DMADONEIFG_SET         ((uint32_t)0x00004000U)         /* !< DMA done condition occurred */
+
+/* DAC12_CPU_INT_MIS Bits */
+/* DAC12_CPU_INT_MIS[MODRDYIFG] Bits */
+#define DAC12_CPU_INT_MIS_MODRDYIFG_OFS          (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_CPU_INT_MIS_MODRDYIFG_MASK         ((uint32_t)0x00000002U)         /* !< Masked interrupt status for
+                                                                                    MODRDYIFG */
+#define DAC12_CPU_INT_MIS_MODRDYIFG_CLR          ((uint32_t)0x00000000U)         /* !< MODRDYIFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_MODRDYIFG_SET          ((uint32_t)0x00000002U)         /* !< MODRDYIFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFOEMPTYIFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFOEMPTYIFG_OFS       (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_CPU_INT_MIS_FIFOEMPTYIFG_MASK      ((uint32_t)0x00001000U)         /* !< Masked interrupt status for
+                                                                                    FIFOEMPTYIFG */
+#define DAC12_CPU_INT_MIS_FIFOEMPTYIFG_CLR       ((uint32_t)0x00000000U)         /* !< FIFOEMPTYIFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFOEMPTYIFG_SET       ((uint32_t)0x00001000U)         /* !< FIFOEMPTYIFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFO1B4IFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFO1B4IFG_OFS         (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_CPU_INT_MIS_FIFO1B4IFG_MASK        ((uint32_t)0x00000200U)         /* !< Masked interrupt status for
+                                                                                    FIFO1B4IFG */
+#define DAC12_CPU_INT_MIS_FIFO1B4IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO1B4IFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFO1B4IFG_SET         ((uint32_t)0x00000200U)         /* !< FIFO1B4IFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFO1B2IFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFO1B2IFG_OFS         (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_CPU_INT_MIS_FIFO1B2IFG_MASK        ((uint32_t)0x00000400U)         /* !< Masked interrupt status for
+                                                                                    FIFO1B2IFG */
+#define DAC12_CPU_INT_MIS_FIFO1B2IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO1B2IFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFO1B2IFG_SET         ((uint32_t)0x00000400U)         /* !< FIFO1B2IFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFO3B4IFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFO3B4IFG_OFS         (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_CPU_INT_MIS_FIFO3B4IFG_MASK        ((uint32_t)0x00000800U)         /* !< Masked interrupt status for
+                                                                                    FIFO3B4IFG */
+#define DAC12_CPU_INT_MIS_FIFO3B4IFG_CLR         ((uint32_t)0x00000000U)         /* !< FIFO3B4IFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFO3B4IFG_SET         ((uint32_t)0x00000800U)         /* !< FIFO3B4IFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFOFULLIFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFOFULLIFG_OFS        (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_CPU_INT_MIS_FIFOFULLIFG_MASK       ((uint32_t)0x00000100U)         /* !< Masked interrupt status for
+                                                                                    FIFOFULLIFG */
+#define DAC12_CPU_INT_MIS_FIFOFULLIFG_CLR        ((uint32_t)0x00000000U)         /* !< FIFOFULLIFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFOFULLIFG_SET        ((uint32_t)0x00000100U)         /* !< FIFOFULLIFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[FIFOURUNIFG] Bits */
+#define DAC12_CPU_INT_MIS_FIFOURUNIFG_OFS        (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_CPU_INT_MIS_FIFOURUNIFG_MASK       ((uint32_t)0x00002000U)         /* !< Masked interrupt status for
+                                                                                    FIFOURUNIFG */
+#define DAC12_CPU_INT_MIS_FIFOURUNIFG_CLR        ((uint32_t)0x00000000U)         /* !< FIFOURUNIFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_FIFOURUNIFG_SET        ((uint32_t)0x00002000U)         /* !< FIFOURUNIFG requests an interrupt
+                                                                                    service routine */
+/* DAC12_CPU_INT_MIS[DMADONEIFG] Bits */
+#define DAC12_CPU_INT_MIS_DMADONEIFG_OFS         (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_CPU_INT_MIS_DMADONEIFG_MASK        ((uint32_t)0x00004000U)         /* !< Masked interrupt status for
+                                                                                    DMADONEIFG */
+#define DAC12_CPU_INT_MIS_DMADONEIFG_CLR         ((uint32_t)0x00000000U)         /* !< DMADONEIFG does not request an
+                                                                                    interrupt service routine */
+#define DAC12_CPU_INT_MIS_DMADONEIFG_SET         ((uint32_t)0x00004000U)         /* !< DMADONEIFG requests an interrupt
+                                                                                    service routine */
+
+/* DAC12_CPU_INT_ISET Bits */
+/* DAC12_CPU_INT_ISET[MODRDYIFG] Bits */
+#define DAC12_CPU_INT_ISET_MODRDYIFG_OFS         (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_CPU_INT_ISET_MODRDYIFG_MASK        ((uint32_t)0x00000002U)         /* !< Sets MODRDYIFG in RIS register */
+#define DAC12_CPU_INT_ISET_MODRDYIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_MODRDYIFG_SET         ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
+                                                                                    is set */
+/* DAC12_CPU_INT_ISET[FIFOEMPTYIFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFOEMPTYIFG_OFS      (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_CPU_INT_ISET_FIFOEMPTYIFG_MASK     ((uint32_t)0x00001000U)         /* !< Sets FIFOEMPTYIFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFOEMPTYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFOEMPTYIFG_SET      ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
+                                                                                    FIFOEMPTYIFG is set */
+/* DAC12_CPU_INT_ISET[FIFO1B4IFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFO1B4IFG_OFS        (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_CPU_INT_ISET_FIFO1B4IFG_MASK       ((uint32_t)0x00000200U)         /* !< Sets FIFO1B4IFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFO1B4IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFO1B4IFG_SET        ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
+                                                                                    is set */
+/* DAC12_CPU_INT_ISET[FIFO1B2IFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFO1B2IFG_OFS        (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_CPU_INT_ISET_FIFO1B2IFG_MASK       ((uint32_t)0x00000400U)         /* !< Sets FIFO1B2IFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFO1B2IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFO1B2IFG_SET        ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
+                                                                                    is set */
+/* DAC12_CPU_INT_ISET[FIFO3B4IFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFO3B4IFG_OFS        (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_CPU_INT_ISET_FIFO3B4IFG_MASK       ((uint32_t)0x00000800U)         /* !< Sets FIFO3B4IFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFO3B4IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFO3B4IFG_SET        ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
+                                                                                    is set */
+/* DAC12_CPU_INT_ISET[FIFOFULLIFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFOFULLIFG_OFS       (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_CPU_INT_ISET_FIFOFULLIFG_MASK      ((uint32_t)0x00000100U)         /* !< Sets FIFOFULLIFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFOFULLIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFOFULLIFG_SET       ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
+                                                                                    FIFOFULLIFG is set */
+/* DAC12_CPU_INT_ISET[FIFOURUNIFG] Bits */
+#define DAC12_CPU_INT_ISET_FIFOURUNIFG_OFS       (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_CPU_INT_ISET_FIFOURUNIFG_MASK      ((uint32_t)0x00002000U)         /* !< Sets FIFOURUNIFG in RIS register */
+#define DAC12_CPU_INT_ISET_FIFOURUNIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_FIFOURUNIFG_SET       ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
+                                                                                    FIFOURUNIFG is set */
+/* DAC12_CPU_INT_ISET[DMADONEIFG] Bits */
+#define DAC12_CPU_INT_ISET_DMADONEIFG_OFS        (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_CPU_INT_ISET_DMADONEIFG_MASK       ((uint32_t)0x00004000U)         /* !< Sets DMADONEIFG in RIS register */
+#define DAC12_CPU_INT_ISET_DMADONEIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ISET_DMADONEIFG_SET        ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
+                                                                                    is set */
+
+/* DAC12_CPU_INT_ICLR Bits */
+/* DAC12_CPU_INT_ICLR[MODRDYIFG] Bits */
+#define DAC12_CPU_INT_ICLR_MODRDYIFG_OFS         (1)                             /* !< MODRDYIFG Offset */
+#define DAC12_CPU_INT_ICLR_MODRDYIFG_MASK        ((uint32_t)0x00000002U)         /* !< Clears MODRDYIFG in RIS register */
+#define DAC12_CPU_INT_ICLR_MODRDYIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_MODRDYIFG_CLR         ((uint32_t)0x00000002U)         /* !< RIS bit corresponding to MODRDYIFG
+                                                                                    is cleared */
+/* DAC12_CPU_INT_ICLR[FIFOEMPTYIFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFOEMPTYIFG_OFS      (12)                            /* !< FIFOEMPTYIFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFOEMPTYIFG_MASK     ((uint32_t)0x00001000U)         /* !< Clears FIFOEMPTYIFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFOEMPTYIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFOEMPTYIFG_CLR      ((uint32_t)0x00001000U)         /* !< RIS bit corresponding to
+                                                                                    FIFOEMPTYIFG is cleared */
+/* DAC12_CPU_INT_ICLR[FIFO1B4IFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFO1B4IFG_OFS        (9)                             /* !< FIFO1B4IFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFO1B4IFG_MASK       ((uint32_t)0x00000200U)         /* !< Clears FIFO1B4IFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFO1B4IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFO1B4IFG_CLR        ((uint32_t)0x00000200U)         /* !< RIS bit corresponding to FIFO1B4IFG
+                                                                                    is cleared */
+/* DAC12_CPU_INT_ICLR[FIFO1B2IFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFO1B2IFG_OFS        (10)                            /* !< FIFO1B2IFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFO1B2IFG_MASK       ((uint32_t)0x00000400U)         /* !< Clears FIFO1B2IFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFO1B2IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFO1B2IFG_CLR        ((uint32_t)0x00000400U)         /* !< RIS bit corresponding to FIFO1B2IFG
+                                                                                    is cleared */
+/* DAC12_CPU_INT_ICLR[FIFO3B4IFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFO3B4IFG_OFS        (11)                            /* !< FIFO3B4IFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFO3B4IFG_MASK       ((uint32_t)0x00000800U)         /* !< Clears FIFO3B4IFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFO3B4IFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFO3B4IFG_CLR        ((uint32_t)0x00000800U)         /* !< RIS bit corresponding to FIFO3B4IFG
+                                                                                    is cleared */
+/* DAC12_CPU_INT_ICLR[FIFOFULLIFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFOFULLIFG_OFS       (8)                             /* !< FIFOFULLIFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFOFULLIFG_MASK      ((uint32_t)0x00000100U)         /* !< Clears FIFOFULLIFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFOFULLIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFOFULLIFG_CLR       ((uint32_t)0x00000100U)         /* !< RIS bit corresponding to
+                                                                                    FIFOFULLIFG is cleared */
+/* DAC12_CPU_INT_ICLR[FIFOURUNIFG] Bits */
+#define DAC12_CPU_INT_ICLR_FIFOURUNIFG_OFS       (13)                            /* !< FIFOURUNIFG Offset */
+#define DAC12_CPU_INT_ICLR_FIFOURUNIFG_MASK      ((uint32_t)0x00002000U)         /* !< Clears FIFOURUNIFG in RIS register */
+#define DAC12_CPU_INT_ICLR_FIFOURUNIFG_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_FIFOURUNIFG_CLR       ((uint32_t)0x00002000U)         /* !< RIS bit corresponding to
+                                                                                    FIFOURUNIFG is cleared */
+/* DAC12_CPU_INT_ICLR[DMADONEIFG] Bits */
+#define DAC12_CPU_INT_ICLR_DMADONEIFG_OFS        (14)                            /* !< DMADONEIFG Offset */
+#define DAC12_CPU_INT_ICLR_DMADONEIFG_MASK       ((uint32_t)0x00004000U)         /* !< Clears DMADONEIFG in RIS register */
+#define DAC12_CPU_INT_ICLR_DMADONEIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Writing a 0 has no effect */
+#define DAC12_CPU_INT_ICLR_DMADONEIFG_CLR        ((uint32_t)0x00004000U)         /* !< RIS bit corresponding to DMADONEIFG
                                                                                     is cleared */
 
 /* DAC12_PWREN Bits */
@@ -496,19 +805,6 @@ typedef struct {
 #define DAC12_FSUB_0_CHANID_UNCONNECTED          ((uint32_t)0x00000000U)         /* !< A value of 0 specifies that the
                                                                                     event is not connected */
 #define DAC12_FSUB_0_CHANID_MAXIMUM              ((uint32_t)0x0000000FU)         /* !< Consult your device datasheet as
-                                                                                    the actual allowed maximum may be
-                                                                                    less than 15. */
-
-/* DAC12_FSUB_1 Bits */
-/* DAC12_FSUB_1[CHANID] Bits */
-#define DAC12_FSUB_1_CHANID_OFS                  (0)                             /* !< CHANID Offset */
-#define DAC12_FSUB_1_CHANID_MASK                 ((uint32_t)0x00007FFFU)         /* !< 0 = disconnected. others =
-                                                                                    connected to channel_ID = CHANID. */
-#define DAC12_FSUB_1_CHANID_MNIMUM               ((uint32_t)0x00000000U)         /* !< 0 is an allowed value, signifying
-                                                                                    that the event is unconnected */
-#define DAC12_FSUB_1_CHANID_UNCONNECTED          ((uint32_t)0x00000000U)         /* !< A value of 0 specifies that the
-                                                                                    event is not connected */
-#define DAC12_FSUB_1_CHANID_MAXIMUM              ((uint32_t)0x0000000FU)         /* !< Consult your device datasheet as
                                                                                     the actual allowed maximum may be
                                                                                     less than 15. */
 
@@ -666,9 +962,8 @@ typedef struct {
 #define DAC12_CTL2_FIFOTRIGSEL_STIM              ((uint32_t)0x00000000U)         /* !< Sample time generator output */
 #define DAC12_CTL2_FIFOTRIGSEL_TRIG0             ((uint32_t)0x00010000U)         /* !< Hardware trigger-0 from event
                                                                                     fabric */
-#define DAC12_CTL2_FIFOTRIGSEL_TRIG1             ((uint32_t)0x00020000U)         /* !< Hardware trigger-1 from event
-                                                                                    fabric */
-#define DAC12_CTL2_FIFOTRIGSEL_SPARE             ((uint32_t)0x00030000U)         /* !< Reserved - unimplemented */
+#define DAC12_CTL2_FIFOTRIGSEL_SPARE1            ((uint32_t)0x00020000U)         /* !< Reserved - unimplemented */
+#define DAC12_CTL2_FIFOTRIGSEL_SPARE2            ((uint32_t)0x00030000U)         /* !< Reserved - unimplemented */
 /* DAC12_CTL2[DMATRIGEN] Bits */
 #define DAC12_CTL2_DMATRIGEN_OFS                 (24)                            /* !< DMATRIGEN Offset */
 #define DAC12_CTL2_DMATRIGEN_MASK                ((uint32_t)0x01000000U)         /* !< This bit enables the DMA trigger
@@ -676,9 +971,9 @@ typedef struct {
                                                                                     is set along with FIFOEN, the DMA
                                                                                     trigger is generated based on the
                                                                                     empty FIFO locations qualified by
-                                                                                    FIFOTH settings. This bit needs to be
-                                                                                    cleared by SW to stop further DMA
-                                                                                    triggers */
+                                                                                    FIFOTH settings. This bit should be
+                                                                                    cleared by software to stop further
+                                                                                    DMA triggers. */
 #define DAC12_CTL2_DMATRIGEN_CLR                 ((uint32_t)0x00000000U)         /* !< DMA trigger generation mechanism is
                                                                                     disabled */
 #define DAC12_CTL2_DMATRIGEN_SET                 ((uint32_t)0x01000000U)         /* !< DMA trigger generation mechanism is

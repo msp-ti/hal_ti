@@ -65,6 +65,22 @@ extern "C" {
 
 /* clang-format off */
 
+/*!
+ * @brief I2C number of bytes which could be put into the TX FIFO
+ *
+ * This variable is device specific and is calculated using the system parameter
+ * I2C_SYS_FENTRIES defined in each devices header file.
+*/
+#define DL_I2C_TX_FIFO_COUNT_MAXIMUM          ((uint32_t)I2C_SYS_FENTRIES << 8)
+
+/*!
+ * @brief I2C number of bytes which could be put into the RX FIFO
+ *
+ * This variable is device specific and is calculated using the system parameter
+ * I2C_SYS_FENTRIES defined in each devices header file.
+*/
+#define DL_I2C_RX_FIFO_COUNT_MAXIMUM               ((uint32_t)I2C_SYS_FENTRIES)
+
 /** @addtogroup DL_I2C_CONTROLLER_STATUS
  *  @{
  */
@@ -202,182 +218,182 @@ extern "C" {
 /*!
  * @brief Controller Receive Transaction completed Interrupt
  */
-#define DL_I2C_INTERRUPT_CONTROLLER_RX_DONE  (I2C_INT_EVENT0_IMASK_MRXDONE_SET)
+#define DL_I2C_INTERRUPT_CONTROLLER_RX_DONE  (I2C_CPU_INT_IMASK_MRXDONE_SET)
 
 /*!
  * @brief Controller Transmit Transaction completed Interrupt
  */
-#define DL_I2C_INTERRUPT_CONTROLLER_TX_DONE  (I2C_INT_EVENT0_IMASK_MTXDONE_SET)
+#define DL_I2C_INTERRUPT_CONTROLLER_TX_DONE  (I2C_CPU_INT_IMASK_MTXDONE_SET)
 
 /*!
  * @brief Controller Receive FIFO Trigger when >= defined bytes
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_RXFIFO_TRIGGER                            \
-                                          (I2C_INT_EVENT0_IMASK_MRXFIFOTRG_SET)
+                                          (I2C_CPU_INT_IMASK_MRXFIFOTRG_SET)
 
 /*!
  * @brief Controller Transmit FIFO Trigger when <= defined bytes
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER                            \
-                                          (I2C_INT_EVENT0_IMASK_MTXFIFOTRG_SET)
+                                          (I2C_CPU_INT_IMASK_MTXFIFOTRG_SET)
 
 /*!
  * @brief Controller Receive FIFO is full
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_RXFIFO_FULL                               \
-                                         (I2C_INT_EVENT0_IMASK_MRXFIFOFULL_SET)
+                                         (I2C_CPU_INT_IMASK_MRXFIFOFULL_SET)
 
 /*!
  * @brief Controller Transmit FIFO is empty
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_TXFIFO_EMPTY                              \
-                                            (I2C_INT_EVENT0_IMASK_MTXEMPTY_SET)
+                                            (I2C_CPU_INT_IMASK_MTXEMPTY_SET)
 
 /*!
  * @brief Address/Data NACK Interrupt
  */
-#define DL_I2C_INTERRUPT_CONTROLLER_NACK       (I2C_INT_EVENT0_IMASK_MNACK_SET)
+#define DL_I2C_INTERRUPT_CONTROLLER_NACK       (I2C_CPU_INT_IMASK_MNACK_SET)
 
 /*!
  * @brief START Detection Interrupt
  */
-#define DL_I2C_INTERRUPT_CONTROLLER_START     (I2C_INT_EVENT0_IMASK_MSTART_SET)
+#define DL_I2C_INTERRUPT_CONTROLLER_START     (I2C_CPU_INT_IMASK_MSTART_SET)
 
 /*!
  * @brief STOP Detection Interrupt
  */
-#define DL_I2C_INTERRUPT_CONTROLLER_STOP       (I2C_INT_EVENT0_IMASK_MSTOP_SET)
+#define DL_I2C_INTERRUPT_CONTROLLER_STOP       (I2C_CPU_INT_IMASK_MSTOP_SET)
 
 /*!
  * @brief Arbitration Lost Interrupt
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_ARBITRATION_LOST                          \
-                                            (I2C_INT_EVENT0_IMASK_MARBLOST_SET)
+                                            (I2C_CPU_INT_IMASK_MARBLOST_SET)
 
 /*!
  * @brief Controller DMA Done on Event 1 publisher
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_EVENT1_DMA_DONE                           \
-                                       (I2C_INT_EVENT0_IMASK_MDMA_DONE_TX_SET)
+                                       (I2C_CPU_INT_IMASK_MDMA_DONE_TX_SET)
 
 /*!
  * @brief Controller DMA Done on Event 2 publisher
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_EVENT2_DMA_DONE                           \
-                                       (I2C_INT_EVENT0_IMASK_MDMA_DONE_RX_SET)
+                                       (I2C_CPU_INT_IMASK_MDMA_DONE_RX_SET)
 
 
 /*!
  * @brief Controller SMBus/PMBus PEC Receive Error Interrupt
  */
 #define DL_I2C_INTERRUPT_CONTROLLER_PEC_RX_ERROR                              \
-                                         (I2C_INT_EVENT0_IMASK_MPEC_RX_ERR_SET)
+                                         (I2C_CPU_INT_IMASK_MPEC_RX_ERR_SET)
 
 
 /*!
  * @brief Target Receive Data Interrupt (byte has been received)
  */
-#define DL_I2C_INTERRUPT_TARGET_RX_DONE      (I2C_INT_EVENT0_IMASK_SRXDONE_SET)
+#define DL_I2C_INTERRUPT_TARGET_RX_DONE      (I2C_CPU_INT_IMASK_SRXDONE_SET)
 
 /*!
  * @brief Target Transmit Transaction completed Interrupt
  */
-#define DL_I2C_INTERRUPT_TARGET_TX_DONE      (I2C_INT_EVENT0_IMASK_STXDONE_SET)
+#define DL_I2C_INTERRUPT_TARGET_TX_DONE      (I2C_CPU_INT_IMASK_STXDONE_SET)
 
 /*!
  * @brief Target Receive FIFO Trigger
  */
 #define DL_I2C_INTERRUPT_TARGET_RXFIFO_TRIGGER                                \
-                                          (I2C_INT_EVENT0_IMASK_SRXFIFOTRG_SET)
+                                          (I2C_CPU_INT_IMASK_SRXFIFOTRG_SET)
 
 /*!
  * @brief Target Transmit FIFO Trigger
  */
 #define DL_I2C_INTERRUPT_TARGET_TXFIFO_TRIGGER                                \
-                                          (I2C_INT_EVENT0_IMASK_STXFIFOTRG_SET)
+                                          (I2C_CPU_INT_IMASK_STXFIFOTRG_SET)
 
 /*!
  * @brief Target RX FIFO full
  */
 #define DL_I2C_INTERRUPT_TARGET_RXFIFO_FULL                                   \
-                                         (I2C_INT_EVENT0_IMASK_SRXFIFOFULL_SET)
+                                         (I2C_CPU_INT_IMASK_SRXFIFOFULL_SET)
 
 /*!
  * @brief Target TX FIFO empty. All data in Transmit FIFO shifted out and
  * transmit goes into idle mode.
  */
 #define DL_I2C_INTERRUPT_TARGET_TXFIFO_EMPTY                                  \
-                                            (I2C_INT_EVENT0_IMASK_STXEMPTY_SET)
+                                            (I2C_CPU_INT_IMASK_STXEMPTY_SET)
 
 /*!
  * @brief Target Start Condition detected
  */
 #define DL_I2C_INTERRUPT_TARGET_START                                         \
-                                              (I2C_INT_EVENT0_IMASK_SSTART_SET)
+                                              (I2C_CPU_INT_IMASK_SSTART_SET)
 
 /*!
  * @brief Target Stop Condition detected
  */
-#define DL_I2C_INTERRUPT_TARGET_STOP           (I2C_INT_EVENT0_IMASK_SSTOP_SET)
+#define DL_I2C_INTERRUPT_TARGET_STOP           (I2C_CPU_INT_IMASK_SSTOP_SET)
 
 /*!
  * @brief General Call Interrupt
  */
 #define DL_I2C_INTERRUPT_TARGET_GENERAL_CALL                                  \
-                                            (I2C_INT_EVENT0_IMASK_SGENCALL_SET)
+                                            (I2C_CPU_INT_IMASK_SGENCALL_SET)
 
 /*!
  * @brief Target DMA Done on Event 1 Publisher
  */
 #define DL_I2C_INTERRUPT_TARGET_EVENT1_DMA_DONE                               \
-                                        (I2C_INT_EVENT0_IMASK_SDMA_DONE_TX_SET)
+                                        (I2C_CPU_INT_IMASK_SDMA_DONE_TX_SET)
 
 /*!
  * @brief Target DMA Done on Event 2 Publisher
  */
 #define DL_I2C_INTERRUPT_TARGET_EVENT2_DMA_DONE                               \
-                                        (I2C_INT_EVENT0_IMASK_SDMA_DONE_RX_SET)
+                                        (I2C_CPU_INT_IMASK_SDMA_DONE_RX_SET)
 
 
 /*!
  * @brief Target SMBus/PMBus PEC Receive Error Interrupt
  */
 #define DL_I2C_INTERRUPT_TARGET_PEC_RX_ERROR                                  \
-                                         (I2C_INT_EVENT0_IMASK_SPEC_RX_ERR_SET)
+                                         (I2C_CPU_INT_IMASK_SPEC_RX_ERR_SET)
 
 /*!
  * @brief Target TX FIFO Underflow Interrupt
  */
 #define DL_I2C_INTERRUPT_TARGET_TXFIFO_UNDERFLOW                              \
-                                            (I2C_INT_EVENT0_IMASK_STX_UNFL_SET)
+                                            (I2C_CPU_INT_IMASK_STX_UNFL_SET)
 
 /*!
  * @brief Target RX FIFO Overflow Interrupt
  */
 #define DL_I2C_INTERRUPT_TARGET_RXFIFO_OVERFLOW                              \
-                                            (I2C_INT_EVENT0_IMASK_SRX_OVFL_SET)
+                                            (I2C_CPU_INT_IMASK_SRX_OVFL_SET)
 
 /*!
  * @brief Target Arbitration Lost Interrupt
  */
 #define DL_I2C_INTERRUPT_TARGET_ARBITRATION_LOST                              \
-                                            (I2C_INT_EVENT0_IMASK_SARBLOST_SET)
+                                            (I2C_CPU_INT_IMASK_SARBLOST_SET)
 
 /*!
  * @brief Interrupt Overflow Interrupt. Occurs when Target START or STOP
  *        interrupts overflow (i.e. occurs twice without being serviced)
  */
-#define DL_I2C_TARGET_INTERRUPT_OVERFLOW   (I2C_INT_EVENT0_IMASK_INTR_OVFL_SET)
+#define DL_I2C_TARGET_INTERRUPT_OVERFLOW   (I2C_CPU_INT_IMASK_INTR_OVFL_SET)
 
 /*!
  * @brief Timeout A Interrupt
  */
-#define DL_I2C_INTERRUPT_TIMEOUT_A          (I2C_INT_EVENT0_IMASK_TIMEOUTA_SET)
+#define DL_I2C_INTERRUPT_TIMEOUT_A          (I2C_CPU_INT_IMASK_TIMEOUTA_SET)
 
 /*!
  * @brief Timeout B Interrupt
  */
-#define DL_I2C_INTERRUPT_TIMEOUT_B          (I2C_INT_EVENT0_IMASK_TIMEOUTB_SET)
+#define DL_I2C_INTERRUPT_TIMEOUT_B          (I2C_CPU_INT_IMASK_TIMEOUTB_SET)
 
 
 /** @}*/
@@ -389,25 +405,25 @@ extern "C" {
  * @brief Peripheral Transmit FIFO Trigger interrupt for DMA trigger
  */
 #define DL_I2C_DMA_INTERRUPT_TARGET_TXFIFO_TRIGGER                            \
-                                          (I2C_INT_EVENT1_IMASK_STXFIFOTRG_SET)
+                                          (I2C_DMA_TRIG1_IMASK_STXFIFOTRG_SET)
 
 /*!
  * @brief Peripheral Receive FIFO Trigger interrupt for DMA trigger
  */
 #define DL_I2C_DMA_INTERRUPT_TARGET_RXFIFO_TRIGGER                            \
-                                          (I2C_INT_EVENT1_IMASK_SRXFIFOTRG_SET)
+                                          (I2C_DMA_TRIG1_IMASK_SRXFIFOTRG_SET)
 
 /*!
  * @brief Controller Transmit FIFO Trigger when <= defined bytes for DMA trigger
  */
 #define DL_I2C_DMA_INTERRUPT_CONTROLLER_TXFIFO_TRIGGER                        \
-                                          (I2C_INT_EVENT1_IMASK_MTXFIFOTRG_SET)
+                                          (I2C_DMA_TRIG1_IMASK_MTXFIFOTRG_SET)
 
 /*!
  * @brief Controller Receive FIFO Trigger when >= defined bytes for DMA trigger
  */
 #define DL_I2C_DMA_INTERRUPT_CONTROLLER_RXFIFO_TRIGGER                        \
-                                          (I2C_INT_EVENT1_IMASK_MRXFIFOTRG_SET)
+                                          (I2C_DMA_TRIG1_IMASK_MRXFIFOTRG_SET)
 
 /** @}*/
 
@@ -416,17 +432,15 @@ extern "C" {
 /*! @enum DL_I2C_DMA_IIDX */
 typedef enum {
     /*! I2C interrupt index for enabling I2C Target Transmit FIFO Trigger as DMA trigger */
-    DL_I2C_DMA_IIDX_TARGET_TXFIFO_TRIGGER =
-        I2C_INT_EVENT1_IIDX_STAT_MTXFIFOTRG,
+    DL_I2C_DMA_IIDX_TARGET_TXFIFO_TRIGGER = I2C_DMA_TRIG1_IIDX_STAT_MTXFIFOTRG,
     /*! I2C interrupt index for enabling I2C Target Receive FIFO Trigger as DMA trigger */
-    DL_I2C_DMA_IIDX_TARGET_RXFIFO_TRIGGER =
-        I2C_INT_EVENT1_IIDX_STAT_MRXFIFOTRG,
+    DL_I2C_DMA_IIDX_TARGET_RXFIFO_TRIGGER = I2C_DMA_TRIG1_IIDX_STAT_MRXFIFOTRG,
     /*! I2C interrupt index for enabling I2C Controller Transmit FIFO Trigger as DMA trigger */
     DL_I2C_DMA_IIDX_CONTROLLER_TXFIFO_TRIGGER =
-        I2C_INT_EVENT1_IIDX_STAT_STXFIFOTRG,
+        I2C_DMA_TRIG1_IIDX_STAT_STXFIFOTRG,
     /*! I2C interrupt index for enabling I2C Controller Receive FIFO Trigger as DMA trigger */
     DL_I2C_DMA_IIDX_CONTROLLER_RXFIFO_TRIGGER =
-        I2C_INT_EVENT1_IIDX_STAT_SRXFIFOTRG
+        I2C_DMA_TRIG1_IIDX_STAT_SRXFIFOTRG
 } DL_I2C_DMA_IIDX;
 
 /** @enum DL_I2C_EVENT_ROUTE */
@@ -477,11 +491,11 @@ typedef enum {
 typedef enum {
     /*!  I2C Target SMBus/PMBus PEC was checked in the transaction that occurred
      *   before the last Stop */
-    DL_I2C_TARGET_PEC_STATUS_CHECKED = I2C_SLAVE_PECSR_PECSTS_CHECK_SET,
+    DL_I2C_TARGET_PEC_STATUS_CHECKED = I2C_TARGET_PECSR_PECSTS_CHECK_SET,
     /*!  I2C Target SMBus/PMBus PEC was not checked in the transaction that
      *   occurred before the last Stop */
     DL_I2C_TARGET_PEC_STATUS_NOT_CHECKED =
-        I2C_SLAVE_PECSR_PECSTS_CHECK_CLEARED,
+        I2C_TARGET_PECSR_PECSTS_CHECK_CLEARED,
 } DL_I2C_TARGET_PEC_STATUS;
 
 /** @enum DL_I2C_ANALOG_GLITCH_FILTER_WIDTH */
@@ -536,22 +550,24 @@ typedef enum {
 typedef enum {
     /*!  I2C Controller SMBus/PMBus PEC was checked in the transaction that
      *   occurred before the last Stop */
-    DL_I2C_CONTROLLER_PEC_STATUS_CHECKED = I2C_MASTER_PECSR_PECSTS_CHECK_SET,
+    DL_I2C_CONTROLLER_PEC_STATUS_CHECKED =
+        I2C_CONTROLLER_PECSR_PECSTS_CHECK_SET,
     /*!  I2C Controller SMBus/PMBus PEC was not checked in the transaction that
      *   occurred the last Stop */
     DL_I2C_CONTROLLER_PEC_STATUS_NOT_CHECKED =
-        I2C_MASTER_PECSR_PECSTS_CHECK_CLEARED,
+        I2C_CONTROLLER_PECSR_PECSTS_CHECK_CLEARED,
 } DL_I2C_CONTROLLER_PEC_STATUS;
 
 /** @enum DL_I2C_CONTROLLER_PEC_CHECK_ERROR */
 typedef enum {
     /*! I2C Controller SMBus/PMBus PEC check error occurred in the transaction
      *  before the last stop */
-    DL_I2C_CONTROLLER_PEC_CHECK_ERROR_SET = I2C_MASTER_PECSR_PECSTS_ERROR_SET,
+    DL_I2C_CONTROLLER_PEC_CHECK_ERROR_SET =
+        I2C_CONTROLLER_PECSR_PECSTS_ERROR_SET,
     /*! I2C Controller SMBus/PMBus PEC check error did not occur in the
      *  transaction before the last stop */
     DL_I2C_CONTROLLER_PEC_CHECK_ERROR_CLEARED =
-        I2C_MASTER_PECSR_PECSTS_ERROR_CLEARED,
+        I2C_CONTROLLER_PECSR_PECSTS_ERROR_CLEARED,
 } DL_I2C_CONTROLLER_PEC_CHECK_ERROR;
 
 /** @enum DL_I2C_CONTROLLER_SCL */
@@ -645,78 +661,75 @@ typedef enum {
 /*! @enum DL_I2C_IIDX */
 typedef enum {
     /*! Interrupt index for I2C if no interrupt is pending */
-    DL_I2C_IIDX_NO_INT = I2C_INT_EVENT0_IIDX_STAT_NO_INTR,
+    DL_I2C_IIDX_NO_INT = I2C_CPU_INT_IIDX_STAT_NO_INTR,
     /*! Interrupt index for I2C Controller Receive Transaction completed */
-    DL_I2C_IIDX_CONTROLLER_RX_DONE = I2C_INT_EVENT0_IIDX_STAT_MRXDONEFG,
+    DL_I2C_IIDX_CONTROLLER_RX_DONE = I2C_CPU_INT_IIDX_STAT_MRXDONEFG,
     /*! Interrupt index for Controller Transmit Transaction completed */
-    DL_I2C_IIDX_CONTROLLER_TX_DONE = I2C_INT_EVENT0_IIDX_STAT_MTXDONEFG,
+    DL_I2C_IIDX_CONTROLLER_TX_DONE = I2C_CPU_INT_IIDX_STAT_MTXDONEFG,
     /*! Interrupt index for I2C Controller Receive FIFO Trigger */
-    DL_I2C_IIDX_CONTROLLER_RXFIFO_TRIGGER =
-        I2C_INT_EVENT0_IIDX_STAT_MRXFIFOTRG,
+    DL_I2C_IIDX_CONTROLLER_RXFIFO_TRIGGER = I2C_CPU_INT_IIDX_STAT_MRXFIFOTRG,
     /*! Interrupt index for I2C Controller Transmit FIFO Trigger */
-    DL_I2C_IIDX_CONTROLLER_TXFIFO_TRIGGER =
-        I2C_INT_EVENT0_IIDX_STAT_MTXFIFOTRG,
+    DL_I2C_IIDX_CONTROLLER_TXFIFO_TRIGGER = I2C_CPU_INT_IIDX_STAT_MTXFIFOTRG,
     /*! Interrupt index for I2C Controller Receive when FIFO is full */
-    DL_I2C_IIDX_CONTROLLER_RXFIFO_FULL = I2C_INT_EVENT0_IIDX_STAT_MRXFIFOFULL,
+    DL_I2C_IIDX_CONTROLLER_RXFIFO_FULL = I2C_CPU_INT_IIDX_STAT_MRXFIFOFULL,
     /*! Interrupt index for I2C Controller when Transmit FIFO is empty */
-    DL_I2C_IIDX_CONTROLLER_TXFIFO_EMPTY = I2C_INT_EVENT0_IIDX_STAT_MTX_EMPTY,
+    DL_I2C_IIDX_CONTROLLER_TXFIFO_EMPTY = I2C_CPU_INT_IIDX_STAT_MTX_EMPTY,
     /*! Interrupt index for Address/Data NACK */
-    DL_I2C_IIDX_CONTROLLER_NACK = I2C_INT_EVENT0_IIDX_STAT_MNACKFG,
+    DL_I2C_IIDX_CONTROLLER_NACK = I2C_CPU_INT_IIDX_STAT_MNACKFG,
     /*! Interrupt index for I2C controller START Detection */
-    DL_I2C_IIDX_CONTROLLER_START = I2C_INT_EVENT0_IIDX_STAT_MSTARTFG,
+    DL_I2C_IIDX_CONTROLLER_START = I2C_CPU_INT_IIDX_STAT_MSTARTFG,
     /*! Interrupt index for I2C controller STOP Detection */
-    DL_I2C_IIDX_CONTROLLER_STOP = I2C_INT_EVENT0_IIDX_STAT_MSTOPFG,
+    DL_I2C_IIDX_CONTROLLER_STOP = I2C_CPU_INT_IIDX_STAT_MSTOPFG,
     /*! Interrupt index for I2C controller Arbitration Lost */
-    DL_I2C_IIDX_CONTROLLER_ARBITRATION_LOST =
-        I2C_INT_EVENT0_IIDX_STAT_MARBLOSTFG,
+    DL_I2C_IIDX_CONTROLLER_ARBITRATION_LOST = I2C_CPU_INT_IIDX_STAT_MARBLOSTFG,
     /*! Interrupt index for I2C controller Event 1 DMA Done */
     DL_I2C_IIDX_CONTROLLER_EVENT1_DMA_DONE =
-        I2C_INT_EVENT0_IIDX_STAT_MDMA_DONE_TX,
+        I2C_CPU_INT_IIDX_STAT_MDMA_DONE_TX,
     /*! Interrupt index for I2C controller Event 2 DMA Done */
     DL_I2C_IIDX_CONTROLLER_EVENT2_DMA_DONE =
-        I2C_INT_EVENT0_IIDX_STAT_MDMA_DONE_RX,
+        I2C_CPU_INT_IIDX_STAT_MDMA_DONE_RX,
 
     /*! Interrupt index for I2C controller SMBus/PMBus PEC Receive Error Event */
-    DL_I2C_IIDX_CONTROLLER_PEC_RX_ERROR = I2C_INT_EVENT0_IIDX_STAT_MPEC_RX_ERR,
+    DL_I2C_IIDX_CONTROLLER_PEC_RX_ERROR = I2C_CPU_INT_IIDX_STAT_MPEC_RX_ERR,
     /*! Interrupt index for I2C Timeout A Event */
-    DL_I2C_IIDX_TIMEOUT_A = I2C_INT_EVENT0_IIDX_STAT_TIMEOUTA,
+    DL_I2C_IIDX_TIMEOUT_A = I2C_CPU_INT_IIDX_STAT_TIMEOUTA,
     /*! Interrupt index for I2C Timeout B Event */
-    DL_I2C_IIDX_TIMEOUT_B = I2C_INT_EVENT0_IIDX_STAT_TIMEOUTB,
+    DL_I2C_IIDX_TIMEOUT_B = I2C_CPU_INT_IIDX_STAT_TIMEOUTB,
 
     /*! Interrupt index for I2C Target Receive Data */
-    DL_I2C_IIDX_TARGET_RX_DONE = I2C_INT_EVENT0_IIDX_STAT_SRXDONEFG,
+    DL_I2C_IIDX_TARGET_RX_DONE = I2C_CPU_INT_IIDX_STAT_SRXDONEFG,
     /*! Interrupt index for I2C Target Transmit Transaction completed */
-    DL_I2C_IIDX_TARGET_TX_DONE = I2C_INT_EVENT0_IIDX_STAT_STXDONEFG,
+    DL_I2C_IIDX_TARGET_TX_DONE = I2C_CPU_INT_IIDX_STAT_STXDONEFG,
     /*! Interrupt index for I2C Target Receive FIFO Trigger */
-    DL_I2C_IIDX_TARGET_RXFIFO_TRIGGER = I2C_INT_EVENT0_IIDX_STAT_SRXFIFOTRG,
+    DL_I2C_IIDX_TARGET_RXFIFO_TRIGGER = I2C_CPU_INT_IIDX_STAT_SRXFIFOTRG,
     /*! Interrupt index for I2C Target Transmit FIFO Trigger */
-    DL_I2C_IIDX_TARGET_TXFIFO_TRIGGER = I2C_INT_EVENT0_IIDX_STAT_STXFIFOTRG,
+    DL_I2C_IIDX_TARGET_TXFIFO_TRIGGER = I2C_CPU_INT_IIDX_STAT_STXFIFOTRG,
     /*! Interrupt index for I2C Target RX FIFO full */
-    DL_I2C_IIDX_TARGET_RXFIFO_FULL = I2C_INT_EVENT0_IIDX_STAT_SRXFIFOFULL,
+    DL_I2C_IIDX_TARGET_RXFIFO_FULL = I2C_CPU_INT_IIDX_STAT_SRXFIFOFULL,
     /*! Interrupt index for I2C Target TX FIFO empty.
      * All data in Transmit FIFO shifted out and transmit goes into idle mode. */
-    DL_I2C_IIDX_TARGET_TXFIFO_EMPTY = I2C_INT_EVENT0_IIDX_STAT_STXEMPTY,
+    DL_I2C_IIDX_TARGET_TXFIFO_EMPTY = I2C_CPU_INT_IIDX_STAT_STXEMPTY,
     /*! Interrupt index for I2C Target Start Condition detected */
-    DL_I2C_IIDX_TARGET_START = I2C_INT_EVENT0_IIDX_STAT_SSTARTFG,
+    DL_I2C_IIDX_TARGET_START = I2C_CPU_INT_IIDX_STAT_SSTARTFG,
     /*! Interrupt index for I2C Target Stop Condition detected */
-    DL_I2C_IIDX_TARGET_STOP = I2C_INT_EVENT0_IIDX_STAT_SSTOPFG,
+    DL_I2C_IIDX_TARGET_STOP = I2C_CPU_INT_IIDX_STAT_SSTOPFG,
     /*! Interrupt index for I2C General Call */
-    DL_I2C_IIDX_TARGET_GENERAL_CALL = I2C_INT_EVENT0_IIDX_STAT_SGENCALL,
+    DL_I2C_IIDX_TARGET_GENERAL_CALL = I2C_CPU_INT_IIDX_STAT_SGENCALL,
     /*! Interrupt index for I2C Target Event 1 DMA Done */
-    DL_I2C_IIDX_TARGET_EVENT1_DMA_DONE = I2C_INT_EVENT0_IIDX_STAT_SDMA_DONE_TX,
+    DL_I2C_IIDX_TARGET_EVENT1_DMA_DONE = I2C_CPU_INT_IIDX_STAT_SDMA_DONE_TX,
     /*! Interrupt index for I2C Target Event 2 DMA Done */
-    DL_I2C_IIDX_TARGET_EVENT2_DMA_DONE = I2C_INT_EVENT0_IIDX_STAT_SDMA_DONE_RX,
+    DL_I2C_IIDX_TARGET_EVENT2_DMA_DONE = I2C_CPU_INT_IIDX_STAT_SDMA_DONE_RX,
 
     /*! Interrupt index for I2C Target SMBus/PMBus PEC Receive Error Event */
-    DL_I2C_IIDX_TARGET_PEC_RX_ERROR = I2C_INT_EVENT0_IIDX_STAT_SPEC_RX_ERR,
+    DL_I2C_IIDX_TARGET_PEC_RX_ERROR = I2C_CPU_INT_IIDX_STAT_SPEC_RX_ERR,
     /*! Interrupt index for I2C Target TX FIFO underflow event */
-    DL_I2C_IIDX_TARGET_TXFIFO_UNDERFLOW = I2C_INT_EVENT0_IIDX_STAT_STX_UNFL,
+    DL_I2C_IIDX_TARGET_TXFIFO_UNDERFLOW = I2C_CPU_INT_IIDX_STAT_STX_UNFL,
     /*! Interrupt index for I2C Target RX FIFO overflow event */
-    DL_I2C_IIDX_TARGET_RXFIFO_OVERFLOW = I2C_INT_EVENT0_IIDX_STAT_SRX_OVFL,
+    DL_I2C_IIDX_TARGET_RXFIFO_OVERFLOW = I2C_CPU_INT_IIDX_STAT_SRX_OVFL,
     /*! Interrupt index for I2C Target arbitration lost event */
-    DL_I2C_IIDX_TARGET_ARBITRATION_LOST = I2C_INT_EVENT0_IIDX_STAT_SARBLOST,
+    DL_I2C_IIDX_TARGET_ARBITRATION_LOST = I2C_CPU_INT_IIDX_STAT_SARBLOST,
     /*! Interrupt index for I2C interrupt overflow event */
-    DL_I2C_IIDX_INTERRUPT_OVERFLOW = I2C_INT_EVENT0_IIDX_STAT_INTR_OVFL,
+    DL_I2C_IIDX_INTERRUPT_OVERFLOW = I2C_CPU_INT_IIDX_STAT_INTR_OVFL,
 
 } DL_I2C_IIDX;
 
@@ -881,8 +894,8 @@ __STATIC_INLINE void DL_I2C_startControllerTransfer(I2C_Regs *i2c,
  */
 __STATIC_INLINE void DL_I2C_startControllerTransferAdvanced(I2C_Regs *i2c,
     uint32_t targetAddr, DL_I2C_CONTROLLER_DIRECTION direction,
-    uint16_t length, DL_I2C_CONTROLLER_START start, DL_I2C_CONTROLLER_STOP stop,
-    DL_I2C_CONTROLLER_ACK ack)
+    uint16_t length, DL_I2C_CONTROLLER_START start,
+    DL_I2C_CONTROLLER_STOP stop, DL_I2C_CONTROLLER_ACK ack)
 {
     // Specify target address and read/write mode
     DL_Common_updateReg(&i2c->MASTER.MSA,
@@ -891,9 +904,9 @@ __STATIC_INLINE void DL_I2C_startControllerTransferAdvanced(I2C_Regs *i2c,
 
     DL_Common_updateReg(&i2c->MASTER.MCTR,
         (((uint32_t) length << I2C_MCTR_MBLEN_OFS) | I2C_MCTR_BURSTRUN_ENABLE |
-        (uint32_t) start | (uint32_t) stop | (uint32_t) ack ),
+            (uint32_t) start | (uint32_t) stop | (uint32_t) ack),
         (I2C_MCTR_MBLEN_MASK | I2C_MCTR_BURSTRUN_MASK | I2C_MCTR_START_MASK |
-         I2C_MCTR_STOP_MASK | I2C_MCTR_ACK_MASK));
+            I2C_MCTR_STOP_MASK | I2C_MCTR_ACK_MASK));
 }
 
 /**
@@ -925,7 +938,7 @@ __STATIC_INLINE bool DL_I2C_isTargetTXFIFOFull(I2C_Regs *i2c)
 __STATIC_INLINE bool DL_I2C_isTargetTXFIFOEmpty(I2C_Regs *i2c)
 {
     return ((i2c->SLAVE.SFIFOSR & I2C_SFIFOSR_TXFIFOCNT_MASK) ==
-            I2C_SFIFOSR_TXFIFOCNT_MAXIMUM);
+            DL_I2C_TX_FIFO_COUNT_MAXIMUM);
 }
 
 /**
@@ -1434,7 +1447,8 @@ __STATIC_INLINE void DL_I2C_enableControllerReadOnTXEmpty(I2C_Regs *i2c)
  */
 __STATIC_INLINE uint32_t DL_I2C_getControllerPECCountValue(I2C_Regs *i2c)
 {
-    return (i2c->MASTER.MASTER_I2CPECCTL & I2C_MASTER_I2CPECCTL_PECCNT_MASK);
+    return (i2c->MASTER.CONTROLLER_I2CPECCTL &
+            I2C_CONTROLLER_I2CPECCTL_PECCNT_MASK);
 }
 
 /**
@@ -1450,8 +1464,8 @@ __STATIC_INLINE uint32_t DL_I2C_getControllerPECCountValue(I2C_Regs *i2c)
 __STATIC_INLINE void DL_I2C_setControllerPECCountValue(
     I2C_Regs *i2c, uint32_t count)
 {
-    DL_Common_updateReg(&i2c->MASTER.MASTER_I2CPECCTL, count,
-        I2C_MASTER_I2CPECCTL_PECCNT_MASK);
+    DL_Common_updateReg(&i2c->MASTER.CONTROLLER_I2CPECCTL, count,
+        I2C_CONTROLLER_I2CPECCTL_PECCNT_MASK);
 }
 
 /**
@@ -1461,7 +1475,7 @@ __STATIC_INLINE void DL_I2C_setControllerPECCountValue(
  */
 __STATIC_INLINE void DL_I2C_disableControllerPEC(I2C_Regs *i2c)
 {
-    i2c->MASTER.MASTER_I2CPECCTL &= ~(I2C_MASTER_I2CPECCTL_PECEN_MASK);
+    i2c->MASTER.CONTROLLER_I2CPECCTL &= ~(I2C_CONTROLLER_I2CPECCTL_PECEN_MASK);
 }
 
 /**
@@ -1477,8 +1491,9 @@ __STATIC_INLINE void DL_I2C_disableControllerPEC(I2C_Regs *i2c)
  */
 __STATIC_INLINE bool DL_I2C_isControllerPECEnabled(I2C_Regs *i2c)
 {
-    return ((i2c->MASTER.MASTER_I2CPECCTL & I2C_MASTER_I2CPECCTL_PECEN_MASK) ==
-            I2C_MASTER_I2CPECCTL_PECEN_ENABLE);
+    return ((i2c->MASTER.CONTROLLER_I2CPECCTL &
+                I2C_CONTROLLER_I2CPECCTL_PECEN_MASK) ==
+            I2C_CONTROLLER_I2CPECCTL_PECEN_ENABLE);
 }
 
 /**
@@ -1497,7 +1512,7 @@ __STATIC_INLINE bool DL_I2C_isControllerPECEnabled(I2C_Regs *i2c)
  */
 __STATIC_INLINE void DL_I2C_enableControllerPEC(I2C_Regs *i2c)
 {
-    i2c->MASTER.MASTER_I2CPECCTL |= I2C_MASTER_I2CPECCTL_PECEN_ENABLE;
+    i2c->MASTER.CONTROLLER_I2CPECCTL |= I2C_CONTROLLER_I2CPECCTL_PECEN_ENABLE;
 }
 
 /**
@@ -1512,7 +1527,8 @@ __STATIC_INLINE void DL_I2C_enableControllerPEC(I2C_Regs *i2c)
  */
 __STATIC_INLINE uint32_t DL_I2C_getControllerCurrentPECCount(I2C_Regs *i2c)
 {
-    return (i2c->MASTER.MASTER_PECSR & I2C_MASTER_PECSR_PECSTS_CHECK_MASK);
+    return (
+        i2c->MASTER.CONTROLLER_PECSR & I2C_CONTROLLER_PECSR_PECSTS_CHECK_MASK);
 }
 
 /**
@@ -1531,7 +1547,7 @@ __STATIC_INLINE DL_I2C_CONTROLLER_PEC_STATUS
 DL_I2C_getControllerPECCheckedStatus(I2C_Regs *i2c)
 {
     uint32_t status =
-        i2c->MASTER.MASTER_PECSR & I2C_MASTER_PECSR_PECSTS_CHECK_MASK;
+        i2c->MASTER.CONTROLLER_PECSR & I2C_CONTROLLER_PECSR_PECSTS_CHECK_MASK;
 
     return (DL_I2C_CONTROLLER_PEC_STATUS)(status);
 }
@@ -1552,7 +1568,7 @@ __STATIC_INLINE DL_I2C_CONTROLLER_PEC_CHECK_ERROR
 DL_I2C_getControllerPECCheckError(I2C_Regs *i2c)
 {
     uint32_t error =
-        i2c->MASTER.MASTER_PECSR & I2C_MASTER_PECSR_PECSTS_ERROR_MASK;
+        i2c->MASTER.CONTROLLER_PECSR & I2C_CONTROLLER_PECSR_PECSTS_ERROR_MASK;
 
     return (DL_I2C_CONTROLLER_PEC_CHECK_ERROR)(error);
 }
@@ -3181,7 +3197,7 @@ __STATIC_INLINE void DL_I2C_enableACKOverrideOnPECDone(I2C_Regs *i2c)
  */
 __STATIC_INLINE uint32_t DL_I2C_getTargetPECCountValue(I2C_Regs *i2c)
 {
-    return (i2c->SLAVE.SLAVE_PECCTL & I2C_SLAVE_PECCTL_PECCNT_MASK);
+    return (i2c->SLAVE.TARGET_PECCTL & I2C_TARGET_PECCTL_PECCNT_MASK);
 }
 
 /**
@@ -3199,7 +3215,7 @@ __STATIC_INLINE void DL_I2C_setTargetPECCountValue(
     I2C_Regs *i2c, uint32_t count)
 {
     DL_Common_updateReg(
-        &i2c->SLAVE.SLAVE_PECCTL, count, I2C_SLAVE_PECCTL_PECCNT_MASK);
+        &i2c->SLAVE.TARGET_PECCTL, count, I2C_TARGET_PECCTL_PECCNT_MASK);
 }
 
 /**
@@ -3209,7 +3225,7 @@ __STATIC_INLINE void DL_I2C_setTargetPECCountValue(
  */
 __STATIC_INLINE void DL_I2C_disableTargetPEC(I2C_Regs *i2c)
 {
-    i2c->SLAVE.SLAVE_PECCTL &= ~(I2C_SLAVE_PECCTL_PECEN_MASK);
+    i2c->SLAVE.TARGET_PECCTL &= ~(I2C_TARGET_PECCTL_PECEN_MASK);
 }
 
 /**
@@ -3225,8 +3241,8 @@ __STATIC_INLINE void DL_I2C_disableTargetPEC(I2C_Regs *i2c)
  */
 __STATIC_INLINE bool DL_I2C_isTargetPECEnabled(I2C_Regs *i2c)
 {
-    return ((i2c->SLAVE.SLAVE_PECCTL & I2C_SLAVE_PECCTL_PECEN_MASK) ==
-            I2C_SLAVE_PECCTL_PECEN_ENABLE);
+    return ((i2c->SLAVE.TARGET_PECCTL & I2C_TARGET_PECCTL_PECEN_MASK) ==
+            I2C_TARGET_PECCTL_PECEN_ENABLE);
 }
 
 /**
@@ -3245,7 +3261,7 @@ __STATIC_INLINE bool DL_I2C_isTargetPECEnabled(I2C_Regs *i2c)
  */
 __STATIC_INLINE void DL_I2C_enableTargetPEC(I2C_Regs *i2c)
 {
-    i2c->SLAVE.SLAVE_PECCTL |= I2C_SLAVE_PECCTL_PECEN_ENABLE;
+    i2c->SLAVE.TARGET_PECCTL |= I2C_TARGET_PECCTL_PECEN_ENABLE;
 }
 
 /**
@@ -3260,7 +3276,7 @@ __STATIC_INLINE void DL_I2C_enableTargetPEC(I2C_Regs *i2c)
  */
 __STATIC_INLINE uint32_t DL_I2C_getTargetCurrentPECCount(I2C_Regs *i2c)
 {
-    return (i2c->SLAVE.SLAVE_PECCTL & I2C_SLAVE_PECSR_PECBYTECNT_MASK);
+    return (i2c->SLAVE.TARGET_PECCTL & I2C_TARGET_PECSR_PECBYTECNT_MASK);
 }
 
 /**
@@ -3280,7 +3296,7 @@ __STATIC_INLINE DL_I2C_TARGET_PEC_STATUS DL_I2C_getTargetPECCheckedStatus(
     I2C_Regs *i2c)
 {
     uint32_t status =
-        i2c->SLAVE.SLAVE_PECSR & I2C_SLAVE_PECSR_PECSTS_CHECK_MASK;
+        i2c->SLAVE.TARGET_PECSR & I2C_TARGET_PECSR_PECSTS_CHECK_MASK;
 
     return (DL_I2C_TARGET_PEC_STATUS)(status);
 }
@@ -3467,7 +3483,7 @@ __STATIC_INLINE bool DL_I2C_isTargetTXFIFOFlushActive(I2C_Regs *i2c)
 __STATIC_INLINE void DL_I2C_enableInterrupt(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    i2c->INT_EVENT0.IMASK |= interruptMask;
+    i2c->CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -3481,7 +3497,7 @@ __STATIC_INLINE void DL_I2C_enableInterrupt(
 __STATIC_INLINE void DL_I2C_disableInterrupt(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    i2c->INT_EVENT0.IMASK &= ~(interruptMask);
+    i2c->CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -3499,7 +3515,7 @@ __STATIC_INLINE void DL_I2C_disableInterrupt(
 __STATIC_INLINE uint32_t DL_I2C_getEnabledInterrupts(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    return (i2c->INT_EVENT0.IMASK & interruptMask);
+    return (i2c->CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -3522,7 +3538,7 @@ __STATIC_INLINE uint32_t DL_I2C_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_I2C_getEnabledInterruptStatus(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    return (i2c->INT_EVENT0.MIS & interruptMask);
+    return (i2c->CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -3543,7 +3559,7 @@ __STATIC_INLINE uint32_t DL_I2C_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_I2C_getRawInterruptStatus(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    return (i2c->INT_EVENT0.RIS & interruptMask);
+    return (i2c->CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -3560,7 +3576,7 @@ __STATIC_INLINE uint32_t DL_I2C_getRawInterruptStatus(
  */
 __STATIC_INLINE DL_I2C_IIDX DL_I2C_getPendingInterrupt(I2C_Regs *i2c)
 {
-    return ((DL_I2C_IIDX) i2c->INT_EVENT0.IIDX);
+    return ((DL_I2C_IIDX) i2c->CPU_INT.IIDX);
 }
 
 /**
@@ -3574,7 +3590,7 @@ __STATIC_INLINE DL_I2C_IIDX DL_I2C_getPendingInterrupt(I2C_Regs *i2c)
 __STATIC_INLINE void DL_I2C_clearInterruptStatus(
     I2C_Regs *i2c, uint32_t interruptMask)
 {
-    i2c->INT_EVENT0.ICLR = interruptMask;
+    i2c->CPU_INT.ICLR = interruptMask;
 }
 
 /**
@@ -3598,10 +3614,10 @@ __STATIC_INLINE void DL_I2C_enableDMAEvent(
 {
     switch (index) {
         case DL_I2C_EVENT_ROUTE_1:
-            i2c->INT_EVENT1.IMASK = interrupt;
+            i2c->DMA_TRIG1.IMASK = interrupt;
             break;
         case DL_I2C_EVENT_ROUTE_2:
-            i2c->INT_EVENT2.IMASK = interrupt;
+            i2c->DMA_TRIG0.IMASK = interrupt;
             break;
         default:
             break;
@@ -3627,10 +3643,10 @@ __STATIC_INLINE void DL_I2C_disableDMAEvent(
 {
     switch (index) {
         case DL_I2C_EVENT_ROUTE_1:
-            i2c->INT_EVENT1.IMASK &= ~(interrupt);
+            i2c->DMA_TRIG1.IMASK &= ~(interrupt);
             break;
         case DL_I2C_EVENT_ROUTE_2:
-            i2c->INT_EVENT2.IMASK &= ~(interrupt);
+            i2c->DMA_TRIG0.IMASK &= ~(interrupt);
             break;
         default:
             break;
@@ -3658,7 +3674,7 @@ __STATIC_INLINE void DL_I2C_disableDMAEvent(
 __STATIC_INLINE uint32_t DL_I2C_getEnabledDMAEvents(
     I2C_Regs *i2c, DL_I2C_EVENT_ROUTE index, uint32_t interruptMask)
 {
-    volatile uint32_t *pReg = &i2c->INT_EVENT1.IMASK;
+    volatile uint32_t *pReg = &i2c->DMA_TRIG1.IMASK;
 
     return ((*(pReg + (uint32_t) index) & interruptMask));
 }
@@ -3688,7 +3704,7 @@ __STATIC_INLINE uint32_t DL_I2C_getEnabledDMAEvents(
 __STATIC_INLINE uint32_t DL_I2C_getEnabledDMAEventStatus(
     I2C_Regs *i2c, DL_I2C_EVENT_ROUTE index, uint32_t interruptMask)
 {
-    const volatile uint32_t *pReg = &i2c->INT_EVENT1.MIS;
+    const volatile uint32_t *pReg = &i2c->DMA_TRIG1.MIS;
 
     return ((*(pReg + (uint32_t) index) & interruptMask));
 }
@@ -3714,7 +3730,7 @@ __STATIC_INLINE uint32_t DL_I2C_getEnabledDMAEventStatus(
 __STATIC_INLINE uint32_t DL_I2C_getRawDMAEventStatus(
     I2C_Regs *i2c, DL_I2C_EVENT_ROUTE index, uint32_t interruptMask)
 {
-    const volatile uint32_t *pReg = &i2c->INT_EVENT1.RIS;
+    const volatile uint32_t *pReg = &i2c->DMA_TRIG1.RIS;
 
     return ((*(pReg + (uint32_t) index) & interruptMask));
 }
@@ -3738,7 +3754,7 @@ __STATIC_INLINE uint32_t DL_I2C_getRawDMAEventStatus(
 __STATIC_INLINE DL_I2C_DMA_IIDX DL_I2C_getPendingDMAEvent(
     I2C_Regs *i2c, DL_I2C_EVENT_ROUTE index)
 {
-    const volatile uint32_t *pReg = &i2c->INT_EVENT1.IIDX;
+    const volatile uint32_t *pReg = &i2c->DMA_TRIG1.IIDX;
 
     return (DL_I2C_DMA_IIDX)((*(pReg + (uint32_t) index)));
 }
@@ -3759,10 +3775,10 @@ __STATIC_INLINE void DL_I2C_clearDMAEvent(
 {
     switch (index) {
         case DL_I2C_EVENT_ROUTE_1:
-            i2c->INT_EVENT1.ICLR |= interrupt;
+            i2c->DMA_TRIG1.ICLR |= interrupt;
             break;
         case DL_I2C_EVENT_ROUTE_2:
-            i2c->INT_EVENT2.ICLR |= interrupt;
+            i2c->DMA_TRIG0.ICLR |= interrupt;
             break;
         default:
             break;

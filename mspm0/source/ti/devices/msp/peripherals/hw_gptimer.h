@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_gptimer__include
 #define ti_devices_msp_peripherals_hw_gptimer__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspgptimer */
-/* MMR revision: fb335550438428d93f510aaf98d2a7edb64039aa */
-/* Generator revision: 266517ec86bda39278cbb1f88a71dac4f1f5cf49
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_gptimer.h */
+/* Revised: 2023-06-14 07:34:16 */
+/* Revision: a504d35821a1f170e263e97ef8409fa7429b8d87 */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -72,7 +70,9 @@
 ******************************************************************************/
 #define GPTIMER_COUNTERREGS_OFS                  ((uint32_t)0x00001800U)
 #define GPTIMER_COMMONREGS_OFS                   ((uint32_t)0x00001100U)
-#define GPTIMER_INT_EVENT_OFS                    ((uint32_t)0x00001020U)
+#define GPTIMER_GEN_EVENT1_OFS                   ((uint32_t)0x00001080U)
+#define GPTIMER_GEN_EVENT0_OFS                   ((uint32_t)0x00001050U)
+#define GPTIMER_CPU_INT_OFS                      ((uint32_t)0x00001020U)
 #define GPTIMER_GPRCM_OFS                        ((uint32_t)0x00000800U)
 
 
@@ -85,31 +85,31 @@ typedef struct {
   __IO uint32_t CTRCTL;                            /* !< (@ 0x00001804) Counter Control Register */
   __IO uint32_t LOAD;                              /* !< (@ 0x00001808) Load Register */
        uint32_t RESERVED0;
-  __IO uint32_t CC_01[2];                          /* !< (@ 0x00001810) Capture or Compare Register 0 to Capture or
-                                                      Compare Register 1 */
-  __IO uint32_t CC_23[2];                          /* !< (@ 0x00001818) Capture or Compare Register 0 to Capture or
-                                                      Compare Register 1 */
-  __IO uint32_t CC_45[2];                          /* !< (@ 0x00001820) Compare Register 4 to Compare Register 5 */
+  __IO uint32_t CC_01[2];                          /* !< (@ 0x00001810) Capture or Compare Register 0/1 */
+  __IO uint32_t CC_23[2];                          /* !< (@ 0x00001818) Capture or Compare Register 2/3 */
+  __IO uint32_t CC_45[2];                          /* !< (@ 0x00001820) The CC_45 register are a registers which can be
+                                                      used as compare to the current CTR to create an events CC4U, CC4D,
+                                                      CC5U and CC5D. */
        uint32_t RESERVED1[2];
-  __IO uint32_t CCCTL_01[2];                       /* !< (@ 0x00001830) Capture or Compare Control Registers */
-  __IO uint32_t CCCTL_23[2];                       /* !< (@ 0x00001838) Capture or Compare Control Registers */
-  __IO uint32_t CCCTL_45[2];                       /* !< (@ 0x00001840) Capture or Compare Control Registers */
+  __IO uint32_t CCCTL_01[2];                       /* !< (@ 0x00001830) Capture or Compare Control Registers 0/1 */
+  __IO uint32_t CCCTL_23[2];                       /* !< (@ 0x00001838) Capture or Compare Control Registers 2/3 */
+  __IO uint32_t CCCTL_45[2];                       /* !< (@ 0x00001840) Capture or Compare Control Registers 4/5 */
        uint32_t RESERVED2[2];
-  __IO uint32_t OCTL_01[2];                        /* !< (@ 0x00001850) CCP Output Control Registers */
-  __IO uint32_t OCTL_23[2];                        /* !< (@ 0x00001858) CCP Output Control Registers */
+  __IO uint32_t OCTL_01[2];                        /* !< (@ 0x00001850) CCP Output Control Registers 0/1 */
+  __IO uint32_t OCTL_23[2];                        /* !< (@ 0x00001858) CCP Output Control Registers 2/3 */
        uint32_t RESERVED3[4];
-  __IO uint32_t CCACT_01[2];                       /* !< (@ 0x00001870) Capture or Compare Action Registers */
-  __IO uint32_t CCACT_23[2];                       /* !< (@ 0x00001878) Capture or Compare Action Registers */
-  __IO uint32_t IFCTL_01[2];                       /* !< (@ 0x00001880) Input Filter Control Register */
-  __IO uint32_t IFCTL_23[2];                       /* !< (@ 0x00001888) Input Filter Control Register */
+  __IO uint32_t CCACT_01[2];                       /* !< (@ 0x00001870) Capture or Compare Action Registers 0/1 */
+  __IO uint32_t CCACT_23[2];                       /* !< (@ 0x00001878) Capture or Compare Action Registers 2/3 */
+  __IO uint32_t IFCTL_01[2];                       /* !< (@ 0x00001880) Input Filter Control Register 0/1 */
+  __IO uint32_t IFCTL_23[2];                       /* !< (@ 0x00001888) Input Filter Control Register 2/3 */
        uint32_t RESERVED4[4];
-  __IO uint32_t PL;                                /* !< (@ 0x000018A0) Counter Register */
+  __IO uint32_t PL;                                /* !< (@ 0x000018A0) Phase Load Register */
   __IO uint32_t DBCTL;                             /* !< (@ 0x000018A4) Dead Band insertion control register */
        uint32_t RESERVED5[2];
-  __IO uint32_t TSEL;                              /* !< (@ 0x000018B0) Trigger Select */
-  __I  uint32_t RC;                                /* !< (@ 0x000018B4) Repeat counter */
-  __IO uint32_t RCLD;                              /* !< (@ 0x000018B8) Repeat counter */
-  __I  uint32_t QDIR;                              /* !< (@ 0x000018BC) Count Direction Register */
+  __IO uint32_t TSEL;                              /* !< (@ 0x000018B0) Trigger Select Register */
+  __I  uint32_t RC;                                /* !< (@ 0x000018B4) Repeat counter Register */
+  __IO uint32_t RCLD;                              /* !< (@ 0x000018B8) Repeat counter load Register */
+  __I  uint32_t QDIR;                              /* !< (@ 0x000018BC) QEI Count Direction Register */
        uint32_t RESERVED6[4];
   __IO uint32_t FCTL;                              /* !< (@ 0x000018D0) Fault Control Register */
   __IO uint32_t FIFCTL;                            /* !< (@ 0x000018D4) Fault input Filter control register */
@@ -131,12 +131,52 @@ typedef struct {
        uint32_t RESERVED0;
   __O  uint32_t CTTRIG;                            /* !< (@ 0x0000111C) Timer Cross Trigger Register */
   __IO uint32_t FSCTL;                             /* !< (@ 0x00001120) Fault Source Control */
-  __IO uint32_t GCTL;                              /* !< (@ 0x00001124) Shadow to active load mask */
+  __IO uint32_t GCTL;                              /* !< (@ 0x00001124) Global control register */
 } GPTIMER_COMMONREGS_Regs;
 
 /*@}*/ /* end of group GPTIMER_COMMONREGS */
 
-/** @addtogroup GPTIMER_INT_EVENT
+/** @addtogroup GPTIMER_GEN_EVENT1
+  @{
+*/
+
+typedef struct {
+  __I  uint32_t IIDX;                              /* !< (@ 0x00001080) Interrupt index */
+       uint32_t RESERVED0;
+  __IO uint32_t IMASK;                             /* !< (@ 0x00001088) Interrupt mask */
+       uint32_t RESERVED1;
+  __I  uint32_t RIS;                               /* !< (@ 0x00001090) Raw interrupt status */
+       uint32_t RESERVED2;
+  __I  uint32_t MIS;                               /* !< (@ 0x00001098) Masked interrupt status */
+       uint32_t RESERVED3;
+  __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set */
+       uint32_t RESERVED4;
+  __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear */
+} GPTIMER_GEN_EVENT1_Regs;
+
+/*@}*/ /* end of group GPTIMER_GEN_EVENT1 */
+
+/** @addtogroup GPTIMER_GEN_EVENT0
+  @{
+*/
+
+typedef struct {
+  __I  uint32_t IIDX;                              /* !< (@ 0x00001050) Interrupt index */
+       uint32_t RESERVED0;
+  __IO uint32_t IMASK;                             /* !< (@ 0x00001058) Interrupt mask */
+       uint32_t RESERVED1;
+  __I  uint32_t RIS;                               /* !< (@ 0x00001060) Raw interrupt status */
+       uint32_t RESERVED2;
+  __I  uint32_t MIS;                               /* !< (@ 0x00001068) Masked interrupt status */
+       uint32_t RESERVED3;
+  __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
+       uint32_t RESERVED4;
+  __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
+} GPTIMER_GEN_EVENT0_Regs;
+
+/*@}*/ /* end of group GPTIMER_GEN_EVENT0 */
+
+/** @addtogroup GPTIMER_CPU_INT
   @{
 */
 
@@ -152,10 +192,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-       uint32_t RESERVED5;
-} GPTIMER_INT_EVENT_Regs;
+} GPTIMER_CPU_INT_Regs;
 
-/*@}*/ /* end of group GPTIMER_INT_EVENT */
+/*@}*/ /* end of group GPTIMER_CPU_INT */
 
 /** @addtogroup GPTIMER_GPRCM
   @{
@@ -190,13 +229,17 @@ typedef struct {
        uint32_t RESERVED5[3];
   __IO uint32_t PDBGCTL;                           /* !< (@ 0x00001018) Peripheral Debug Control */
        uint32_t RESERVED6;
-  GPTIMER_INT_EVENT_Regs  INT_EVENT[3];                      /* !< (@ 0x00001020) */
-       uint32_t RESERVED7[12];
+  GPTIMER_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
+       uint32_t RESERVED7;
+  GPTIMER_GEN_EVENT0_Regs  GEN_EVENT0;                        /* !< (@ 0x00001050) */
+       uint32_t RESERVED8;
+  GPTIMER_GEN_EVENT1_Regs  GEN_EVENT1;                        /* !< (@ 0x00001080) */
+       uint32_t RESERVED9[13];
   __IO uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
-       uint32_t RESERVED8[6];
+       uint32_t RESERVED10[6];
   __I  uint32_t DESC;                              /* !< (@ 0x000010FC) Module Description */
   GPTIMER_COMMONREGS_Regs  COMMONREGS;                        /* !< (@ 0x00001100) */
-       uint32_t RESERVED9[438];
+       uint32_t RESERVED11[438];
   GPTIMER_COUNTERREGS_Regs  COUNTERREGS;                       /* !< (@ 0x00001800) */
 } GPTIMER_Regs;
 
@@ -353,11 +396,11 @@ typedef struct {
 #define GPTIMER_CTRCTL_CLC_CCCTL3_LCOND          ((uint32_t)0x00000180U)         /* !< CCCTL_3 LCOND This value exists
                                                                                     when there are 4 channels. */
 #define GPTIMER_CTRCTL_CLC_QEI_2INP              ((uint32_t)0x00000200U)         /* !< Controlled by 2 input QEI mode.
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 #define GPTIMER_CTRCTL_CLC_QEI_3INP              ((uint32_t)0x00000280U)         /* !< Controlled by 3 input QEI mode.
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 /* GPTIMER_CTRCTL[CAC] Bits */
 #define GPTIMER_CTRCTL_CAC_OFS                   (10)                            /* !< CAC Offset */
 #define GPTIMER_CTRCTL_CAC_MASK                  ((uint32_t)0x00001C00U)         /* !< Counter Advance Control.  This
@@ -377,11 +420,11 @@ typedef struct {
 #define GPTIMER_CTRCTL_CAC_CCCTL3_ACOND          ((uint32_t)0x00000C00U)         /* !< CCCTL_3 ACOND This value exists
                                                                                     when there are 4 channels. */
 #define GPTIMER_CTRCTL_CAC_QEI_2INP              ((uint32_t)0x00001000U)         /* !< Controlled by 2-input QEI mode
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 #define GPTIMER_CTRCTL_CAC_QEI_3INP              ((uint32_t)0x00001400U)         /* !< Controlled by 3-input QEI mode
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 /* GPTIMER_CTRCTL[CZC] Bits */
 #define GPTIMER_CTRCTL_CZC_OFS                   (13)                            /* !< CZC Offset */
 #define GPTIMER_CTRCTL_CZC_MASK                  ((uint32_t)0x0000E000U)         /* !< Counter Zero Control This field
@@ -400,11 +443,11 @@ typedef struct {
 #define GPTIMER_CTRCTL_CZC_CCCTL3_ZCOND          ((uint32_t)0x00006000U)         /* !< CCCTL_3 ZCOND This value exists
                                                                                     when there are 4 channels. */
 #define GPTIMER_CTRCTL_CZC_QEI_2INP              ((uint32_t)0x00008000U)         /* !< Controlled by 2-input QEI mode
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 #define GPTIMER_CTRCTL_CZC_QEI_3INP              ((uint32_t)0x0000A000U)         /* !< Controlled by 3-input QEI mode
-                                                                                    This value exists when gptimer
-                                                                                    support QEI feature. */
+                                                                                    This value exists when TIMER support
+                                                                                    QEI feature. */
 
 /* GPTIMER_LOAD Bits */
 /* GPTIMER_LOAD[LD] Bits */
@@ -439,7 +482,7 @@ typedef struct {
 #define GPTIMER_CCCTL_01_CCOND_OFS               (0)                             /* !< CCOND Offset */
 #define GPTIMER_CCCTL_01_CCOND_MASK              ((uint32_t)0x00000007U)         /* !< Capture Condition. #br# Specifies
                                                                                     the condition that generates a
-                                                                                    capture pulse. 4h-Fh = Reserved */
+                                                                                    capture pulse. */
 #define GPTIMER_CCCTL_01_CCOND_NOCAPTURE         ((uint32_t)0x00000000U)         /* !< None (never captures) */
 #define GPTIMER_CCCTL_01_CCOND_CC_TRIG_RISE      ((uint32_t)0x00000001U)         /* !< Rising edge of CCP or trigger
                                                                                     assertion edge */
@@ -451,7 +494,7 @@ typedef struct {
 #define GPTIMER_CCCTL_01_ACOND_OFS               (4)                             /* !< ACOND Offset */
 #define GPTIMER_CCCTL_01_ACOND_MASK              ((uint32_t)0x00000070U)         /* !< Advance Condition. #br# Specifies
                                                                                     the condition that generates an
-                                                                                    advance pulse. 6h-Fh = Reserved */
+                                                                                    advance pulse. */
 #define GPTIMER_CCCTL_01_ACOND_TIMCLK            ((uint32_t)0x00000000U)         /* !< Each TIMCLK */
 #define GPTIMER_CCCTL_01_ACOND_CC_TRIG_RISE      ((uint32_t)0x00000010U)         /* !< Rising edge of CCP or trigger
                                                                                     assertion edge */
@@ -465,7 +508,7 @@ typedef struct {
 #define GPTIMER_CCCTL_01_LCOND_OFS               (8)                             /* !< LCOND Offset */
 #define GPTIMER_CCCTL_01_LCOND_MASK              ((uint32_t)0x00000700U)         /* !< Load Condition. #br# Specifies the
                                                                                     condition that generates a load
-                                                                                    pulse.  4h-Fh = Reserved */
+                                                                                    pulse. */
 #define GPTIMER_CCCTL_01_LCOND_CC_TRIG_RISE      ((uint32_t)0x00000100U)         /* !< Rising edge of CCP or trigger
                                                                                     assertion edge */
 #define GPTIMER_CCCTL_01_LCOND_CC_TRIG_FALL      ((uint32_t)0x00000200U)         /* !< Falling edge of CCP or trigger
@@ -476,8 +519,7 @@ typedef struct {
 #define GPTIMER_CCCTL_01_ZCOND_OFS               (12)                            /* !< ZCOND Offset */
 #define GPTIMER_CCCTL_01_ZCOND_MASK              ((uint32_t)0x00007000U)         /* !< Zero Condition. #br# This field
                                                                                     specifies the condition that
-                                                                                    generates a zero pulse. 4h-Fh =
-                                                                                    Reserved */
+                                                                                    generates a zero pulse. */
 #define GPTIMER_CCCTL_01_ZCOND_CC_TRIG_RISE      ((uint32_t)0x00001000U)         /* !< Rising edge of CCP or trigger
                                                                                     assertion edge */
 #define GPTIMER_CCCTL_01_ZCOND_CC_TRIG_FALL      ((uint32_t)0x00002000U)         /* !< Falling edge of CCP or trigger
@@ -511,94 +553,96 @@ typedef struct {
 #define GPTIMER_CCCTL_01_CCUPD_OFS               (18)                            /* !< CCUPD Offset */
 #define GPTIMER_CCCTL_01_CCUPD_MASK              ((uint32_t)0x001C0000U)         /* !< Capture and Compare Update Method
                                                                                     This field controls how updates to
-                                                                                    the pipelined capture and compare
+                                                                                    the shadow capture and compare
                                                                                     register are performed (when
                                                                                     operating in compare mode, COC=0). */
 #define GPTIMER_CCCTL_01_CCUPD_IMMEDIATELY       ((uint32_t)0x00000000U)         /* !< Writes to the CCx_y register is
                                                                                     written to the register directly and
                                                                                     has immediate effect. */
-#define GPTIMER_CCCTL_01_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event Writes to
-                                                                                    the CCx_y register are stored in
-                                                                                    shadow register and transferred to
-                                                                                    CCx_y in the TIMCLK cycle following
-                                                                                    CTR equals 0. */
-#define GPTIMER_CCCTL_01_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a compare (down) event
+#define GPTIMER_CCCTL_01_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event (CTR=0)
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0. */
+#define GPTIMER_CCCTL_01_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a CCD event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_01_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a compare (up) event
+#define GPTIMER_CCCTL_01_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a CCU event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_01_CCUPD_ZERO_LOAD_EVT     ((uint32_t)0x00100000U)         /* !< Following a zero or load event
-                                                                                    Writes to the CCx_y register are
-                                                                                    stored in shadow register and
-                                                                                    transferred to ECCx_y in the TIMCLK
-                                                                                    cycle following CTR equals 0 or CTR.
-                                                                                    Equals LD.  Note this update
-                                                                                    mechanism is defined for use only in
-                                                                                    configurations using up/down
+#define GPTIMER_CCCTL_01_CCUPD_ZERO_LOAD_EVT     ((uint32_t)0x00100000U)         /* !< Following a zero event(CTR=0) or
+                                                                                    load event (CTR=LOAD) Writes to the
+                                                                                    CCx_y register are stored in shadow
+                                                                                    register and transferred to ECCx_y in
+                                                                                    the TIMCLK cycle following CTR equals
+                                                                                    0 or CTR. Equals LD.  Note this
+                                                                                    update mechanism is defined for use
+                                                                                    only in configurations using up/down
                                                                                     counting. This mode is not intended
                                                                                     for use in down count configurations. */
-#define GPTIMER_CCCTL_01_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event with repeat
-                                                                                    count also zero.  Writes to the CCx_y
-                                                                                    register are stored in shadow
-                                                                                    register and transferred to CCx_y in
-                                                                                    the TIMCLK cycle following CTR equals
-                                                                                    0 and if RC equal 0. */
+#define GPTIMER_CCCTL_01_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event (CTR=0) with
+                                                                                    repeat count also zero (RC=0).
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0 and if
+                                                                                    RC equal 0. */
 #define GPTIMER_CCCTL_01_CCUPD_TRIG              ((uint32_t)0x00180000U)         /* !< Following a TRIG pulse.  Writes to
                                                                                     the CCx_y register are stored in
                                                                                     shadow register and transferred to
-                                                                                    CCx_y #xD; 0. */
+                                                                                    CCx_y */
 /* GPTIMER_CCCTL_01[CCACTUPD] Bits */
 #define GPTIMER_CCCTL_01_CCACTUPD_OFS            (26)                            /* !< CCACTUPD Offset */
 #define GPTIMER_CCCTL_01_CCACTUPD_MASK           ((uint32_t)0x1C000000U)         /* !< CCACT shadow register Update Method
                                                                                     This field controls how updates to
-                                                                                    the CCCACT shadow register are
+                                                                                    the CCACT shadow register are
                                                                                     performed */
 #define GPTIMER_CCCTL_01_CCACTUPD_IMMEDIATELY    ((uint32_t)0x00000000U)         /* !< Value written to the CCACT register
                                                                                     has immediate effect. */
-#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_EVT       ((uint32_t)0x04000000U)         /* !< Following a zero event Writes to
-                                                                                    the CCACTx_y register are stored in
-                                                                                    shadow register and transferred to
-                                                                                    CCACTx_y in the TIMCLK cycle
-                                                                                    following CTR equals 0. */
-#define GPTIMER_CCCTL_01_CCACTUPD_COMPARE_DOWN_EVT ((uint32_t)0x08000000U)         /* !< Following a compare (down) event
+#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_EVT       ((uint32_t)0x04000000U)         /* !< Following a zero event (CTR=0)
+                                                                                    Writes to the CCACTx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCACTx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0. */
+#define GPTIMER_CCCTL_01_CCACTUPD_COMPARE_DOWN_EVT ((uint32_t)0x08000000U)         /* !< Following a CCD event (CTR=CC_xy)
                                                                                     Writes to the CCACTx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCACTx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_01_CCACTUPD_COMPARE_UP_EVT ((uint32_t)0x0C000000U)         /* !< Following a compare (up) event
+#define GPTIMER_CCCTL_01_CCACTUPD_COMPARE_UP_EVT ((uint32_t)0x0C000000U)         /* !< Following a CCU event (CTR=CC_xy)
                                                                                     Writes to the CCACTx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCACTx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_LOAD_EVT  ((uint32_t)0x10000000U)         /* !< Following a zero or load event
-                                                                                    Writes to the CCACTx_y register are
-                                                                                    stored in shadow register and
-                                                                                    transferred to CCACTx_y in the TIMCLK
-                                                                                    cycle following CTR equals 0 or CTR.
-                                                                                    Equals LDn.  Note this update
-                                                                                    mechanism is defined for use only in
-                                                                                    configurations using up/down
-                                                                                    counting. This mode is not intended
-                                                                                    for use in down count configurations. */
-#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_RC_ZERO_EVT ((uint32_t)0x14000000U)         /* !< Following a zero event with repeat
-                                                                                    count also zero.  Writes to the
+#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_LOAD_EVT  ((uint32_t)0x10000000U)         /* !< Following a zero event (CTR=0) or
+                                                                                    load event (CTR = LOAD) Writes to the
                                                                                     CCACTx_y register are stored in
                                                                                     shadow register and transferred to
                                                                                     CCACTx_y in the TIMCLK cycle
-                                                                                    following CTR equals 0 and if RC
-                                                                                    equal 0. */
+                                                                                    following CTR equals 0 or CTR. Equals
+                                                                                    LDn.  Note this update mechanism is
+                                                                                    defined for use only in
+                                                                                    configurations using up/down
+                                                                                    counting. This mode is not intended
+                                                                                    for use in down count configurations. */
+#define GPTIMER_CCCTL_01_CCACTUPD_ZERO_RC_ZERO_EVT ((uint32_t)0x14000000U)         /* !< Following a zero event (CTR=0) with
+                                                                                    repeat count also zero (RC=0).
+                                                                                    Writes to the CCACTx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCACTx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0 and if
+                                                                                    RC equal 0. */
 #define GPTIMER_CCCTL_01_CCACTUPD_TRIG           ((uint32_t)0x18000000U)         /* !< On a TRIG pulse, the value stored
-                                                                                    in CCACTx_y shadow register is loaded
-                                                                                    into CCACTx_y active register. */
+                                                                                    in CCACT_xy shadow register is loaded
+                                                                                    into CCACT_xy register. */
 /* GPTIMER_CCCTL_01[CC2SELU] Bits */
 #define GPTIMER_CCCTL_01_CC2SELU_OFS             (22)                            /* !< CC2SELU Offset */
 #define GPTIMER_CCCTL_01_CC2SELU_MASK            ((uint32_t)0x01C00000U)         /* !< Selects the source second CCU
@@ -697,24 +741,24 @@ typedef struct {
 #define GPTIMER_CCCTL_23_CCUPD_OFS               (18)                            /* !< CCUPD Offset */
 #define GPTIMER_CCCTL_23_CCUPD_MASK              ((uint32_t)0x001C0000U)         /* !< Capture and Compare Update Method
                                                                                     This field controls how updates to
-                                                                                    the pipelined capture and compare
+                                                                                    the shadow capture and compare
                                                                                     register are performed (when
                                                                                     operating in compare mode, COC=0). */
 #define GPTIMER_CCCTL_23_CCUPD_IMMEDIATELY       ((uint32_t)0x00000000U)         /* !< Writes to the CCx_y register is
                                                                                     written to the register directly and
                                                                                     has immediate effect. */
-#define GPTIMER_CCCTL_23_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event Writes to
-                                                                                    the CCx_y register are stored in
-                                                                                    shadow register and transferred to
-                                                                                    CCx_y in the TIMCLK cycle following
-                                                                                    CTR equals 0. */
-#define GPTIMER_CCCTL_23_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a compare (down) event
+#define GPTIMER_CCCTL_23_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event (CTR=0)
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0. */
+#define GPTIMER_CCCTL_23_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a CCD event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_23_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a compare (up) event
+#define GPTIMER_CCCTL_23_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a CCU event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
@@ -730,12 +774,13 @@ typedef struct {
                                                                                     configurations using up/down
                                                                                     counting. This mode is not intended
                                                                                     for use in down count configurations. */
-#define GPTIMER_CCCTL_23_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event with repeat
-                                                                                    count also zero.  Writes to the CCx_y
-                                                                                    register are stored in shadow
-                                                                                    register and transferred to CCx_y in
-                                                                                    the TIMCLK cycle following CTR equals
-                                                                                    0 and if RC equal 0. */
+#define GPTIMER_CCCTL_23_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event (CTR=0) with
+                                                                                    repeat count also zero (RC=0).
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0 and if
+                                                                                    RC equal 0. */
 #define GPTIMER_CCCTL_23_CCUPD_TRIG              ((uint32_t)0x00180000U)         /* !< Following a TRIG pulse.  Writes to
                                                                                     the CCx_y register are stored in
                                                                                     shadow register and transferred to
@@ -748,40 +793,41 @@ typedef struct {
                                                                                     performed */
 #define GPTIMER_CCCTL_23_CCACTUPD_IMMEDIATELY    ((uint32_t)0x00000000U)         /* !< Value written to the CCACTx_y
                                                                                     register has immediate effect. */
-#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_EVT       ((uint32_t)0x04000000U)         /* !< Following a zero event Writes to
-                                                                                    the CCACTx_y register are stored in
-                                                                                    shadow register and transferred to
-                                                                                    CCACTx_y in the TIMCLK cycle
-                                                                                    following CTR equals 0. */
-#define GPTIMER_CCCTL_23_CCACTUPD_COMPARE_DOWN_EVT ((uint32_t)0x08000000U)         /* !< Following a compare (down) event
+#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_EVT       ((uint32_t)0x04000000U)         /* !< Following a zero event (CTR=0)
+                                                                                    Writes to the CCACTx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCACTx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0. */
+#define GPTIMER_CCCTL_23_CCACTUPD_COMPARE_DOWN_EVT ((uint32_t)0x08000000U)         /* !< Following a CCD event (CTR=CC_xy)
                                                                                     Writes to the CCACTx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCACTx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_23_CCACTUPD_COMPARE_UP_EVT ((uint32_t)0x0C000000U)         /* !< Following a compare (up) event
+#define GPTIMER_CCCTL_23_CCACTUPD_COMPARE_UP_EVT ((uint32_t)0x0C000000U)         /* !< Following a CCU event (CTR=cc_xy)
                                                                                     Writes to the CCACTx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCACTx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_LOAD_EVT  ((uint32_t)0x10000000U)         /* !< Following a zero or load event
-                                                                                    Writes to the CCACTx_y register are
-                                                                                    stored in shadow register and
-                                                                                    transferred to CCACTx_y in the TIMCLK
-                                                                                    cycle following CTR equals 0 or CTR.
-                                                                                    Equals LDn.  Note this update
-                                                                                    mechanism is defined for use only in
-                                                                                    configurations using up/down
-                                                                                    counting. This mode is not intended
-                                                                                    for use in down count configurations. */
-#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_RC_ZERO_EVT ((uint32_t)0x14000000U)         /* !< Following a zero event with repeat
-                                                                                    count also zero.  Writes to the
+#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_LOAD_EVT  ((uint32_t)0x10000000U)         /* !< Following a zero event (CTR=0) or
+                                                                                    load event (CTR=LOAD) Writes to the
                                                                                     CCACTx_y register are stored in
                                                                                     shadow register and transferred to
                                                                                     CCACTx_y in the TIMCLK cycle
-                                                                                    following CTR equals 0 and if RC
-                                                                                    equal 0. */
+                                                                                    following CTR equals 0 or CTR. Equals
+                                                                                    LDn.  Note this update mechanism is
+                                                                                    defined for use only in
+                                                                                    configurations using up/down
+                                                                                    counting. This mode is not intended
+                                                                                    for use in down count configurations. */
+#define GPTIMER_CCCTL_23_CCACTUPD_ZERO_RC_ZERO_EVT ((uint32_t)0x14000000U)         /* !< Following a zero event (CTR=0) with
+                                                                                    repeat count also zero (RC=0).
+                                                                                    Writes to the CCACTx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCACTx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0 and if
+                                                                                    RC equal 0. */
 #define GPTIMER_CCCTL_23_CCACTUPD_TRIG           ((uint32_t)0x18000000U)         /* !< On a TRIG pulse, the value stored
                                                                                     in CCACTx_y shadow register is loaded
                                                                                     into CCACTx_y active register. */
@@ -826,45 +872,46 @@ typedef struct {
 #define GPTIMER_CCCTL_45_CCUPD_OFS               (18)                            /* !< CCUPD Offset */
 #define GPTIMER_CCCTL_45_CCUPD_MASK              ((uint32_t)0x001C0000U)         /* !< Capture and Compare Update Method
                                                                                     This field controls how updates to
-                                                                                    the pipelined capture and compare
+                                                                                    the shadow capture and compare
                                                                                     register are performed (when
                                                                                     operating in compare mode, COC=0). */
 #define GPTIMER_CCCTL_45_CCUPD_IMMEDIATELY       ((uint32_t)0x00000000U)         /* !< Writes to the CCx_y register is
                                                                                     written to the register directly and
                                                                                     has immediate effect. */
-#define GPTIMER_CCCTL_45_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event Writes to
-                                                                                    the CCx_y register are stored in
-                                                                                    shadow register and transferred to
-                                                                                    ECCx_y in the TIMCLK cycle following
-                                                                                    CTR equals 0. */
-#define GPTIMER_CCCTL_45_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a compare (down) event
+#define GPTIMER_CCCTL_45_CCUPD_ZERO_EVT          ((uint32_t)0x00040000U)         /* !< Following a zero event (CTR=0)
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to ECCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0. */
+#define GPTIMER_CCCTL_45_CCUPD_COMPARE_DOWN_EVT  ((uint32_t)0x00080000U)         /* !< Following a CCD event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_45_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a compare (up) event
+#define GPTIMER_CCCTL_45_CCUPD_COMPARE_UP_EVT    ((uint32_t)0x000C0000U)         /* !< Following a CCU event (CTR=CC_xy)
                                                                                     Writes to the CCx_y register are
                                                                                     stored in shadow register and
                                                                                     transferred to CCx_y in the TIMCLK
                                                                                     cycle following CTR equals the CCx_y
                                                                                     register value. */
-#define GPTIMER_CCCTL_45_CCUPD_ZERO_LOAD_EVT     ((uint32_t)0x00100000U)         /* !< Following a zero or load event
-                                                                                    Writes to the CCx_y register are
-                                                                                    stored in shadow register and
-                                                                                    transferred to CCx_y in the TIMCLK
-                                                                                    cycle following CTR equals 0 or CTR.
-                                                                                    Equals LD.  Note this update
-                                                                                    mechanism is defined for use only in
-                                                                                    configurations using up/down
-                                                                                    counting. This mode is not intended
-                                                                                    for use in down count configurations. */
-#define GPTIMER_CCCTL_45_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event with repeat
-                                                                                    count also zero.  Writes to the CCx_y
-                                                                                    register are stored in shadow
+#define GPTIMER_CCCTL_45_CCUPD_ZERO_LOAD_EVT     ((uint32_t)0x00100000U)         /* !< Following a zero event (CTR=0) or
+                                                                                    load event (CTR=LOAD) Writes to the
+                                                                                    CCx_y register are stored in shadow
                                                                                     register and transferred to CCx_y in
                                                                                     the TIMCLK cycle following CTR equals
-                                                                                    0 and if RC equal 0. */
+                                                                                    0 or CTR. Equals LD.  Note this
+                                                                                    update mechanism is defined for use
+                                                                                    only in configurations using up/down
+                                                                                    counting. This mode is not intended
+                                                                                    for use in down count configurations. */
+#define GPTIMER_CCCTL_45_CCUPD_ZERO_RC_ZERO_EVT  ((uint32_t)0x00140000U)         /* !< Following a zero event (CTR=0) with
+                                                                                    repeat count also zero (RC=0).
+                                                                                    Writes to the CCx_y register are
+                                                                                    stored in shadow register and
+                                                                                    transferred to CCx_y in the TIMCLK
+                                                                                    cycle following CTR equals 0 and if
+                                                                                    RC equal 0. */
 #define GPTIMER_CCCTL_45_CCUPD_TRIG              ((uint32_t)0x00180000U)         /* !< Following a TRIG pulse.  Writes to
                                                                                     the CCx_y register are stored in
                                                                                     shadow register and transferred to
@@ -891,16 +938,19 @@ typedef struct {
 #define GPTIMER_OCTL_01_CCPO_MASK                ((uint32_t)0x0000000FU)         /* !< CCP Output Source */
 #define GPTIMER_OCTL_01_CCPO_FUNCVAL             ((uint32_t)0x00000000U)         /* !< Signal generator value (for
                                                                                     example, PWM, triggered PWM) */
-#define GPTIMER_OCTL_01_CCPO_LOAD                ((uint32_t)0x00000001U)         /* !< Load condition */
-#define GPTIMER_OCTL_01_CCPO_CMPVAL              ((uint32_t)0x00000002U)         /* !< Compare value = counter condition */
-#define GPTIMER_OCTL_01_CCPO_ZERO                ((uint32_t)0x00000004U)         /* !< Zero condition */
-#define GPTIMER_OCTL_01_CCPO_CAPCOND             ((uint32_t)0x00000005U)         /* !< Capture condition */
-#define GPTIMER_OCTL_01_CCPO_FAULTCOND           ((uint32_t)0x00000006U)         /* !< Fault Condition */
+#define GPTIMER_OCTL_01_CCPO_LOAD                ((uint32_t)0x00000001U)         /* !< Load event */
+#define GPTIMER_OCTL_01_CCPO_CMPVAL              ((uint32_t)0x00000002U)         /* !< CCU event or CCD event */
+#define GPTIMER_OCTL_01_CCPO_ZERO                ((uint32_t)0x00000004U)         /* !< Zero event */
+#define GPTIMER_OCTL_01_CCPO_CAPCOND             ((uint32_t)0x00000005U)         /* !< Capture event */
+#define GPTIMER_OCTL_01_CCPO_FAULTCOND           ((uint32_t)0x00000006U)         /* !< Fault condition */
 #define GPTIMER_OCTL_01_CCPO_CC0_MIRROR_ALL      ((uint32_t)0x00000008U)         /* !< Mirror CCP of first capture and
-                                                                                    compare register in counter group */
+                                                                                    compare register to other capture
+                                                                                    compare blocks */
 #define GPTIMER_OCTL_01_CCPO_CC1_MIRROR_ALL      ((uint32_t)0x00000009U)         /* !< Mirror CCP of second capture and
-                                                                                    compare register in counter group */
-#define GPTIMER_OCTL_01_CCPO_DEADBAND            ((uint32_t)0x0000000CU)         /* !< Deadband Inserted Output */
+                                                                                    compare register in other capture
+                                                                                    compare blocks */
+#define GPTIMER_OCTL_01_CCPO_DEADBAND            ((uint32_t)0x0000000CU)         /* !< Signal generator output after
+                                                                                    deadband insertion */
 #define GPTIMER_OCTL_01_CCPO_CNTDIR              ((uint32_t)0x0000000DU)         /* !< Counter direction */
 
 /* GPTIMER_OCTL_23 Bits */
@@ -925,14 +975,16 @@ typedef struct {
 #define GPTIMER_OCTL_23_CCPO_FUNCVAL             ((uint32_t)0x00000000U)         /* !< Signal generator value (for
                                                                                     example, PWM, triggered PWM) */
 #define GPTIMER_OCTL_23_CCPO_LOAD                ((uint32_t)0x00000001U)         /* !< Load condition */
-#define GPTIMER_OCTL_23_CCPO_CMPVAL              ((uint32_t)0x00000002U)         /* !< Compare value = counter condition */
-#define GPTIMER_OCTL_23_CCPO_ZERO                ((uint32_t)0x00000004U)         /* !< Zero condition */
-#define GPTIMER_OCTL_23_CCPO_CAPCOND             ((uint32_t)0x00000005U)         /* !< Capture condition */
+#define GPTIMER_OCTL_23_CCPO_CMPVAL              ((uint32_t)0x00000002U)         /* !< CCU event or CCD event */
+#define GPTIMER_OCTL_23_CCPO_ZERO                ((uint32_t)0x00000004U)         /* !< Zero event */
+#define GPTIMER_OCTL_23_CCPO_CAPCOND             ((uint32_t)0x00000005U)         /* !< Capture event */
 #define GPTIMER_OCTL_23_CCPO_FAULTCOND           ((uint32_t)0x00000006U)         /* !< Fault Condition */
 #define GPTIMER_OCTL_23_CCPO_CC0_MIRROR_ALL      ((uint32_t)0x00000008U)         /* !< Mirror CCP of first capture and
-                                                                                    compare register in counter group */
+                                                                                    compare register in other capture
+                                                                                    compare blocks */
 #define GPTIMER_OCTL_23_CCPO_CC1_MIRROR_ALL      ((uint32_t)0x00000009U)         /* !< Mirror CCP of second capture and
-                                                                                    compare register in counter group */
+                                                                                    compare register in other capture
+                                                                                    compare blocksi /bn,. */
 #define GPTIMER_OCTL_23_CCPO_DEADBAND            ((uint32_t)0x0000000CU)         /* !< Deadband Inserted Output */
 #define GPTIMER_OCTL_23_CCPO_CNTDIR              ((uint32_t)0x0000000DU)         /* !< Counter direction */
 
@@ -1054,20 +1106,22 @@ typedef struct {
 #define GPTIMER_CCACT_01_SWFRCACT_CCP_LOW        ((uint32_t)0x20000000U)         /* !< CCP output value is set low */
 /* GPTIMER_CCACT_01[SWFRCACT_CMPL] Bits */
 #define GPTIMER_CCACT_01_SWFRCACT_CMPL_OFS       (30)                            /* !< SWFRCACT_CMPL Offset */
-#define GPTIMER_CCACT_01_SWFRCACT_CMPL_MASK      ((uint32_t)0xC0000000U)         /* !< CCP_CMPL Output Action on Software
-                                                                                    Force Output  This field describes
-                                                                                    the resulting action of software
-                                                                                    force.  This action has a shadow
-                                                                                    register, which will be updated under
-                                                                                    specific condition.  So that this
-                                                                                    register cannot take into effect
-                                                                                    immediately. */
+#define GPTIMER_CCACT_01_SWFRCACT_CMPL_MASK      ((uint32_t)0xC0000000U)         /* !< CCP Complimentary output Action on
+                                                                                    Software Force Output  This field
+                                                                                    describes the resulting action of
+                                                                                    software force.  This action has a
+                                                                                    shadow register, which will be
+                                                                                    updated under specific condition.  So
+                                                                                    that this register cannot take into
+                                                                                    effect immediately. */
 #define GPTIMER_CCACT_01_SWFRCACT_CMPL_DISABLED  ((uint32_t)0x00000000U)         /* !< This event is disabled and a lower
                                                                                     priority event is selected if
                                                                                     asserting. The CCP output value is
                                                                                     unaffected by the event. */
-#define GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_HIGH  ((uint32_t)0x40000000U)         /* !< CCP_CMPL output value is set high */
-#define GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_LOW   ((uint32_t)0x80000000U)         /* !< CCP_CMPL output value is set low */
+#define GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_HIGH  ((uint32_t)0x40000000U)         /* !< CCP Complimentary output value is
+                                                                                    set high */
+#define GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_LOW   ((uint32_t)0x80000000U)         /* !< CCP Complimentary output value is
+                                                                                    set low */
 
 /* GPTIMER_CCACT_23 Bits */
 /* GPTIMER_CCACT_23[ZACT] Bits */
@@ -1187,20 +1241,22 @@ typedef struct {
 #define GPTIMER_CCACT_23_SWFRCACT_CCP_LOW        ((uint32_t)0x20000000U)         /* !< CCP output value is set low */
 /* GPTIMER_CCACT_23[SWFRCACT_CMPL] Bits */
 #define GPTIMER_CCACT_23_SWFRCACT_CMPL_OFS       (30)                            /* !< SWFRCACT_CMPL Offset */
-#define GPTIMER_CCACT_23_SWFRCACT_CMPL_MASK      ((uint32_t)0xC0000000U)         /* !< CCP_CMPL Output Action on Software
-                                                                                    Force Output  This field describes
-                                                                                    the resulting action of software
-                                                                                    force.  This action has a shadow
-                                                                                    register, which will be updated under
-                                                                                    specific condition.  So that this
-                                                                                    register cannot take into effect
-                                                                                    immediately. */
+#define GPTIMER_CCACT_23_SWFRCACT_CMPL_MASK      ((uint32_t)0xC0000000U)         /* !< CCP Complimentary Output Action on
+                                                                                    Software Force Output  This field
+                                                                                    describes the resulting action of
+                                                                                    software force.  This action has a
+                                                                                    shadow register, which will be
+                                                                                    updated under specific condition.  So
+                                                                                    that this register cannot take into
+                                                                                    effect immediately. */
 #define GPTIMER_CCACT_23_SWFRCACT_CMPL_DISABLED  ((uint32_t)0x00000000U)         /* !< This event is disabled and a lower
                                                                                     priority event is selected if
                                                                                     asserting. The CCP output value is
                                                                                     unaffected by the event. */
-#define GPTIMER_CCACT_23_SWFRCACT_CMPL_CCP_HIGH  ((uint32_t)0x40000000U)         /* !< CCP_CMPL output value is set high */
-#define GPTIMER_CCACT_23_SWFRCACT_CMPL_CCP_LOW   ((uint32_t)0x80000000U)         /* !< CCP_CMPL output value is set low */
+#define GPTIMER_CCACT_23_SWFRCACT_CMPL_CCP_HIGH  ((uint32_t)0x40000000U)         /* !< CCP Complimentary output value is
+                                                                                    set high */
+#define GPTIMER_CCACT_23_SWFRCACT_CMPL_CCP_LOW   ((uint32_t)0x80000000U)         /* !< CCP Complimentary output value is
+                                                                                    set low */
 
 /* GPTIMER_IFCTL_01 Bits */
 /* GPTIMER_IFCTL_01[ISEL] Bits */
@@ -1215,7 +1271,8 @@ typedef struct {
                                                                                     CCP1 and for CCP1 input pair is CCP0. */
 #define GPTIMER_IFCTL_01_ISEL_CCP0_INPUT         ((uint32_t)0x00000002U)         /* !< CCP0 of the counter */
 #define GPTIMER_IFCTL_01_ISEL_TRIG_INPUT         ((uint32_t)0x00000003U)         /* !< Trigger */
-#define GPTIMER_IFCTL_01_ISEL_CCP_XOR            ((uint32_t)0x00000004U)         /* !< XOR of CCP inputs as input source. */
+#define GPTIMER_IFCTL_01_ISEL_CCP_XOR            ((uint32_t)0x00000004U)         /* !< XOR of CCP inputs as input source
+                                                                                    (Used in Hall input mode). */
 #define GPTIMER_IFCTL_01_ISEL_FSUB0              ((uint32_t)0x00000005U)         /* !< subscriber 0 event as input source. */
 #define GPTIMER_IFCTL_01_ISEL_FSUB1              ((uint32_t)0x00000006U)         /* !< subscriber 1 event as input source. */
 #define GPTIMER_IFCTL_01_ISEL_COMP0              ((uint32_t)0x00000007U)         /* !< Comparator 0 output. */
@@ -1275,7 +1332,8 @@ typedef struct {
                                                                                     CCP1 and for CCP1 input pair is CCP0. */
 #define GPTIMER_IFCTL_23_ISEL_CCP0_INPUT         ((uint32_t)0x00000002U)         /* !< CCP0 of the counter */
 #define GPTIMER_IFCTL_23_ISEL_TRIG_INPUT         ((uint32_t)0x00000003U)         /* !< Trigger */
-#define GPTIMER_IFCTL_23_ISEL_CCP_XOR            ((uint32_t)0x00000004U)         /* !< XOR of CCP inputs as input source. */
+#define GPTIMER_IFCTL_23_ISEL_CCP_XOR            ((uint32_t)0x00000004U)         /* !< XOR of CCP inputs as input source
+                                                                                    (Used in Hall input mode). */
 #define GPTIMER_IFCTL_23_ISEL_FSUB0              ((uint32_t)0x00000005U)         /* !< subscriber 0 event as input source. */
 #define GPTIMER_IFCTL_23_ISEL_FSUB1              ((uint32_t)0x00000006U)         /* !< subscriber 1 event as input source. */
 #define GPTIMER_IFCTL_23_ISEL_COMP0              ((uint32_t)0x00000007U)         /* !< Comparator 0 output. */
@@ -1333,15 +1391,17 @@ typedef struct {
 /* GPTIMER_DBCTL[RISEDELAY] Bits */
 #define GPTIMER_DBCTL_RISEDELAY_OFS              (0)                             /* !< RISEDELAY Offset */
 #define GPTIMER_DBCTL_RISEDELAY_MASK             ((uint32_t)0x00000FFFU)         /* !< Rise Delay The number of TIMCLK
-                                                                                    periods inserted between the fall of
-                                                                                    CCPi and the rise of CCPAo. */
+                                                                                    periods inserted between the fall
+                                                                                    edge of CCP signal and the rise edge
+                                                                                    of CCP complimentary signal. */
 #define GPTIMER_DBCTL_RISEDELAY_MINIMUM          ((uint32_t)0x00000000U)         /* !< Minimum value */
 #define GPTIMER_DBCTL_RISEDELAY_MAXIMUM          ((uint32_t)0x00000FFFU)         /* !< Maximum Value */
 /* GPTIMER_DBCTL[FALLDELAY] Bits */
 #define GPTIMER_DBCTL_FALLDELAY_OFS              (16)                            /* !< FALLDELAY Offset */
 #define GPTIMER_DBCTL_FALLDELAY_MASK             ((uint32_t)0x0FFF0000U)         /* !< Fall Delay The number of TIMCLK
-                                                                                    periods inserted between the fall of
-                                                                                    CCPi and the rise of CCPBo */
+                                                                                    periods inserted between the fall
+                                                                                    edge of CCP signal and the rise edge
+                                                                                    of CCP complimentary signal. */
 #define GPTIMER_DBCTL_FALLDELAY_MINIMUM          ((uint32_t)0x00000000U)         /* !< Minimum value */
 #define GPTIMER_DBCTL_FALLDELAY_MAXIMUM          ((uint32_t)0x0FFF0000U)         /* !< Maximum Value */
 /* GPTIMER_DBCTL[M1_ENABLE] Bits */
@@ -1358,60 +1418,44 @@ typedef struct {
                                                                                     the input filter selects trigger.
                                                                                     Triggers 0-15 are used to connect
                                                                                     triggers generated by other timer
-                                                                                    modules in the same power domain.
-                                                                                    Refer to the SoC datasheet to get
-                                                                                    details. Triggers 16 and  17 are
+                                                                                    modules. Refer to the SoC datasheet
+                                                                                    for details related to timer trigger
+                                                                                    sources. Triggers 16 and  17 are
                                                                                     connected to event manager subscriber
                                                                                     ports. Event lines 18-31 are reserved
                                                                                     for future use. */
 #define GPTIMER_TSEL_ETSEL_TRIG0                 ((uint32_t)0x00000000U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG1                 ((uint32_t)0x00000001U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG2                 ((uint32_t)0x00000002U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG3                 ((uint32_t)0x00000003U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG4                 ((uint32_t)0x00000004U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG5                 ((uint32_t)0x00000005U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG6                 ((uint32_t)0x00000006U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG7                 ((uint32_t)0x00000007U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG8                 ((uint32_t)0x00000008U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG9                 ((uint32_t)0x00000009U)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG10                ((uint32_t)0x0000000AU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG11                ((uint32_t)0x0000000BU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG12                ((uint32_t)0x0000000CU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG13                ((uint32_t)0x0000000DU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG14                ((uint32_t)0x0000000EU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG15                ((uint32_t)0x0000000FU)         /* !< TRIGx = External trigger input from
-                                                                                    timer x (if available) in the same
-                                                                                    power domain as the current timer. */
+                                                                                    TIM x. */
 #define GPTIMER_TSEL_ETSEL_TRIG_SUB0             ((uint32_t)0x00000010U)         /* !< TRIG_SUBx = External trigger input
                                                                                     from subscriber port x. */
 #define GPTIMER_TSEL_ETSEL_TRIG_SUB1             ((uint32_t)0x00000011U)         /* !< TRIG_SUBx = External trigger input
@@ -1498,44 +1542,44 @@ typedef struct {
                                                                                     if the fault input is 0. */
 /* GPTIMER_FCTL[FSENAC0] Bits */
 #define GPTIMER_FCTL_FSENAC0_OFS                 (8)                             /* !< FSENAC0 Offset */
-#define GPTIMER_FCTL_FSENAC0_MASK                ((uint32_t)0x00000100U)         /* !< Specifies whether the analog
-                                                                                    comparator0 fault sense is high or
-                                                                                    low active */
+#define GPTIMER_FCTL_FSENAC0_MASK                ((uint32_t)0x00000100U)         /* !< Specifies whether the COMP0 output
+                                                                                    high/low is treated as fault
+                                                                                    condition. */
 #define GPTIMER_FCTL_FSENAC0_LOWCTIVE            ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENAC0_HIGHACTIVE          ((uint32_t)0x00000100U)         /* !< Fault Input is active high. */
 /* GPTIMER_FCTL[FSENAC1] Bits */
 #define GPTIMER_FCTL_FSENAC1_OFS                 (9)                             /* !< FSENAC1 Offset */
-#define GPTIMER_FCTL_FSENAC1_MASK                ((uint32_t)0x00000200U)         /* !< Specifies whether the analog
-                                                                                    comparator1 fault sense is high or
-                                                                                    low active */
+#define GPTIMER_FCTL_FSENAC1_MASK                ((uint32_t)0x00000200U)         /* !< Specifies whether the COMP1 output
+                                                                                    high/low is treated as fault
+                                                                                    condition. */
 #define GPTIMER_FCTL_FSENAC1_LOWCTIVE            ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENAC1_HIGHACTIVE          ((uint32_t)0x00000200U)         /* !< Fault Input is active high. */
 /* GPTIMER_FCTL[FSENAC2] Bits */
 #define GPTIMER_FCTL_FSENAC2_OFS                 (10)                            /* !< FSENAC2 Offset */
-#define GPTIMER_FCTL_FSENAC2_MASK                ((uint32_t)0x00000400U)         /* !< Specifies whether the analog
-                                                                                    comparator2 fault sense is high or
-                                                                                    low active */
+#define GPTIMER_FCTL_FSENAC2_MASK                ((uint32_t)0x00000400U)         /* !< Specifies whether the COMP2 output
+                                                                                    high/low is treated as fault
+                                                                                    condition. */
 #define GPTIMER_FCTL_FSENAC2_LOWCTIVE            ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENAC2_HIGHACTIVE          ((uint32_t)0x00000400U)         /* !< Fault Input is active high. */
 /* GPTIMER_FCTL[FSENEXT0] Bits */
 #define GPTIMER_FCTL_FSENEXT0_OFS                (11)                            /* !< FSENEXT0 Offset */
 #define GPTIMER_FCTL_FSENEXT0_MASK               ((uint32_t)0x00000800U)         /* !< Specifies whether the external
-                                                                                    fault pin0 sense is high or low
-                                                                                    active */
+                                                                                    fault pin0 high/low is treated as
+                                                                                    fault condition. */
 #define GPTIMER_FCTL_FSENEXT0_LOWCTIVE           ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENEXT0_HIGHACTIVE         ((uint32_t)0x00000800U)         /* !< Fault Input is active high. */
 /* GPTIMER_FCTL[FSENEXT1] Bits */
 #define GPTIMER_FCTL_FSENEXT1_OFS                (12)                            /* !< FSENEXT1 Offset */
 #define GPTIMER_FCTL_FSENEXT1_MASK               ((uint32_t)0x00001000U)         /* !< Specifies whether the external
-                                                                                    fault pin1 fault sense is high or low
-                                                                                    active */
+                                                                                    fault pin1 high/low is treated as
+                                                                                    fault condition. */
 #define GPTIMER_FCTL_FSENEXT1_LOWCTIVE           ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENEXT1_HIGHACTIVE         ((uint32_t)0x00001000U)         /* !< Fault Input is active high. */
 /* GPTIMER_FCTL[FSENEXT2] Bits */
 #define GPTIMER_FCTL_FSENEXT2_OFS                (13)                            /* !< FSENEXT2 Offset */
 #define GPTIMER_FCTL_FSENEXT2_MASK               ((uint32_t)0x00002000U)         /* !< Specifies whether the external
-                                                                                    fault pin3 fault sense is high or low
-                                                                                    active */
+                                                                                    fault pin2 high/low is treated as
+                                                                                    fault condition. */
 #define GPTIMER_FCTL_FSENEXT2_LOWCTIVE           ((uint32_t)0x00000000U)         /* !< Fault Input is active low. */
 #define GPTIMER_FCTL_FSENEXT2_HIGHACTIVE         ((uint32_t)0x00002000U)         /* !< Fault Input is active high. */
 
@@ -1578,22 +1622,22 @@ typedef struct {
 /* GPTIMER_CCPD Bits */
 /* GPTIMER_CCPD[C0CCP0] Bits */
 #define GPTIMER_CCPD_C0CCP0_OFS                  (0)                             /* !< C0CCP0 Offset */
-#define GPTIMER_CCPD_C0CCP0_MASK                 ((uint32_t)0x00000001U)         /* !< Counter CCP0 */
+#define GPTIMER_CCPD_C0CCP0_MASK                 ((uint32_t)0x00000001U)         /* !< CCP0 direction */
 #define GPTIMER_CCPD_C0CCP0_INPUT                ((uint32_t)0x00000000U)         /* !< Input */
 #define GPTIMER_CCPD_C0CCP0_OUTPUT               ((uint32_t)0x00000001U)         /* !< Output */
 /* GPTIMER_CCPD[C0CCP1] Bits */
 #define GPTIMER_CCPD_C0CCP1_OFS                  (1)                             /* !< C0CCP1 Offset */
-#define GPTIMER_CCPD_C0CCP1_MASK                 ((uint32_t)0x00000002U)         /* !< Counter CCP1 */
+#define GPTIMER_CCPD_C0CCP1_MASK                 ((uint32_t)0x00000002U)         /* !< CCP1 direction */
 #define GPTIMER_CCPD_C0CCP1_INPUT                ((uint32_t)0x00000000U)         /* !< Input */
 #define GPTIMER_CCPD_C0CCP1_OUTPUT               ((uint32_t)0x00000002U)         /* !< Output */
 /* GPTIMER_CCPD[C0CCP2] Bits */
 #define GPTIMER_CCPD_C0CCP2_OFS                  (2)                             /* !< C0CCP2 Offset */
-#define GPTIMER_CCPD_C0CCP2_MASK                 ((uint32_t)0x00000004U)         /* !< Counter CCP2 */
+#define GPTIMER_CCPD_C0CCP2_MASK                 ((uint32_t)0x00000004U)         /* !< CCP2 direction */
 #define GPTIMER_CCPD_C0CCP2_INPUT                ((uint32_t)0x00000000U)         /* !< input */
 #define GPTIMER_CCPD_C0CCP2_OUTPUT               ((uint32_t)0x00000004U)         /* !< Output */
 /* GPTIMER_CCPD[C0CCP3] Bits */
 #define GPTIMER_CCPD_C0CCP3_OFS                  (3)                             /* !< C0CCP3 Offset */
-#define GPTIMER_CCPD_C0CCP3_MASK                 ((uint32_t)0x00000008U)         /* !< Counter CCP3 */
+#define GPTIMER_CCPD_C0CCP3_MASK                 ((uint32_t)0x00000008U)         /* !< CCP3 direction */
 #define GPTIMER_CCPD_C0CCP3_INPUT                ((uint32_t)0x00000000U)         /* !< Input */
 #define GPTIMER_CCPD_C0CCP3_OUTPUT               ((uint32_t)0x00000008U)         /* !< Output */
 
@@ -1605,7 +1649,7 @@ typedef struct {
                                                                                     low or not */
 #define GPTIMER_ODIS_C0CCP0_CCP_OUTPUT_OCTL      ((uint32_t)0x00000000U)         /* !< Output function as selected by the
                                                                                     OCTL register CCPO field are provided
-                                                                                    to occpout[0]. */
+                                                                                    to output inversion block. */
 #define GPTIMER_ODIS_C0CCP0_CCP_OUTPUT_LOW       ((uint32_t)0x00000001U)         /* !< CCP output occpout[0] is forced
                                                                                     low. */
 /* GPTIMER_ODIS[C0CCP1] Bits */
@@ -1615,7 +1659,7 @@ typedef struct {
                                                                                     low or not */
 #define GPTIMER_ODIS_C0CCP1_CCP_OUTPUT_OCTL      ((uint32_t)0x00000000U)         /* !< Output function as selected by the
                                                                                     OCTL register CCPO field are provided
-                                                                                    to occpout[1]. */
+                                                                                    to output inversion block. */
 #define GPTIMER_ODIS_C0CCP1_CCP_OUTPUT_LOW       ((uint32_t)0x00000002U)         /* !< CCP output occpout[1] is forced
                                                                                     low. */
 /* GPTIMER_ODIS[C0CCP2] Bits */
@@ -1625,7 +1669,7 @@ typedef struct {
                                                                                     low or not */
 #define GPTIMER_ODIS_C0CCP2_CCP_OUTPUT_OCTL      ((uint32_t)0x00000000U)         /* !< Output function as selected by the
                                                                                     OCTL register CCPO field are provided
-                                                                                    to occpout[2]. */
+                                                                                    to output inversion block. */
 #define GPTIMER_ODIS_C0CCP2_CCP_OUTPUT_LOW       ((uint32_t)0x00000004U)         /* !< CCP output occpout[2] is forced
                                                                                     low. */
 /* GPTIMER_ODIS[C0CCP3] Bits */
@@ -1690,16 +1734,14 @@ typedef struct {
 #define GPTIMER_CTTRIGCTL_EVTCTEN_OFS            (1)                             /* !< EVTCTEN Offset */
 #define GPTIMER_CTTRIGCTL_EVTCTEN_MASK           ((uint32_t)0x00000002U)         /* !< Enable the Input Trigger Conditions
                                                                                     to the Timer module as a condition
-                                                                                    for Cross Triggers. Refer  Figure 8
-                                                                                    Cross Trigger Generation Path */
+                                                                                    for Cross Triggers. */
 #define GPTIMER_CTTRIGCTL_EVTCTEN_DISABLED       ((uint32_t)0x00000000U)         /* !< Cross trigger generation disabled. */
 #define GPTIMER_CTTRIGCTL_EVTCTEN_ENABLE         ((uint32_t)0x00000002U)         /* !< Cross trigger generation enabled */
 /* GPTIMER_CTTRIGCTL[EVTCTTRIGSEL] Bits */
 #define GPTIMER_CTTRIGCTL_EVTCTTRIGSEL_OFS       (16)                            /* !< EVTCTTRIGSEL Offset */
 #define GPTIMER_CTTRIGCTL_EVTCTTRIGSEL_MASK      ((uint32_t)0x000F0000U)         /* !< Used to Select the subscriber port
                                                                                     that should be used for input cross
-                                                                                    trigger. Refer  Figure 8 Cross
-                                                                                    Trigger Generation Path */
+                                                                                    trigger. */
 #define GPTIMER_CTTRIGCTL_EVTCTTRIGSEL_FSUB0     ((uint32_t)0x00000000U)         /* !< Use FSUB0 as cross trigger source. */
 #define GPTIMER_CTTRIGCTL_EVTCTTRIGSEL_FSUB1     ((uint32_t)0x00010000U)         /* !< Use FSUB1 as cross trigger source. */
 #define GPTIMER_CTTRIGCTL_EVTCTTRIGSEL_Z         ((uint32_t)0x00020000U)         /* !< Use Zero event  as cross trigger
@@ -1739,53 +1781,48 @@ typedef struct {
 /* GPTIMER_FSCTL[FCEN] Bits */
 #define GPTIMER_FSCTL_FCEN_OFS                   (0)                             /* !< FCEN Offset */
 #define GPTIMER_FSCTL_FCEN_MASK                  ((uint32_t)0x00000001U)         /* !< This field controls whether the
-                                                                                    fault caused by the system clock
-                                                                                    fault is enable. 0: DISABLE 1: ENABLE */
+                                                                                    fault is caused by the system clock
+                                                                                    fault. */
 #define GPTIMER_FSCTL_FCEN_DISABLE               ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FCEN_ENABLE                ((uint32_t)0x00000001U)         /* !< Enable */
 /* GPTIMER_FSCTL[FAC0EN] Bits */
 #define GPTIMER_FSCTL_FAC0EN_OFS                 (1)                             /* !< FAC0EN Offset */
 #define GPTIMER_FSCTL_FAC0EN_MASK                ((uint32_t)0x00000002U)         /* !< This field controls whether the
-                                                                                    fault signal detected by the analog
-                                                                                    comparator0 is enable 0: DISABLE 1:
-                                                                                    ENABLE */
+                                                                                    fault signal is caused by COMP0
+                                                                                    output. */
 #define GPTIMER_FSCTL_FAC0EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FAC0EN_ENABLE              ((uint32_t)0x00000002U)         /* !< Enable */
 /* GPTIMER_FSCTL[FAC1EN] Bits */
 #define GPTIMER_FSCTL_FAC1EN_OFS                 (2)                             /* !< FAC1EN Offset */
 #define GPTIMER_FSCTL_FAC1EN_MASK                ((uint32_t)0x00000004U)         /* !< This field controls whether the
-                                                                                    fault signal detected by the analog
-                                                                                    comparator1 is enable 0: DISABLE 1:
-                                                                                    ENABLE */
+                                                                                    fault is caused by COMP1 output. */
 #define GPTIMER_FSCTL_FAC1EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FAC1EN_ENABLE              ((uint32_t)0x00000004U)         /* !< Enable */
 /* GPTIMER_FSCTL[FAC2EN] Bits */
 #define GPTIMER_FSCTL_FAC2EN_OFS                 (3)                             /* !< FAC2EN Offset */
 #define GPTIMER_FSCTL_FAC2EN_MASK                ((uint32_t)0x00000008U)         /* !< This field controls whether the
-                                                                                    fault signal detected by the analog
-                                                                                    comparator2 is enable 0: DISABLE 1:
-                                                                                    ENABLE */
+                                                                                    fault is caused by COMP2 output. */
 #define GPTIMER_FSCTL_FAC2EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FAC2EN_ENABLE              ((uint32_t)0x00000008U)         /* !< Enable */
 /* GPTIMER_FSCTL[FEX0EN] Bits */
 #define GPTIMER_FSCTL_FEX0EN_OFS                 (4)                             /* !< FEX0EN Offset */
 #define GPTIMER_FSCTL_FEX0EN_MASK                ((uint32_t)0x00000010U)         /* !< This field controls whether the
-                                                                                    fault caused by external fault pin0
-                                                                                    is enable. 0: DISABLE 1: ENABLE */
+                                                                                    fault is caused by external fault pin
+                                                                                    0. */
 #define GPTIMER_FSCTL_FEX0EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FEX0EN_ENABLE              ((uint32_t)0x00000010U)         /* !< Enable */
 /* GPTIMER_FSCTL[FEX1EN] Bits */
 #define GPTIMER_FSCTL_FEX1EN_OFS                 (5)                             /* !< FEX1EN Offset */
 #define GPTIMER_FSCTL_FEX1EN_MASK                ((uint32_t)0x00000020U)         /* !< This field controls whether the
-                                                                                    fault caused by external fault pin1
-                                                                                    is enable. 0: DISABLE 1: ENABLE */
+                                                                                    fault is caused by external fault pin
+                                                                                    1. */
 #define GPTIMER_FSCTL_FEX1EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FEX1EN_ENABLE              ((uint32_t)0x00000020U)         /* !< Enable */
 /* GPTIMER_FSCTL[FEX2EN] Bits */
 #define GPTIMER_FSCTL_FEX2EN_OFS                 (6)                             /* !< FEX2EN Offset */
 #define GPTIMER_FSCTL_FEX2EN_MASK                ((uint32_t)0x00000040U)         /* !< This field controls whether the
-                                                                                    fault caused by external fault pin2
-                                                                                    is enable. 0: DISABLE 1: ENABLE */
+                                                                                    fault is caused by external fault pin
+                                                                                    2. */
 #define GPTIMER_FSCTL_FEX2EN_DISABLE             ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_FSCTL_FEX2EN_ENABLE              ((uint32_t)0x00000040U)         /* !< Enable */
 
@@ -1798,563 +1835,1685 @@ typedef struct {
 #define GPTIMER_GCTL_SHDWLDEN_DISABLE            ((uint32_t)0x00000000U)         /* !< Disable */
 #define GPTIMER_GCTL_SHDWLDEN_ENABLE             ((uint32_t)0x00000001U)         /* !< Enable */
 
-/* GPTIMER_IIDX Bits */
-/* GPTIMER_IIDX[STAT] Bits */
-#define GPTIMER_IIDX_STAT_OFS                    (0)                             /* !< STAT Offset */
-#define GPTIMER_IIDX_STAT_MASK                   ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
-#define GPTIMER_IIDX_STAT_NO_INTR                ((uint32_t)0x00000000U)         /* !< No interrupt pending */
-#define GPTIMER_IIDX_STAT_Z                      ((uint32_t)0x00000001U)         /* !< Interrupt Source: Zero event */
-#define GPTIMER_IIDX_STAT_L                      ((uint32_t)0x00000002U)         /* !< REPLACE THIS WITH AN ACTUAL IRQ
-                                                                                    NAME */
-#define GPTIMER_IIDX_STAT_CCD0                   ((uint32_t)0x00000005U)         /* !< Interrupt Source: Capture or
+/* GPTIMER_GEN_EVENT1_IIDX Bits */
+/* GPTIMER_GEN_EVENT1_IIDX[STAT] Bits */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_OFS         (0)                             /* !< STAT Offset */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_MASK        ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_NO_INTR     ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_Z           ((uint32_t)0x00000001U)         /* !< Interrupt Source: Zero event (Z) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_L           ((uint32_t)0x00000002U)         /* !< nterrupt Source: Load event (L) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD0        ((uint32_t)0x00000005U)         /* !< Interrupt Source: Capture or
                                                                                     compare down event (CCD0) */
-#define GPTIMER_IIDX_STAT_CCD1                   ((uint32_t)0x00000006U)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD1        ((uint32_t)0x00000006U)         /* !< Interrupt Source: Capture or
                                                                                     compare down event (CCD1) */
-#define GPTIMER_IIDX_STAT_CCD2                   ((uint32_t)0x00000007U)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD2        ((uint32_t)0x00000007U)         /* !< Interrupt Source: Capture or
                                                                                     compare down event (CCD2) */
-#define GPTIMER_IIDX_STAT_CCD3                   ((uint32_t)0x00000008U)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD3        ((uint32_t)0x00000008U)         /* !< Interrupt Source: Capture or
                                                                                     compare down event (CCD3) */
-#define GPTIMER_IIDX_STAT_CCU0                   ((uint32_t)0x00000009U)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU0        ((uint32_t)0x00000009U)         /* !< Interrupt Source: Capture or
                                                                                     compare up event (CCU0) */
-#define GPTIMER_IIDX_STAT_CCU1                   ((uint32_t)0x0000000AU)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU1        ((uint32_t)0x0000000AU)         /* !< Interrupt Source: Capture or
                                                                                     compare up event (CCU1) */
-#define GPTIMER_IIDX_STAT_CCU2                   ((uint32_t)0x0000000BU)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU2        ((uint32_t)0x0000000BU)         /* !< Interrupt Source: Capture or
                                                                                     compare up event (CCU2) */
-#define GPTIMER_IIDX_STAT_CCU3                   ((uint32_t)0x0000000CU)         /* !< Interrupt Source: Capture or
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU3        ((uint32_t)0x0000000CU)         /* !< Interrupt Source: Capture or
                                                                                     compare up event (CCU3) */
-#define GPTIMER_IIDX_STAT_CCD4                   ((uint32_t)0x0000000DU)         /* !< Interrupt Source: Compare down
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD4        ((uint32_t)0x0000000DU)         /* !< Interrupt Source: Compare down
                                                                                     event (CCD4) */
-#define GPTIMER_IIDX_STAT_CCD5                   ((uint32_t)0x0000000EU)         /* !< Interrupt Source: Compare down
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCD5        ((uint32_t)0x0000000EU)         /* !< Interrupt Source: Compare down
                                                                                     event (CCD5) */
-#define GPTIMER_IIDX_STAT_CCU4                   ((uint32_t)0x0000000FU)         /* !< Interrupt Source: Compare down
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU4        ((uint32_t)0x0000000FU)         /* !< Interrupt Source: Compare down
                                                                                     event (CCU4) */
-#define GPTIMER_IIDX_STAT_CCU5                   ((uint32_t)0x00000010U)         /* !< Interrupt Source: Compare down
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_CCU5        ((uint32_t)0x00000010U)         /* !< Interrupt Source: Compare down
                                                                                     event (CCU5) */
-#define GPTIMER_IIDX_STAT_F                      ((uint32_t)0x00000019U)         /* !< Interrupt Source: Fault Event
-                                                                                    generated an interrupt. */
-#define GPTIMER_IIDX_STAT_TOV                    ((uint32_t)0x0000001AU)         /* !< Interrupt Source: Trigger overflow */
-#define GPTIMER_IIDX_STAT_REPC                   ((uint32_t)0x0000001BU)         /* !< Repeat Counter Zero */
-#define GPTIMER_IIDX_STAT_DC                     ((uint32_t)0x0000001CU)         /* !< Interrupt Source: Direction Change */
-#define GPTIMER_IIDX_STAT_QEIERR                 ((uint32_t)0x0000001DU)         /* !< QEI Incorrect state transition
-                                                                                    error */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_F           ((uint32_t)0x00000019U)         /* !< Interrupt Source: Fault Event
+                                                                                    generated an interrupt. (F) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_TOV         ((uint32_t)0x0000001AU)         /* !< Interrupt Source: Trigger overflow
+                                                                                    (TOV) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_REPC        ((uint32_t)0x0000001BU)         /* !< Interrupt Source: Repeat Counter
+                                                                                    Zero (REPC) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_DC          ((uint32_t)0x0000001CU)         /* !< Interrupt Source: Direction Change
+                                                                                    (DC) */
+#define GPTIMER_GEN_EVENT1_IIDX_STAT_QEIERR      ((uint32_t)0x0000001DU)         /* !< Interrupt Source:QEI Incorrect
+                                                                                    state transition error (QEIERR) */
 
-/* GPTIMER_IMASK Bits */
-/* GPTIMER_IMASK[Z] Bits */
-#define GPTIMER_IMASK_Z_OFS                      (0)                             /* !< Z Offset */
-#define GPTIMER_IMASK_Z_MASK                     ((uint32_t)0x00000001U)         /* !< Zero Event mask */
-#define GPTIMER_IMASK_Z_CLR                      ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_Z_SET                      ((uint32_t)0x00000001U)         /* !< Enable Event */
-/* GPTIMER_IMASK[L] Bits */
-#define GPTIMER_IMASK_L_OFS                      (1)                             /* !< L Offset */
-#define GPTIMER_IMASK_L_MASK                     ((uint32_t)0x00000002U)         /* !< Load Event mask */
-#define GPTIMER_IMASK_L_CLR                      ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_L_SET                      ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCD0] Bits */
-#define GPTIMER_IMASK_CCD0_OFS                   (4)                             /* !< CCD0 Offset */
-#define GPTIMER_IMASK_CCD0_MASK                  ((uint32_t)0x00000010U)         /* !< Capture or Compare DN event mask
+/* GPTIMER_GEN_EVENT1_IMASK Bits */
+/* GPTIMER_GEN_EVENT1_IMASK[Z] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_Z_OFS           (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_Z_MASK          ((uint32_t)0x00000001U)         /* !< Zero Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_Z_CLR           ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_Z_SET           ((uint32_t)0x00000001U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT1_IMASK[L] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_L_OFS           (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_L_MASK          ((uint32_t)0x00000002U)         /* !< Load Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_L_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_L_SET           ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD0] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD0_OFS        (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD0_MASK       ((uint32_t)0x00000010U)         /* !< Capture or Compare DN event mask
                                                                                     CCP0 */
-#define GPTIMER_IMASK_CCD0_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD0_SET                   ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCD1] Bits */
-#define GPTIMER_IMASK_CCD1_OFS                   (5)                             /* !< CCD1 Offset */
-#define GPTIMER_IMASK_CCD1_MASK                  ((uint32_t)0x00000020U)         /* !< Capture or Compare DN event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCD0_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD0_SET        ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD1] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD1_OFS        (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD1_MASK       ((uint32_t)0x00000020U)         /* !< Capture or Compare DN event mask
                                                                                     CCP1 */
-#define GPTIMER_IMASK_CCD1_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD1_SET                   ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU0] Bits */
-#define GPTIMER_IMASK_CCU0_OFS                   (8)                             /* !< CCU0 Offset */
-#define GPTIMER_IMASK_CCU0_MASK                  ((uint32_t)0x00000100U)         /* !< Capture or Compare UP event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCD1_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD1_SET        ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU0] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU0_OFS        (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU0_MASK       ((uint32_t)0x00000100U)         /* !< Capture or Compare UP event mask
                                                                                     CCP0 */
-#define GPTIMER_IMASK_CCU0_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU0_SET                   ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU1] Bits */
-#define GPTIMER_IMASK_CCU1_OFS                   (9)                             /* !< CCU1 Offset */
-#define GPTIMER_IMASK_CCU1_MASK                  ((uint32_t)0x00000200U)         /* !< Capture or Compare UP event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCU0_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU0_SET        ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU1] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU1_OFS        (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU1_MASK       ((uint32_t)0x00000200U)         /* !< Capture or Compare UP event mask
                                                                                     CCP1 */
-#define GPTIMER_IMASK_CCU1_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU1_SET                   ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[F] Bits */
-#define GPTIMER_IMASK_F_OFS                      (24)                            /* !< F Offset */
-#define GPTIMER_IMASK_F_MASK                     ((uint32_t)0x01000000U)         /* !< Fault Event mask */
-#define GPTIMER_IMASK_F_CLR                      ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_F_SET                      ((uint32_t)0x01000000U)         /* !< Enable Event */
-/* GPTIMER_IMASK[TOV] Bits */
-#define GPTIMER_IMASK_TOV_OFS                    (25)                            /* !< TOV Offset */
-#define GPTIMER_IMASK_TOV_MASK                   ((uint32_t)0x02000000U)         /* !< Trigger Overflow Event mask */
-#define GPTIMER_IMASK_TOV_CLR                    ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_TOV_SET                    ((uint32_t)0x02000000U)         /* !< Enable Event */
-/* GPTIMER_IMASK[DC] Bits */
-#define GPTIMER_IMASK_DC_OFS                     (27)                            /* !< DC Offset */
-#define GPTIMER_IMASK_DC_MASK                    ((uint32_t)0x08000000U)         /* !< Direction Change Event mask */
-#define GPTIMER_IMASK_DC_CLR                     ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_DC_SET                     ((uint32_t)0x08000000U)         /* !< Enable Event */
-/* GPTIMER_IMASK[QEIERR] Bits */
-#define GPTIMER_IMASK_QEIERR_OFS                 (28)                            /* !< QEIERR Offset */
-#define GPTIMER_IMASK_QEIERR_MASK                ((uint32_t)0x10000000U)         /* !< QEIERR Event mask */
-#define GPTIMER_IMASK_QEIERR_CLR                 ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_QEIERR_SET                 ((uint32_t)0x10000000U)         /* !< Enable Event */
-/* GPTIMER_IMASK[CCD2] Bits */
-#define GPTIMER_IMASK_CCD2_OFS                   (6)                             /* !< CCD2 Offset */
-#define GPTIMER_IMASK_CCD2_MASK                  ((uint32_t)0x00000040U)         /* !< Capture or Compare DN event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCU1_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU1_SET        ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[F] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_F_OFS           (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_F_MASK          ((uint32_t)0x01000000U)         /* !< Fault Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_F_CLR           ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_F_SET           ((uint32_t)0x01000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT1_IMASK[TOV] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_TOV_OFS         (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_TOV_MASK        ((uint32_t)0x02000000U)         /* !< Trigger Overflow Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_TOV_CLR         ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_TOV_SET         ((uint32_t)0x02000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT1_IMASK[DC] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_DC_OFS          (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_DC_MASK         ((uint32_t)0x08000000U)         /* !< Direction Change Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_DC_CLR          ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_DC_SET          ((uint32_t)0x08000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT1_IMASK[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_QEIERR_OFS      (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_QEIERR_MASK     ((uint32_t)0x10000000U)         /* !< QEIERR Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_QEIERR_CLR      ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_QEIERR_SET      ((uint32_t)0x10000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD2] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD2_OFS        (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD2_MASK       ((uint32_t)0x00000040U)         /* !< Capture or Compare DN event mask
                                                                                     CCP2 */
-#define GPTIMER_IMASK_CCD2_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD2_SET                   ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCD3] Bits */
-#define GPTIMER_IMASK_CCD3_OFS                   (7)                             /* !< CCD3 Offset */
-#define GPTIMER_IMASK_CCD3_MASK                  ((uint32_t)0x00000080U)         /* !< Capture or Compare DN event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCD2_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD2_SET        ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD3] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD3_OFS        (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD3_MASK       ((uint32_t)0x00000080U)         /* !< Capture or Compare DN event mask
                                                                                     CCP3 */
-#define GPTIMER_IMASK_CCD3_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD3_SET                   ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU2] Bits */
-#define GPTIMER_IMASK_CCU2_OFS                   (10)                            /* !< CCU2 Offset */
-#define GPTIMER_IMASK_CCU2_MASK                  ((uint32_t)0x00000400U)         /* !< Capture or Compare UP event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCD3_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD3_SET        ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU2] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU2_OFS        (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU2_MASK       ((uint32_t)0x00000400U)         /* !< Capture or Compare UP event mask
                                                                                     CCP2 */
-#define GPTIMER_IMASK_CCU2_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU2_SET                   ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU3] Bits */
-#define GPTIMER_IMASK_CCU3_OFS                   (11)                            /* !< CCU3 Offset */
-#define GPTIMER_IMASK_CCU3_MASK                  ((uint32_t)0x00000800U)         /* !< Capture or Compare UP event mask
+#define GPTIMER_GEN_EVENT1_IMASK_CCU2_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU2_SET        ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU3] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU3_OFS        (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU3_MASK       ((uint32_t)0x00000800U)         /* !< Capture or Compare UP event mask
                                                                                     CCP3 */
-#define GPTIMER_IMASK_CCU3_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU3_SET                   ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCD4] Bits */
-#define GPTIMER_IMASK_CCD4_OFS                   (12)                            /* !< CCD4 Offset */
-#define GPTIMER_IMASK_CCD4_MASK                  ((uint32_t)0x00001000U)         /* !< Compare DN event mask CCP4 */
-#define GPTIMER_IMASK_CCD4_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD4_SET                   ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCD5] Bits */
-#define GPTIMER_IMASK_CCD5_OFS                   (13)                            /* !< CCD5 Offset */
-#define GPTIMER_IMASK_CCD5_MASK                  ((uint32_t)0x00002000U)         /* !< Compare DN event mask CCP5 */
-#define GPTIMER_IMASK_CCD5_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCD5_SET                   ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU4] Bits */
-#define GPTIMER_IMASK_CCU4_OFS                   (14)                            /* !< CCU4 Offset */
-#define GPTIMER_IMASK_CCU4_MASK                  ((uint32_t)0x00004000U)         /* !< Compare UP event mask CCP4 */
-#define GPTIMER_IMASK_CCU4_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU4_SET                   ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[CCU5] Bits */
-#define GPTIMER_IMASK_CCU5_OFS                   (15)                            /* !< CCU5 Offset */
-#define GPTIMER_IMASK_CCU5_MASK                  ((uint32_t)0x00008000U)         /* !< Compare UP event mask CCP5 */
-#define GPTIMER_IMASK_CCU5_CLR                   ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
-#define GPTIMER_IMASK_CCU5_SET                   ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
-/* GPTIMER_IMASK[REPC] Bits */
-#define GPTIMER_IMASK_REPC_OFS                   (26)                            /* !< REPC Offset */
-#define GPTIMER_IMASK_REPC_MASK                  ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero Event mask */
-#define GPTIMER_IMASK_REPC_CLR                   ((uint32_t)0x00000000U)         /* !< Disable Event */
-#define GPTIMER_IMASK_REPC_SET                   ((uint32_t)0x04000000U)         /* !< Enable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU3_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU3_SET        ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD4] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD4_OFS        (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD4_MASK       ((uint32_t)0x00001000U)         /* !< Compare DN event mask CCP4 */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD4_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD4_SET        ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCD5] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD5_OFS        (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD5_MASK       ((uint32_t)0x00002000U)         /* !< Compare DN event mask CCP5 */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD5_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCD5_SET        ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU4] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU4_OFS        (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU4_MASK       ((uint32_t)0x00004000U)         /* !< Compare UP event mask CCP4 */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU4_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU4_SET        ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[CCU5] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU5_OFS        (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU5_MASK       ((uint32_t)0x00008000U)         /* !< Compare UP event mask CCP5 */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU5_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT1_IMASK_CCU5_SET        ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT1_IMASK[REPC] Bits */
+#define GPTIMER_GEN_EVENT1_IMASK_REPC_OFS        (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT1_IMASK_REPC_MASK       ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero Event mask */
+#define GPTIMER_GEN_EVENT1_IMASK_REPC_CLR        ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT1_IMASK_REPC_SET        ((uint32_t)0x04000000U)         /* !< Enable Event */
 
-/* GPTIMER_RIS Bits */
-/* GPTIMER_RIS[Z] Bits */
-#define GPTIMER_RIS_Z_OFS                        (0)                             /* !< Z Offset */
-#define GPTIMER_RIS_Z_MASK                       ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
-#define GPTIMER_RIS_Z_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_Z_SET                        ((uint32_t)0x00000001U)         /* !< Event Set */
-/* GPTIMER_RIS[L] Bits */
-#define GPTIMER_RIS_L_OFS                        (1)                             /* !< L Offset */
-#define GPTIMER_RIS_L_MASK                       ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
-#define GPTIMER_RIS_L_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_L_SET                        ((uint32_t)0x00000002U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD0] Bits */
-#define GPTIMER_RIS_CCD0_OFS                     (4)                             /* !< CCD0 Offset */
-#define GPTIMER_RIS_CCD0_MASK                    ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+/* GPTIMER_GEN_EVENT1_RIS Bits */
+/* GPTIMER_GEN_EVENT1_RIS[Z] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_Z_OFS             (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT1_RIS_Z_MASK            ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_GEN_EVENT1_RIS_Z_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_Z_SET             ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[L] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_L_OFS             (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT1_RIS_L_MASK            ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_GEN_EVENT1_RIS_L_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_L_SET             ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD0] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD0_OFS          (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD0_MASK         ((uint32_t)0x00000010U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP0 */
-#define GPTIMER_RIS_CCD0_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD0_SET                     ((uint32_t)0x00000010U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD1] Bits */
-#define GPTIMER_RIS_CCD1_OFS                     (5)                             /* !< CCD1 Offset */
-#define GPTIMER_RIS_CCD1_MASK                    ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_RIS_CCD0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD0_SET          ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD1] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD1_OFS          (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD1_MASK         ((uint32_t)0x00000020U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP1 */
-#define GPTIMER_RIS_CCD1_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD1_SET                     ((uint32_t)0x00000020U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU0] Bits */
-#define GPTIMER_RIS_CCU0_OFS                     (8)                             /* !< CCU0 Offset */
-#define GPTIMER_RIS_CCU0_MASK                    ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_RIS_CCD1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD1_SET          ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU0] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU0_OFS          (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU0_MASK         ((uint32_t)0x00000100U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP0 */
-#define GPTIMER_RIS_CCU0_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU0_SET                     ((uint32_t)0x00000100U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU1] Bits */
-#define GPTIMER_RIS_CCU1_OFS                     (9)                             /* !< CCU1 Offset */
-#define GPTIMER_RIS_CCU1_MASK                    ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_RIS_CCU0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU0_SET          ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU1] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU1_OFS          (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU1_MASK         ((uint32_t)0x00000200U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP1 */
-#define GPTIMER_RIS_CCU1_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU1_SET                     ((uint32_t)0x00000200U)         /* !< Event Set */
-/* GPTIMER_RIS[TOV] Bits */
-#define GPTIMER_RIS_TOV_OFS                      (25)                            /* !< TOV Offset */
-#define GPTIMER_RIS_TOV_MASK                     ((uint32_t)0x02000000U)         /* !< Trigger overflow */
-#define GPTIMER_RIS_TOV_CLR                      ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_TOV_SET                      ((uint32_t)0x02000000U)         /* !< Event Set */
-/* GPTIMER_RIS[F] Bits */
-#define GPTIMER_RIS_F_OFS                        (24)                            /* !< F Offset */
-#define GPTIMER_RIS_F_MASK                       ((uint32_t)0x01000000U)         /* !< Fault */
-#define GPTIMER_RIS_F_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_F_SET                        ((uint32_t)0x01000000U)         /* !< Event Set */
-/* GPTIMER_RIS[DC] Bits */
-#define GPTIMER_RIS_DC_OFS                       (27)                            /* !< DC Offset */
-#define GPTIMER_RIS_DC_MASK                      ((uint32_t)0x08000000U)         /* !< Direction Change */
-#define GPTIMER_RIS_DC_CLR                       ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_DC_SET                       ((uint32_t)0x08000000U)         /* !< Event Set */
-/* GPTIMER_RIS[QEIERR] Bits */
-#define GPTIMER_RIS_QEIERR_OFS                   (28)                            /* !< QEIERR Offset */
-#define GPTIMER_RIS_QEIERR_MASK                  ((uint32_t)0x10000000U)         /* !< QEIERR, set on an incorrect state
+#define GPTIMER_GEN_EVENT1_RIS_CCU1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU1_SET          ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[TOV] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_TOV_OFS           (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT1_RIS_TOV_MASK          ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_GEN_EVENT1_RIS_TOV_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_TOV_SET           ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[F] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_F_OFS             (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT1_RIS_F_MASK            ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_GEN_EVENT1_RIS_F_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_F_SET             ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[DC] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_DC_OFS            (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT1_RIS_DC_MASK           ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_GEN_EVENT1_RIS_DC_CLR            ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_DC_SET            ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_QEIERR_OFS        (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT1_RIS_QEIERR_MASK       ((uint32_t)0x10000000U)         /* !< QEIERR, set on an incorrect state
                                                                                     transition on the encoder interface. */
-#define GPTIMER_RIS_QEIERR_CLR                   ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_QEIERR_SET                   ((uint32_t)0x10000000U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD2] Bits */
-#define GPTIMER_RIS_CCD2_OFS                     (6)                             /* !< CCD2 Offset */
-#define GPTIMER_RIS_CCD2_MASK                    ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_RIS_QEIERR_CLR        ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_QEIERR_SET        ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD2] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD2_OFS          (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD2_MASK         ((uint32_t)0x00000040U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP2 */
-#define GPTIMER_RIS_CCD2_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD2_SET                     ((uint32_t)0x00000040U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD3] Bits */
-#define GPTIMER_RIS_CCD3_OFS                     (7)                             /* !< CCD3 Offset */
-#define GPTIMER_RIS_CCD3_MASK                    ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_RIS_CCD2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD2_SET          ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD3] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD3_OFS          (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD3_MASK         ((uint32_t)0x00000080U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP3 */
-#define GPTIMER_RIS_CCD3_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD3_SET                     ((uint32_t)0x00000080U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU2] Bits */
-#define GPTIMER_RIS_CCU2_OFS                     (10)                            /* !< CCU2 Offset */
-#define GPTIMER_RIS_CCU2_MASK                    ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_RIS_CCD3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD3_SET          ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU2] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU2_OFS          (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU2_MASK         ((uint32_t)0x00000400U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP2 */
-#define GPTIMER_RIS_CCU2_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU2_SET                     ((uint32_t)0x00000400U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU3] Bits */
-#define GPTIMER_RIS_CCU3_OFS                     (11)                            /* !< CCU3 Offset */
-#define GPTIMER_RIS_CCU3_MASK                    ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_RIS_CCU2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU2_SET          ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU3] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU3_OFS          (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU3_MASK         ((uint32_t)0x00000800U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP3 */
-#define GPTIMER_RIS_CCU3_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU3_SET                     ((uint32_t)0x00000800U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD4] Bits */
-#define GPTIMER_RIS_CCD4_OFS                     (12)                            /* !< CCD4 Offset */
-#define GPTIMER_RIS_CCD4_MASK                    ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+#define GPTIMER_GEN_EVENT1_RIS_CCU3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU3_SET          ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD4] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD4_OFS          (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD4_MASK         ((uint32_t)0x00001000U)         /* !< Compare down event generated an
                                                                                     interrupt CCD4 */
-#define GPTIMER_RIS_CCD4_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD4_SET                     ((uint32_t)0x00001000U)         /* !< Event Set */
-/* GPTIMER_RIS[CCD5] Bits */
-#define GPTIMER_RIS_CCD5_OFS                     (13)                            /* !< CCD5 Offset */
-#define GPTIMER_RIS_CCD5_MASK                    ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+#define GPTIMER_GEN_EVENT1_RIS_CCD4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD4_SET          ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCD5] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCD5_OFS          (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCD5_MASK         ((uint32_t)0x00002000U)         /* !< Compare down event generated an
                                                                                     interrupt CCD5 */
-#define GPTIMER_RIS_CCD5_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCD5_SET                     ((uint32_t)0x00002000U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU4] Bits */
-#define GPTIMER_RIS_CCU4_OFS                     (14)                            /* !< CCU4 Offset */
-#define GPTIMER_RIS_CCU4_MASK                    ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+#define GPTIMER_GEN_EVENT1_RIS_CCD5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCD5_SET          ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU4] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU4_OFS          (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU4_MASK         ((uint32_t)0x00004000U)         /* !< Compare up event generated an
                                                                                     interrupt CCU4 */
-#define GPTIMER_RIS_CCU4_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU4_SET                     ((uint32_t)0x00004000U)         /* !< Event Set */
-/* GPTIMER_RIS[CCU5] Bits */
-#define GPTIMER_RIS_CCU5_OFS                     (15)                            /* !< CCU5 Offset */
-#define GPTIMER_RIS_CCU5_MASK                    ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+#define GPTIMER_GEN_EVENT1_RIS_CCU4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU4_SET          ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[CCU5] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_CCU5_OFS          (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT1_RIS_CCU5_MASK         ((uint32_t)0x00008000U)         /* !< Compare up event generated an
                                                                                     interrupt CCP5 */
-#define GPTIMER_RIS_CCU5_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_CCU5_SET                     ((uint32_t)0x00008000U)         /* !< Event Set */
-/* GPTIMER_RIS[REPC] Bits */
-#define GPTIMER_RIS_REPC_OFS                     (26)                            /* !< REPC Offset */
-#define GPTIMER_RIS_REPC_MASK                    ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
-#define GPTIMER_RIS_REPC_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_RIS_REPC_SET                     ((uint32_t)0x04000000U)         /* !< Event Set */
+#define GPTIMER_GEN_EVENT1_RIS_CCU5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_CCU5_SET          ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_RIS[REPC] Bits */
+#define GPTIMER_GEN_EVENT1_RIS_REPC_OFS          (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT1_RIS_REPC_MASK         ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_GEN_EVENT1_RIS_REPC_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_RIS_REPC_SET          ((uint32_t)0x04000000U)         /* !< Event Set */
 
-/* GPTIMER_MIS Bits */
-/* GPTIMER_MIS[Z] Bits */
-#define GPTIMER_MIS_Z_OFS                        (0)                             /* !< Z Offset */
-#define GPTIMER_MIS_Z_MASK                       ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
-#define GPTIMER_MIS_Z_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_Z_SET                        ((uint32_t)0x00000001U)         /* !< Event Set */
-/* GPTIMER_MIS[L] Bits */
-#define GPTIMER_MIS_L_OFS                        (1)                             /* !< L Offset */
-#define GPTIMER_MIS_L_MASK                       ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
-#define GPTIMER_MIS_L_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_L_SET                        ((uint32_t)0x00000002U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD0] Bits */
-#define GPTIMER_MIS_CCD0_OFS                     (4)                             /* !< CCD0 Offset */
-#define GPTIMER_MIS_CCD0_MASK                    ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+/* GPTIMER_GEN_EVENT1_MIS Bits */
+/* GPTIMER_GEN_EVENT1_MIS[Z] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_Z_OFS             (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT1_MIS_Z_MASK            ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_GEN_EVENT1_MIS_Z_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_Z_SET             ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[L] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_L_OFS             (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT1_MIS_L_MASK            ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_GEN_EVENT1_MIS_L_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_L_SET             ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD0] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD0_OFS          (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD0_MASK         ((uint32_t)0x00000010U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP0 */
-#define GPTIMER_MIS_CCD0_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD0_SET                     ((uint32_t)0x00000010U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD1] Bits */
-#define GPTIMER_MIS_CCD1_OFS                     (5)                             /* !< CCD1 Offset */
-#define GPTIMER_MIS_CCD1_MASK                    ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_MIS_CCD0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD0_SET          ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD1] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD1_OFS          (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD1_MASK         ((uint32_t)0x00000020U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP1 */
-#define GPTIMER_MIS_CCD1_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD1_SET                     ((uint32_t)0x00000020U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU0] Bits */
-#define GPTIMER_MIS_CCU0_OFS                     (8)                             /* !< CCU0 Offset */
-#define GPTIMER_MIS_CCU0_MASK                    ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_MIS_CCD1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD1_SET          ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU0] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU0_OFS          (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU0_MASK         ((uint32_t)0x00000100U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP0 */
-#define GPTIMER_MIS_CCU0_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU0_SET                     ((uint32_t)0x00000100U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU1] Bits */
-#define GPTIMER_MIS_CCU1_OFS                     (9)                             /* !< CCU1 Offset */
-#define GPTIMER_MIS_CCU1_MASK                    ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_MIS_CCU0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU0_SET          ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU1] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU1_OFS          (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU1_MASK         ((uint32_t)0x00000200U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP1 */
-#define GPTIMER_MIS_CCU1_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU1_SET                     ((uint32_t)0x00000200U)         /* !< Event Set */
-/* GPTIMER_MIS[F] Bits */
-#define GPTIMER_MIS_F_OFS                        (24)                            /* !< F Offset */
-#define GPTIMER_MIS_F_MASK                       ((uint32_t)0x01000000U)         /* !< Fault */
-#define GPTIMER_MIS_F_CLR                        ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_F_SET                        ((uint32_t)0x01000000U)         /* !< Event Set */
-/* GPTIMER_MIS[TOV] Bits */
-#define GPTIMER_MIS_TOV_OFS                      (25)                            /* !< TOV Offset */
-#define GPTIMER_MIS_TOV_MASK                     ((uint32_t)0x02000000U)         /* !< Trigger overflow */
-#define GPTIMER_MIS_TOV_CLR                      ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_TOV_SET                      ((uint32_t)0x02000000U)         /* !< Event Set */
-/* GPTIMER_MIS[DC] Bits */
-#define GPTIMER_MIS_DC_OFS                       (27)                            /* !< DC Offset */
-#define GPTIMER_MIS_DC_MASK                      ((uint32_t)0x08000000U)         /* !< Direction Change */
-#define GPTIMER_MIS_DC_CLR                       ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_DC_SET                       ((uint32_t)0x08000000U)         /* !< Event Set */
-/* GPTIMER_MIS[QEIERR] Bits */
-#define GPTIMER_MIS_QEIERR_OFS                   (28)                            /* !< QEIERR Offset */
-#define GPTIMER_MIS_QEIERR_MASK                  ((uint32_t)0x10000000U)         /* !< QEIERR */
-#define GPTIMER_MIS_QEIERR_CLR                   ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_QEIERR_SET                   ((uint32_t)0x10000000U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD2] Bits */
-#define GPTIMER_MIS_CCD2_OFS                     (6)                             /* !< CCD2 Offset */
-#define GPTIMER_MIS_CCD2_MASK                    ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_MIS_CCU1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU1_SET          ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[F] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_F_OFS             (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT1_MIS_F_MASK            ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_GEN_EVENT1_MIS_F_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_F_SET             ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[TOV] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_TOV_OFS           (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT1_MIS_TOV_MASK          ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_GEN_EVENT1_MIS_TOV_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_TOV_SET           ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[DC] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_DC_OFS            (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT1_MIS_DC_MASK           ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_GEN_EVENT1_MIS_DC_CLR            ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_DC_SET            ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_QEIERR_OFS        (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT1_MIS_QEIERR_MASK       ((uint32_t)0x10000000U)         /* !< QEIERR */
+#define GPTIMER_GEN_EVENT1_MIS_QEIERR_CLR        ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_QEIERR_SET        ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD2] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD2_OFS          (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD2_MASK         ((uint32_t)0x00000040U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP2 */
-#define GPTIMER_MIS_CCD2_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD2_SET                     ((uint32_t)0x00000040U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD3] Bits */
-#define GPTIMER_MIS_CCD3_OFS                     (7)                             /* !< CCD3 Offset */
-#define GPTIMER_MIS_CCD3_MASK                    ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+#define GPTIMER_GEN_EVENT1_MIS_CCD2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD2_SET          ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD3] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD3_OFS          (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD3_MASK         ((uint32_t)0x00000080U)         /* !< Capture or compare down event
                                                                                     generated an interrupt CCP3 */
-#define GPTIMER_MIS_CCD3_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD3_SET                     ((uint32_t)0x00000080U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU2] Bits */
-#define GPTIMER_MIS_CCU2_OFS                     (10)                            /* !< CCU2 Offset */
-#define GPTIMER_MIS_CCU2_MASK                    ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_MIS_CCD3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD3_SET          ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU2] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU2_OFS          (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU2_MASK         ((uint32_t)0x00000400U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP2 */
-#define GPTIMER_MIS_CCU2_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU2_SET                     ((uint32_t)0x00000400U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU3] Bits */
-#define GPTIMER_MIS_CCU3_OFS                     (11)                            /* !< CCU3 Offset */
-#define GPTIMER_MIS_CCU3_MASK                    ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+#define GPTIMER_GEN_EVENT1_MIS_CCU2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU2_SET          ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU3] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU3_OFS          (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU3_MASK         ((uint32_t)0x00000800U)         /* !< Capture or compare up event
                                                                                     generated an interrupt CCP3 */
-#define GPTIMER_MIS_CCU3_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU3_SET                     ((uint32_t)0x00000800U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD4] Bits */
-#define GPTIMER_MIS_CCD4_OFS                     (12)                            /* !< CCD4 Offset */
-#define GPTIMER_MIS_CCD4_MASK                    ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+#define GPTIMER_GEN_EVENT1_MIS_CCU3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU3_SET          ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD4] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD4_OFS          (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD4_MASK         ((uint32_t)0x00001000U)         /* !< Compare down event generated an
                                                                                     interrupt CCP4 */
-#define GPTIMER_MIS_CCD4_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD4_SET                     ((uint32_t)0x00001000U)         /* !< Event Set */
-/* GPTIMER_MIS[CCD5] Bits */
-#define GPTIMER_MIS_CCD5_OFS                     (13)                            /* !< CCD5 Offset */
-#define GPTIMER_MIS_CCD5_MASK                    ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+#define GPTIMER_GEN_EVENT1_MIS_CCD4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD4_SET          ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCD5] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCD5_OFS          (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCD5_MASK         ((uint32_t)0x00002000U)         /* !< Compare down event generated an
                                                                                     interrupt CCP5 */
-#define GPTIMER_MIS_CCD5_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCD5_SET                     ((uint32_t)0x00002000U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU4] Bits */
-#define GPTIMER_MIS_CCU4_OFS                     (14)                            /* !< CCU4 Offset */
-#define GPTIMER_MIS_CCU4_MASK                    ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+#define GPTIMER_GEN_EVENT1_MIS_CCD5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCD5_SET          ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU4] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU4_OFS          (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU4_MASK         ((uint32_t)0x00004000U)         /* !< Compare up event generated an
                                                                                     interrupt CCP4 */
-#define GPTIMER_MIS_CCU4_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU4_SET                     ((uint32_t)0x00004000U)         /* !< Event Set */
-/* GPTIMER_MIS[CCU5] Bits */
-#define GPTIMER_MIS_CCU5_OFS                     (15)                            /* !< CCU5 Offset */
-#define GPTIMER_MIS_CCU5_MASK                    ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+#define GPTIMER_GEN_EVENT1_MIS_CCU4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU4_SET          ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[CCU5] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_CCU5_OFS          (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT1_MIS_CCU5_MASK         ((uint32_t)0x00008000U)         /* !< Compare up event generated an
                                                                                     interrupt CCP5 */
-#define GPTIMER_MIS_CCU5_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_CCU5_SET                     ((uint32_t)0x00008000U)         /* !< Event Set */
-/* GPTIMER_MIS[REPC] Bits */
-#define GPTIMER_MIS_REPC_OFS                     (26)                            /* !< REPC Offset */
-#define GPTIMER_MIS_REPC_MASK                    ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
-#define GPTIMER_MIS_REPC_CLR                     ((uint32_t)0x00000000U)         /* !< Event Cleared */
-#define GPTIMER_MIS_REPC_SET                     ((uint32_t)0x04000000U)         /* !< Event Set */
+#define GPTIMER_GEN_EVENT1_MIS_CCU5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_CCU5_SET          ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_MIS[REPC] Bits */
+#define GPTIMER_GEN_EVENT1_MIS_REPC_OFS          (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT1_MIS_REPC_MASK         ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_GEN_EVENT1_MIS_REPC_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT1_MIS_REPC_SET          ((uint32_t)0x04000000U)         /* !< Event Set */
 
-/* GPTIMER_ISET Bits */
-/* GPTIMER_ISET[Z] Bits */
-#define GPTIMER_ISET_Z_OFS                       (0)                             /* !< Z Offset */
-#define GPTIMER_ISET_Z_MASK                      ((uint32_t)0x00000001U)         /* !< Zero event SET */
-#define GPTIMER_ISET_Z_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_Z_SET                       ((uint32_t)0x00000001U)         /* !< Event Set */
-/* GPTIMER_ISET[L] Bits */
-#define GPTIMER_ISET_L_OFS                       (1)                             /* !< L Offset */
-#define GPTIMER_ISET_L_MASK                      ((uint32_t)0x00000002U)         /* !< Load event SET */
-#define GPTIMER_ISET_L_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_L_SET                       ((uint32_t)0x00000002U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD0] Bits */
-#define GPTIMER_ISET_CCD0_OFS                    (4)                             /* !< CCD0 Offset */
-#define GPTIMER_ISET_CCD0_MASK                   ((uint32_t)0x00000010U)         /* !< Capture or compare down event SET */
-#define GPTIMER_ISET_CCD0_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD0_SET                    ((uint32_t)0x00000010U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD1] Bits */
-#define GPTIMER_ISET_CCD1_OFS                    (5)                             /* !< CCD1 Offset */
-#define GPTIMER_ISET_CCD1_MASK                   ((uint32_t)0x00000020U)         /* !< Capture or compare down event SET */
-#define GPTIMER_ISET_CCD1_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD1_SET                    ((uint32_t)0x00000020U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU0] Bits */
-#define GPTIMER_ISET_CCU0_OFS                    (8)                             /* !< CCU0 Offset */
-#define GPTIMER_ISET_CCU0_MASK                   ((uint32_t)0x00000100U)         /* !< Capture or compare up event SET */
-#define GPTIMER_ISET_CCU0_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU0_SET                    ((uint32_t)0x00000100U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU1] Bits */
-#define GPTIMER_ISET_CCU1_OFS                    (9)                             /* !< CCU1 Offset */
-#define GPTIMER_ISET_CCU1_MASK                   ((uint32_t)0x00000200U)         /* !< Capture or compare up event SET */
-#define GPTIMER_ISET_CCU1_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU1_SET                    ((uint32_t)0x00000200U)         /* !< Event Set */
-/* GPTIMER_ISET[F] Bits */
-#define GPTIMER_ISET_F_OFS                       (24)                            /* !< F Offset */
-#define GPTIMER_ISET_F_MASK                      ((uint32_t)0x01000000U)         /* !< Fault event SET */
-#define GPTIMER_ISET_F_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_F_SET                       ((uint32_t)0x01000000U)         /* !< Event Set */
-/* GPTIMER_ISET[TOV] Bits */
-#define GPTIMER_ISET_TOV_OFS                     (25)                            /* !< TOV Offset */
-#define GPTIMER_ISET_TOV_MASK                    ((uint32_t)0x02000000U)         /* !< Trigger Overflow event SET */
-#define GPTIMER_ISET_TOV_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_TOV_SET                     ((uint32_t)0x02000000U)         /* !< Event Set */
-/* GPTIMER_ISET[DC] Bits */
-#define GPTIMER_ISET_DC_OFS                      (27)                            /* !< DC Offset */
-#define GPTIMER_ISET_DC_MASK                     ((uint32_t)0x08000000U)         /* !< Direction Change event SET */
-#define GPTIMER_ISET_DC_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_DC_SET                      ((uint32_t)0x08000000U)         /* !< Event Set */
-/* GPTIMER_ISET[QEIERR] Bits */
-#define GPTIMER_ISET_QEIERR_OFS                  (28)                            /* !< QEIERR Offset */
-#define GPTIMER_ISET_QEIERR_MASK                 ((uint32_t)0x10000000U)         /* !< QEIERR event SET */
-#define GPTIMER_ISET_QEIERR_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_QEIERR_SET                  ((uint32_t)0x10000000U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD2] Bits */
-#define GPTIMER_ISET_CCD2_OFS                    (6)                             /* !< CCD2 Offset */
-#define GPTIMER_ISET_CCD2_MASK                   ((uint32_t)0x00000040U)         /* !< Capture or compare down event SET */
-#define GPTIMER_ISET_CCD2_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD2_SET                    ((uint32_t)0x00000040U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD3] Bits */
-#define GPTIMER_ISET_CCD3_OFS                    (7)                             /* !< CCD3 Offset */
-#define GPTIMER_ISET_CCD3_MASK                   ((uint32_t)0x00000080U)         /* !< Capture or compare down event SET */
-#define GPTIMER_ISET_CCD3_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD3_SET                    ((uint32_t)0x00000080U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU2] Bits */
-#define GPTIMER_ISET_CCU2_OFS                    (10)                            /* !< CCU2 Offset */
-#define GPTIMER_ISET_CCU2_MASK                   ((uint32_t)0x00000400U)         /* !< Capture or compare up event SET */
-#define GPTIMER_ISET_CCU2_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU2_SET                    ((uint32_t)0x00000400U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU3] Bits */
-#define GPTIMER_ISET_CCU3_OFS                    (11)                            /* !< CCU3 Offset */
-#define GPTIMER_ISET_CCU3_MASK                   ((uint32_t)0x00000800U)         /* !< Capture or compare up event SET */
-#define GPTIMER_ISET_CCU3_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU3_SET                    ((uint32_t)0x00000800U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD4] Bits */
-#define GPTIMER_ISET_CCD4_OFS                    (12)                            /* !< CCD4 Offset */
-#define GPTIMER_ISET_CCD4_MASK                   ((uint32_t)0x00001000U)         /* !< Compare down event 4 SET */
-#define GPTIMER_ISET_CCD4_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD4_SET                    ((uint32_t)0x00001000U)         /* !< Event Set */
-/* GPTIMER_ISET[CCD5] Bits */
-#define GPTIMER_ISET_CCD5_OFS                    (13)                            /* !< CCD5 Offset */
-#define GPTIMER_ISET_CCD5_MASK                   ((uint32_t)0x00002000U)         /* !< Compare down event 5 SET */
-#define GPTIMER_ISET_CCD5_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCD5_SET                    ((uint32_t)0x00002000U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU4] Bits */
-#define GPTIMER_ISET_CCU4_OFS                    (14)                            /* !< CCU4 Offset */
-#define GPTIMER_ISET_CCU4_MASK                   ((uint32_t)0x00004000U)         /* !< Compare up event 4 SET */
-#define GPTIMER_ISET_CCU4_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU4_SET                    ((uint32_t)0x00004000U)         /* !< Event Set */
-/* GPTIMER_ISET[CCU5] Bits */
-#define GPTIMER_ISET_CCU5_OFS                    (15)                            /* !< CCU5 Offset */
-#define GPTIMER_ISET_CCU5_MASK                   ((uint32_t)0x00008000U)         /* !< Compare up event 5 SET */
-#define GPTIMER_ISET_CCU5_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_CCU5_SET                    ((uint32_t)0x00008000U)         /* !< Event Set */
-/* GPTIMER_ISET[REPC] Bits */
-#define GPTIMER_ISET_REPC_OFS                    (26)                            /* !< REPC Offset */
-#define GPTIMER_ISET_REPC_MASK                   ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event SET */
-#define GPTIMER_ISET_REPC_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ISET_REPC_SET                    ((uint32_t)0x04000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET Bits */
+/* GPTIMER_GEN_EVENT1_ISET[Z] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_Z_OFS            (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT1_ISET_Z_MASK           ((uint32_t)0x00000001U)         /* !< Zero event SET */
+#define GPTIMER_GEN_EVENT1_ISET_Z_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_Z_SET            ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[L] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_L_OFS            (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT1_ISET_L_MASK           ((uint32_t)0x00000002U)         /* !< Load event SET */
+#define GPTIMER_GEN_EVENT1_ISET_L_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_L_SET            ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD0] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD0_OFS         (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD0_MASK        ((uint32_t)0x00000010U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD0_SET         ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD1] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD1_OFS         (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD1_MASK        ((uint32_t)0x00000020U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD1_SET         ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU0] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU0_OFS         (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU0_MASK        ((uint32_t)0x00000100U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU0_SET         ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU1] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU1_OFS         (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU1_MASK        ((uint32_t)0x00000200U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU1_SET         ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[F] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_F_OFS            (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT1_ISET_F_MASK           ((uint32_t)0x01000000U)         /* !< Fault event SET */
+#define GPTIMER_GEN_EVENT1_ISET_F_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_F_SET            ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[TOV] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_TOV_OFS          (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT1_ISET_TOV_MASK         ((uint32_t)0x02000000U)         /* !< Trigger Overflow event SET */
+#define GPTIMER_GEN_EVENT1_ISET_TOV_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_TOV_SET          ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[DC] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_DC_OFS           (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT1_ISET_DC_MASK          ((uint32_t)0x08000000U)         /* !< Direction Change event SET */
+#define GPTIMER_GEN_EVENT1_ISET_DC_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_DC_SET           ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_QEIERR_OFS       (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT1_ISET_QEIERR_MASK      ((uint32_t)0x10000000U)         /* !< QEIERR event SET */
+#define GPTIMER_GEN_EVENT1_ISET_QEIERR_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_QEIERR_SET       ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD2] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD2_OFS         (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD2_MASK        ((uint32_t)0x00000040U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD2_SET         ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD3] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD3_OFS         (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD3_MASK        ((uint32_t)0x00000080U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD3_SET         ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU2] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU2_OFS         (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU2_MASK        ((uint32_t)0x00000400U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU2_SET         ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU3] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU3_OFS         (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU3_MASK        ((uint32_t)0x00000800U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU3_SET         ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD4] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD4_OFS         (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD4_MASK        ((uint32_t)0x00001000U)         /* !< Compare down event 4 SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD4_SET         ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCD5] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCD5_OFS         (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCD5_MASK        ((uint32_t)0x00002000U)         /* !< Compare down event 5 SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCD5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCD5_SET         ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU4] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU4_OFS         (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU4_MASK        ((uint32_t)0x00004000U)         /* !< Compare up event 4 SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU4_SET         ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[CCU5] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_CCU5_OFS         (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT1_ISET_CCU5_MASK        ((uint32_t)0x00008000U)         /* !< Compare up event 5 SET */
+#define GPTIMER_GEN_EVENT1_ISET_CCU5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_CCU5_SET         ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT1_ISET[REPC] Bits */
+#define GPTIMER_GEN_EVENT1_ISET_REPC_OFS         (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT1_ISET_REPC_MASK        ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event SET */
+#define GPTIMER_GEN_EVENT1_ISET_REPC_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ISET_REPC_SET         ((uint32_t)0x04000000U)         /* !< Event Set */
 
-/* GPTIMER_ICLR Bits */
-/* GPTIMER_ICLR[Z] Bits */
-#define GPTIMER_ICLR_Z_OFS                       (0)                             /* !< Z Offset */
-#define GPTIMER_ICLR_Z_MASK                      ((uint32_t)0x00000001U)         /* !< Zero event CLEAR */
-#define GPTIMER_ICLR_Z_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_Z_CLR                       ((uint32_t)0x00000001U)         /* !< Event Clear */
-/* GPTIMER_ICLR[L] Bits */
-#define GPTIMER_ICLR_L_OFS                       (1)                             /* !< L Offset */
-#define GPTIMER_ICLR_L_MASK                      ((uint32_t)0x00000002U)         /* !< Load event CLEAR */
-#define GPTIMER_ICLR_L_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_L_CLR                       ((uint32_t)0x00000002U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD0] Bits */
-#define GPTIMER_ICLR_CCD0_OFS                    (4)                             /* !< CCD0 Offset */
-#define GPTIMER_ICLR_CCD0_MASK                   ((uint32_t)0x00000010U)         /* !< Capture or compare down event CLEAR */
-#define GPTIMER_ICLR_CCD0_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD0_CLR                    ((uint32_t)0x00000010U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD1] Bits */
-#define GPTIMER_ICLR_CCD1_OFS                    (5)                             /* !< CCD1 Offset */
-#define GPTIMER_ICLR_CCD1_MASK                   ((uint32_t)0x00000020U)         /* !< Capture or compare down event CLEAR */
-#define GPTIMER_ICLR_CCD1_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD1_CLR                    ((uint32_t)0x00000020U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU0] Bits */
-#define GPTIMER_ICLR_CCU0_OFS                    (8)                             /* !< CCU0 Offset */
-#define GPTIMER_ICLR_CCU0_MASK                   ((uint32_t)0x00000100U)         /* !< Capture or compare up event CLEAR */
-#define GPTIMER_ICLR_CCU0_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU0_CLR                    ((uint32_t)0x00000100U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU1] Bits */
-#define GPTIMER_ICLR_CCU1_OFS                    (9)                             /* !< CCU1 Offset */
-#define GPTIMER_ICLR_CCU1_MASK                   ((uint32_t)0x00000200U)         /* !< Capture or compare up event CLEAR */
-#define GPTIMER_ICLR_CCU1_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU1_CLR                    ((uint32_t)0x00000200U)         /* !< Event Clear */
-/* GPTIMER_ICLR[F] Bits */
-#define GPTIMER_ICLR_F_OFS                       (24)                            /* !< F Offset */
-#define GPTIMER_ICLR_F_MASK                      ((uint32_t)0x01000000U)         /* !< Fault event CLEAR */
-#define GPTIMER_ICLR_F_NO_EFFECT                 ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_F_CLR                       ((uint32_t)0x01000000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[TOV] Bits */
-#define GPTIMER_ICLR_TOV_OFS                     (25)                            /* !< TOV Offset */
-#define GPTIMER_ICLR_TOV_MASK                    ((uint32_t)0x02000000U)         /* !< Trigger Overflow event CLEAR */
-#define GPTIMER_ICLR_TOV_NO_EFFECT               ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_TOV_CLR                     ((uint32_t)0x02000000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[DC] Bits */
-#define GPTIMER_ICLR_DC_OFS                      (27)                            /* !< DC Offset */
-#define GPTIMER_ICLR_DC_MASK                     ((uint32_t)0x08000000U)         /* !< Direction Change event CLEAR */
-#define GPTIMER_ICLR_DC_NO_EFFECT                ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_DC_CLR                      ((uint32_t)0x08000000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[QEIERR] Bits */
-#define GPTIMER_ICLR_QEIERR_OFS                  (28)                            /* !< QEIERR Offset */
-#define GPTIMER_ICLR_QEIERR_MASK                 ((uint32_t)0x10000000U)         /* !< QEIERR event CLEAR */
-#define GPTIMER_ICLR_QEIERR_NO_EFFECT            ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_QEIERR_CLR                  ((uint32_t)0x10000000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD2] Bits */
-#define GPTIMER_ICLR_CCD2_OFS                    (6)                             /* !< CCD2 Offset */
-#define GPTIMER_ICLR_CCD2_MASK                   ((uint32_t)0x00000040U)         /* !< Capture or compare down event CLEAR */
-#define GPTIMER_ICLR_CCD2_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD2_CLR                    ((uint32_t)0x00000040U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD3] Bits */
-#define GPTIMER_ICLR_CCD3_OFS                    (7)                             /* !< CCD3 Offset */
-#define GPTIMER_ICLR_CCD3_MASK                   ((uint32_t)0x00000080U)         /* !< Capture or compare down event CLEAR */
-#define GPTIMER_ICLR_CCD3_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD3_CLR                    ((uint32_t)0x00000080U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU2] Bits */
-#define GPTIMER_ICLR_CCU2_OFS                    (10)                            /* !< CCU2 Offset */
-#define GPTIMER_ICLR_CCU2_MASK                   ((uint32_t)0x00000400U)         /* !< Capture or compare up event CLEAR */
-#define GPTIMER_ICLR_CCU2_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU2_CLR                    ((uint32_t)0x00000400U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU3] Bits */
-#define GPTIMER_ICLR_CCU3_OFS                    (11)                            /* !< CCU3 Offset */
-#define GPTIMER_ICLR_CCU3_MASK                   ((uint32_t)0x00000800U)         /* !< Capture or compare up event CLEAR */
-#define GPTIMER_ICLR_CCU3_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU3_CLR                    ((uint32_t)0x00000800U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD4] Bits */
-#define GPTIMER_ICLR_CCD4_OFS                    (12)                            /* !< CCD4 Offset */
-#define GPTIMER_ICLR_CCD4_MASK                   ((uint32_t)0x00001000U)         /* !< Compare down event 4 CLEAR */
-#define GPTIMER_ICLR_CCD4_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD4_CLR                    ((uint32_t)0x00001000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCD5] Bits */
-#define GPTIMER_ICLR_CCD5_OFS                    (13)                            /* !< CCD5 Offset */
-#define GPTIMER_ICLR_CCD5_MASK                   ((uint32_t)0x00002000U)         /* !< Compare down event 5 CLEAR */
-#define GPTIMER_ICLR_CCD5_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCD5_CLR                    ((uint32_t)0x00002000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU4] Bits */
-#define GPTIMER_ICLR_CCU4_OFS                    (14)                            /* !< CCU4 Offset */
-#define GPTIMER_ICLR_CCU4_MASK                   ((uint32_t)0x00004000U)         /* !< Compare up event 4 CLEAR */
-#define GPTIMER_ICLR_CCU4_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU4_CLR                    ((uint32_t)0x00004000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[CCU5] Bits */
-#define GPTIMER_ICLR_CCU5_OFS                    (15)                            /* !< CCU5 Offset */
-#define GPTIMER_ICLR_CCU5_MASK                   ((uint32_t)0x00008000U)         /* !< Compare up event 5 CLEAR */
-#define GPTIMER_ICLR_CCU5_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_CCU5_CLR                    ((uint32_t)0x00008000U)         /* !< Event Clear */
-/* GPTIMER_ICLR[REPC] Bits */
-#define GPTIMER_ICLR_REPC_OFS                    (26)                            /* !< REPC Offset */
-#define GPTIMER_ICLR_REPC_MASK                   ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event CLEAR */
-#define GPTIMER_ICLR_REPC_NO_EFFECT              ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
-#define GPTIMER_ICLR_REPC_CLR                    ((uint32_t)0x04000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR Bits */
+/* GPTIMER_GEN_EVENT1_ICLR[Z] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_Z_OFS            (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_Z_MASK           ((uint32_t)0x00000001U)         /* !< Zero event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_Z_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_Z_CLR            ((uint32_t)0x00000001U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[L] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_L_OFS            (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_L_MASK           ((uint32_t)0x00000002U)         /* !< Load event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_L_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_L_CLR            ((uint32_t)0x00000002U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD0] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD0_OFS         (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD0_MASK        ((uint32_t)0x00000010U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD0_CLR         ((uint32_t)0x00000010U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD1] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD1_OFS         (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD1_MASK        ((uint32_t)0x00000020U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD1_CLR         ((uint32_t)0x00000020U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU0] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU0_OFS         (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU0_MASK        ((uint32_t)0x00000100U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU0_CLR         ((uint32_t)0x00000100U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU1] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU1_OFS         (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU1_MASK        ((uint32_t)0x00000200U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU1_CLR         ((uint32_t)0x00000200U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[F] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_F_OFS            (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_F_MASK           ((uint32_t)0x01000000U)         /* !< Fault event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_F_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_F_CLR            ((uint32_t)0x01000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[TOV] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_TOV_OFS          (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_TOV_MASK         ((uint32_t)0x02000000U)         /* !< Trigger Overflow event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_TOV_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_TOV_CLR          ((uint32_t)0x02000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[DC] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_DC_OFS           (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_DC_MASK          ((uint32_t)0x08000000U)         /* !< Direction Change event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_DC_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_DC_CLR           ((uint32_t)0x08000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_QEIERR_OFS       (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_QEIERR_MASK      ((uint32_t)0x10000000U)         /* !< QEIERR event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_QEIERR_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_QEIERR_CLR       ((uint32_t)0x10000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD2] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD2_OFS         (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD2_MASK        ((uint32_t)0x00000040U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD2_CLR         ((uint32_t)0x00000040U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD3] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD3_OFS         (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD3_MASK        ((uint32_t)0x00000080U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD3_CLR         ((uint32_t)0x00000080U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU2] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU2_OFS         (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU2_MASK        ((uint32_t)0x00000400U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU2_CLR         ((uint32_t)0x00000400U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU3] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU3_OFS         (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU3_MASK        ((uint32_t)0x00000800U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU3_CLR         ((uint32_t)0x00000800U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD4] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD4_OFS         (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD4_MASK        ((uint32_t)0x00001000U)         /* !< Compare down event 4 CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD4_CLR         ((uint32_t)0x00001000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCD5] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD5_OFS         (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD5_MASK        ((uint32_t)0x00002000U)         /* !< Compare down event 5 CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCD5_CLR         ((uint32_t)0x00002000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU4] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU4_OFS         (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU4_MASK        ((uint32_t)0x00004000U)         /* !< Compare up event 4 CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU4_CLR         ((uint32_t)0x00004000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[CCU5] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU5_OFS         (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU5_MASK        ((uint32_t)0x00008000U)         /* !< Compare up event 5 CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_CCU5_CLR         ((uint32_t)0x00008000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT1_ICLR[REPC] Bits */
+#define GPTIMER_GEN_EVENT1_ICLR_REPC_OFS         (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT1_ICLR_REPC_MASK        ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event CLEAR */
+#define GPTIMER_GEN_EVENT1_ICLR_REPC_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT1_ICLR_REPC_CLR         ((uint32_t)0x04000000U)         /* !< Event Clear */
+
+/* GPTIMER_GEN_EVENT0_IIDX Bits */
+/* GPTIMER_GEN_EVENT0_IIDX[STAT] Bits */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_OFS         (0)                             /* !< STAT Offset */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_MASK        ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_NO_INTR     ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_Z           ((uint32_t)0x00000001U)         /* !< Interrupt Source: Zero event (Z) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_L           ((uint32_t)0x00000002U)         /* !< nterrupt Source: Load event (L) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD0        ((uint32_t)0x00000005U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD0) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD1        ((uint32_t)0x00000006U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD1) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD2        ((uint32_t)0x00000007U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD2) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD3        ((uint32_t)0x00000008U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD3) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU0        ((uint32_t)0x00000009U)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU0) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU1        ((uint32_t)0x0000000AU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU1) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU2        ((uint32_t)0x0000000BU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU2) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU3        ((uint32_t)0x0000000CU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU3) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD4        ((uint32_t)0x0000000DU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCD4) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCD5        ((uint32_t)0x0000000EU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCD5) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU4        ((uint32_t)0x0000000FU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCU4) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_CCU5        ((uint32_t)0x00000010U)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCU5) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_F           ((uint32_t)0x00000019U)         /* !< Interrupt Source: Fault Event
+                                                                                    generated an interrupt. (F) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_TOV         ((uint32_t)0x0000001AU)         /* !< Interrupt Source: Trigger overflow
+                                                                                    (TOV) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_REPC        ((uint32_t)0x0000001BU)         /* !< Interrupt Source: Repeat Counter
+                                                                                    Zero (REPC) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_DC          ((uint32_t)0x0000001CU)         /* !< Interrupt Source: Direction Change
+                                                                                    (DC) */
+#define GPTIMER_GEN_EVENT0_IIDX_STAT_QEIERR      ((uint32_t)0x0000001DU)         /* !< Interrupt Source:QEI Incorrect
+                                                                                    state transition error (QEIERR) */
+
+/* GPTIMER_GEN_EVENT0_IMASK Bits */
+/* GPTIMER_GEN_EVENT0_IMASK[Z] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_Z_OFS           (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_Z_MASK          ((uint32_t)0x00000001U)         /* !< Zero Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_Z_CLR           ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_Z_SET           ((uint32_t)0x00000001U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT0_IMASK[L] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_L_OFS           (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_L_MASK          ((uint32_t)0x00000002U)         /* !< Load Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_L_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_L_SET           ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD0] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD0_OFS        (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD0_MASK       ((uint32_t)0x00000010U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP0 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD0_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD0_SET        ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD1] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD1_OFS        (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD1_MASK       ((uint32_t)0x00000020U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP1 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD1_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD1_SET        ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU0] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU0_OFS        (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU0_MASK       ((uint32_t)0x00000100U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP0 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU0_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU0_SET        ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU1] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU1_OFS        (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU1_MASK       ((uint32_t)0x00000200U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP1 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU1_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU1_SET        ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[F] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_F_OFS           (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_F_MASK          ((uint32_t)0x01000000U)         /* !< Fault Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_F_CLR           ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_F_SET           ((uint32_t)0x01000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT0_IMASK[TOV] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_TOV_OFS         (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_TOV_MASK        ((uint32_t)0x02000000U)         /* !< Trigger Overflow Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_TOV_CLR         ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_TOV_SET         ((uint32_t)0x02000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT0_IMASK[DC] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_DC_OFS          (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_DC_MASK         ((uint32_t)0x08000000U)         /* !< Direction Change Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_DC_CLR          ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_DC_SET          ((uint32_t)0x08000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT0_IMASK[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_QEIERR_OFS      (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_QEIERR_MASK     ((uint32_t)0x10000000U)         /* !< QEIERR Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_QEIERR_CLR      ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_QEIERR_SET      ((uint32_t)0x10000000U)         /* !< Enable Event */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD2] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD2_OFS        (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD2_MASK       ((uint32_t)0x00000040U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP2 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD2_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD2_SET        ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD3] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD3_OFS        (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD3_MASK       ((uint32_t)0x00000080U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP3 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD3_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD3_SET        ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU2] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU2_OFS        (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU2_MASK       ((uint32_t)0x00000400U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP2 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU2_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU2_SET        ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU3] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU3_OFS        (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU3_MASK       ((uint32_t)0x00000800U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP3 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU3_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU3_SET        ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD4] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD4_OFS        (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD4_MASK       ((uint32_t)0x00001000U)         /* !< Compare DN event mask CCP4 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD4_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD4_SET        ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCD5] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD5_OFS        (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD5_MASK       ((uint32_t)0x00002000U)         /* !< Compare DN event mask CCP5 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD5_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCD5_SET        ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU4] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU4_OFS        (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU4_MASK       ((uint32_t)0x00004000U)         /* !< Compare UP event mask CCP4 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU4_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU4_SET        ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[CCU5] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU5_OFS        (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU5_MASK       ((uint32_t)0x00008000U)         /* !< Compare UP event mask CCP5 */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU5_CLR        ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_GEN_EVENT0_IMASK_CCU5_SET        ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_GEN_EVENT0_IMASK[REPC] Bits */
+#define GPTIMER_GEN_EVENT0_IMASK_REPC_OFS        (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT0_IMASK_REPC_MASK       ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero Event mask */
+#define GPTIMER_GEN_EVENT0_IMASK_REPC_CLR        ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_GEN_EVENT0_IMASK_REPC_SET        ((uint32_t)0x04000000U)         /* !< Enable Event */
+
+/* GPTIMER_GEN_EVENT0_RIS Bits */
+/* GPTIMER_GEN_EVENT0_RIS[Z] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_Z_OFS             (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT0_RIS_Z_MASK            ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_GEN_EVENT0_RIS_Z_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_Z_SET             ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[L] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_L_OFS             (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT0_RIS_L_MASK            ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_GEN_EVENT0_RIS_L_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_L_SET             ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD0] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD0_OFS          (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD0_MASK         ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD0_SET          ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD1] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD1_OFS          (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD1_MASK         ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD1_SET          ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU0] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU0_OFS          (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU0_MASK         ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU0_SET          ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU1] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU1_OFS          (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU1_MASK         ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU1_SET          ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[TOV] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_TOV_OFS           (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT0_RIS_TOV_MASK          ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_GEN_EVENT0_RIS_TOV_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_TOV_SET           ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[F] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_F_OFS             (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT0_RIS_F_MASK            ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_GEN_EVENT0_RIS_F_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_F_SET             ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[DC] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_DC_OFS            (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT0_RIS_DC_MASK           ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_GEN_EVENT0_RIS_DC_CLR            ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_DC_SET            ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_QEIERR_OFS        (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT0_RIS_QEIERR_MASK       ((uint32_t)0x10000000U)         /* !< QEIERR, set on an incorrect state
+                                                                                    transition on the encoder interface. */
+#define GPTIMER_GEN_EVENT0_RIS_QEIERR_CLR        ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_QEIERR_SET        ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD2] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD2_OFS          (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD2_MASK         ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD2_SET          ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD3] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD3_OFS          (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD3_MASK         ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD3_SET          ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU2] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU2_OFS          (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU2_MASK         ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU2_SET          ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU3] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU3_OFS          (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU3_MASK         ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU3_SET          ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD4] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD4_OFS          (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD4_MASK         ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCD4 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD4_SET          ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCD5] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCD5_OFS          (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCD5_MASK         ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCD5 */
+#define GPTIMER_GEN_EVENT0_RIS_CCD5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCD5_SET          ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU4] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU4_OFS          (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU4_MASK         ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCU4 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU4_SET          ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[CCU5] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_CCU5_OFS          (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT0_RIS_CCU5_MASK         ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_GEN_EVENT0_RIS_CCU5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_CCU5_SET          ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_RIS[REPC] Bits */
+#define GPTIMER_GEN_EVENT0_RIS_REPC_OFS          (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT0_RIS_REPC_MASK         ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_GEN_EVENT0_RIS_REPC_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_RIS_REPC_SET          ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_GEN_EVENT0_MIS Bits */
+/* GPTIMER_GEN_EVENT0_MIS[Z] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_Z_OFS             (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT0_MIS_Z_MASK            ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_GEN_EVENT0_MIS_Z_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_Z_SET             ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[L] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_L_OFS             (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT0_MIS_L_MASK            ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_GEN_EVENT0_MIS_L_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_L_SET             ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD0] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD0_OFS          (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD0_MASK         ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD0_SET          ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD1] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD1_OFS          (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD1_MASK         ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD1_SET          ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU0] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU0_OFS          (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU0_MASK         ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU0_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU0_SET          ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU1] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU1_OFS          (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU1_MASK         ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU1_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU1_SET          ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[F] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_F_OFS             (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT0_MIS_F_MASK            ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_GEN_EVENT0_MIS_F_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_F_SET             ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[TOV] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_TOV_OFS           (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT0_MIS_TOV_MASK          ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_GEN_EVENT0_MIS_TOV_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_TOV_SET           ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[DC] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_DC_OFS            (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT0_MIS_DC_MASK           ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_GEN_EVENT0_MIS_DC_CLR            ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_DC_SET            ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_QEIERR_OFS        (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT0_MIS_QEIERR_MASK       ((uint32_t)0x10000000U)         /* !< QEIERR */
+#define GPTIMER_GEN_EVENT0_MIS_QEIERR_CLR        ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_QEIERR_SET        ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD2] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD2_OFS          (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD2_MASK         ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD2_SET          ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD3] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD3_OFS          (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD3_MASK         ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD3_SET          ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU2] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU2_OFS          (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU2_MASK         ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU2_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU2_SET          ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU3] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU3_OFS          (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU3_MASK         ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU3_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU3_SET          ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD4] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD4_OFS          (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD4_MASK         ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCP4 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD4_SET          ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCD5] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCD5_OFS          (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCD5_MASK         ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_GEN_EVENT0_MIS_CCD5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCD5_SET          ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU4] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU4_OFS          (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU4_MASK         ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP4 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU4_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU4_SET          ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[CCU5] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_CCU5_OFS          (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT0_MIS_CCU5_MASK         ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_GEN_EVENT0_MIS_CCU5_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_CCU5_SET          ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_MIS[REPC] Bits */
+#define GPTIMER_GEN_EVENT0_MIS_REPC_OFS          (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT0_MIS_REPC_MASK         ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_GEN_EVENT0_MIS_REPC_CLR          ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_GEN_EVENT0_MIS_REPC_SET          ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_GEN_EVENT0_ISET Bits */
+/* GPTIMER_GEN_EVENT0_ISET[Z] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_Z_OFS            (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT0_ISET_Z_MASK           ((uint32_t)0x00000001U)         /* !< Zero event SET */
+#define GPTIMER_GEN_EVENT0_ISET_Z_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_Z_SET            ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[L] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_L_OFS            (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT0_ISET_L_MASK           ((uint32_t)0x00000002U)         /* !< Load event SET */
+#define GPTIMER_GEN_EVENT0_ISET_L_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_L_SET            ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD0] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD0_OFS         (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD0_MASK        ((uint32_t)0x00000010U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD0_SET         ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD1] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD1_OFS         (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD1_MASK        ((uint32_t)0x00000020U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD1_SET         ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU0] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU0_OFS         (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU0_MASK        ((uint32_t)0x00000100U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU0_SET         ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU1] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU1_OFS         (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU1_MASK        ((uint32_t)0x00000200U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU1_SET         ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[F] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_F_OFS            (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT0_ISET_F_MASK           ((uint32_t)0x01000000U)         /* !< Fault event SET */
+#define GPTIMER_GEN_EVENT0_ISET_F_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_F_SET            ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[TOV] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_TOV_OFS          (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT0_ISET_TOV_MASK         ((uint32_t)0x02000000U)         /* !< Trigger Overflow event SET */
+#define GPTIMER_GEN_EVENT0_ISET_TOV_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_TOV_SET          ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[DC] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_DC_OFS           (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT0_ISET_DC_MASK          ((uint32_t)0x08000000U)         /* !< Direction Change event SET */
+#define GPTIMER_GEN_EVENT0_ISET_DC_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_DC_SET           ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_QEIERR_OFS       (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT0_ISET_QEIERR_MASK      ((uint32_t)0x10000000U)         /* !< QEIERR event SET */
+#define GPTIMER_GEN_EVENT0_ISET_QEIERR_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_QEIERR_SET       ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD2] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD2_OFS         (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD2_MASK        ((uint32_t)0x00000040U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD2_SET         ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD3] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD3_OFS         (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD3_MASK        ((uint32_t)0x00000080U)         /* !< Capture or compare down event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD3_SET         ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU2] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU2_OFS         (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU2_MASK        ((uint32_t)0x00000400U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU2_SET         ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU3] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU3_OFS         (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU3_MASK        ((uint32_t)0x00000800U)         /* !< Capture or compare up event SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU3_SET         ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD4] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD4_OFS         (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD4_MASK        ((uint32_t)0x00001000U)         /* !< Compare down event 4 SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD4_SET         ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCD5] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCD5_OFS         (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCD5_MASK        ((uint32_t)0x00002000U)         /* !< Compare down event 5 SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCD5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCD5_SET         ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU4] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU4_OFS         (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU4_MASK        ((uint32_t)0x00004000U)         /* !< Compare up event 4 SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU4_SET         ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[CCU5] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_CCU5_OFS         (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT0_ISET_CCU5_MASK        ((uint32_t)0x00008000U)         /* !< Compare up event 5 SET */
+#define GPTIMER_GEN_EVENT0_ISET_CCU5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_CCU5_SET         ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_GEN_EVENT0_ISET[REPC] Bits */
+#define GPTIMER_GEN_EVENT0_ISET_REPC_OFS         (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT0_ISET_REPC_MASK        ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event SET */
+#define GPTIMER_GEN_EVENT0_ISET_REPC_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ISET_REPC_SET         ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_GEN_EVENT0_ICLR Bits */
+/* GPTIMER_GEN_EVENT0_ICLR[Z] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_Z_OFS            (0)                             /* !< Z Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_Z_MASK           ((uint32_t)0x00000001U)         /* !< Zero event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_Z_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_Z_CLR            ((uint32_t)0x00000001U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[L] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_L_OFS            (1)                             /* !< L Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_L_MASK           ((uint32_t)0x00000002U)         /* !< Load event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_L_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_L_CLR            ((uint32_t)0x00000002U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD0] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD0_OFS         (4)                             /* !< CCD0 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD0_MASK        ((uint32_t)0x00000010U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD0_CLR         ((uint32_t)0x00000010U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD1] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD1_OFS         (5)                             /* !< CCD1 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD1_MASK        ((uint32_t)0x00000020U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD1_CLR         ((uint32_t)0x00000020U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU0] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU0_OFS         (8)                             /* !< CCU0 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU0_MASK        ((uint32_t)0x00000100U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU0_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU0_CLR         ((uint32_t)0x00000100U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU1] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU1_OFS         (9)                             /* !< CCU1 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU1_MASK        ((uint32_t)0x00000200U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU1_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU1_CLR         ((uint32_t)0x00000200U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[F] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_F_OFS            (24)                            /* !< F Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_F_MASK           ((uint32_t)0x01000000U)         /* !< Fault event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_F_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_F_CLR            ((uint32_t)0x01000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[TOV] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_TOV_OFS          (25)                            /* !< TOV Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_TOV_MASK         ((uint32_t)0x02000000U)         /* !< Trigger Overflow event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_TOV_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_TOV_CLR          ((uint32_t)0x02000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[DC] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_DC_OFS           (27)                            /* !< DC Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_DC_MASK          ((uint32_t)0x08000000U)         /* !< Direction Change event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_DC_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_DC_CLR           ((uint32_t)0x08000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[QEIERR] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_QEIERR_OFS       (28)                            /* !< QEIERR Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_QEIERR_MASK      ((uint32_t)0x10000000U)         /* !< QEIERR event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_QEIERR_NO_EFFECT ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_QEIERR_CLR       ((uint32_t)0x10000000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD2] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD2_OFS         (6)                             /* !< CCD2 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD2_MASK        ((uint32_t)0x00000040U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD2_CLR         ((uint32_t)0x00000040U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD3] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD3_OFS         (7)                             /* !< CCD3 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD3_MASK        ((uint32_t)0x00000080U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD3_CLR         ((uint32_t)0x00000080U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU2] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU2_OFS         (10)                            /* !< CCU2 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU2_MASK        ((uint32_t)0x00000400U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU2_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU2_CLR         ((uint32_t)0x00000400U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU3] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU3_OFS         (11)                            /* !< CCU3 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU3_MASK        ((uint32_t)0x00000800U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU3_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU3_CLR         ((uint32_t)0x00000800U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD4] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD4_OFS         (12)                            /* !< CCD4 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD4_MASK        ((uint32_t)0x00001000U)         /* !< Compare down event 4 CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD4_CLR         ((uint32_t)0x00001000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCD5] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD5_OFS         (13)                            /* !< CCD5 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD5_MASK        ((uint32_t)0x00002000U)         /* !< Compare down event 5 CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCD5_CLR         ((uint32_t)0x00002000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU4] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU4_OFS         (14)                            /* !< CCU4 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU4_MASK        ((uint32_t)0x00004000U)         /* !< Compare up event 4 CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU4_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU4_CLR         ((uint32_t)0x00004000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[CCU5] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU5_OFS         (15)                            /* !< CCU5 Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU5_MASK        ((uint32_t)0x00008000U)         /* !< Compare up event 5 CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU5_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_CCU5_CLR         ((uint32_t)0x00008000U)         /* !< Event Clear */
+/* GPTIMER_GEN_EVENT0_ICLR[REPC] Bits */
+#define GPTIMER_GEN_EVENT0_ICLR_REPC_OFS         (26)                            /* !< REPC Offset */
+#define GPTIMER_GEN_EVENT0_ICLR_REPC_MASK        ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event CLEAR */
+#define GPTIMER_GEN_EVENT0_ICLR_REPC_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_GEN_EVENT0_ICLR_REPC_CLR         ((uint32_t)0x04000000U)         /* !< Event Clear */
+
+/* GPTIMER_CPU_INT_IIDX Bits */
+/* GPTIMER_CPU_INT_IIDX[STAT] Bits */
+#define GPTIMER_CPU_INT_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define GPTIMER_CPU_INT_IIDX_STAT_MASK           ((uint32_t)0x000000FFU)         /* !< Interrupt index status */
+#define GPTIMER_CPU_INT_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No interrupt pending */
+#define GPTIMER_CPU_INT_IIDX_STAT_Z              ((uint32_t)0x00000001U)         /* !< Interrupt Source: Zero event (Z) */
+#define GPTIMER_CPU_INT_IIDX_STAT_L              ((uint32_t)0x00000002U)         /* !< nterrupt Source: Load event (L) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD0           ((uint32_t)0x00000005U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD0) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD1           ((uint32_t)0x00000006U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD1) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD2           ((uint32_t)0x00000007U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD2) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD3           ((uint32_t)0x00000008U)         /* !< Interrupt Source: Capture or
+                                                                                    compare down event (CCD3) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU0           ((uint32_t)0x00000009U)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU0) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU1           ((uint32_t)0x0000000AU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU1) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU2           ((uint32_t)0x0000000BU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU2) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU3           ((uint32_t)0x0000000CU)         /* !< Interrupt Source: Capture or
+                                                                                    compare up event (CCU3) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD4           ((uint32_t)0x0000000DU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCD4) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCD5           ((uint32_t)0x0000000EU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCD5) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU4           ((uint32_t)0x0000000FU)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCU4) */
+#define GPTIMER_CPU_INT_IIDX_STAT_CCU5           ((uint32_t)0x00000010U)         /* !< Interrupt Source: Compare down
+                                                                                    event (CCU5) */
+#define GPTIMER_CPU_INT_IIDX_STAT_F              ((uint32_t)0x00000019U)         /* !< Interrupt Source: Fault Event
+                                                                                    generated an interrupt. (F) */
+#define GPTIMER_CPU_INT_IIDX_STAT_TOV            ((uint32_t)0x0000001AU)         /* !< Interrupt Source: Trigger overflow
+                                                                                    (TOV) */
+#define GPTIMER_CPU_INT_IIDX_STAT_REPC           ((uint32_t)0x0000001BU)         /* !< Interrupt Source: Repeat Counter
+                                                                                    Zero (REPC) */
+#define GPTIMER_CPU_INT_IIDX_STAT_DC             ((uint32_t)0x0000001CU)         /* !< Interrupt Source: Direction Change
+                                                                                    (DC) */
+#define GPTIMER_CPU_INT_IIDX_STAT_QEIERR         ((uint32_t)0x0000001DU)         /* !< Interrupt Source:QEI Incorrect
+                                                                                    state transition error (QEIERR) */
+
+/* GPTIMER_CPU_INT_IMASK Bits */
+/* GPTIMER_CPU_INT_IMASK[Z] Bits */
+#define GPTIMER_CPU_INT_IMASK_Z_OFS              (0)                             /* !< Z Offset */
+#define GPTIMER_CPU_INT_IMASK_Z_MASK             ((uint32_t)0x00000001U)         /* !< Zero Event mask */
+#define GPTIMER_CPU_INT_IMASK_Z_CLR              ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_Z_SET              ((uint32_t)0x00000001U)         /* !< Enable Event */
+/* GPTIMER_CPU_INT_IMASK[L] Bits */
+#define GPTIMER_CPU_INT_IMASK_L_OFS              (1)                             /* !< L Offset */
+#define GPTIMER_CPU_INT_IMASK_L_MASK             ((uint32_t)0x00000002U)         /* !< Load Event mask */
+#define GPTIMER_CPU_INT_IMASK_L_CLR              ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_L_SET              ((uint32_t)0x00000002U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCD0] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD0_OFS           (4)                             /* !< CCD0 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD0_MASK          ((uint32_t)0x00000010U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP0 */
+#define GPTIMER_CPU_INT_IMASK_CCD0_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD0_SET           ((uint32_t)0x00000010U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCD1] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD1_OFS           (5)                             /* !< CCD1 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD1_MASK          ((uint32_t)0x00000020U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP1 */
+#define GPTIMER_CPU_INT_IMASK_CCD1_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD1_SET           ((uint32_t)0x00000020U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU0] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU0_OFS           (8)                             /* !< CCU0 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU0_MASK          ((uint32_t)0x00000100U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP0 */
+#define GPTIMER_CPU_INT_IMASK_CCU0_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU0_SET           ((uint32_t)0x00000100U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU1] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU1_OFS           (9)                             /* !< CCU1 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU1_MASK          ((uint32_t)0x00000200U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP1 */
+#define GPTIMER_CPU_INT_IMASK_CCU1_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU1_SET           ((uint32_t)0x00000200U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[F] Bits */
+#define GPTIMER_CPU_INT_IMASK_F_OFS              (24)                            /* !< F Offset */
+#define GPTIMER_CPU_INT_IMASK_F_MASK             ((uint32_t)0x01000000U)         /* !< Fault Event mask */
+#define GPTIMER_CPU_INT_IMASK_F_CLR              ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_F_SET              ((uint32_t)0x01000000U)         /* !< Enable Event */
+/* GPTIMER_CPU_INT_IMASK[TOV] Bits */
+#define GPTIMER_CPU_INT_IMASK_TOV_OFS            (25)                            /* !< TOV Offset */
+#define GPTIMER_CPU_INT_IMASK_TOV_MASK           ((uint32_t)0x02000000U)         /* !< Trigger Overflow Event mask */
+#define GPTIMER_CPU_INT_IMASK_TOV_CLR            ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_TOV_SET            ((uint32_t)0x02000000U)         /* !< Enable Event */
+/* GPTIMER_CPU_INT_IMASK[DC] Bits */
+#define GPTIMER_CPU_INT_IMASK_DC_OFS             (27)                            /* !< DC Offset */
+#define GPTIMER_CPU_INT_IMASK_DC_MASK            ((uint32_t)0x08000000U)         /* !< Direction Change Event mask */
+#define GPTIMER_CPU_INT_IMASK_DC_CLR             ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_DC_SET             ((uint32_t)0x08000000U)         /* !< Enable Event */
+/* GPTIMER_CPU_INT_IMASK[QEIERR] Bits */
+#define GPTIMER_CPU_INT_IMASK_QEIERR_OFS         (28)                            /* !< QEIERR Offset */
+#define GPTIMER_CPU_INT_IMASK_QEIERR_MASK        ((uint32_t)0x10000000U)         /* !< QEIERR Event mask */
+#define GPTIMER_CPU_INT_IMASK_QEIERR_CLR         ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_QEIERR_SET         ((uint32_t)0x10000000U)         /* !< Enable Event */
+/* GPTIMER_CPU_INT_IMASK[CCD2] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD2_OFS           (6)                             /* !< CCD2 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD2_MASK          ((uint32_t)0x00000040U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP2 */
+#define GPTIMER_CPU_INT_IMASK_CCD2_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD2_SET           ((uint32_t)0x00000040U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCD3] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD3_OFS           (7)                             /* !< CCD3 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD3_MASK          ((uint32_t)0x00000080U)         /* !< Capture or Compare DN event mask
+                                                                                    CCP3 */
+#define GPTIMER_CPU_INT_IMASK_CCD3_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD3_SET           ((uint32_t)0x00000080U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU2] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU2_OFS           (10)                            /* !< CCU2 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU2_MASK          ((uint32_t)0x00000400U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP2 */
+#define GPTIMER_CPU_INT_IMASK_CCU2_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU2_SET           ((uint32_t)0x00000400U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU3] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU3_OFS           (11)                            /* !< CCU3 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU3_MASK          ((uint32_t)0x00000800U)         /* !< Capture or Compare UP event mask
+                                                                                    CCP3 */
+#define GPTIMER_CPU_INT_IMASK_CCU3_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU3_SET           ((uint32_t)0x00000800U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCD4] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD4_OFS           (12)                            /* !< CCD4 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD4_MASK          ((uint32_t)0x00001000U)         /* !< Compare DN event mask CCP4 */
+#define GPTIMER_CPU_INT_IMASK_CCD4_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD4_SET           ((uint32_t)0x00001000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCD5] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCD5_OFS           (13)                            /* !< CCD5 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCD5_MASK          ((uint32_t)0x00002000U)         /* !< Compare DN event mask CCP5 */
+#define GPTIMER_CPU_INT_IMASK_CCD5_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCD5_SET           ((uint32_t)0x00002000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU4] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU4_OFS           (14)                            /* !< CCU4 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU4_MASK          ((uint32_t)0x00004000U)         /* !< Compare UP event mask CCP4 */
+#define GPTIMER_CPU_INT_IMASK_CCU4_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU4_SET           ((uint32_t)0x00004000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[CCU5] Bits */
+#define GPTIMER_CPU_INT_IMASK_CCU5_OFS           (15)                            /* !< CCU5 Offset */
+#define GPTIMER_CPU_INT_IMASK_CCU5_MASK          ((uint32_t)0x00008000U)         /* !< Compare UP event mask CCP5 */
+#define GPTIMER_CPU_INT_IMASK_CCU5_CLR           ((uint32_t)0x00000000U)         /* !< Clear Interrupt Mask */
+#define GPTIMER_CPU_INT_IMASK_CCU5_SET           ((uint32_t)0x00008000U)         /* !< Set Interrupt Mask */
+/* GPTIMER_CPU_INT_IMASK[REPC] Bits */
+#define GPTIMER_CPU_INT_IMASK_REPC_OFS           (26)                            /* !< REPC Offset */
+#define GPTIMER_CPU_INT_IMASK_REPC_MASK          ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero Event mask */
+#define GPTIMER_CPU_INT_IMASK_REPC_CLR           ((uint32_t)0x00000000U)         /* !< Disable Event */
+#define GPTIMER_CPU_INT_IMASK_REPC_SET           ((uint32_t)0x04000000U)         /* !< Enable Event */
+
+/* GPTIMER_CPU_INT_RIS Bits */
+/* GPTIMER_CPU_INT_RIS[Z] Bits */
+#define GPTIMER_CPU_INT_RIS_Z_OFS                (0)                             /* !< Z Offset */
+#define GPTIMER_CPU_INT_RIS_Z_MASK               ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_CPU_INT_RIS_Z_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_Z_SET                ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[L] Bits */
+#define GPTIMER_CPU_INT_RIS_L_OFS                (1)                             /* !< L Offset */
+#define GPTIMER_CPU_INT_RIS_L_MASK               ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_CPU_INT_RIS_L_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_L_SET                ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD0] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD0_OFS             (4)                             /* !< CCD0 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD0_MASK            ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_CPU_INT_RIS_CCD0_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD0_SET             ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD1] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD1_OFS             (5)                             /* !< CCD1 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD1_MASK            ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_CPU_INT_RIS_CCD1_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD1_SET             ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU0] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU0_OFS             (8)                             /* !< CCU0 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU0_MASK            ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_CPU_INT_RIS_CCU0_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU0_SET             ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU1] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU1_OFS             (9)                             /* !< CCU1 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU1_MASK            ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_CPU_INT_RIS_CCU1_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU1_SET             ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[TOV] Bits */
+#define GPTIMER_CPU_INT_RIS_TOV_OFS              (25)                            /* !< TOV Offset */
+#define GPTIMER_CPU_INT_RIS_TOV_MASK             ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_CPU_INT_RIS_TOV_CLR              ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_TOV_SET              ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[F] Bits */
+#define GPTIMER_CPU_INT_RIS_F_OFS                (24)                            /* !< F Offset */
+#define GPTIMER_CPU_INT_RIS_F_MASK               ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_CPU_INT_RIS_F_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_F_SET                ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[DC] Bits */
+#define GPTIMER_CPU_INT_RIS_DC_OFS               (27)                            /* !< DC Offset */
+#define GPTIMER_CPU_INT_RIS_DC_MASK              ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_CPU_INT_RIS_DC_CLR               ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_DC_SET               ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[QEIERR] Bits */
+#define GPTIMER_CPU_INT_RIS_QEIERR_OFS           (28)                            /* !< QEIERR Offset */
+#define GPTIMER_CPU_INT_RIS_QEIERR_MASK          ((uint32_t)0x10000000U)         /* !< QEIERR, set on an incorrect state
+                                                                                    transition on the encoder interface. */
+#define GPTIMER_CPU_INT_RIS_QEIERR_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_QEIERR_SET           ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD2] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD2_OFS             (6)                             /* !< CCD2 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD2_MASK            ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_CPU_INT_RIS_CCD2_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD2_SET             ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD3] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD3_OFS             (7)                             /* !< CCD3 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD3_MASK            ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_CPU_INT_RIS_CCD3_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD3_SET             ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU2] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU2_OFS             (10)                            /* !< CCU2 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU2_MASK            ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_CPU_INT_RIS_CCU2_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU2_SET             ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU3] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU3_OFS             (11)                            /* !< CCU3 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU3_MASK            ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_CPU_INT_RIS_CCU3_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU3_SET             ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD4] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD4_OFS             (12)                            /* !< CCD4 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD4_MASK            ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCD4 */
+#define GPTIMER_CPU_INT_RIS_CCD4_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD4_SET             ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCD5] Bits */
+#define GPTIMER_CPU_INT_RIS_CCD5_OFS             (13)                            /* !< CCD5 Offset */
+#define GPTIMER_CPU_INT_RIS_CCD5_MASK            ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCD5 */
+#define GPTIMER_CPU_INT_RIS_CCD5_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCD5_SET             ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU4] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU4_OFS             (14)                            /* !< CCU4 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU4_MASK            ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCU4 */
+#define GPTIMER_CPU_INT_RIS_CCU4_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU4_SET             ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[CCU5] Bits */
+#define GPTIMER_CPU_INT_RIS_CCU5_OFS             (15)                            /* !< CCU5 Offset */
+#define GPTIMER_CPU_INT_RIS_CCU5_MASK            ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_CPU_INT_RIS_CCU5_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_CCU5_SET             ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_RIS[REPC] Bits */
+#define GPTIMER_CPU_INT_RIS_REPC_OFS             (26)                            /* !< REPC Offset */
+#define GPTIMER_CPU_INT_RIS_REPC_MASK            ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_CPU_INT_RIS_REPC_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_RIS_REPC_SET             ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_CPU_INT_MIS Bits */
+/* GPTIMER_CPU_INT_MIS[Z] Bits */
+#define GPTIMER_CPU_INT_MIS_Z_OFS                (0)                             /* !< Z Offset */
+#define GPTIMER_CPU_INT_MIS_Z_MASK               ((uint32_t)0x00000001U)         /* !< Zero event generated an interrupt. */
+#define GPTIMER_CPU_INT_MIS_Z_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_Z_SET                ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[L] Bits */
+#define GPTIMER_CPU_INT_MIS_L_OFS                (1)                             /* !< L Offset */
+#define GPTIMER_CPU_INT_MIS_L_MASK               ((uint32_t)0x00000002U)         /* !< Load event generated an interrupt. */
+#define GPTIMER_CPU_INT_MIS_L_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_L_SET                ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD0] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD0_OFS             (4)                             /* !< CCD0 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD0_MASK            ((uint32_t)0x00000010U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_CPU_INT_MIS_CCD0_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD0_SET             ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD1] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD1_OFS             (5)                             /* !< CCD1 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD1_MASK            ((uint32_t)0x00000020U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_CPU_INT_MIS_CCD1_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD1_SET             ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU0] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU0_OFS             (8)                             /* !< CCU0 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU0_MASK            ((uint32_t)0x00000100U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP0 */
+#define GPTIMER_CPU_INT_MIS_CCU0_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU0_SET             ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU1] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU1_OFS             (9)                             /* !< CCU1 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU1_MASK            ((uint32_t)0x00000200U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP1 */
+#define GPTIMER_CPU_INT_MIS_CCU1_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU1_SET             ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[F] Bits */
+#define GPTIMER_CPU_INT_MIS_F_OFS                (24)                            /* !< F Offset */
+#define GPTIMER_CPU_INT_MIS_F_MASK               ((uint32_t)0x01000000U)         /* !< Fault */
+#define GPTIMER_CPU_INT_MIS_F_CLR                ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_F_SET                ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[TOV] Bits */
+#define GPTIMER_CPU_INT_MIS_TOV_OFS              (25)                            /* !< TOV Offset */
+#define GPTIMER_CPU_INT_MIS_TOV_MASK             ((uint32_t)0x02000000U)         /* !< Trigger overflow */
+#define GPTIMER_CPU_INT_MIS_TOV_CLR              ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_TOV_SET              ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[DC] Bits */
+#define GPTIMER_CPU_INT_MIS_DC_OFS               (27)                            /* !< DC Offset */
+#define GPTIMER_CPU_INT_MIS_DC_MASK              ((uint32_t)0x08000000U)         /* !< Direction Change */
+#define GPTIMER_CPU_INT_MIS_DC_CLR               ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_DC_SET               ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[QEIERR] Bits */
+#define GPTIMER_CPU_INT_MIS_QEIERR_OFS           (28)                            /* !< QEIERR Offset */
+#define GPTIMER_CPU_INT_MIS_QEIERR_MASK          ((uint32_t)0x10000000U)         /* !< QEIERR */
+#define GPTIMER_CPU_INT_MIS_QEIERR_CLR           ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_QEIERR_SET           ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD2] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD2_OFS             (6)                             /* !< CCD2 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD2_MASK            ((uint32_t)0x00000040U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_CPU_INT_MIS_CCD2_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD2_SET             ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD3] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD3_OFS             (7)                             /* !< CCD3 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD3_MASK            ((uint32_t)0x00000080U)         /* !< Capture or compare down event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_CPU_INT_MIS_CCD3_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD3_SET             ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU2] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU2_OFS             (10)                            /* !< CCU2 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU2_MASK            ((uint32_t)0x00000400U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP2 */
+#define GPTIMER_CPU_INT_MIS_CCU2_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU2_SET             ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU3] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU3_OFS             (11)                            /* !< CCU3 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU3_MASK            ((uint32_t)0x00000800U)         /* !< Capture or compare up event
+                                                                                    generated an interrupt CCP3 */
+#define GPTIMER_CPU_INT_MIS_CCU3_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU3_SET             ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD4] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD4_OFS             (12)                            /* !< CCD4 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD4_MASK            ((uint32_t)0x00001000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCP4 */
+#define GPTIMER_CPU_INT_MIS_CCD4_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD4_SET             ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCD5] Bits */
+#define GPTIMER_CPU_INT_MIS_CCD5_OFS             (13)                            /* !< CCD5 Offset */
+#define GPTIMER_CPU_INT_MIS_CCD5_MASK            ((uint32_t)0x00002000U)         /* !< Compare down event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_CPU_INT_MIS_CCD5_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCD5_SET             ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU4] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU4_OFS             (14)                            /* !< CCU4 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU4_MASK            ((uint32_t)0x00004000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP4 */
+#define GPTIMER_CPU_INT_MIS_CCU4_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU4_SET             ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[CCU5] Bits */
+#define GPTIMER_CPU_INT_MIS_CCU5_OFS             (15)                            /* !< CCU5 Offset */
+#define GPTIMER_CPU_INT_MIS_CCU5_MASK            ((uint32_t)0x00008000U)         /* !< Compare up event generated an
+                                                                                    interrupt CCP5 */
+#define GPTIMER_CPU_INT_MIS_CCU5_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_CCU5_SET             ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_MIS[REPC] Bits */
+#define GPTIMER_CPU_INT_MIS_REPC_OFS             (26)                            /* !< REPC Offset */
+#define GPTIMER_CPU_INT_MIS_REPC_MASK            ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero */
+#define GPTIMER_CPU_INT_MIS_REPC_CLR             ((uint32_t)0x00000000U)         /* !< Event Cleared */
+#define GPTIMER_CPU_INT_MIS_REPC_SET             ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_CPU_INT_ISET Bits */
+/* GPTIMER_CPU_INT_ISET[Z] Bits */
+#define GPTIMER_CPU_INT_ISET_Z_OFS               (0)                             /* !< Z Offset */
+#define GPTIMER_CPU_INT_ISET_Z_MASK              ((uint32_t)0x00000001U)         /* !< Zero event SET */
+#define GPTIMER_CPU_INT_ISET_Z_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_Z_SET               ((uint32_t)0x00000001U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[L] Bits */
+#define GPTIMER_CPU_INT_ISET_L_OFS               (1)                             /* !< L Offset */
+#define GPTIMER_CPU_INT_ISET_L_MASK              ((uint32_t)0x00000002U)         /* !< Load event SET */
+#define GPTIMER_CPU_INT_ISET_L_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_L_SET               ((uint32_t)0x00000002U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD0] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD0_OFS            (4)                             /* !< CCD0 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD0_MASK           ((uint32_t)0x00000010U)         /* !< Capture or compare down event SET */
+#define GPTIMER_CPU_INT_ISET_CCD0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD0_SET            ((uint32_t)0x00000010U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD1] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD1_OFS            (5)                             /* !< CCD1 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD1_MASK           ((uint32_t)0x00000020U)         /* !< Capture or compare down event SET */
+#define GPTIMER_CPU_INT_ISET_CCD1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD1_SET            ((uint32_t)0x00000020U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU0] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU0_OFS            (8)                             /* !< CCU0 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU0_MASK           ((uint32_t)0x00000100U)         /* !< Capture or compare up event SET */
+#define GPTIMER_CPU_INT_ISET_CCU0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU0_SET            ((uint32_t)0x00000100U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU1] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU1_OFS            (9)                             /* !< CCU1 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU1_MASK           ((uint32_t)0x00000200U)         /* !< Capture or compare up event SET */
+#define GPTIMER_CPU_INT_ISET_CCU1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU1_SET            ((uint32_t)0x00000200U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[F] Bits */
+#define GPTIMER_CPU_INT_ISET_F_OFS               (24)                            /* !< F Offset */
+#define GPTIMER_CPU_INT_ISET_F_MASK              ((uint32_t)0x01000000U)         /* !< Fault event SET */
+#define GPTIMER_CPU_INT_ISET_F_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_F_SET               ((uint32_t)0x01000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[TOV] Bits */
+#define GPTIMER_CPU_INT_ISET_TOV_OFS             (25)                            /* !< TOV Offset */
+#define GPTIMER_CPU_INT_ISET_TOV_MASK            ((uint32_t)0x02000000U)         /* !< Trigger Overflow event SET */
+#define GPTIMER_CPU_INT_ISET_TOV_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_TOV_SET             ((uint32_t)0x02000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[DC] Bits */
+#define GPTIMER_CPU_INT_ISET_DC_OFS              (27)                            /* !< DC Offset */
+#define GPTIMER_CPU_INT_ISET_DC_MASK             ((uint32_t)0x08000000U)         /* !< Direction Change event SET */
+#define GPTIMER_CPU_INT_ISET_DC_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_DC_SET              ((uint32_t)0x08000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[QEIERR] Bits */
+#define GPTIMER_CPU_INT_ISET_QEIERR_OFS          (28)                            /* !< QEIERR Offset */
+#define GPTIMER_CPU_INT_ISET_QEIERR_MASK         ((uint32_t)0x10000000U)         /* !< QEIERR event SET */
+#define GPTIMER_CPU_INT_ISET_QEIERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_QEIERR_SET          ((uint32_t)0x10000000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD2] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD2_OFS            (6)                             /* !< CCD2 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD2_MASK           ((uint32_t)0x00000040U)         /* !< Capture or compare down event SET */
+#define GPTIMER_CPU_INT_ISET_CCD2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD2_SET            ((uint32_t)0x00000040U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD3] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD3_OFS            (7)                             /* !< CCD3 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD3_MASK           ((uint32_t)0x00000080U)         /* !< Capture or compare down event SET */
+#define GPTIMER_CPU_INT_ISET_CCD3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD3_SET            ((uint32_t)0x00000080U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU2] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU2_OFS            (10)                            /* !< CCU2 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU2_MASK           ((uint32_t)0x00000400U)         /* !< Capture or compare up event SET */
+#define GPTIMER_CPU_INT_ISET_CCU2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU2_SET            ((uint32_t)0x00000400U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU3] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU3_OFS            (11)                            /* !< CCU3 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU3_MASK           ((uint32_t)0x00000800U)         /* !< Capture or compare up event SET */
+#define GPTIMER_CPU_INT_ISET_CCU3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU3_SET            ((uint32_t)0x00000800U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD4] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD4_OFS            (12)                            /* !< CCD4 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD4_MASK           ((uint32_t)0x00001000U)         /* !< Compare down event 4 SET */
+#define GPTIMER_CPU_INT_ISET_CCD4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD4_SET            ((uint32_t)0x00001000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCD5] Bits */
+#define GPTIMER_CPU_INT_ISET_CCD5_OFS            (13)                            /* !< CCD5 Offset */
+#define GPTIMER_CPU_INT_ISET_CCD5_MASK           ((uint32_t)0x00002000U)         /* !< Compare down event 5 SET */
+#define GPTIMER_CPU_INT_ISET_CCD5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCD5_SET            ((uint32_t)0x00002000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU4] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU4_OFS            (14)                            /* !< CCU4 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU4_MASK           ((uint32_t)0x00004000U)         /* !< Compare up event 4 SET */
+#define GPTIMER_CPU_INT_ISET_CCU4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU4_SET            ((uint32_t)0x00004000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[CCU5] Bits */
+#define GPTIMER_CPU_INT_ISET_CCU5_OFS            (15)                            /* !< CCU5 Offset */
+#define GPTIMER_CPU_INT_ISET_CCU5_MASK           ((uint32_t)0x00008000U)         /* !< Compare up event 5 SET */
+#define GPTIMER_CPU_INT_ISET_CCU5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_CCU5_SET            ((uint32_t)0x00008000U)         /* !< Event Set */
+/* GPTIMER_CPU_INT_ISET[REPC] Bits */
+#define GPTIMER_CPU_INT_ISET_REPC_OFS            (26)                            /* !< REPC Offset */
+#define GPTIMER_CPU_INT_ISET_REPC_MASK           ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event SET */
+#define GPTIMER_CPU_INT_ISET_REPC_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ISET_REPC_SET            ((uint32_t)0x04000000U)         /* !< Event Set */
+
+/* GPTIMER_CPU_INT_ICLR Bits */
+/* GPTIMER_CPU_INT_ICLR[Z] Bits */
+#define GPTIMER_CPU_INT_ICLR_Z_OFS               (0)                             /* !< Z Offset */
+#define GPTIMER_CPU_INT_ICLR_Z_MASK              ((uint32_t)0x00000001U)         /* !< Zero event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_Z_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_Z_CLR               ((uint32_t)0x00000001U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[L] Bits */
+#define GPTIMER_CPU_INT_ICLR_L_OFS               (1)                             /* !< L Offset */
+#define GPTIMER_CPU_INT_ICLR_L_MASK              ((uint32_t)0x00000002U)         /* !< Load event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_L_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_L_CLR               ((uint32_t)0x00000002U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD0] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD0_OFS            (4)                             /* !< CCD0 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD0_MASK           ((uint32_t)0x00000010U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD0_CLR            ((uint32_t)0x00000010U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD1] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD1_OFS            (5)                             /* !< CCD1 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD1_MASK           ((uint32_t)0x00000020U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD1_CLR            ((uint32_t)0x00000020U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU0] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU0_OFS            (8)                             /* !< CCU0 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU0_MASK           ((uint32_t)0x00000100U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU0_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU0_CLR            ((uint32_t)0x00000100U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU1] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU1_OFS            (9)                             /* !< CCU1 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU1_MASK           ((uint32_t)0x00000200U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU1_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU1_CLR            ((uint32_t)0x00000200U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[F] Bits */
+#define GPTIMER_CPU_INT_ICLR_F_OFS               (24)                            /* !< F Offset */
+#define GPTIMER_CPU_INT_ICLR_F_MASK              ((uint32_t)0x01000000U)         /* !< Fault event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_F_NO_EFFECT         ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_F_CLR               ((uint32_t)0x01000000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[TOV] Bits */
+#define GPTIMER_CPU_INT_ICLR_TOV_OFS             (25)                            /* !< TOV Offset */
+#define GPTIMER_CPU_INT_ICLR_TOV_MASK            ((uint32_t)0x02000000U)         /* !< Trigger Overflow event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_TOV_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_TOV_CLR             ((uint32_t)0x02000000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[DC] Bits */
+#define GPTIMER_CPU_INT_ICLR_DC_OFS              (27)                            /* !< DC Offset */
+#define GPTIMER_CPU_INT_ICLR_DC_MASK             ((uint32_t)0x08000000U)         /* !< Direction Change event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_DC_NO_EFFECT        ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_DC_CLR              ((uint32_t)0x08000000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[QEIERR] Bits */
+#define GPTIMER_CPU_INT_ICLR_QEIERR_OFS          (28)                            /* !< QEIERR Offset */
+#define GPTIMER_CPU_INT_ICLR_QEIERR_MASK         ((uint32_t)0x10000000U)         /* !< QEIERR event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_QEIERR_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_QEIERR_CLR          ((uint32_t)0x10000000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD2] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD2_OFS            (6)                             /* !< CCD2 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD2_MASK           ((uint32_t)0x00000040U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD2_CLR            ((uint32_t)0x00000040U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD3] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD3_OFS            (7)                             /* !< CCD3 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD3_MASK           ((uint32_t)0x00000080U)         /* !< Capture or compare down event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD3_CLR            ((uint32_t)0x00000080U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU2] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU2_OFS            (10)                            /* !< CCU2 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU2_MASK           ((uint32_t)0x00000400U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU2_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU2_CLR            ((uint32_t)0x00000400U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU3] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU3_OFS            (11)                            /* !< CCU3 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU3_MASK           ((uint32_t)0x00000800U)         /* !< Capture or compare up event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU3_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU3_CLR            ((uint32_t)0x00000800U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD4] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD4_OFS            (12)                            /* !< CCD4 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD4_MASK           ((uint32_t)0x00001000U)         /* !< Compare down event 4 CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD4_CLR            ((uint32_t)0x00001000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCD5] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCD5_OFS            (13)                            /* !< CCD5 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCD5_MASK           ((uint32_t)0x00002000U)         /* !< Compare down event 5 CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCD5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCD5_CLR            ((uint32_t)0x00002000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU4] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU4_OFS            (14)                            /* !< CCU4 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU4_MASK           ((uint32_t)0x00004000U)         /* !< Compare up event 4 CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU4_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU4_CLR            ((uint32_t)0x00004000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[CCU5] Bits */
+#define GPTIMER_CPU_INT_ICLR_CCU5_OFS            (15)                            /* !< CCU5 Offset */
+#define GPTIMER_CPU_INT_ICLR_CCU5_MASK           ((uint32_t)0x00008000U)         /* !< Compare up event 5 CLEAR */
+#define GPTIMER_CPU_INT_ICLR_CCU5_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_CCU5_CLR            ((uint32_t)0x00008000U)         /* !< Event Clear */
+/* GPTIMER_CPU_INT_ICLR[REPC] Bits */
+#define GPTIMER_CPU_INT_ICLR_REPC_OFS            (26)                            /* !< REPC Offset */
+#define GPTIMER_CPU_INT_ICLR_REPC_MASK           ((uint32_t)0x04000000U)         /* !< Repeat Counter Zero event CLEAR */
+#define GPTIMER_CPU_INT_ICLR_REPC_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Writing 0 has no effect. */
+#define GPTIMER_CPU_INT_ICLR_REPC_CLR            ((uint32_t)0x04000000U)         /* !< Event Clear */
 
 /* GPTIMER_PWREN Bits */
 /* GPTIMER_PWREN[ENABLE] Bits */
@@ -2516,8 +3675,7 @@ typedef struct {
 /* GPTIMER_EVT_MODE[EVT0_CFG] Bits */
 #define GPTIMER_EVT_MODE_EVT0_CFG_OFS            (0)                             /* !< EVT0_CFG Offset */
 #define GPTIMER_EVT_MODE_EVT0_CFG_MASK           ((uint32_t)0x00000003U)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT][0] */
+                                                                                    corresponding to CPU_INT */
 #define GPTIMER_EVT_MODE_EVT0_CFG_DISABLE        ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPTIMER_EVT_MODE_EVT0_CFG_SOFTWARE       ((uint32_t)0x00000001U)         /* !< The interrupt or event line is in
@@ -2530,8 +3688,7 @@ typedef struct {
 /* GPTIMER_EVT_MODE[EVT1_CFG] Bits */
 #define GPTIMER_EVT_MODE_EVT1_CFG_OFS            (2)                             /* !< EVT1_CFG Offset */
 #define GPTIMER_EVT_MODE_EVT1_CFG_MASK           ((uint32_t)0x0000000CU)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT][1] */
+                                                                                    corresponding to GEN_EVENT0 */
 #define GPTIMER_EVT_MODE_EVT1_CFG_DISABLE        ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPTIMER_EVT_MODE_EVT1_CFG_SOFTWARE       ((uint32_t)0x00000004U)         /* !< The interrupt or event line is in
@@ -2544,8 +3701,7 @@ typedef struct {
 /* GPTIMER_EVT_MODE[EVT2_CFG] Bits */
 #define GPTIMER_EVT_MODE_EVT2_CFG_OFS            (4)                             /* !< EVT2_CFG Offset */
 #define GPTIMER_EVT_MODE_EVT2_CFG_MASK           ((uint32_t)0x00000030U)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    [IPSTANDARD.INT_EVENT][1] */
+                                                                                    corresponding to GEN_EVENT1 */
 #define GPTIMER_EVT_MODE_EVT2_CFG_DISABLE        ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define GPTIMER_EVT_MODE_EVT2_CFG_SOFTWARE       ((uint32_t)0x00000010U)         /* !< The interrupt or event line is in

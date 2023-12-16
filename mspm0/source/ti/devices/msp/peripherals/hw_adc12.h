@@ -35,11 +35,9 @@
 #ifndef ti_devices_msp_peripherals_hw_adc12__include
 #define ti_devices_msp_peripherals_hw_adc12__include
 
-/* This preliminary header file does not have a version number */
-/* MMR repo: https://bitbucket.itg.ti.com/projects/cmcu_msp65ip/repos/f65mspadc12dlc */
-/* MMR revision: a4d6063eeba64d1cdb879b4416394aedb6a42d07 */
-/* Generator revision: c97616ff23e254c6d2ac8ac679d323a0305f5d3b
-   (MInT: ec7ec7482a60c6871be32db8b378ec27aa4771f6) */
+/* Filename: hw_adc12.h */
+/* Revised: 2023-05-10 21:21:24 */
+/* Revision: ea14887e6b01ba9500da04a57268943a18f1cefd */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -71,9 +69,9 @@
 * ADC12 Registers
 ******************************************************************************/
 #define ADC12_SVTMEM_OFS                         ((uint32_t)0x00000000U)
-#define ADC12_INT_EVENT2_OFS                     ((uint32_t)0x00001080U)
-#define ADC12_INT_EVENT1_OFS                     ((uint32_t)0x00001050U)
-#define ADC12_INT_EVENT0_OFS                     ((uint32_t)0x00001020U)
+#define ADC12_DMA_TRIG_OFS                       ((uint32_t)0x00001080U)
+#define ADC12_GEN_EVENT_OFS                      ((uint32_t)0x00001050U)
+#define ADC12_CPU_INT_OFS                        ((uint32_t)0x00001020U)
 #define ADC12_GPRCM_OFS                          ((uint32_t)0x00000800U)
 #define ADC12_ULLMEM_OFS                         ((uint32_t)0x00000000U)
 
@@ -101,7 +99,7 @@ typedef struct {
 
 /*@}*/ /* end of group ADC12_PERIPHERALREGIONSVT */
 
-/** @addtogroup ADC12_INT_EVENT2
+/** @addtogroup ADC12_DMA_TRIG
   @{
 */
 
@@ -117,11 +115,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x000010A0) Interrupt set extension */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x000010A8) Interrupt clear extension */
-} ADC12_INT_EVENT2_Regs;
+} ADC12_DMA_TRIG_Regs;
 
-/*@}*/ /* end of group ADC12_INT_EVENT2 */
+/*@}*/ /* end of group ADC12_DMA_TRIG */
 
-/** @addtogroup ADC12_INT_EVENT1
+/** @addtogroup ADC12_GEN_EVENT
   @{
 */
 
@@ -137,11 +135,11 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001070) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001078) Interrupt clear */
-} ADC12_INT_EVENT1_Regs;
+} ADC12_GEN_EVENT_Regs;
 
-/*@}*/ /* end of group ADC12_INT_EVENT1 */
+/*@}*/ /* end of group ADC12_GEN_EVENT */
 
-/** @addtogroup ADC12_INT_EVENT0
+/** @addtogroup ADC12_CPU_INT
   @{
 */
 
@@ -157,9 +155,9 @@ typedef struct {
   __O  uint32_t ISET;                              /* !< (@ 0x00001040) Interrupt set */
        uint32_t RESERVED4;
   __O  uint32_t ICLR;                              /* !< (@ 0x00001048) Interrupt clear */
-} ADC12_INT_EVENT0_Regs;
+} ADC12_CPU_INT_Regs;
 
-/*@}*/ /* end of group ADC12_INT_EVENT0 */
+/*@}*/ /* end of group ADC12_CPU_INT */
 
 /** @addtogroup ADC12_GPRCM
   @{
@@ -187,11 +185,11 @@ typedef struct {
        uint32_t RESERVED2[238];
   ADC12_GPRCM_Regs  GPRCM;                             /* !< (@ 0x00000800) */
        uint32_t RESERVED3[514];
-  ADC12_INT_EVENT0_Regs  INT_EVENT0;                        /* !< (@ 0x00001020) */
+  ADC12_CPU_INT_Regs  CPU_INT;                           /* !< (@ 0x00001020) */
        uint32_t RESERVED4;
-  ADC12_INT_EVENT1_Regs  INT_EVENT1;                        /* !< (@ 0x00001050) */
+  ADC12_GEN_EVENT_Regs  GEN_EVENT;                         /* !< (@ 0x00001050) */
        uint32_t RESERVED5;
-  ADC12_INT_EVENT2_Regs  INT_EVENT2;                        /* !< (@ 0x00001080) */
+  ADC12_DMA_TRIG_Regs  DMA_TRIG;                          /* !< (@ 0x00001080) */
        uint32_t RESERVED6[13];
   __I  uint32_t EVT_MODE;                          /* !< (@ 0x000010E0) Event Mode */
        uint32_t RESERVED7[6];
@@ -265,3011 +263,3011 @@ typedef struct {
                                                                                     2s-complement format during read
                                                                                     back. */
 
-/* ADC12_INT_EVENT2_IIDX Bits */
-/* ADC12_INT_EVENT2_IIDX[STAT] Bits */
-#define ADC12_INT_EVENT2_IIDX_STAT_OFS           (0)                             /* !< STAT Offset */
-#define ADC12_INT_EVENT2_IIDX_STAT_MASK          ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
-#define ADC12_INT_EVENT2_IIDX_STAT_NO_INTR       ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* ADC12_DMA_TRIG_IIDX Bits */
+/* ADC12_DMA_TRIG_IIDX[STAT] Bits */
+#define ADC12_DMA_TRIG_IIDX_STAT_OFS             (0)                             /* !< STAT Offset */
+#define ADC12_DMA_TRIG_IIDX_STAT_MASK            ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
+#define ADC12_DMA_TRIG_IIDX_STAT_NO_INTR         ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG0    ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG1    ((uint32_t)0x0000000AU)         /* !< MEMRES1 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG2    ((uint32_t)0x0000000BU)         /* !< MEMRES2 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG3    ((uint32_t)0x0000000CU)         /* !< MEMRES3 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG4    ((uint32_t)0x0000000DU)         /* !< MEMRES4 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG5    ((uint32_t)0x0000000EU)         /* !< MEMRES5 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG6    ((uint32_t)0x0000000FU)         /* !< MEMRES6 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG7    ((uint32_t)0x00000010U)         /* !< MEMRES7 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG8    ((uint32_t)0x00000011U)         /* !< MEMRES8 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG9    ((uint32_t)0x00000012U)         /* !< MEMRES9 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG10   ((uint32_t)0x00000013U)         /* !< MEMRES10 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG11   ((uint32_t)0x00000014U)         /* !< MEMRES11 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG12   ((uint32_t)0x00000015U)         /* !< MEMRES12 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG13   ((uint32_t)0x00000016U)         /* !< MEMRES13 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG14   ((uint32_t)0x00000017U)         /* !< MEMRES14 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG15   ((uint32_t)0x00000018U)         /* !< MEMRES15 data  loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG16   ((uint32_t)0x00000019U)         /* !< MEMRES16 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG17   ((uint32_t)0x0000001AU)         /* !< MEMRES17 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG18   ((uint32_t)0x0000001BU)         /* !< MEMRES18 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG19   ((uint32_t)0x0000001CU)         /* !< MEMRES19 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG20   ((uint32_t)0x0000001DU)         /* !< MEMRES20 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG21   ((uint32_t)0x0000001EU)         /* !< MEMRES21 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG22   ((uint32_t)0x0000001FU)         /* !< MEMRES22 data loaded interrupt */
-#define ADC12_INT_EVENT2_IIDX_STAT_MEMRESIFG23   ((uint32_t)0x00000020U)         /* !< MEMRES23 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG0      ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG1      ((uint32_t)0x0000000AU)         /* !< MEMRES1 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG2      ((uint32_t)0x0000000BU)         /* !< MEMRES2 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG3      ((uint32_t)0x0000000CU)         /* !< MEMRES3 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG4      ((uint32_t)0x0000000DU)         /* !< MEMRES4 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG5      ((uint32_t)0x0000000EU)         /* !< MEMRES5 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG6      ((uint32_t)0x0000000FU)         /* !< MEMRES6 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG7      ((uint32_t)0x00000010U)         /* !< MEMRES7 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG8      ((uint32_t)0x00000011U)         /* !< MEMRES8 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG9      ((uint32_t)0x00000012U)         /* !< MEMRES9 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG10     ((uint32_t)0x00000013U)         /* !< MEMRES10 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG11     ((uint32_t)0x00000014U)         /* !< MEMRES11 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG12     ((uint32_t)0x00000015U)         /* !< MEMRES12 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG13     ((uint32_t)0x00000016U)         /* !< MEMRES13 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG14     ((uint32_t)0x00000017U)         /* !< MEMRES14 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG15     ((uint32_t)0x00000018U)         /* !< MEMRES15 data  loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG16     ((uint32_t)0x00000019U)         /* !< MEMRES16 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG17     ((uint32_t)0x0000001AU)         /* !< MEMRES17 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG18     ((uint32_t)0x0000001BU)         /* !< MEMRES18 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG19     ((uint32_t)0x0000001CU)         /* !< MEMRES19 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG20     ((uint32_t)0x0000001DU)         /* !< MEMRES20 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG21     ((uint32_t)0x0000001EU)         /* !< MEMRES21 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG22     ((uint32_t)0x0000001FU)         /* !< MEMRES22 data loaded interrupt */
+#define ADC12_DMA_TRIG_IIDX_STAT_MEMRESIFG23     ((uint32_t)0x00000020U)         /* !< MEMRES23 data loaded interrupt */
 
-/* ADC12_INT_EVENT2_IMASK Bits */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG0_OFS    (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG0_MASK   ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+/* ADC12_DMA_TRIG_IMASK Bits */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG0] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG0_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG0_SET    ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG1_OFS    (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG1_MASK   ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG1] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG1_OFS      (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG1_MASK     ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG1_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG1_SET    ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG2_OFS    (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG2_MASK   ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG1_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG1_SET      ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG2] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG2_OFS      (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG2_MASK     ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG2_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG2_SET    ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG3_OFS    (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG3_MASK   ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG2_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG2_SET      ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG3] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG3_OFS      (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG3_MASK     ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG3_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG3_SET    ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG4_OFS    (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG4_MASK   ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG3_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG3_SET      ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG4] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG4_OFS      (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG4_MASK     ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG4_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG4_SET    ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG5_OFS    (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG5_MASK   ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG4_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG4_SET      ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG5] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG5_OFS      (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG5_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG5_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG5_SET    ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG6_OFS    (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG6_MASK   ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG5_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG5_SET      ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG6] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG6_OFS      (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG6_MASK     ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG6_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG6_SET    ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG7_OFS    (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG7_MASK   ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG6_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG6_SET      ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG7] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG7_OFS      (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG7_MASK     ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG7_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG7_SET    ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG9_OFS    (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG9_MASK   ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG7_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG7_SET      ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG9] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG9_OFS      (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG9_MASK     ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG9_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG9_SET    ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG10_OFS   (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG10_MASK  ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG9_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG9_SET      ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG10] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG10_OFS     (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG10_MASK    ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG10_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG10_SET   ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG11_OFS   (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG11_MASK  ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG10_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG10_SET     ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG11] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG11_OFS     (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG11_MASK    ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG11_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG11_SET   ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG12_OFS   (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG12_MASK  ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG11_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG11_SET     ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG12] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG12_OFS     (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG12_MASK    ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG12_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG12_SET   ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG13_OFS   (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG13_MASK  ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG12_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG12_SET     ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG13] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG13_OFS     (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG13_MASK    ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG13_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG13_SET   ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG14_OFS   (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG14_MASK  ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG13_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG13_SET     ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG14] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG14_OFS     (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG14_MASK    ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG14_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG14_SET   ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG15_OFS   (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG15_MASK  ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG14_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG14_SET     ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG15] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG15_OFS     (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG15_MASK    ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG15_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG15_SET   ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG16_OFS   (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG16_MASK  ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG15_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG15_SET     ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG16] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG16_OFS     (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG16_MASK    ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG16_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG16_SET   ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG17_OFS   (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG17_MASK  ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG16_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG16_SET     ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG17] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG17_OFS     (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG17_MASK    ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG17_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG17_SET   ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG18_OFS   (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG18_MASK  ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG17_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG17_SET     ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG18] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG18_OFS     (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG18_MASK    ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG18_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG18_SET   ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG19_OFS   (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG19_MASK  ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG18_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG18_SET     ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG19] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG19_OFS     (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG19_MASK    ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG19_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG19_SET   ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG20_OFS   (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG20_MASK  ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG19_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG19_SET     ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG20] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG20_OFS     (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG20_MASK    ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG20_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG20_SET   ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG22_OFS   (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG22_MASK  ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG20_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG20_SET     ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG22] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG22_OFS     (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG22_MASK    ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG22_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG22_SET   ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG23_OFS   (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG23_MASK  ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG22_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG22_SET     ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG23] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG23_OFS     (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG23_MASK    ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG23_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG23_SET   ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG8_OFS    (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG8_MASK   ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG23_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG23_SET     ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG8] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG8_OFS      (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG8_MASK     ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG8_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG8_SET    ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_IMASK[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG21_OFS   (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG21_MASK  ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG8_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG8_SET      ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_IMASK[MEMRESIFG21] Bits */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG21_OFS     (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG21_MASK    ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG21_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_IMASK_MEMRESIFG21_SET   ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG21_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_IMASK_MEMRESIFG21_SET     ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT2_RIS Bits */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+/* ADC12_DMA_TRIG_RIS Bits */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG0] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG0_OFS        (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG0_MASK       ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG1_OFS      (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG1_MASK     ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG0_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG0_SET        ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG1] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG1_OFS        (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG1_MASK       ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG1_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG1_SET      ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG2_OFS      (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG2_MASK     ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG1_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG1_SET        ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG2] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG2_OFS        (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG2_MASK       ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG2_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG2_SET      ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG3_OFS      (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG3_MASK     ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG2_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG2_SET        ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG3] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG3_OFS        (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG3_MASK       ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG3_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG3_SET      ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG4_OFS      (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG4_MASK     ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG3_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG3_SET        ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG4] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG4_OFS        (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG4_MASK       ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG4_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG4_SET      ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG5_OFS      (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG5_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG4_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG4_SET        ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG5] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG5_OFS        (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG5_MASK       ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG5_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG5_SET      ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG6_OFS      (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG6_MASK     ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG5_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG5_SET        ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG6] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG6_OFS        (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG6_MASK       ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG6_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG6_SET      ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG7_OFS      (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG7_MASK     ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG6_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG6_SET        ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG7] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG7_OFS        (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG7_MASK       ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG7_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG7_SET      ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG9_OFS      (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG9_MASK     ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG7_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG7_SET        ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG9] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG9_OFS        (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG9_MASK       ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG9_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG9_SET      ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG10_OFS     (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG10_MASK    ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG9_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG9_SET        ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG10] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG10_OFS       (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG10_MASK      ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG10_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG10_SET     ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG11_OFS     (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG11_MASK    ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG10_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG10_SET       ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG11] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG11_OFS       (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG11_MASK      ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG11_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG11_SET     ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG12_OFS     (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG12_MASK    ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG11_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG11_SET       ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG12] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG12_OFS       (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG12_MASK      ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG12_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG12_SET     ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG13_OFS     (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG13_MASK    ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG12_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG12_SET       ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG13] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG13_OFS       (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG13_MASK      ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG13_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG13_SET     ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG14_OFS     (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG14_MASK    ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG13_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG13_SET       ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG14] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG14_OFS       (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG14_MASK      ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG14_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG14_SET     ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG15_OFS     (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG15_MASK    ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG14_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG14_SET       ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG15] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG15_OFS       (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG15_MASK      ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG15_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG15_SET     ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG16_OFS     (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG16_MASK    ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG15_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG15_SET       ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG16] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG16_OFS       (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG16_MASK      ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG16_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG16_SET     ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG17_OFS     (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG17_MASK    ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG16_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG16_SET       ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG17] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG17_OFS       (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG17_MASK      ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG17_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG17_SET     ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG18_OFS     (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG18_MASK    ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG17_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG17_SET       ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG18] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG18_OFS       (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG18_MASK      ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG18_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG18_SET     ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG19_OFS     (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG19_MASK    ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG18_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG18_SET       ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG19] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG19_OFS       (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG19_MASK      ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG19_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG19_SET     ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG20_OFS     (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG20_MASK    ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG19_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG19_SET       ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG20] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG20_OFS       (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG20_MASK      ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG20_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG20_SET     ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG22_OFS     (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG22_MASK    ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG20_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG20_SET       ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG22] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG22_OFS       (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG22_MASK      ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG22_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG22_SET     ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG23_OFS     (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG23_MASK    ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG22_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG22_SET       ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG23] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG23_OFS       (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG23_MASK      ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG23_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG23_SET     ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG8_OFS      (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG8_MASK     ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG23_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG23_SET       ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG8] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG8_OFS        (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG8_MASK       ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG8_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG8_SET      ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_RIS[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG21_OFS     (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG21_MASK    ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG8_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG8_SET        ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_RIS[MEMRESIFG21] Bits */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG21_OFS       (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG21_MASK      ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG21_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_RIS_MEMRESIFG21_SET     ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG21_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_RIS_MEMRESIFG21_SET       ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT2_MIS Bits */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+/* ADC12_DMA_TRIG_MIS Bits */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG0] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG0_OFS        (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG0_MASK       ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG1_OFS      (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG1_MASK     ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG0_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG0_SET        ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG1] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG1_OFS        (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG1_MASK       ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG1_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG1_SET      ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG2_OFS      (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG2_MASK     ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG1_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG1_SET        ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG2] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG2_OFS        (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG2_MASK       ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG2_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG2_SET      ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG3_OFS      (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG3_MASK     ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG2_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG2_SET        ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG3] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG3_OFS        (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG3_MASK       ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG3_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG3_SET      ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG4_OFS      (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG4_MASK     ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG3_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG3_SET        ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG4] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG4_OFS        (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG4_MASK       ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG4_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG4_SET      ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG5_OFS      (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG5_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG4_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG4_SET        ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG5] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG5_OFS        (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG5_MASK       ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG5_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG5_SET      ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG6_OFS      (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG6_MASK     ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG5_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG5_SET        ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG6] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG6_OFS        (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG6_MASK       ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG6_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG6_SET      ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG7_OFS      (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG7_MASK     ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG6_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG6_SET        ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG7] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG7_OFS        (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG7_MASK       ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG7_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG7_SET      ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG9_OFS      (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG9_MASK     ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG7_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG7_SET        ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG9] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG9_OFS        (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG9_MASK       ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG9_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG9_SET      ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG10_OFS     (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG10_MASK    ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG9_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG9_SET        ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG10] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG10_OFS       (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG10_MASK      ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG10_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG10_SET     ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG11_OFS     (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG11_MASK    ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG10_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG10_SET       ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG11] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG11_OFS       (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG11_MASK      ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG11_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG11_SET     ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG12_OFS     (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG12_MASK    ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG11_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG11_SET       ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG12] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG12_OFS       (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG12_MASK      ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG12_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG12_SET     ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG13_OFS     (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG13_MASK    ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG12_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG12_SET       ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG13] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG13_OFS       (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG13_MASK      ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG13_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG13_SET     ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG14_OFS     (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG14_MASK    ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG13_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG13_SET       ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG14] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG14_OFS       (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG14_MASK      ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG14_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG14_SET     ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG15_OFS     (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG15_MASK    ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG14_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG14_SET       ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG15] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG15_OFS       (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG15_MASK      ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG15_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG15_SET     ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG16_OFS     (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG16_MASK    ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG15_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG15_SET       ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG16] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG16_OFS       (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG16_MASK      ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG16_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG16_SET     ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG17_OFS     (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG17_MASK    ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG16_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG16_SET       ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG17] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG17_OFS       (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG17_MASK      ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG17_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG17_SET     ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG18_OFS     (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG18_MASK    ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG17_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG17_SET       ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG18] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG18_OFS       (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG18_MASK      ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG18_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG18_SET     ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG19_OFS     (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG19_MASK    ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG18_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG18_SET       ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG19] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG19_OFS       (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG19_MASK      ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG19_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG19_SET     ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG20_OFS     (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG20_MASK    ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG19_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG19_SET       ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG20] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG20_OFS       (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG20_MASK      ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG20_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG20_SET     ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG22_OFS     (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG22_MASK    ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG20_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG20_SET       ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG22] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG22_OFS       (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG22_MASK      ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG22_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG22_SET     ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG23_OFS     (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG23_MASK    ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG22_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG22_SET       ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG23] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG23_OFS       (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG23_MASK      ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG23_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG23_SET     ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG8_OFS      (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG8_MASK     ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG23_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG23_SET       ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG8] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG8_OFS        (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG8_MASK       ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG8_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG8_SET      ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_MIS[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG21_OFS     (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG21_MASK    ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG8_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG8_SET        ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_MIS[MEMRESIFG21] Bits */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG21_OFS       (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG21_MASK      ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG21_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_MIS_MEMRESIFG21_SET     ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG21_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_MIS_MEMRESIFG21_SET       ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT2_ISET Bits */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+/* ADC12_DMA_TRIG_ISET Bits */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG0] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG0_OFS       (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG0_MASK      ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG0_SET     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG1_OFS     (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG1_MASK    ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG0_SET       ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG1] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG1_OFS       (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG1_MASK      ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG1_SET     ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG2_OFS     (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG2_MASK    ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG1_SET       ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG2] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG2_OFS       (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG2_MASK      ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG2_SET     ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG3_OFS     (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG3_MASK    ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG2_SET       ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG3] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG3_OFS       (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG3_MASK      ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG3_SET     ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG4_OFS     (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG4_MASK    ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG3_SET       ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG4] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG4_OFS       (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG4_MASK      ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG4_SET     ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG5_OFS     (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG5_MASK    ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG4_SET       ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG5] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG5_OFS       (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG5_MASK      ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG5_SET     ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG6_OFS     (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG6_MASK    ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG5_SET       ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG6] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG6_OFS       (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG6_MASK      ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG6_SET     ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG7_OFS     (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG7_MASK    ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG6_SET       ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG7] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG7_OFS       (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG7_MASK      ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG7_SET     ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG9_OFS     (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG9_MASK    ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG7_SET       ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG9] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG9_OFS       (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG9_MASK      ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG9_SET     ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG10_OFS    (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG10_MASK   ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG9_SET       ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG10] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG10_OFS      (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG10_MASK     ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG10_SET    ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG11_OFS    (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG11_MASK   ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG10_SET      ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG11] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG11_OFS      (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG11_MASK     ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG11_SET    ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG12_OFS    (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG12_MASK   ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG11_SET      ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG12] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG12_OFS      (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG12_MASK     ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG12_SET    ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG13_OFS    (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG13_MASK   ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG12_SET      ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG13] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG13_OFS      (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG13_MASK     ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG13_SET    ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG14_OFS    (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG14_MASK   ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG13_SET      ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG14] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG14_OFS      (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG14_MASK     ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG14_SET    ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG15_OFS    (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG15_MASK   ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG14_SET      ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG15] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG15_OFS      (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG15_MASK     ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG15_SET    ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG16_OFS    (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG16_MASK   ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG15_SET      ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG16] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG16_OFS      (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG16_MASK     ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG16_SET    ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG17_OFS    (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG17_MASK   ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG16_SET      ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG17] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG17_OFS      (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG17_MASK     ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG17_SET    ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG18_OFS    (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG18_MASK   ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG17_SET      ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG18] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG18_OFS      (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG18_MASK     ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG18_SET    ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG19_OFS    (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG19_MASK   ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG18_SET      ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG19] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG19_OFS      (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG19_MASK     ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG19_SET    ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG20_OFS    (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG20_MASK   ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG19_SET      ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG20] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG20_OFS      (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG20_MASK     ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG20_SET    ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG22_OFS    (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG22_MASK   ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG20_SET      ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG22] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG22_OFS      (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG22_MASK     ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG22_SET    ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG23_OFS    (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG23_MASK   ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG22_SET      ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG23] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG23_OFS      (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG23_MASK     ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG23_SET    ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG8_OFS     (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG8_MASK    ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG23_SET      ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG8] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG8_OFS       (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG8_MASK      ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG8_SET     ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ISET[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG21_OFS    (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG21_MASK   ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG8_SET       ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ISET[MEMRESIFG21] Bits */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG21_OFS      (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG21_MASK     ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ISET_MEMRESIFG21_SET    ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ISET_MEMRESIFG21_SET      ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT2_ICLR Bits */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+/* ADC12_DMA_TRIG_ICLR Bits */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG0] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG0_OFS       (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG0_MASK      ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG0_CLR     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG1_OFS     (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG1_MASK    ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG0_CLR       ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG1] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG1_OFS       (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG1_MASK      ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG1_CLR     ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG2_OFS     (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG2_MASK    ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG1_CLR       ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG2] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG2_OFS       (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG2_MASK      ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG2_CLR     ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG3_OFS     (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG3_MASK    ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG2_CLR       ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG3] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG3_OFS       (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG3_MASK      ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG3_CLR     ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG4_OFS     (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG4_MASK    ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG3_CLR       ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG4] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG4_OFS       (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG4_MASK      ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG4_CLR     ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG5_OFS     (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG5_MASK    ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG4_CLR       ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG5] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG5_OFS       (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG5_MASK      ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG5_CLR     ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG6_OFS     (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG6_MASK    ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG5_CLR       ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG6] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG6_OFS       (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG6_MASK      ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG6_CLR     ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG7_OFS     (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG7_MASK    ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG6_CLR       ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG7] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG7_OFS       (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG7_MASK      ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG7_CLR     ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG9_OFS     (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG9_MASK    ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG7_CLR       ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG9] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG9_OFS       (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG9_MASK      ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG9_CLR     ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG10_OFS    (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG10_MASK   ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG9_CLR       ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG10] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG10_OFS      (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG10_MASK     ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG10_CLR    ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG11_OFS    (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG11_MASK   ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG10_CLR      ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG11] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG11_OFS      (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG11_MASK     ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG11_CLR    ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG12_OFS    (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG12_MASK   ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG11_CLR      ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG12] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG12_OFS      (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG12_MASK     ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG12_CLR    ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG13_OFS    (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG13_MASK   ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG12_CLR      ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG13] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG13_OFS      (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG13_MASK     ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG13_CLR    ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG14_OFS    (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG14_MASK   ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG13_CLR      ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG14] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG14_OFS      (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG14_MASK     ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG14_CLR    ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG15_OFS    (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG15_MASK   ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG14_CLR      ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG15] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG15_OFS      (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG15_MASK     ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG15_CLR    ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG16_OFS    (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG16_MASK   ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG15_CLR      ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG16] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG16_OFS      (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG16_MASK     ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG16_CLR    ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG17_OFS    (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG17_MASK   ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG16_CLR      ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG17] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG17_OFS      (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG17_MASK     ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG17_CLR    ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG18_OFS    (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG18_MASK   ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG17_CLR      ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG18] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG18_OFS      (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG18_MASK     ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG18_CLR    ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG19_OFS    (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG19_MASK   ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG18_CLR      ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG19] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG19_OFS      (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG19_MASK     ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG19_CLR    ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG20_OFS    (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG20_MASK   ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG19_CLR      ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG20] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG20_OFS      (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG20_MASK     ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG20_CLR    ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG22_OFS    (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG22_MASK   ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG20_CLR      ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG22] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG22_OFS      (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG22_MASK     ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG22_CLR    ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG23_OFS    (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG23_MASK   ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG22_CLR      ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG23] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG23_OFS      (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG23_MASK     ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG23_CLR    ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG8_OFS     (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG8_MASK    ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG23_CLR      ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG8] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG8_OFS       (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG8_MASK      ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG8_CLR     ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT2_ICLR[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG21_OFS    (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG21_MASK   ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG8_CLR       ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_DMA_TRIG_ICLR[MEMRESIFG21] Bits */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG21_OFS      (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG21_MASK     ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT2_ICLR_MEMRESIFG21_CLR    ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_DMA_TRIG_ICLR_MEMRESIFG21_CLR      ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT1_IIDX Bits */
-/* ADC12_INT_EVENT1_IIDX[STAT] Bits */
-#define ADC12_INT_EVENT1_IIDX_STAT_OFS           (0)                             /* !< STAT Offset */
-#define ADC12_INT_EVENT1_IIDX_STAT_MASK          ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
-#define ADC12_INT_EVENT1_IIDX_STAT_NO_INTR       ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* ADC12_GEN_EVENT_IIDX Bits */
+/* ADC12_GEN_EVENT_IIDX[STAT] Bits */
+#define ADC12_GEN_EVENT_IIDX_STAT_OFS            (0)                             /* !< STAT Offset */
+#define ADC12_GEN_EVENT_IIDX_STAT_MASK           ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
+#define ADC12_GEN_EVENT_IIDX_STAT_NO_INTR        ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define ADC12_INT_EVENT1_IIDX_STAT_HIGHIFG       ((uint32_t)0x00000003U)         /* !< High threshold compare interrupt */
-#define ADC12_INT_EVENT1_IIDX_STAT_LOWIFG        ((uint32_t)0x00000004U)         /* !< Low threshold compare interrupt */
-#define ADC12_INT_EVENT1_IIDX_STAT_INIFG         ((uint32_t)0x00000005U)         /* !< Primary Sequence In range
+#define ADC12_GEN_EVENT_IIDX_STAT_HIGHIFG        ((uint32_t)0x00000003U)         /* !< High threshold compare interrupt */
+#define ADC12_GEN_EVENT_IIDX_STAT_LOWIFG         ((uint32_t)0x00000004U)         /* !< Low threshold compare interrupt */
+#define ADC12_GEN_EVENT_IIDX_STAT_INIFG          ((uint32_t)0x00000005U)         /* !< Primary Sequence In range
                                                                                     comparator interrupt */
-#define ADC12_INT_EVENT1_IIDX_STAT_MEMRESIFG0    ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
+#define ADC12_GEN_EVENT_IIDX_STAT_MEMRESIFG0     ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
 
-/* ADC12_INT_EVENT1_IMASK Bits */
-/* ADC12_INT_EVENT1_IMASK[INIFG] Bits */
-#define ADC12_INT_EVENT1_IMASK_INIFG_OFS         (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT1_IMASK_INIFG_MASK        ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT1_IMASK_INIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_IMASK_INIFG_SET         ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_IMASK[LOWIFG] Bits */
-#define ADC12_INT_EVENT1_IMASK_LOWIFG_OFS        (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT1_IMASK_LOWIFG_MASK       ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_GEN_EVENT_IMASK Bits */
+/* ADC12_GEN_EVENT_IMASK[INIFG] Bits */
+#define ADC12_GEN_EVENT_IMASK_INIFG_OFS          (4)                             /* !< INIFG Offset */
+#define ADC12_GEN_EVENT_IMASK_INIFG_MASK         ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_GEN_EVENT_IMASK_INIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_IMASK_INIFG_SET          ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_IMASK[LOWIFG] Bits */
+#define ADC12_GEN_EVENT_IMASK_LOWIFG_OFS         (3)                             /* !< LOWIFG Offset */
+#define ADC12_GEN_EVENT_IMASK_LOWIFG_MASK        ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_IMASK_LOWIFG_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_IMASK_LOWIFG_SET        ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_IMASK[HIGHIFG] Bits */
-#define ADC12_INT_EVENT1_IMASK_HIGHIFG_OFS       (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT1_IMASK_HIGHIFG_MASK      ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_GEN_EVENT_IMASK_LOWIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_IMASK_LOWIFG_SET         ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_IMASK[HIGHIFG] Bits */
+#define ADC12_GEN_EVENT_IMASK_HIGHIFG_OFS        (2)                             /* !< HIGHIFG Offset */
+#define ADC12_GEN_EVENT_IMASK_HIGHIFG_MASK       ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_IMASK_HIGHIFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_IMASK_HIGHIFG_SET       ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_IMASK[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT1_IMASK_MEMRESIFG0_OFS    (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT1_IMASK_MEMRESIFG0_MASK   ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_GEN_EVENT_IMASK_HIGHIFG_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_IMASK_HIGHIFG_SET        ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_IMASK[MEMRESIFG0] Bits */
+#define ADC12_GEN_EVENT_IMASK_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_GEN_EVENT_IMASK_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT1_IMASK_MEMRESIFG0_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT1_IMASK_MEMRESIFG0_SET    ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+#define ADC12_GEN_EVENT_IMASK_MEMRESIFG0_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_GEN_EVENT_IMASK_MEMRESIFG0_SET     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT1_RIS Bits */
-/* ADC12_INT_EVENT1_RIS[INIFG] Bits */
-#define ADC12_INT_EVENT1_RIS_INIFG_OFS           (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT1_RIS_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT1_RIS_INIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_RIS_INIFG_SET           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_RIS[LOWIFG] Bits */
-#define ADC12_INT_EVENT1_RIS_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT1_RIS_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_GEN_EVENT_RIS Bits */
+/* ADC12_GEN_EVENT_RIS[INIFG] Bits */
+#define ADC12_GEN_EVENT_RIS_INIFG_OFS            (4)                             /* !< INIFG Offset */
+#define ADC12_GEN_EVENT_RIS_INIFG_MASK           ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_GEN_EVENT_RIS_INIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_RIS_INIFG_SET            ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_RIS[LOWIFG] Bits */
+#define ADC12_GEN_EVENT_RIS_LOWIFG_OFS           (3)                             /* !< LOWIFG Offset */
+#define ADC12_GEN_EVENT_RIS_LOWIFG_MASK          ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_RIS_LOWIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_RIS_LOWIFG_SET          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_RIS[HIGHIFG] Bits */
-#define ADC12_INT_EVENT1_RIS_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT1_RIS_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_GEN_EVENT_RIS_LOWIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_RIS_LOWIFG_SET           ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_RIS[HIGHIFG] Bits */
+#define ADC12_GEN_EVENT_RIS_HIGHIFG_OFS          (2)                             /* !< HIGHIFG Offset */
+#define ADC12_GEN_EVENT_RIS_HIGHIFG_MASK         ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_RIS_HIGHIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_RIS_HIGHIFG_SET         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_RIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT1_RIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT1_RIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_GEN_EVENT_RIS_HIGHIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_RIS_HIGHIFG_SET          ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_RIS[MEMRESIFG0] Bits */
+#define ADC12_GEN_EVENT_RIS_MEMRESIFG0_OFS       (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_GEN_EVENT_RIS_MEMRESIFG0_MASK      ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT1_RIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT1_RIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+#define ADC12_GEN_EVENT_RIS_MEMRESIFG0_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_GEN_EVENT_RIS_MEMRESIFG0_SET       ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT1_MIS Bits */
-/* ADC12_INT_EVENT1_MIS[INIFG] Bits */
-#define ADC12_INT_EVENT1_MIS_INIFG_OFS           (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT1_MIS_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT1_MIS_INIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_MIS_INIFG_SET           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_MIS[LOWIFG] Bits */
-#define ADC12_INT_EVENT1_MIS_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT1_MIS_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_GEN_EVENT_MIS Bits */
+/* ADC12_GEN_EVENT_MIS[INIFG] Bits */
+#define ADC12_GEN_EVENT_MIS_INIFG_OFS            (4)                             /* !< INIFG Offset */
+#define ADC12_GEN_EVENT_MIS_INIFG_MASK           ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_GEN_EVENT_MIS_INIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_MIS_INIFG_SET            ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_MIS[LOWIFG] Bits */
+#define ADC12_GEN_EVENT_MIS_LOWIFG_OFS           (3)                             /* !< LOWIFG Offset */
+#define ADC12_GEN_EVENT_MIS_LOWIFG_MASK          ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_MIS_LOWIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_MIS_LOWIFG_SET          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_MIS[HIGHIFG] Bits */
-#define ADC12_INT_EVENT1_MIS_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT1_MIS_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_GEN_EVENT_MIS_LOWIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_MIS_LOWIFG_SET           ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_MIS[HIGHIFG] Bits */
+#define ADC12_GEN_EVENT_MIS_HIGHIFG_OFS          (2)                             /* !< HIGHIFG Offset */
+#define ADC12_GEN_EVENT_MIS_HIGHIFG_MASK         ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_MIS_HIGHIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_MIS_HIGHIFG_SET         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_MIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT1_MIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT1_MIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_GEN_EVENT_MIS_HIGHIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_MIS_HIGHIFG_SET          ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_MIS[MEMRESIFG0] Bits */
+#define ADC12_GEN_EVENT_MIS_MEMRESIFG0_OFS       (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_GEN_EVENT_MIS_MEMRESIFG0_MASK      ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT1_MIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT1_MIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+#define ADC12_GEN_EVENT_MIS_MEMRESIFG0_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_GEN_EVENT_MIS_MEMRESIFG0_SET       ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT1_ISET Bits */
-/* ADC12_INT_EVENT1_ISET[INIFG] Bits */
-#define ADC12_INT_EVENT1_ISET_INIFG_OFS          (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT1_ISET_INIFG_MASK         ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT1_ISET_INIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ISET_INIFG_SET          ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ISET[LOWIFG] Bits */
-#define ADC12_INT_EVENT1_ISET_LOWIFG_OFS         (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT1_ISET_LOWIFG_MASK        ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_GEN_EVENT_ISET Bits */
+/* ADC12_GEN_EVENT_ISET[INIFG] Bits */
+#define ADC12_GEN_EVENT_ISET_INIFG_OFS           (4)                             /* !< INIFG Offset */
+#define ADC12_GEN_EVENT_ISET_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_GEN_EVENT_ISET_INIFG_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ISET_INIFG_SET           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ISET[LOWIFG] Bits */
+#define ADC12_GEN_EVENT_ISET_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
+#define ADC12_GEN_EVENT_ISET_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_ISET_LOWIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ISET_LOWIFG_SET         ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ISET[HIGHIFG] Bits */
-#define ADC12_INT_EVENT1_ISET_HIGHIFG_OFS        (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT1_ISET_HIGHIFG_MASK       ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_GEN_EVENT_ISET_LOWIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ISET_LOWIFG_SET          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ISET[HIGHIFG] Bits */
+#define ADC12_GEN_EVENT_ISET_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
+#define ADC12_GEN_EVENT_ISET_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_ISET_HIGHIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ISET_HIGHIFG_SET        ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ISET[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT1_ISET_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT1_ISET_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_GEN_EVENT_ISET_HIGHIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ISET_HIGHIFG_SET         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ISET[MEMRESIFG0] Bits */
+#define ADC12_GEN_EVENT_ISET_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_GEN_EVENT_ISET_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT1_ISET_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT1_ISET_MEMRESIFG0_SET     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+#define ADC12_GEN_EVENT_ISET_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_GEN_EVENT_ISET_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT1_ICLR Bits */
-/* ADC12_INT_EVENT1_ICLR[INIFG] Bits */
-#define ADC12_INT_EVENT1_ICLR_INIFG_OFS          (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT1_ICLR_INIFG_MASK         ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT1_ICLR_INIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ICLR_INIFG_CLR          ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ICLR[LOWIFG] Bits */
-#define ADC12_INT_EVENT1_ICLR_LOWIFG_OFS         (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT1_ICLR_LOWIFG_MASK        ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_GEN_EVENT_ICLR Bits */
+/* ADC12_GEN_EVENT_ICLR[INIFG] Bits */
+#define ADC12_GEN_EVENT_ICLR_INIFG_OFS           (4)                             /* !< INIFG Offset */
+#define ADC12_GEN_EVENT_ICLR_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_GEN_EVENT_ICLR_INIFG_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ICLR_INIFG_CLR           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ICLR[LOWIFG] Bits */
+#define ADC12_GEN_EVENT_ICLR_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
+#define ADC12_GEN_EVENT_ICLR_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_ICLR_LOWIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ICLR_LOWIFG_CLR         ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ICLR[HIGHIFG] Bits */
-#define ADC12_INT_EVENT1_ICLR_HIGHIFG_OFS        (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT1_ICLR_HIGHIFG_MASK       ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_GEN_EVENT_ICLR_LOWIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ICLR_LOWIFG_CLR          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ICLR[HIGHIFG] Bits */
+#define ADC12_GEN_EVENT_ICLR_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
+#define ADC12_GEN_EVENT_ICLR_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT1_ICLR_HIGHIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT1_ICLR_HIGHIFG_CLR        ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT1_ICLR[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT1_ICLR_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT1_ICLR_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_GEN_EVENT_ICLR_HIGHIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_GEN_EVENT_ICLR_HIGHIFG_CLR         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_GEN_EVENT_ICLR[MEMRESIFG0] Bits */
+#define ADC12_GEN_EVENT_ICLR_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_GEN_EVENT_ICLR_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT1_ICLR_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT1_ICLR_MEMRESIFG0_CLR     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+#define ADC12_GEN_EVENT_ICLR_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_GEN_EVENT_ICLR_MEMRESIFG0_CLR      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
 
-/* ADC12_INT_EVENT0_IIDX Bits */
-/* ADC12_INT_EVENT0_IIDX[STAT] Bits */
-#define ADC12_INT_EVENT0_IIDX_STAT_OFS           (0)                             /* !< STAT Offset */
-#define ADC12_INT_EVENT0_IIDX_STAT_MASK          ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
-#define ADC12_INT_EVENT0_IIDX_STAT_NO_INTR       ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
+/* ADC12_CPU_INT_IIDX Bits */
+/* ADC12_CPU_INT_IIDX[STAT] Bits */
+#define ADC12_CPU_INT_IIDX_STAT_OFS              (0)                             /* !< STAT Offset */
+#define ADC12_CPU_INT_IIDX_STAT_MASK             ((uint32_t)0x000003FFU)         /* !< Interrupt index status */
+#define ADC12_CPU_INT_IIDX_STAT_NO_INTR          ((uint32_t)0x00000000U)         /* !< No bit is set means there is no
                                                                                     pending interrupt request */
-#define ADC12_INT_EVENT0_IIDX_STAT_OVIFG         ((uint32_t)0x00000001U)         /* !< MEMRESx overflow interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_TOVIFG        ((uint32_t)0x00000002U)         /* !< Sequence Conversion time overflow
+#define ADC12_CPU_INT_IIDX_STAT_OVIFG            ((uint32_t)0x00000001U)         /* !< MEMRESx overflow interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_TOVIFG           ((uint32_t)0x00000002U)         /* !< Sequence Conversion time overflow
                                                                                     interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_HIGHIFG       ((uint32_t)0x00000003U)         /* !< High threshold compare interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_LOWIFG        ((uint32_t)0x00000004U)         /* !< Low threshold compare interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_INIFG         ((uint32_t)0x00000005U)         /* !< Primary Sequence In range
+#define ADC12_CPU_INT_IIDX_STAT_HIGHIFG          ((uint32_t)0x00000003U)         /* !< High threshold compare interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_LOWIFG           ((uint32_t)0x00000004U)         /* !< Low threshold compare interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_INIFG            ((uint32_t)0x00000005U)         /* !< Primary Sequence In range
                                                                                     comparator interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_DMADONE       ((uint32_t)0x00000006U)         /* !< DMA done interrupt, generated on
+#define ADC12_CPU_INT_IIDX_STAT_DMADONE          ((uint32_t)0x00000006U)         /* !< DMA done interrupt, generated on
                                                                                     DMA transfer completion, */
-#define ADC12_INT_EVENT0_IIDX_STAT_UVIFG         ((uint32_t)0x00000007U)         /* !< MEMRESx underflow interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG0    ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG1    ((uint32_t)0x0000000AU)         /* !< MEMRES1 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG2    ((uint32_t)0x0000000BU)         /* !< MEMRES2 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG3    ((uint32_t)0x0000000CU)         /* !< MEMRES3 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG4    ((uint32_t)0x0000000DU)         /* !< MEMRES4 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG5    ((uint32_t)0x0000000EU)         /* !< MEMRES5 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG6    ((uint32_t)0x0000000FU)         /* !< MEMRES6 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG7    ((uint32_t)0x00000010U)         /* !< MEMRES7 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG8    ((uint32_t)0x00000011U)         /* !< MEMRES8 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG9    ((uint32_t)0x00000012U)         /* !< MEMRES9 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG10   ((uint32_t)0x00000013U)         /* !< MEMRES10 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG11   ((uint32_t)0x00000014U)         /* !< MEMRES11 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG12   ((uint32_t)0x00000015U)         /* !< MEMRES12 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG13   ((uint32_t)0x00000016U)         /* !< MEMRES13 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG14   ((uint32_t)0x00000017U)         /* !< MEMRES14 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG15   ((uint32_t)0x00000018U)         /* !< MEMRES15 data  loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG16   ((uint32_t)0x00000019U)         /* !< MEMRES16 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG17   ((uint32_t)0x0000001AU)         /* !< MEMRES17 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG18   ((uint32_t)0x0000001BU)         /* !< MEMRES18 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG19   ((uint32_t)0x0000001CU)         /* !< MEMRES19 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG20   ((uint32_t)0x0000001DU)         /* !< MEMRES20 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG21   ((uint32_t)0x0000001EU)         /* !< MEMRES21 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG22   ((uint32_t)0x0000001FU)         /* !< MEMRES22 data loaded interrupt */
-#define ADC12_INT_EVENT0_IIDX_STAT_MEMRESIFG23   ((uint32_t)0x00000020U)         /* !< MEMRES23 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_UVIFG            ((uint32_t)0x00000007U)         /* !< MEMRESx underflow interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG0       ((uint32_t)0x00000009U)         /* !< MEMRES0 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG1       ((uint32_t)0x0000000AU)         /* !< MEMRES1 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG2       ((uint32_t)0x0000000BU)         /* !< MEMRES2 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG3       ((uint32_t)0x0000000CU)         /* !< MEMRES3 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG4       ((uint32_t)0x0000000DU)         /* !< MEMRES4 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG5       ((uint32_t)0x0000000EU)         /* !< MEMRES5 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG6       ((uint32_t)0x0000000FU)         /* !< MEMRES6 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG7       ((uint32_t)0x00000010U)         /* !< MEMRES7 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG8       ((uint32_t)0x00000011U)         /* !< MEMRES8 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG9       ((uint32_t)0x00000012U)         /* !< MEMRES9 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG10      ((uint32_t)0x00000013U)         /* !< MEMRES10 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG11      ((uint32_t)0x00000014U)         /* !< MEMRES11 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG12      ((uint32_t)0x00000015U)         /* !< MEMRES12 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG13      ((uint32_t)0x00000016U)         /* !< MEMRES13 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG14      ((uint32_t)0x00000017U)         /* !< MEMRES14 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG15      ((uint32_t)0x00000018U)         /* !< MEMRES15 data  loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG16      ((uint32_t)0x00000019U)         /* !< MEMRES16 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG17      ((uint32_t)0x0000001AU)         /* !< MEMRES17 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG18      ((uint32_t)0x0000001BU)         /* !< MEMRES18 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG19      ((uint32_t)0x0000001CU)         /* !< MEMRES19 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG20      ((uint32_t)0x0000001DU)         /* !< MEMRES20 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG21      ((uint32_t)0x0000001EU)         /* !< MEMRES21 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG22      ((uint32_t)0x0000001FU)         /* !< MEMRES22 data loaded interrupt */
+#define ADC12_CPU_INT_IIDX_STAT_MEMRESIFG23      ((uint32_t)0x00000020U)         /* !< MEMRES23 data loaded interrupt */
 
-/* ADC12_INT_EVENT0_IMASK Bits */
-/* ADC12_INT_EVENT0_IMASK[INIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_INIFG_OFS         (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_INIFG_MASK        ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT0_IMASK_INIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_INIFG_SET         ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[LOWIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_LOWIFG_OFS        (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_LOWIFG_MASK       ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_CPU_INT_IMASK Bits */
+/* ADC12_CPU_INT_IMASK[INIFG] Bits */
+#define ADC12_CPU_INT_IMASK_INIFG_OFS            (4)                             /* !< INIFG Offset */
+#define ADC12_CPU_INT_IMASK_INIFG_MASK           ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_CPU_INT_IMASK_INIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_INIFG_SET            ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[LOWIFG] Bits */
+#define ADC12_CPU_INT_IMASK_LOWIFG_OFS           (3)                             /* !< LOWIFG Offset */
+#define ADC12_CPU_INT_IMASK_LOWIFG_MASK          ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_IMASK_LOWIFG_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_LOWIFG_SET        ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[HIGHIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_HIGHIFG_OFS       (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_HIGHIFG_MASK      ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_CPU_INT_IMASK_LOWIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_LOWIFG_SET           ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[HIGHIFG] Bits */
+#define ADC12_CPU_INT_IMASK_HIGHIFG_OFS          (2)                             /* !< HIGHIFG Offset */
+#define ADC12_CPU_INT_IMASK_HIGHIFG_MASK         ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_IMASK_HIGHIFG_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_HIGHIFG_SET       ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[OVIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_OVIFG_OFS         (0)                             /* !< OVIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_OVIFG_MASK        ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_IMASK_HIGHIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_HIGHIFG_SET          ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[OVIFG] Bits */
+#define ADC12_CPU_INT_IMASK_OVIFG_OFS            (0)                             /* !< OVIFG Offset */
+#define ADC12_CPU_INT_IMASK_OVIFG_MASK           ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     overflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_IMASK_OVIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_OVIFG_SET         ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[UVIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_UVIFG_OFS         (6)                             /* !< UVIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_UVIFG_MASK        ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_IMASK_OVIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_OVIFG_SET            ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[UVIFG] Bits */
+#define ADC12_CPU_INT_IMASK_UVIFG_OFS            (6)                             /* !< UVIFG Offset */
+#define ADC12_CPU_INT_IMASK_UVIFG_MASK           ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     underflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR is set to 1. */
-#define ADC12_INT_EVENT0_IMASK_UVIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_UVIFG_SET         ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[TOVIFG] Bits */
-#define ADC12_INT_EVENT0_IMASK_TOVIFG_OFS        (1)                             /* !< TOVIFG Offset */
-#define ADC12_INT_EVENT0_IMASK_TOVIFG_MASK       ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
+#define ADC12_CPU_INT_IMASK_UVIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_UVIFG_SET            ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[TOVIFG] Bits */
+#define ADC12_CPU_INT_IMASK_TOVIFG_OFS           (1)                             /* !< TOVIFG Offset */
+#define ADC12_CPU_INT_IMASK_TOVIFG_MASK          ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
                                                                                     conversion timeout overflow. This bit
                                                                                     is reset to 0 by IIDX read or when
                                                                                     corresponding bit in ICLR_EX is set
                                                                                     to 1. */
-#define ADC12_INT_EVENT0_IMASK_TOVIFG_CLR        ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_TOVIFG_SET        ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[DMADONE] Bits */
-#define ADC12_INT_EVENT0_IMASK_DMADONE_OFS       (5)                             /* !< DMADONE Offset */
-#define ADC12_INT_EVENT0_IMASK_DMADONE_MASK      ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
+#define ADC12_CPU_INT_IMASK_TOVIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_TOVIFG_SET           ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[DMADONE] Bits */
+#define ADC12_CPU_INT_IMASK_DMADONE_OFS          (5)                             /* !< DMADONE Offset */
+#define ADC12_CPU_INT_IMASK_DMADONE_MASK         ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
                                                                                     This bit is reset to 0 by IIDX read
                                                                                     or when corresponding bit in ICLR_EX
                                                                                     is set to 1. */
-#define ADC12_INT_EVENT0_IMASK_DMADONE_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_DMADONE_SET       ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG0_OFS    (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG0_MASK   ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_CPU_INT_IMASK_DMADONE_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_DMADONE_SET          ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG0] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG0_OFS       (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG0_MASK      ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG0_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG0_SET    ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG1_OFS    (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG1_MASK   ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG0_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG0_SET       ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG1] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG1_OFS       (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG1_MASK      ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG1_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG1_SET    ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG2_OFS    (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG2_MASK   ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG1_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG1_SET       ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG2] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG2_OFS       (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG2_MASK      ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG2_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG2_SET    ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG3_OFS    (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG3_MASK   ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG2_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG2_SET       ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG3] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG3_OFS       (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG3_MASK      ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG3_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG3_SET    ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG4_OFS    (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG4_MASK   ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG3_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG3_SET       ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG4] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG4_OFS       (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG4_MASK      ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG4_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG4_SET    ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG5_OFS    (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG5_MASK   ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG4_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG4_SET       ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG5] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG5_OFS       (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG5_MASK      ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG5_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG5_SET    ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG6_OFS    (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG6_MASK   ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG5_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG5_SET       ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG6] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG6_OFS       (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG6_MASK      ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG6_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG6_SET    ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG7_OFS    (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG7_MASK   ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG6_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG6_SET       ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG7] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG7_OFS       (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG7_MASK      ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG7_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG7_SET    ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG9_OFS    (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG9_MASK   ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG7_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG7_SET       ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG9] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG9_OFS       (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG9_MASK      ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG9_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG9_SET    ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG10_OFS   (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG10_MASK  ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG9_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG9_SET       ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG10] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG10_OFS      (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG10_MASK     ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG10_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG10_SET   ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG11_OFS   (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG11_MASK  ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG10_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG10_SET      ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG11] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG11_OFS      (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG11_MASK     ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG11_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG11_SET   ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG12_OFS   (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG12_MASK  ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG11_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG11_SET      ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG12] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG12_OFS      (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG12_MASK     ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG12_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG12_SET   ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG13_OFS   (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG13_MASK  ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG12_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG12_SET      ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG13] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG13_OFS      (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG13_MASK     ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG13_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG13_SET   ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG14_OFS   (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG14_MASK  ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG13_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG13_SET      ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG14] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG14_OFS      (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG14_MASK     ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG14_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG14_SET   ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG15_OFS   (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG15_MASK  ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG14_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG14_SET      ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG15] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG15_OFS      (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG15_MASK     ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG15_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG15_SET   ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG16_OFS   (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG16_MASK  ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG15_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG15_SET      ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG16] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG16_OFS      (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG16_MASK     ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG16_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG16_SET   ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG17_OFS   (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG17_MASK  ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG16_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG16_SET      ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG17] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG17_OFS      (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG17_MASK     ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG17_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG17_SET   ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG18_OFS   (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG18_MASK  ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG17_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG17_SET      ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG18] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG18_OFS      (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG18_MASK     ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG18_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG18_SET   ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG19_OFS   (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG19_MASK  ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG18_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG18_SET      ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG19] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG19_OFS      (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG19_MASK     ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG19_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG19_SET   ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG20_OFS   (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG20_MASK  ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG19_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG19_SET      ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG20] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG20_OFS      (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG20_MASK     ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG20_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG20_SET   ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG22_OFS   (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG22_MASK  ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG20_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG20_SET      ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG22] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG22_OFS      (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG22_MASK     ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG22_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG22_SET   ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG23_OFS   (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG23_MASK  ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG22_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG22_SET      ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG23] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG23_OFS      (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG23_MASK     ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG23_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG23_SET   ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG8_OFS    (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG8_MASK   ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG23_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG23_SET      ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG8] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG8_OFS       (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG8_MASK      ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG8_CLR    ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG8_SET    ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG21_OFS   (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG21_MASK  ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_CPU_INT_IMASK_MEMRESIFG8_CLR       ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG8_SET       ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[MEMRESIFG21] Bits */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG21_OFS      (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG21_MASK     ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG21_CLR   ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_IMASK_MEMRESIFG21_SET   ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_IMASK[ASCDONE] Bits */
-#define ADC12_INT_EVENT0_IMASK_ASCDONE_OFS       (7)                             /* !< ASCDONE Offset */
-#define ADC12_INT_EVENT0_IMASK_ASCDONE_MASK      ((uint32_t)0x00000080U)         /* !< Mask for ASC done raw interrupt
+#define ADC12_CPU_INT_IMASK_MEMRESIFG21_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_IMASK_MEMRESIFG21_SET      ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_IMASK[ASCDONE] Bits */
+#define ADC12_CPU_INT_IMASK_ASCDONE_OFS          (7)                             /* !< ASCDONE Offset */
+#define ADC12_CPU_INT_IMASK_ASCDONE_MASK         ((uint32_t)0x00000080U)         /* !< Mask for ASC done raw interrupt
                                                                                     flag */
-#define ADC12_INT_EVENT0_IMASK_ASCDONE_CLR       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_IMASK_ASCDONE_SET       ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
+#define ADC12_CPU_INT_IMASK_ASCDONE_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_IMASK_ASCDONE_SET          ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
 
-/* ADC12_INT_EVENT0_RIS Bits */
-/* ADC12_INT_EVENT0_RIS[INIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_INIFG_OFS           (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT0_RIS_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT0_RIS_INIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_INIFG_SET           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[LOWIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT0_RIS_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_CPU_INT_RIS Bits */
+/* ADC12_CPU_INT_RIS[INIFG] Bits */
+#define ADC12_CPU_INT_RIS_INIFG_OFS              (4)                             /* !< INIFG Offset */
+#define ADC12_CPU_INT_RIS_INIFG_MASK             ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_CPU_INT_RIS_INIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_INIFG_SET              ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[LOWIFG] Bits */
+#define ADC12_CPU_INT_RIS_LOWIFG_OFS             (3)                             /* !< LOWIFG Offset */
+#define ADC12_CPU_INT_RIS_LOWIFG_MASK            ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_RIS_LOWIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_LOWIFG_SET          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[HIGHIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT0_RIS_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_CPU_INT_RIS_LOWIFG_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_LOWIFG_SET             ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[HIGHIFG] Bits */
+#define ADC12_CPU_INT_RIS_HIGHIFG_OFS            (2)                             /* !< HIGHIFG Offset */
+#define ADC12_CPU_INT_RIS_HIGHIFG_MASK           ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_RIS_HIGHIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_HIGHIFG_SET         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[OVIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_OVIFG_OFS           (0)                             /* !< OVIFG Offset */
-#define ADC12_INT_EVENT0_RIS_OVIFG_MASK          ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_RIS_HIGHIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_HIGHIFG_SET            ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[OVIFG] Bits */
+#define ADC12_CPU_INT_RIS_OVIFG_OFS              (0)                             /* !< OVIFG Offset */
+#define ADC12_CPU_INT_RIS_OVIFG_MASK             ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     overflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_RIS_OVIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_OVIFG_SET           ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[UVIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_UVIFG_OFS           (6)                             /* !< UVIFG Offset */
-#define ADC12_INT_EVENT0_RIS_UVIFG_MASK          ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_RIS_OVIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_OVIFG_SET              ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[UVIFG] Bits */
+#define ADC12_CPU_INT_RIS_UVIFG_OFS              (6)                             /* !< UVIFG Offset */
+#define ADC12_CPU_INT_RIS_UVIFG_MASK             ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     underflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR is set to 1. */
-#define ADC12_INT_EVENT0_RIS_UVIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_UVIFG_SET           ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[TOVIFG] Bits */
-#define ADC12_INT_EVENT0_RIS_TOVIFG_OFS          (1)                             /* !< TOVIFG Offset */
-#define ADC12_INT_EVENT0_RIS_TOVIFG_MASK         ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
+#define ADC12_CPU_INT_RIS_UVIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_UVIFG_SET              ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[TOVIFG] Bits */
+#define ADC12_CPU_INT_RIS_TOVIFG_OFS             (1)                             /* !< TOVIFG Offset */
+#define ADC12_CPU_INT_RIS_TOVIFG_MASK            ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
                                                                                     conversion trigger overflow. This bit
                                                                                     is reset to 0 by IIDX read or when
                                                                                     corresponding bit in ICLR_EX is set
                                                                                     to 1. */
-#define ADC12_INT_EVENT0_RIS_TOVIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_TOVIFG_SET          ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[DMADONE] Bits */
-#define ADC12_INT_EVENT0_RIS_DMADONE_OFS         (5)                             /* !< DMADONE Offset */
-#define ADC12_INT_EVENT0_RIS_DMADONE_MASK        ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
+#define ADC12_CPU_INT_RIS_TOVIFG_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_TOVIFG_SET             ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[DMADONE] Bits */
+#define ADC12_CPU_INT_RIS_DMADONE_OFS            (5)                             /* !< DMADONE Offset */
+#define ADC12_CPU_INT_RIS_DMADONE_MASK           ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
                                                                                     This bit is reset to 0 by IIDX read
                                                                                     or when corresponding bit in ICLR_EX
                                                                                     is set to 1. */
-#define ADC12_INT_EVENT0_RIS_DMADONE_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_DMADONE_SET         ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_CPU_INT_RIS_DMADONE_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_DMADONE_SET            ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG0] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG0_OFS         (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG0_MASK        ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG1_OFS      (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG1_MASK     ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_CPU_INT_RIS_MEMRESIFG0_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG0_SET         ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG1] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG1_OFS         (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG1_MASK        ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG1_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG1_SET      ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG2_OFS      (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG2_MASK     ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_CPU_INT_RIS_MEMRESIFG1_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG1_SET         ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG2] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG2_OFS         (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG2_MASK        ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG2_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG2_SET      ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG3_OFS      (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG3_MASK     ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_CPU_INT_RIS_MEMRESIFG2_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG2_SET         ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG3] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG3_OFS         (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG3_MASK        ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG3_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG3_SET      ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG4_OFS      (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG4_MASK     ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_CPU_INT_RIS_MEMRESIFG3_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG3_SET         ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG4] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG4_OFS         (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG4_MASK        ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG4_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG4_SET      ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG5_OFS      (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG5_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_CPU_INT_RIS_MEMRESIFG4_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG4_SET         ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG5] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG5_OFS         (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG5_MASK        ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG5_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG5_SET      ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG6_OFS      (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG6_MASK     ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_CPU_INT_RIS_MEMRESIFG5_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG5_SET         ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG6] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG6_OFS         (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG6_MASK        ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG6_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG6_SET      ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG7_OFS      (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG7_MASK     ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_CPU_INT_RIS_MEMRESIFG6_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG6_SET         ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG7] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG7_OFS         (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG7_MASK        ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG7_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG7_SET      ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG9_OFS      (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG9_MASK     ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_CPU_INT_RIS_MEMRESIFG7_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG7_SET         ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG9] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG9_OFS         (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG9_MASK        ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG9_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG9_SET      ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG10_OFS     (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG10_MASK    ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_CPU_INT_RIS_MEMRESIFG9_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG9_SET         ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG10] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG10_OFS        (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG10_MASK       ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG10_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG10_SET     ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG11_OFS     (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG11_MASK    ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_CPU_INT_RIS_MEMRESIFG10_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG10_SET        ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG11] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG11_OFS        (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG11_MASK       ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG11_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG11_SET     ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG12_OFS     (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG12_MASK    ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_CPU_INT_RIS_MEMRESIFG11_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG11_SET        ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG12] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG12_OFS        (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG12_MASK       ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG12_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG12_SET     ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG13_OFS     (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG13_MASK    ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_CPU_INT_RIS_MEMRESIFG12_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG12_SET        ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG13] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG13_OFS        (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG13_MASK       ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG13_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG13_SET     ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG14_OFS     (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG14_MASK    ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_CPU_INT_RIS_MEMRESIFG13_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG13_SET        ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG14] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG14_OFS        (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG14_MASK       ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG14_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG14_SET     ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG15_OFS     (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG15_MASK    ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_CPU_INT_RIS_MEMRESIFG14_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG14_SET        ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG15] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG15_OFS        (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG15_MASK       ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG15_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG15_SET     ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG16_OFS     (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG16_MASK    ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_CPU_INT_RIS_MEMRESIFG15_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG15_SET        ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG16] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG16_OFS        (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG16_MASK       ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG16_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG16_SET     ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG17_OFS     (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG17_MASK    ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_CPU_INT_RIS_MEMRESIFG16_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG16_SET        ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG17] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG17_OFS        (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG17_MASK       ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG17_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG17_SET     ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG18_OFS     (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG18_MASK    ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_CPU_INT_RIS_MEMRESIFG17_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG17_SET        ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG18] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG18_OFS        (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG18_MASK       ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG18_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG18_SET     ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG19_OFS     (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG19_MASK    ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_CPU_INT_RIS_MEMRESIFG18_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG18_SET        ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG19] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG19_OFS        (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG19_MASK       ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG19_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG19_SET     ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG20_OFS     (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG20_MASK    ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_CPU_INT_RIS_MEMRESIFG19_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG19_SET        ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG20] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG20_OFS        (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG20_MASK       ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG20_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG20_SET     ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG22_OFS     (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG22_MASK    ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_CPU_INT_RIS_MEMRESIFG20_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG20_SET        ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG22] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG22_OFS        (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG22_MASK       ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG22_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG22_SET     ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG23_OFS     (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG23_MASK    ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_CPU_INT_RIS_MEMRESIFG22_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG22_SET        ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG23] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG23_OFS        (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG23_MASK       ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG23_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG23_SET     ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG8_OFS      (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG8_MASK     ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_CPU_INT_RIS_MEMRESIFG23_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG23_SET        ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG8] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG8_OFS         (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG8_MASK        ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG8_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG8_SET      ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG21_OFS     (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG21_MASK    ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_CPU_INT_RIS_MEMRESIFG8_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG8_SET         ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[MEMRESIFG21] Bits */
+#define ADC12_CPU_INT_RIS_MEMRESIFG21_OFS        (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_CPU_INT_RIS_MEMRESIFG21_MASK       ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG21_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_RIS_MEMRESIFG21_SET     ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_RIS[ASCDONE] Bits */
-#define ADC12_INT_EVENT0_RIS_ASCDONE_OFS         (7)                             /* !< ASCDONE Offset */
-#define ADC12_INT_EVENT0_RIS_ASCDONE_MASK        ((uint32_t)0x00000080U)         /* !< Raw interrupt flag for ASC done */
-#define ADC12_INT_EVENT0_RIS_ASCDONE_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_RIS_ASCDONE_SET         ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG21_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_RIS_MEMRESIFG21_SET        ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_RIS[ASCDONE] Bits */
+#define ADC12_CPU_INT_RIS_ASCDONE_OFS            (7)                             /* !< ASCDONE Offset */
+#define ADC12_CPU_INT_RIS_ASCDONE_MASK           ((uint32_t)0x00000080U)         /* !< Raw interrupt flag for ASC done */
+#define ADC12_CPU_INT_RIS_ASCDONE_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_RIS_ASCDONE_SET            ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
 
-/* ADC12_INT_EVENT0_MIS Bits */
-/* ADC12_INT_EVENT0_MIS[INIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_INIFG_OFS           (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT0_MIS_INIFG_MASK          ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT0_MIS_INIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_INIFG_SET           ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[LOWIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_LOWIFG_OFS          (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT0_MIS_LOWIFG_MASK         ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_CPU_INT_MIS Bits */
+/* ADC12_CPU_INT_MIS[INIFG] Bits */
+#define ADC12_CPU_INT_MIS_INIFG_OFS              (4)                             /* !< INIFG Offset */
+#define ADC12_CPU_INT_MIS_INIFG_MASK             ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_CPU_INT_MIS_INIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_INIFG_SET              ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[LOWIFG] Bits */
+#define ADC12_CPU_INT_MIS_LOWIFG_OFS             (3)                             /* !< LOWIFG Offset */
+#define ADC12_CPU_INT_MIS_LOWIFG_MASK            ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_MIS_LOWIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_LOWIFG_SET          ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[HIGHIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_HIGHIFG_OFS         (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT0_MIS_HIGHIFG_MASK        ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_CPU_INT_MIS_LOWIFG_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_LOWIFG_SET             ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[HIGHIFG] Bits */
+#define ADC12_CPU_INT_MIS_HIGHIFG_OFS            (2)                             /* !< HIGHIFG Offset */
+#define ADC12_CPU_INT_MIS_HIGHIFG_MASK           ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_MIS_HIGHIFG_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_HIGHIFG_SET         ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[OVIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_OVIFG_OFS           (0)                             /* !< OVIFG Offset */
-#define ADC12_INT_EVENT0_MIS_OVIFG_MASK          ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_MIS_HIGHIFG_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_HIGHIFG_SET            ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[OVIFG] Bits */
+#define ADC12_CPU_INT_MIS_OVIFG_OFS              (0)                             /* !< OVIFG Offset */
+#define ADC12_CPU_INT_MIS_OVIFG_MASK             ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     overflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_MIS_OVIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_OVIFG_SET           ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[UVIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_UVIFG_OFS           (6)                             /* !< UVIFG Offset */
-#define ADC12_INT_EVENT0_MIS_UVIFG_MASK          ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_MIS_OVIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_OVIFG_SET              ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[UVIFG] Bits */
+#define ADC12_CPU_INT_MIS_UVIFG_OFS              (6)                             /* !< UVIFG Offset */
+#define ADC12_CPU_INT_MIS_UVIFG_MASK             ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     underflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR is set to 1. */
-#define ADC12_INT_EVENT0_MIS_UVIFG_CLR           ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_UVIFG_SET           ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[TOVIFG] Bits */
-#define ADC12_INT_EVENT0_MIS_TOVIFG_OFS          (1)                             /* !< TOVIFG Offset */
-#define ADC12_INT_EVENT0_MIS_TOVIFG_MASK         ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
+#define ADC12_CPU_INT_MIS_UVIFG_CLR              ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_UVIFG_SET              ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[TOVIFG] Bits */
+#define ADC12_CPU_INT_MIS_TOVIFG_OFS             (1)                             /* !< TOVIFG Offset */
+#define ADC12_CPU_INT_MIS_TOVIFG_MASK            ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
                                                                                     conversion timeout overflow. This bit
                                                                                     is reset to 0 by IIDX read or when
                                                                                     corresponding bit in ICLR_EX is set
                                                                                     to 1. */
-#define ADC12_INT_EVENT0_MIS_TOVIFG_CLR          ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_TOVIFG_SET          ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[DMADONE] Bits */
-#define ADC12_INT_EVENT0_MIS_DMADONE_OFS         (5)                             /* !< DMADONE Offset */
-#define ADC12_INT_EVENT0_MIS_DMADONE_MASK        ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
+#define ADC12_CPU_INT_MIS_TOVIFG_CLR             ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_TOVIFG_SET             ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[DMADONE] Bits */
+#define ADC12_CPU_INT_MIS_DMADONE_OFS            (5)                             /* !< DMADONE Offset */
+#define ADC12_CPU_INT_MIS_DMADONE_MASK           ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
                                                                                     This bit is reset to 0 by IIDX read
                                                                                     or when corresponding bit in ICLR_EX
                                                                                     is set to 1. */
-#define ADC12_INT_EVENT0_MIS_DMADONE_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_DMADONE_SET         ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG0_OFS      (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG0_MASK     ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_CPU_INT_MIS_DMADONE_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_DMADONE_SET            ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG0] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG0_OFS         (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG0_MASK        ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG0_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG0_SET      ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG1_OFS      (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG1_MASK     ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_CPU_INT_MIS_MEMRESIFG0_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG0_SET         ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG1] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG1_OFS         (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG1_MASK        ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG1_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG1_SET      ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG2_OFS      (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG2_MASK     ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_CPU_INT_MIS_MEMRESIFG1_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG1_SET         ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG2] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG2_OFS         (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG2_MASK        ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG2_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG2_SET      ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG3_OFS      (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG3_MASK     ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_CPU_INT_MIS_MEMRESIFG2_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG2_SET         ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG3] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG3_OFS         (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG3_MASK        ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG3_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG3_SET      ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG4_OFS      (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG4_MASK     ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_CPU_INT_MIS_MEMRESIFG3_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG3_SET         ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG4] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG4_OFS         (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG4_MASK        ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG4_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG4_SET      ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG5_OFS      (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG5_MASK     ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_CPU_INT_MIS_MEMRESIFG4_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG4_SET         ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG5] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG5_OFS         (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG5_MASK        ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG5_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG5_SET      ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG6_OFS      (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG6_MASK     ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_CPU_INT_MIS_MEMRESIFG5_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG5_SET         ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG6] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG6_OFS         (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG6_MASK        ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG6_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG6_SET      ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG7_OFS      (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG7_MASK     ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_CPU_INT_MIS_MEMRESIFG6_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG6_SET         ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG7] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG7_OFS         (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG7_MASK        ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG7_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG7_SET      ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG9_OFS      (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG9_MASK     ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_CPU_INT_MIS_MEMRESIFG7_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG7_SET         ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG9] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG9_OFS         (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG9_MASK        ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG9_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG9_SET      ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG10_OFS     (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG10_MASK    ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_CPU_INT_MIS_MEMRESIFG9_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG9_SET         ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG10] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG10_OFS        (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG10_MASK       ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG10_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG10_SET     ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG11_OFS     (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG11_MASK    ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_CPU_INT_MIS_MEMRESIFG10_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG10_SET        ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG11] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG11_OFS        (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG11_MASK       ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG11_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG11_SET     ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG12_OFS     (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG12_MASK    ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_CPU_INT_MIS_MEMRESIFG11_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG11_SET        ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG12] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG12_OFS        (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG12_MASK       ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG12_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG12_SET     ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG13_OFS     (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG13_MASK    ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_CPU_INT_MIS_MEMRESIFG12_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG12_SET        ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG13] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG13_OFS        (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG13_MASK       ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG13_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG13_SET     ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG14_OFS     (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG14_MASK    ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_CPU_INT_MIS_MEMRESIFG13_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG13_SET        ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG14] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG14_OFS        (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG14_MASK       ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG14_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG14_SET     ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG15_OFS     (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG15_MASK    ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_CPU_INT_MIS_MEMRESIFG14_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG14_SET        ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG15] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG15_OFS        (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG15_MASK       ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG15_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG15_SET     ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG16_OFS     (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG16_MASK    ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_CPU_INT_MIS_MEMRESIFG15_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG15_SET        ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG16] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG16_OFS        (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG16_MASK       ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG16_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG16_SET     ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG17_OFS     (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG17_MASK    ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_CPU_INT_MIS_MEMRESIFG16_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG16_SET        ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG17] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG17_OFS        (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG17_MASK       ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG17_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG17_SET     ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG18_OFS     (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG18_MASK    ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_CPU_INT_MIS_MEMRESIFG17_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG17_SET        ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG18] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG18_OFS        (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG18_MASK       ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG18_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG18_SET     ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG19_OFS     (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG19_MASK    ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_CPU_INT_MIS_MEMRESIFG18_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG18_SET        ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG19] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG19_OFS        (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG19_MASK       ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG19_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG19_SET     ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG20_OFS     (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG20_MASK    ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_CPU_INT_MIS_MEMRESIFG19_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG19_SET        ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG20] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG20_OFS        (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG20_MASK       ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG20_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG20_SET     ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG22_OFS     (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG22_MASK    ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_CPU_INT_MIS_MEMRESIFG20_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG20_SET        ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG22] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG22_OFS        (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG22_MASK       ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG22_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG22_SET     ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG23_OFS     (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG23_MASK    ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_CPU_INT_MIS_MEMRESIFG22_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG22_SET        ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG23] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG23_OFS        (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG23_MASK       ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG23_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG23_SET     ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG8_OFS      (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG8_MASK     ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_CPU_INT_MIS_MEMRESIFG23_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG23_SET        ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG8] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG8_OFS         (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG8_MASK        ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG8_CLR      ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG8_SET      ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG21_OFS     (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG21_MASK    ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_CPU_INT_MIS_MEMRESIFG8_CLR         ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG8_SET         ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[MEMRESIFG21] Bits */
+#define ADC12_CPU_INT_MIS_MEMRESIFG21_OFS        (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_CPU_INT_MIS_MEMRESIFG21_MASK       ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG21_CLR     ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_MIS_MEMRESIFG21_SET     ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_MIS[ASCDONE] Bits */
-#define ADC12_INT_EVENT0_MIS_ASCDONE_OFS         (7)                             /* !< ASCDONE Offset */
-#define ADC12_INT_EVENT0_MIS_ASCDONE_MASK        ((uint32_t)0x00000080U)         /* !< Masked interrupt status for ASC
+#define ADC12_CPU_INT_MIS_MEMRESIFG21_CLR        ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_MIS_MEMRESIFG21_SET        ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_MIS[ASCDONE] Bits */
+#define ADC12_CPU_INT_MIS_ASCDONE_OFS            (7)                             /* !< ASCDONE Offset */
+#define ADC12_CPU_INT_MIS_ASCDONE_MASK           ((uint32_t)0x00000080U)         /* !< Masked interrupt status for ASC
                                                                                     done */
-#define ADC12_INT_EVENT0_MIS_ASCDONE_CLR         ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_MIS_ASCDONE_SET         ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
+#define ADC12_CPU_INT_MIS_ASCDONE_CLR            ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_MIS_ASCDONE_SET            ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
 
-/* ADC12_INT_EVENT0_ISET Bits */
-/* ADC12_INT_EVENT0_ISET[INIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_INIFG_OFS          (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT0_ISET_INIFG_MASK         ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT0_ISET_INIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_INIFG_SET          ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[LOWIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_LOWIFG_OFS         (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT0_ISET_LOWIFG_MASK        ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_CPU_INT_ISET Bits */
+/* ADC12_CPU_INT_ISET[INIFG] Bits */
+#define ADC12_CPU_INT_ISET_INIFG_OFS             (4)                             /* !< INIFG Offset */
+#define ADC12_CPU_INT_ISET_INIFG_MASK            ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_CPU_INT_ISET_INIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_INIFG_SET             ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[LOWIFG] Bits */
+#define ADC12_CPU_INT_ISET_LOWIFG_OFS            (3)                             /* !< LOWIFG Offset */
+#define ADC12_CPU_INT_ISET_LOWIFG_MASK           ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ISET_LOWIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_LOWIFG_SET         ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[HIGHIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_HIGHIFG_OFS        (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT0_ISET_HIGHIFG_MASK       ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_CPU_INT_ISET_LOWIFG_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_LOWIFG_SET            ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[HIGHIFG] Bits */
+#define ADC12_CPU_INT_ISET_HIGHIFG_OFS           (2)                             /* !< HIGHIFG Offset */
+#define ADC12_CPU_INT_ISET_HIGHIFG_MASK          ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ISET_HIGHIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_HIGHIFG_SET        ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[OVIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_OVIFG_OFS          (0)                             /* !< OVIFG Offset */
-#define ADC12_INT_EVENT0_ISET_OVIFG_MASK         ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_ISET_HIGHIFG_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_HIGHIFG_SET           ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[OVIFG] Bits */
+#define ADC12_CPU_INT_ISET_OVIFG_OFS             (0)                             /* !< OVIFG Offset */
+#define ADC12_CPU_INT_ISET_OVIFG_MASK            ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     overflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ISET_OVIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_OVIFG_SET          ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[UVIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_UVIFG_OFS          (6)                             /* !< UVIFG Offset */
-#define ADC12_INT_EVENT0_ISET_UVIFG_MASK         ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_ISET_OVIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_OVIFG_SET             ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[UVIFG] Bits */
+#define ADC12_CPU_INT_ISET_UVIFG_OFS             (6)                             /* !< UVIFG Offset */
+#define ADC12_CPU_INT_ISET_UVIFG_MASK            ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     underflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ISET_UVIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_UVIFG_SET          ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[TOVIFG] Bits */
-#define ADC12_INT_EVENT0_ISET_TOVIFG_OFS         (1)                             /* !< TOVIFG Offset */
-#define ADC12_INT_EVENT0_ISET_TOVIFG_MASK        ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
+#define ADC12_CPU_INT_ISET_UVIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_UVIFG_SET             ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[TOVIFG] Bits */
+#define ADC12_CPU_INT_ISET_TOVIFG_OFS            (1)                             /* !< TOVIFG Offset */
+#define ADC12_CPU_INT_ISET_TOVIFG_MASK           ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
                                                                                     conversion timeout overflow. This bit
                                                                                     is reset to 0 by IIDX read or when
                                                                                     corresponding bit in ICLR_EX is set
                                                                                     to 1. */
-#define ADC12_INT_EVENT0_ISET_TOVIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_TOVIFG_SET         ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[DMADONE] Bits */
-#define ADC12_INT_EVENT0_ISET_DMADONE_OFS        (5)                             /* !< DMADONE Offset */
-#define ADC12_INT_EVENT0_ISET_DMADONE_MASK       ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
+#define ADC12_CPU_INT_ISET_TOVIFG_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_TOVIFG_SET            ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[DMADONE] Bits */
+#define ADC12_CPU_INT_ISET_DMADONE_OFS           (5)                             /* !< DMADONE Offset */
+#define ADC12_CPU_INT_ISET_DMADONE_MASK          ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
                                                                                     This bit is reset to 0 by IIDX read
                                                                                     or when corresponding bit in ICLR_EX
                                                                                     is set to 1. */
-#define ADC12_INT_EVENT0_ISET_DMADONE_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_DMADONE_SET        ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_CPU_INT_ISET_DMADONE_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_DMADONE_SET           ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG0] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG0_OFS        (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG0_MASK       ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG0_SET     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG1_OFS     (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG1_MASK    ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_CPU_INT_ISET_MEMRESIFG0_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG0_SET        ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG1] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG1_OFS        (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG1_MASK       ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG1_SET     ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG2_OFS     (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG2_MASK    ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_CPU_INT_ISET_MEMRESIFG1_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG1_SET        ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG2] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG2_OFS        (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG2_MASK       ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG2_SET     ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG3_OFS     (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG3_MASK    ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_CPU_INT_ISET_MEMRESIFG2_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG2_SET        ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG3] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG3_OFS        (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG3_MASK       ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG3_SET     ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG4_OFS     (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG4_MASK    ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_CPU_INT_ISET_MEMRESIFG3_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG3_SET        ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG4] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG4_OFS        (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG4_MASK       ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG4_SET     ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG5_OFS     (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG5_MASK    ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_CPU_INT_ISET_MEMRESIFG4_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG4_SET        ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG5] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG5_OFS        (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG5_MASK       ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG5_SET     ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG6_OFS     (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG6_MASK    ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_CPU_INT_ISET_MEMRESIFG5_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG5_SET        ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG6] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG6_OFS        (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG6_MASK       ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG6_SET     ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG7_OFS     (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG7_MASK    ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_CPU_INT_ISET_MEMRESIFG6_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG6_SET        ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG7] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG7_OFS        (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG7_MASK       ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG7_SET     ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG9_OFS     (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG9_MASK    ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_CPU_INT_ISET_MEMRESIFG7_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG7_SET        ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG9] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG9_OFS        (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG9_MASK       ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG9_SET     ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG10_OFS    (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG10_MASK   ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_CPU_INT_ISET_MEMRESIFG9_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG9_SET        ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG10] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG10_OFS       (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG10_MASK      ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG10_SET    ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG11_OFS    (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG11_MASK   ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_CPU_INT_ISET_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG10_SET       ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG11] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG11_OFS       (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG11_MASK      ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG11_SET    ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG12_OFS    (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG12_MASK   ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_CPU_INT_ISET_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG11_SET       ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG12] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG12_OFS       (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG12_MASK      ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG12_SET    ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG13_OFS    (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG13_MASK   ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_CPU_INT_ISET_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG12_SET       ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG13] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG13_OFS       (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG13_MASK      ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG13_SET    ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG14_OFS    (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG14_MASK   ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_CPU_INT_ISET_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG13_SET       ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG14] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG14_OFS       (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG14_MASK      ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG14_SET    ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG15_OFS    (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG15_MASK   ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_CPU_INT_ISET_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG14_SET       ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG15] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG15_OFS       (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG15_MASK      ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG15_SET    ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG16_OFS    (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG16_MASK   ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_CPU_INT_ISET_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG15_SET       ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG16] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG16_OFS       (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG16_MASK      ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG16_SET    ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG17_OFS    (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG17_MASK   ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_CPU_INT_ISET_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG16_SET       ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG17] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG17_OFS       (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG17_MASK      ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG17_SET    ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG18_OFS    (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG18_MASK   ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_CPU_INT_ISET_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG17_SET       ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG18] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG18_OFS       (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG18_MASK      ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG18_SET    ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG19_OFS    (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG19_MASK   ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_CPU_INT_ISET_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG18_SET       ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG19] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG19_OFS       (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG19_MASK      ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG19_SET    ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG20_OFS    (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG20_MASK   ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_CPU_INT_ISET_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG19_SET       ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG20] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG20_OFS       (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG20_MASK      ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG20_SET    ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG22_OFS    (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG22_MASK   ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_CPU_INT_ISET_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG20_SET       ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG22] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG22_OFS       (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG22_MASK      ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG22_SET    ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG23_OFS    (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG23_MASK   ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_CPU_INT_ISET_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG22_SET       ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG23] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG23_OFS       (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG23_MASK      ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG23_SET    ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG8_OFS     (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG8_MASK    ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_CPU_INT_ISET_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG23_SET       ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG8] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG8_OFS        (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG8_MASK       ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG8_SET     ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG21_OFS    (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG21_MASK   ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_CPU_INT_ISET_MEMRESIFG8_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG8_SET        ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[MEMRESIFG21] Bits */
+#define ADC12_CPU_INT_ISET_MEMRESIFG21_OFS       (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_CPU_INT_ISET_MEMRESIFG21_MASK      ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ISET_MEMRESIFG21_SET    ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ISET[ASCDONE] Bits */
-#define ADC12_INT_EVENT0_ISET_ASCDONE_OFS        (7)                             /* !< ASCDONE Offset */
-#define ADC12_INT_EVENT0_ISET_ASCDONE_MASK       ((uint32_t)0x00000080U)         /* !< Set ASC done flag in RIS */
-#define ADC12_INT_EVENT0_ISET_ASCDONE_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ISET_ASCDONE_SET        ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ISET_MEMRESIFG21_SET       ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ISET[ASCDONE] Bits */
+#define ADC12_CPU_INT_ISET_ASCDONE_OFS           (7)                             /* !< ASCDONE Offset */
+#define ADC12_CPU_INT_ISET_ASCDONE_MASK          ((uint32_t)0x00000080U)         /* !< Set ASC done flag in RIS */
+#define ADC12_CPU_INT_ISET_ASCDONE_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ISET_ASCDONE_SET           ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
 
-/* ADC12_INT_EVENT0_ICLR Bits */
-/* ADC12_INT_EVENT0_ICLR[INIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_INIFG_OFS          (4)                             /* !< INIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_INIFG_MASK         ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
-#define ADC12_INT_EVENT0_ICLR_INIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_INIFG_CLR          ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[LOWIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_LOWIFG_OFS         (3)                             /* !< LOWIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_LOWIFG_MASK        ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
+/* ADC12_CPU_INT_ICLR Bits */
+/* ADC12_CPU_INT_ICLR[INIFG] Bits */
+#define ADC12_CPU_INT_ICLR_INIFG_OFS             (4)                             /* !< INIFG Offset */
+#define ADC12_CPU_INT_ICLR_INIFG_MASK            ((uint32_t)0x00000010U)         /* !< Mask INIFG in MIS_EX register. */
+#define ADC12_CPU_INT_ICLR_INIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_INIFG_CLR             ((uint32_t)0x00000010U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[LOWIFG] Bits */
+#define ADC12_CPU_INT_ICLR_LOWIFG_OFS            (3)                             /* !< LOWIFG Offset */
+#define ADC12_CPU_INT_ICLR_LOWIFG_MASK           ((uint32_t)0x00000008U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being below than the
                                                                                     WCLOWx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ICLR_LOWIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_LOWIFG_CLR         ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[HIGHIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_HIGHIFG_OFS        (2)                             /* !< HIGHIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_HIGHIFG_MASK       ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
+#define ADC12_CPU_INT_ICLR_LOWIFG_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_LOWIFG_CLR            ((uint32_t)0x00000008U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[HIGHIFG] Bits */
+#define ADC12_CPU_INT_ICLR_HIGHIFG_OFS           (2)                             /* !< HIGHIFG Offset */
+#define ADC12_CPU_INT_ICLR_HIGHIFG_MASK          ((uint32_t)0x00000004U)         /* !< Raw interrupt flag for the MEMRESx
                                                                                     result register being higher than the
                                                                                     WCHIGHx threshold of the window
                                                                                     comparator. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ICLR_HIGHIFG_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_HIGHIFG_CLR        ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[OVIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_OVIFG_OFS          (0)                             /* !< OVIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_OVIFG_MASK         ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_ICLR_HIGHIFG_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_HIGHIFG_CLR           ((uint32_t)0x00000004U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[OVIFG] Bits */
+#define ADC12_CPU_INT_ICLR_OVIFG_OFS             (0)                             /* !< OVIFG Offset */
+#define ADC12_CPU_INT_ICLR_OVIFG_MASK            ((uint32_t)0x00000001U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     overflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ICLR_OVIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_OVIFG_CLR          ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[UVIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_UVIFG_OFS          (6)                             /* !< UVIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_UVIFG_MASK         ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
+#define ADC12_CPU_INT_ICLR_OVIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_OVIFG_CLR             ((uint32_t)0x00000001U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[UVIFG] Bits */
+#define ADC12_CPU_INT_ICLR_UVIFG_OFS             (6)                             /* !< UVIFG Offset */
+#define ADC12_CPU_INT_ICLR_UVIFG_MASK            ((uint32_t)0x00000040U)         /* !< Raw interrupt flag for MEMRESx
                                                                                     underflow. This bit is reset to 0 by
                                                                                     IIDX read or when corresponding bit
                                                                                     in ICLR_EX is set to 1. */
-#define ADC12_INT_EVENT0_ICLR_UVIFG_NO_EFFECT    ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_UVIFG_CLR          ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[TOVIFG] Bits */
-#define ADC12_INT_EVENT0_ICLR_TOVIFG_OFS         (1)                             /* !< TOVIFG Offset */
-#define ADC12_INT_EVENT0_ICLR_TOVIFG_MASK        ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
+#define ADC12_CPU_INT_ICLR_UVIFG_NO_EFFECT       ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_UVIFG_CLR             ((uint32_t)0x00000040U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[TOVIFG] Bits */
+#define ADC12_CPU_INT_ICLR_TOVIFG_OFS            (1)                             /* !< TOVIFG Offset */
+#define ADC12_CPU_INT_ICLR_TOVIFG_MASK           ((uint32_t)0x00000002U)         /* !< Raw interrupt flag for sequence
                                                                                     conversion timeout overflow. This bit
                                                                                     is reset to 0 by IIDX read or when
                                                                                     corresponding bit in ICLR_EX is set
                                                                                     to 1. */
-#define ADC12_INT_EVENT0_ICLR_TOVIFG_NO_EFFECT   ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_TOVIFG_CLR         ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[DMADONE] Bits */
-#define ADC12_INT_EVENT0_ICLR_DMADONE_OFS        (5)                             /* !< DMADONE Offset */
-#define ADC12_INT_EVENT0_ICLR_DMADONE_MASK       ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
+#define ADC12_CPU_INT_ICLR_TOVIFG_NO_EFFECT      ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_TOVIFG_CLR            ((uint32_t)0x00000002U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[DMADONE] Bits */
+#define ADC12_CPU_INT_ICLR_DMADONE_OFS           (5)                             /* !< DMADONE Offset */
+#define ADC12_CPU_INT_ICLR_DMADONE_MASK          ((uint32_t)0x00000020U)         /* !< Raw interrupt flag for DMADONE.
                                                                                     This bit is reset to 0 by IIDX read
                                                                                     or when corresponding bit in ICLR_EX
                                                                                     is set to 1. */
-#define ADC12_INT_EVENT0_ICLR_DMADONE_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_DMADONE_CLR        ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG0] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG0_OFS     (8)                             /* !< MEMRESIFG0 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG0_MASK    ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
+#define ADC12_CPU_INT_ICLR_DMADONE_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_DMADONE_CLR           ((uint32_t)0x00000020U)         /* !< Interrupt is pending. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG0] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG0_OFS        (8)                             /* !< MEMRESIFG0 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG0_MASK       ((uint32_t)0x00000100U)         /* !< Raw interrupt status for MEMRES0.
                                                                                     This bit is set to 1 when MEMRES0 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES0 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG0_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG0_CLR     ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG1] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG1_OFS     (9)                             /* !< MEMRESIFG1 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG1_MASK    ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG0_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG0_CLR        ((uint32_t)0x00000100U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG1] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG1_OFS        (9)                             /* !< MEMRESIFG1 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG1_MASK       ((uint32_t)0x00000200U)         /* !< Raw interrupt status for MEMRES1.
                                                                                     This bit is set to 1 when MEMRES1 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES1 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG1_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG1_CLR     ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG2] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG2_OFS     (10)                            /* !< MEMRESIFG2 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG2_MASK    ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG1_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG1_CLR        ((uint32_t)0x00000200U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG2] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG2_OFS        (10)                            /* !< MEMRESIFG2 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG2_MASK       ((uint32_t)0x00000400U)         /* !< Raw interrupt status for MEMRES2.
                                                                                     This bit is set to 1 when MEMRES2 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES2 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG2_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG2_CLR     ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG3] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG3_OFS     (11)                            /* !< MEMRESIFG3 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG3_MASK    ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG2_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG2_CLR        ((uint32_t)0x00000400U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG3] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG3_OFS        (11)                            /* !< MEMRESIFG3 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG3_MASK       ((uint32_t)0x00000800U)         /* !< Raw interrupt status for MEMRES3.
                                                                                     This bit is set to 1 when MEMRES3 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES3 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG3_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG3_CLR     ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG4] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG4_OFS     (12)                            /* !< MEMRESIFG4 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG4_MASK    ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG3_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG3_CLR        ((uint32_t)0x00000800U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG4] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG4_OFS        (12)                            /* !< MEMRESIFG4 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG4_MASK       ((uint32_t)0x00001000U)         /* !< Raw interrupt status for MEMRES4.
                                                                                     This bit is set to 1 when MEMRES4 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES4 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG4_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG4_CLR     ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG5] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG5_OFS     (13)                            /* !< MEMRESIFG5 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG5_MASK    ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG4_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG4_CLR        ((uint32_t)0x00001000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG5] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG5_OFS        (13)                            /* !< MEMRESIFG5 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG5_MASK       ((uint32_t)0x00002000U)         /* !< Raw interrupt status for MEMRES5.
                                                                                     This bit is set to 1 when MEMRES5 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES5 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG5_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG5_CLR     ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG6] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG6_OFS     (14)                            /* !< MEMRESIFG6 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG6_MASK    ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG5_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG5_CLR        ((uint32_t)0x00002000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG6] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG6_OFS        (14)                            /* !< MEMRESIFG6 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG6_MASK       ((uint32_t)0x00004000U)         /* !< Raw interrupt status for MEMRES6.
                                                                                     This bit is set to 1 when MEMRES6 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES6 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG6_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG6_CLR     ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG7] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG7_OFS     (15)                            /* !< MEMRESIFG7 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG7_MASK    ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG6_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG6_CLR        ((uint32_t)0x00004000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG7] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG7_OFS        (15)                            /* !< MEMRESIFG7 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG7_MASK       ((uint32_t)0x00008000U)         /* !< Raw interrupt status for MEMRES7.
                                                                                     This bit is set to 1 when MEMRES7 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES7 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG7_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG7_CLR     ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG9] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG9_OFS     (17)                            /* !< MEMRESIFG9 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG9_MASK    ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG7_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG7_CLR        ((uint32_t)0x00008000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG9] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG9_OFS        (17)                            /* !< MEMRESIFG9 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG9_MASK       ((uint32_t)0x00020000U)         /* !< Raw interrupt status for MEMRES9.
                                                                                     This bit is set to 1 when MEMRES9 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES9 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG9_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG9_CLR     ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG10] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG10_OFS    (18)                            /* !< MEMRESIFG10 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG10_MASK   ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG9_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG9_CLR        ((uint32_t)0x00020000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG10] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG10_OFS       (18)                            /* !< MEMRESIFG10 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG10_MASK      ((uint32_t)0x00040000U)         /* !< Raw interrupt status for MEMRES10.
                                                                                     This bit is set to 1 when MEMRES10 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES10 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG10_CLR    ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG11] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG11_OFS    (19)                            /* !< MEMRESIFG11 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG11_MASK   ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG10_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG10_CLR       ((uint32_t)0x00040000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG11] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG11_OFS       (19)                            /* !< MEMRESIFG11 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG11_MASK      ((uint32_t)0x00080000U)         /* !< Raw interrupt status for MEMRES11.
                                                                                     This bit is set to 1 when MEMRES11 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES11 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG11_CLR    ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG12] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG12_OFS    (20)                            /* !< MEMRESIFG12 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG12_MASK   ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG11_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG11_CLR       ((uint32_t)0x00080000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG12] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG12_OFS       (20)                            /* !< MEMRESIFG12 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG12_MASK      ((uint32_t)0x00100000U)         /* !< Raw interrupt status for MEMRES12.
                                                                                     This bit is set to 1 when MEMRES12 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES12 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG12_CLR    ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG13] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG13_OFS    (21)                            /* !< MEMRESIFG13 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG13_MASK   ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG12_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG12_CLR       ((uint32_t)0x00100000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG13] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG13_OFS       (21)                            /* !< MEMRESIFG13 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG13_MASK      ((uint32_t)0x00200000U)         /* !< Raw interrupt status for MEMRES13.
                                                                                     This bit is set to 1 when MEMRES13 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES13 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG13_CLR    ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG14] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG14_OFS    (22)                            /* !< MEMRESIFG14 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG14_MASK   ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG13_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG13_CLR       ((uint32_t)0x00200000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG14] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG14_OFS       (22)                            /* !< MEMRESIFG14 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG14_MASK      ((uint32_t)0x00400000U)         /* !< Raw interrupt status for MEMRES14.
                                                                                     This bit is set to 1 when MEMRES14 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES14 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG14_CLR    ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG15] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG15_OFS    (23)                            /* !< MEMRESIFG15 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG15_MASK   ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG14_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG14_CLR       ((uint32_t)0x00400000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG15] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG15_OFS       (23)                            /* !< MEMRESIFG15 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG15_MASK      ((uint32_t)0x00800000U)         /* !< Raw interrupt status for MEMRES15.
                                                                                     This bit is set to 1 when MEMRES15 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES15 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG15_CLR    ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG16] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG16_OFS    (24)                            /* !< MEMRESIFG16 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG16_MASK   ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG15_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG15_CLR       ((uint32_t)0x00800000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG16] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG16_OFS       (24)                            /* !< MEMRESIFG16 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG16_MASK      ((uint32_t)0x01000000U)         /* !< Raw interrupt status for MEMRES16.
                                                                                     This bit is set to 1 when MEMRES16 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES16 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG16_CLR    ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG17] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG17_OFS    (25)                            /* !< MEMRESIFG17 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG17_MASK   ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG16_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG16_CLR       ((uint32_t)0x01000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG17] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG17_OFS       (25)                            /* !< MEMRESIFG17 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG17_MASK      ((uint32_t)0x02000000U)         /* !< Raw interrupt status for MEMRES17.
                                                                                     This bit is set to 1 when MEMRES17 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES17 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG17_CLR    ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG18] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG18_OFS    (26)                            /* !< MEMRESIFG18 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG18_MASK   ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG17_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG17_CLR       ((uint32_t)0x02000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG18] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG18_OFS       (26)                            /* !< MEMRESIFG18 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG18_MASK      ((uint32_t)0x04000000U)         /* !< Raw interrupt status for MEMRES18.
                                                                                     This bit is set to 1 when MEMRES18 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES18 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG18_CLR    ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG19] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG19_OFS    (27)                            /* !< MEMRESIFG19 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG19_MASK   ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG18_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG18_CLR       ((uint32_t)0x04000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG19] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG19_OFS       (27)                            /* !< MEMRESIFG19 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG19_MASK      ((uint32_t)0x08000000U)         /* !< Raw interrupt status for MEMRES19.
                                                                                     This bit is set to 1 when MEMRES19 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES19 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG19_CLR    ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG20] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG20_OFS    (28)                            /* !< MEMRESIFG20 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG20_MASK   ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG19_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG19_CLR       ((uint32_t)0x08000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG20] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG20_OFS       (28)                            /* !< MEMRESIFG20 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG20_MASK      ((uint32_t)0x10000000U)         /* !< Raw interrupt status for MEMRES20.
                                                                                     This bit is set to 1 when MEMRES20 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES20 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG20_CLR    ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG22] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG22_OFS    (30)                            /* !< MEMRESIFG22 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG22_MASK   ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG20_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG20_CLR       ((uint32_t)0x10000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG22] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG22_OFS       (30)                            /* !< MEMRESIFG22 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG22_MASK      ((uint32_t)0x40000000U)         /* !< Raw interrupt status for MEMRES22.
                                                                                     This bit is set to 1 when MEMRES22 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES22 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG22_CLR    ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG23] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG23_OFS    (31)                            /* !< MEMRESIFG23 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG23_MASK   ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG22_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG22_CLR       ((uint32_t)0x40000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG23] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG23_OFS       (31)                            /* !< MEMRESIFG23 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG23_MASK      ((uint32_t)0x80000000U)         /* !< Raw interrupt status for MEMRES23.
                                                                                     This bit is set to 1 when MEMRES23 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES23 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG23_CLR    ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG8] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG8_OFS     (16)                            /* !< MEMRESIFG8 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG8_MASK    ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG23_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG23_CLR       ((uint32_t)0x80000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG8] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG8_OFS        (16)                            /* !< MEMRESIFG8 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG8_MASK       ((uint32_t)0x00010000U)         /* !< Raw interrupt status for MEMRES8.
                                                                                     This bit is set to 1 when MEMRES8 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES8 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG8_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG8_CLR     ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[MEMRESIFG21] Bits */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG21_OFS    (29)                            /* !< MEMRESIFG21 Offset */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG21_MASK   ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
+#define ADC12_CPU_INT_ICLR_MEMRESIFG8_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG8_CLR        ((uint32_t)0x00010000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[MEMRESIFG21] Bits */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG21_OFS       (29)                            /* !< MEMRESIFG21 Offset */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG21_MASK      ((uint32_t)0x20000000U)         /* !< Raw interrupt status for MEMRES21.
                                                                                     This bit is set to 1 when MEMRES21 is
                                                                                     loaded with a new conversion result.
                                                                                     Reading MEMRES21 register will clear
                                                                                     this bit, or when the corresponding
                                                                                     bit in ICLR is set to 1 */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
-#define ADC12_INT_EVENT0_ICLR_MEMRESIFG21_CLR    ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
-/* ADC12_INT_EVENT0_ICLR[ASCDONE] Bits */
-#define ADC12_INT_EVENT0_ICLR_ASCDONE_OFS        (7)                             /* !< ASCDONE Offset */
-#define ADC12_INT_EVENT0_ICLR_ASCDONE_MASK       ((uint32_t)0x00000080U)         /* !< Clear ASC done flag in RIS */
-#define ADC12_INT_EVENT0_ICLR_ASCDONE_NO_EFFECT  ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
-#define ADC12_INT_EVENT0_ICLR_ASCDONE_CLR        ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG21_NO_EFFECT ((uint32_t)0x00000000U)         /* !< No new data ready. */
+#define ADC12_CPU_INT_ICLR_MEMRESIFG21_CLR       ((uint32_t)0x20000000U)         /* !< A new data is ready to be read. */
+/* ADC12_CPU_INT_ICLR[ASCDONE] Bits */
+#define ADC12_CPU_INT_ICLR_ASCDONE_OFS           (7)                             /* !< ASCDONE Offset */
+#define ADC12_CPU_INT_ICLR_ASCDONE_MASK          ((uint32_t)0x00000080U)         /* !< Clear ASC done flag in RIS */
+#define ADC12_CPU_INT_ICLR_ASCDONE_NO_EFFECT     ((uint32_t)0x00000000U)         /* !< Interrupt is not pending. */
+#define ADC12_CPU_INT_ICLR_ASCDONE_CLR           ((uint32_t)0x00000080U)         /* !< Interrupt is pending. */
 
 /* ADC12_PWREN Bits */
 /* ADC12_PWREN[ENABLE] Bits */
@@ -3382,8 +3380,7 @@ typedef struct {
 /* ADC12_EVT_MODE[INT0_CFG] Bits */
 #define ADC12_EVT_MODE_INT0_CFG_OFS              (0)                             /* !< INT0_CFG Offset */
 #define ADC12_EVT_MODE_INT0_CFG_MASK             ((uint32_t)0x00000003U)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    IPSTANDARD.INT_EVENT0 */
+                                                                                    corresponding to CPU_INT */
 #define ADC12_EVT_MODE_INT0_CFG_DISABLE          ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define ADC12_EVT_MODE_INT0_CFG_SOFTWARE         ((uint32_t)0x00000001U)         /* !< The interrupt or event line is in
@@ -3396,8 +3393,7 @@ typedef struct {
 /* ADC12_EVT_MODE[EVT1_CFG] Bits */
 #define ADC12_EVT_MODE_EVT1_CFG_OFS              (2)                             /* !< EVT1_CFG Offset */
 #define ADC12_EVT_MODE_EVT1_CFG_MASK             ((uint32_t)0x0000000CU)         /* !< Event line mode select for event
-                                                                                    corresponding to
-                                                                                    IPSTANDARD.INT_EVENT1 */
+                                                                                    corresponding to GEN_EVENT */
 #define ADC12_EVT_MODE_EVT1_CFG_DISABLE          ((uint32_t)0x00000000U)         /* !< The interrupt or event line is
                                                                                     disabled. */
 #define ADC12_EVT_MODE_EVT1_CFG_SOFTWARE         ((uint32_t)0x00000004U)         /* !< The interrupt or event line is in

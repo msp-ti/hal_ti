@@ -1954,11 +1954,16 @@ void DL_MCAN_readTxEventFIFO(
 /**
  *  @brief   This API is used to add Standard Message ID Filter Element.
  *
+ *  @note MCAN RAM must be configured @ref DL_MCAN_msgRAMConfig before
+ *  calling this API.
+ *
  *  @param[in]  mcan       Pointer to the register overlay for the peripheral
  *  @param[in]  filtNum    Filter number.
  *  @param[in]  elem       Filter Object. @ref DL_MCAN_StdMsgIDFilterElement.
  *
  *  @return  None.
+ *
+ *  @sa DL_MCAN_msgRAMConfig
  */
 void DL_MCAN_addStdMsgIDFilter(MCAN_Regs *mcan, uint32_t filtNum,
     const DL_MCAN_StdMsgIDFilterElement *elem);
@@ -1966,11 +1971,16 @@ void DL_MCAN_addStdMsgIDFilter(MCAN_Regs *mcan, uint32_t filtNum,
 /**
  *  @brief   This API is used to add Extended Message ID Filter Element.
  *
+ *  @note MCAN RAM must be configured @ref DL_MCAN_msgRAMConfig before
+ *  calling this API.
+ *
  *  @param[in]  mcan     Pointer to the register overlay for the peripheral
  *  @param[in]  filtNum  Filter  number.
  *  @param[in]  elem     Filter Object. @ref DL_MCAN_ExtMsgIDFilterElement.
  *
  *  @return  None.
+ *
+ *  @sa DL_MCAN_msgRAMConfig
  */
 void DL_MCAN_addExtMsgIDFilter(MCAN_Regs *mcan, uint32_t filtNum,
     const DL_MCAN_ExtMsgIDFilterElement *elem);
@@ -2626,7 +2636,7 @@ __STATIC_INLINE bool DL_MCAN_isReset(MCAN_Regs *mcan)
 __STATIC_INLINE void DL_MCAN_enableInterrupt(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IMASK |= interruptMask;
+    mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IMASK |= interruptMask;
 }
 
 /**
@@ -2640,7 +2650,7 @@ __STATIC_INLINE void DL_MCAN_enableInterrupt(
 __STATIC_INLINE void DL_MCAN_disableInterrupt(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IMASK &= ~(interruptMask);
+    mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IMASK &= ~(interruptMask);
 }
 
 /**
@@ -2658,7 +2668,7 @@ __STATIC_INLINE void DL_MCAN_disableInterrupt(
 __STATIC_INLINE uint32_t DL_MCAN_getEnabledInterrupts(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    return (mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IMASK & interruptMask);
+    return (mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IMASK & interruptMask);
 }
 
 /**
@@ -2679,7 +2689,7 @@ __STATIC_INLINE uint32_t DL_MCAN_getEnabledInterrupts(
 __STATIC_INLINE uint32_t DL_MCAN_getEnabledInterruptStatus(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    return (mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.MIS & interruptMask);
+    return (mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.MIS & interruptMask);
 }
 
 /**
@@ -2700,7 +2710,7 @@ __STATIC_INLINE uint32_t DL_MCAN_getEnabledInterruptStatus(
 __STATIC_INLINE uint32_t DL_MCAN_getRawInterruptStatus(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    return (mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.RIS & interruptMask);
+    return (mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.RIS & interruptMask);
 }
 
 /**
@@ -2718,7 +2728,7 @@ __STATIC_INLINE uint32_t DL_MCAN_getRawInterruptStatus(
 __STATIC_INLINE DL_MCAN_IIDX DL_MCAN_getPendingInterrupt(MCAN_Regs *mcan)
 {
     // TODO: Need to figure out return values for this.
-    return ((DL_MCAN_IIDX) mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.IIDX);
+    return ((DL_MCAN_IIDX) mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.IIDX);
 }
 
 /**
@@ -2732,7 +2742,7 @@ __STATIC_INLINE DL_MCAN_IIDX DL_MCAN_getPendingInterrupt(MCAN_Regs *mcan)
 __STATIC_INLINE void DL_MCAN_clearInterruptStatus(
     MCAN_Regs *mcan, uint32_t interruptMask)
 {
-    mcan->MCANSS.TI_WRAPPER.MSP.INT_EVENT0.ICLR = interruptMask;
+    mcan->MCANSS.TI_WRAPPER.MSP.CPU_INT.ICLR = interruptMask;
 }
 
 /**

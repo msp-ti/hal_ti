@@ -150,7 +150,7 @@ typedef enum {
 
 /*! @enum DL_OPA_GAIN */
 typedef enum {
-    /*! Gain value is 1x in Non-inverting PGA mode */
+    /*! Gain value is Not Valid in Non-inverting and inverting PGA modes */
     DL_OPA_GAIN_N0_P1 = (((uint32_t) 0x0) << OA_CFG_GAIN_OFS),
     /*! Gain value is -1x in Inverting PGA mode, and 2x in Non-inverting
     * PGA mode */
@@ -597,11 +597,8 @@ __STATIC_INLINE DL_OPA_GAIN DL_OPA_getGain(OA_Regs *opa)
 /**
  *  @brief      Increment gain to the next @ref DL_OPA_GAIN enum value
  *
- * The OPA allows dynamic gain changes if the transition is not to or from
- * DL_OPA_GAIN_N0_P1 (CFG.GAIN = 0x0). This function will prevent these
- * transitions. Changing gain to or from DL_OPA_GAIN_N0_P1 (CFG.GAIN = 0x0)
- * requires disabling the OPA module outside of this function. This function
- * will also prevent changes if the gain is already at the maximum setting.
+ * The OPA allows dynamic gain changes. If the gain is already at the maximum
+ * setting DL_OPA_GAIN_N31_P32 (CFG.GAIN = 0x5), this function does nothing.
  *
  * Refer to the TRM for more information about changing gain dynamically.
  *
@@ -616,10 +613,8 @@ DL_OPA_GAIN DL_OPA_increaseGain(OA_Regs *opa);
 /**
  *  @brief      Decrement gain to the next @ref DL_OPA_GAIN enum value
  *
- * The OPA allows dynamic gain changes if the transition is not to or from
- * DL_OPA_GAIN_N0_P1 (CFG.GAIN = 0x0). This function will prevent these
- * transitions. Changing gain to or from DL_OPA_GAIN_N0_P1 (CFG.GAIN = 0x0)
- * requires disabling the OPA module outside of this function.
+ * The OPA allows dynamic gain changes. If the gain is at the minimum setting
+ * DL_OPA_GAIN_N1_P2 (CFG.GAIN = 0x1), this function does nothing.
  *
  * Refer to the TRM for more information about changing gain dynamically.
  *
