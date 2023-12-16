@@ -79,4 +79,9 @@
 		input-enable;
 	};
 
+	adc0_pa25: adc0_pa25 {
+		pinmux = <MSP_PINMUX(55,UNCONNECTED)>;
+	};
+
+
 };
