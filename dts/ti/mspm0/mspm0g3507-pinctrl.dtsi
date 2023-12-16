@@ -83,5 +83,12 @@
 		pinmux = <MSP_PINMUX(55,UNCONNECTED)>;
 	};
 
+	adc0_pb24: adc0_pb24 {
+		pinmux = <MSP_PINMUX(52,UNCONNECTED)>;
+	};
+
+	adc1_pb19: adc1_pb19 {
+		pinmux = <MSP_PINMUX(45,UNCONNECTED)>;
+	};
 
 };
