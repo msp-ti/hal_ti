@@ -17,6 +17,7 @@ if(CONFIG_HAS_MSPM0SDK)
     source/ti/driverlib/dl_common.c
     source/ti/driverlib/dl_i2c.c
     source/ti/driverlib/dl_adc12.c
+    source/ti/driverlib/dl_vref.c
     source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.c
     )
 endif()
