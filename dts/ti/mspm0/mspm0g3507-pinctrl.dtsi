@@ -91,4 +91,13 @@
 		pinmux = <MSP_PINMUX(45,UNCONNECTED)>;
 	};
 
+	can0_rx_pa13: can0_rx_pa13 {
+		pinmux = <MSP_PINMUX(35,CANFD0_CANRX)>;
+		input-enable;
+	};
+
+	can0_tx_pa12: can0_tx_pa12 {
+		pinmux = <MSP_PINMUX(34,CANFD0_CANTX)>;
+	};
+
 };
