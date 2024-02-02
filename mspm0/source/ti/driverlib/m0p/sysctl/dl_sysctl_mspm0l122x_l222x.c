@@ -33,79 +33,33 @@
 #include <stdint.h>
 #include <ti/devices/DeviceFamily.h>
 
-#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0G1X0X_G3X0X)
+#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0L122X_L222X)
 
-#include <ti/driverlib/m0p/dl_core.h>
-#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.h>
+#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0l122x_l222x.h>
 
-void DL_SYSCTL_configSYSPLL(DL_SYSCTL_SYSPLLConfig *config)
+bool DL_SYSCTL_initReadExecuteProtectFirewall(
+    uint32_t startAddr, uint32_t endAddr)
 {
-    /* PLL configurations are retained in lower reset levels. Set default
-     * behavior of disabling the PLL to keep a consistent behavior regardless
-     * of reset level. */
-    DL_SYSCTL_disableSYSPLL();
-
-    /* Check that SYSPLL is disabled before configuration */
-    while ((DL_SYSCTL_getClockStatus() & (DL_SYSCTL_CLK_STATUS_SYSPLL_OFF)) !=
-           (DL_SYSCTL_CLK_STATUS_SYSPLL_OFF)) {
-        ;
+    bool status = false;
+    if (!DL_SYSCTL_isINITDONEIssued()) {
+        DL_SYSCTL_setReadExecuteProtectFirewallAddrStart(startAddr);
+        DL_SYSCTL_setReadExecuteProtectFirewallAddrEnd(endAddr);
+        DL_SYSCTL_enableReadExecuteProtectFirewall();
+        status = true;
     }
+    return status;
+}
 
-    // set SYSPLL reference clock
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG0,
-        ((uint32_t) config->sysPLLRef), SYSCTL_SYSPLLCFG0_SYSPLLREF_MASK);
-
-    // set predivider PDIV (divides reference clock)
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG1, ((uint32_t) config->pDiv),
-        SYSCTL_SYSPLLCFG1_PDIV_MASK);
-
-    // save CPUSS CTL state and disable the cache
-    uint32_t ctlTemp = DL_CORE_getInstructionConfig();
-    DL_CORE_configInstruction(DL_CORE_PREFETCH_ENABLED, DL_CORE_CACHE_DISABLED,
-        DL_CORE_LITERAL_CACHE_ENABLED);
-
-    __NOP();
-
-    // populate SYSPLLPARAM0/1 tuning registers from flash, based on input freq
-    SYSCTL->SOCLOCK.SYSPLLPARAM0 =
-        *(volatile uint32_t *) ((uint32_t) config->inputFreq);
-    SYSCTL->SOCLOCK.SYSPLLPARAM1 =
-        *(volatile uint32_t *) ((uint32_t) config->inputFreq + (uint32_t) 0x4);
-
-    // restore CPUSS CTL state
-    CPUSS->CTL = ctlTemp;
-
-    // set feedback divider QDIV (multiplies to give output frequency)
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG1,
-        ((config->qDiv << SYSCTL_SYSPLLCFG1_QDIV_OFS) &
-            SYSCTL_SYSPLLCFG1_QDIV_MASK),
-        SYSCTL_SYSPLLCFG1_QDIV_MASK);
-
-    // write clock output dividers, enable outputs, and MCLK source to SYSPLLCFG0
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSPLLCFG0,
-        (((config->rDivClk2x << SYSCTL_SYSPLLCFG0_RDIVCLK2X_OFS) &
-             SYSCTL_SYSPLLCFG0_RDIVCLK2X_MASK) |
-            ((config->rDivClk1 << SYSCTL_SYSPLLCFG0_RDIVCLK1_OFS) &
-                SYSCTL_SYSPLLCFG0_RDIVCLK1_MASK) |
-            ((config->rDivClk0 << SYSCTL_SYSPLLCFG0_RDIVCLK0_OFS) &
-                SYSCTL_SYSPLLCFG0_RDIVCLK0_MASK) |
-            config->enableCLK2x | config->enableCLK1 | config->enableCLK0 |
-            (uint32_t) config->sysPLLMCLK),
-        (SYSCTL_SYSPLLCFG0_RDIVCLK2X_MASK | SYSCTL_SYSPLLCFG0_RDIVCLK1_MASK |
-            SYSCTL_SYSPLLCFG0_RDIVCLK0_MASK |
-            SYSCTL_SYSPLLCFG0_ENABLECLK2X_MASK |
-            SYSCTL_SYSPLLCFG0_ENABLECLK1_MASK |
-            SYSCTL_SYSPLLCFG0_ENABLECLK0_MASK |
-            SYSCTL_SYSPLLCFG0_MCLK2XVCO_MASK));
-
-    // enable SYSPLL
-    SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_SYSPLLEN_ENABLE;
-
-    // wait until SYSPLL startup is stabilized
-    while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_SYSPLLGOOD_MASK) !=
-           DL_SYSCTL_CLK_STATUS_SYSPLL_GOOD) {
-        ;
+bool DL_SYSCTL_initIPProtectFirewall(uint32_t startAddr, uint32_t endAddr)
+{
+    bool status = false;
+    if (!DL_SYSCTL_isINITDONEIssued()) {
+        DL_SYSCTL_setIPProtectFirewallAddrStart(startAddr);
+        DL_SYSCTL_setIPProtectFirewallAddrEnd(endAddr);
+        DL_SYSCTL_enableIPProtectFirewall();
+        status = true;
     }
+    return status;
 }
 
 void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config)
@@ -135,14 +89,17 @@ void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config)
 
 void DL_SYSCTL_switchMCLKfromSYSOSCtoLFCLK(bool disableSYSOSC)
 {
+    // Set SYSOSC back to base frequency if left enabled
     if (disableSYSOSC == false) {
-        // Set SYSOSC back to base frequency if left enabled
         DL_SYSCTL_setSYSOSCFreq(DL_SYSCTL_SYSOSC_FREQ_BASE);
+        // Do not set both bits
         SYSCTL->SOCLOCK.SYSOSCCFG &= ~SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
+        SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
     } else {
+        // Do not set both bits
+        SYSCTL->SOCLOCK.MCLKCFG &= ~SYSCTL_MCLKCFG_USELFCLK_ENABLE;
         SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_DISABLE_ENABLE;
     }
-    SYSCTL->SOCLOCK.MCLKCFG |= SYSCTL_MCLKCFG_USELFCLK_ENABLE;
 
     // Verify LFCLK -> MCLK
     while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) !=
@@ -160,8 +117,8 @@ void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void)
     SYSCTL->SOCLOCK.MCLKCFG &= ~SYSCTL_MCLKCFG_USELFCLK_ENABLE;
 
     // Verify SYSOSC -> MCLK
-    while (((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) ==
-            DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_LFCLK)) {
+    while ((DL_SYSCTL_getClockStatus() & SYSCTL_CLKSTATUS_CURMCLKSEL_MASK) ==
+           DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_LFCLK) {
         ;
     }
 }
@@ -202,11 +159,6 @@ void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void)
 
 void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 {
-    /* Some crystal configurations are retained in lower reset levels. Set
-     * default behavior of HFXT to keep a consistent behavior regardless of
-     * reset level. */
-    DL_SYSCTL_disableHFXT();
-
     DL_SYSCTL_setHFXTFrequencyRange(range);
     /* Set startup time to ~0.512ms based on TYP datasheet recommendation */
     DL_SYSCTL_setHFXTStartupTime(8);
@@ -223,11 +175,6 @@ void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 void DL_SYSCTL_setHFCLKSourceHFXTParams(
     DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable)
 {
-    /* Some crystal configurations are retained in lower reset levels. Set
-     * default behavior of HFXT to keep a consistent behavior regardless of
-     * reset level. */
-    DL_SYSCTL_disableHFXT();
-
     DL_SYSCTL_setHFXTFrequencyRange(range);
     DL_SYSCTL_setHFXTStartupTime(startupTime);
     SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_HFXTEN_ENABLE;
@@ -319,4 +266,4 @@ DL_SYSCTL_POWER_POLICY_STANDBY DL_SYSCTL_getPowerPolicySTANDBY(void)
     return policy;
 }
 
-#endif /* DeviceFamily_PARENT_MSPM0G1X0X_G3X0X */
+#endif /* DeviceFamily_PARENT_MSPM0L122X_L222X */

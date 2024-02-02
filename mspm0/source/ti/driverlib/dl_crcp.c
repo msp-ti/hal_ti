@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Texas Instruments Incorporated
+ * Copyright (c) 2023, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,45 +30,66 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ti_dl_dl_driverlib__include
-#define ti_dl_dl_driverlib__include
-
-#include <ti/driverlib/dl_adc12.h>
-#include <ti/driverlib/dl_aes.h>
-#include <ti/driverlib/dl_aesadv.h>
-#include <ti/driverlib/dl_common.h>
-#include <ti/driverlib/dl_comp.h>
-#include <ti/driverlib/dl_crc.h>
 #include <ti/driverlib/dl_crcp.h>
-#include <ti/driverlib/dl_dac12.h>
-#include <ti/driverlib/dl_dma.h>
-#include <ti/driverlib/dl_flashctl.h>
-#include <ti/driverlib/dl_gpamp.h>
-#include <ti/driverlib/dl_gpio.h>
-#include <ti/driverlib/dl_i2c.h>
-#include <ti/driverlib/dl_iwdt.h>
-#include <ti/driverlib/dl_keystorectl.h>
-#include <ti/driverlib/dl_lcd.h>
-#include <ti/driverlib/dl_lfss.h>
-#include <ti/driverlib/dl_mathacl.h>
-#include <ti/driverlib/dl_mcan.h>
-#include <ti/driverlib/dl_opa.h>
-#include <ti/driverlib/dl_rtc.h>
-#include <ti/driverlib/dl_rtc_a.h>
-#include <ti/driverlib/dl_rtc_common.h>
-#include <ti/driverlib/dl_scratchpad.h>
-#include <ti/driverlib/dl_spi.h>
-#include <ti/driverlib/dl_tamperio.h>
-#include <ti/driverlib/dl_timera.h>
-#include <ti/driverlib/dl_timerg.h>
-#include <ti/driverlib/dl_trng.h>
-#include <ti/driverlib/dl_uart_extend.h>
-#include <ti/driverlib/dl_uart_main.h>
-#include <ti/driverlib/dl_vref.h>
-#include <ti/driverlib/dl_wwdt.h>
-#include <ti/driverlib/m0p/dl_factoryregion.h>
-#include <ti/driverlib/m0p/dl_interrupt.h>
-#include <ti/driverlib/m0p/dl_sysctl.h>
-#include <ti/driverlib/m0p/dl_systick.h>
 
-#endif /* ti_dl_dl_driverlib__include */
+#ifdef __MSPM0_HAS_CRCP__
+
+uint32_t DL_CRCP_calculateBlock32(
+    CRCP_Regs* crcp, uint32_t seed, uint32_t* ptr, uint32_t size)
+{
+    uint32_t i;
+
+    DL_CRCP_setSeed32(crcp, seed);
+
+    for (i = 0; i < size; i++) {
+        DL_CRCP_feedData32(crcp, ptr[i]);
+    }
+
+    return (DL_CRCP_getResult32(crcp));
+}
+
+uint32_t DL_CRCP_calculateMemoryRange32(
+    CRCP_Regs* crcp, uint32_t seed, uint32_t* ptrStart, uint32_t* ptrEnd)
+{
+    DL_CRCP_setSeed32(crcp, seed);
+
+    uint32_t* ptr = ptrStart;
+
+    while (ptr <= ptrEnd) {
+        DL_CRCP_feedData32(crcp, (uint32_t) *ptr);
+        ptr = ptr + 1;
+    }
+
+    return (DL_CRCP_getResult32(crcp));
+}
+
+uint16_t DL_CRCP_calculateBlock16(
+    CRCP_Regs* crcp, uint16_t seed, uint16_t* ptr, uint16_t size)
+{
+    uint32_t i;
+
+    DL_CRCP_setSeed16(crcp, seed);
+
+    for (i = 0; i < size; i++) {
+        DL_CRCP_feedData16(crcp, ptr[i]);
+    }
+
+    return ((uint16_t) DL_CRCP_getResult16(crcp));
+}
+
+uint16_t DL_CRCP_calculateMemoryRange16(
+    CRCP_Regs* crcp, uint16_t seed, uint16_t* ptrStart, uint16_t* ptrEnd)
+{
+    DL_CRCP_setSeed16(crcp, seed);
+
+    uint16_t* ptr = ptrStart;
+
+    while (ptr <= ptrEnd) {
+        DL_CRCP_feedData16(crcp, (uint16_t) *ptr);
+        ptr = ptr + 1;
+    }
+
+    return ((uint16_t) DL_CRCP_getResult16(crcp));
+}
+
+#endif /* __MSPM0_HAS_CRCP__ */
