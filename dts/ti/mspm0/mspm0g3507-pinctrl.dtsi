@@ -28,20 +28,6 @@
 		drive-open-drain;
 	};
 
-	i2c1_scl_pa11_pull_up: i2c1_scl_pa11_pull_up {
-		pinmux = <MSP_PINMUX(22,I2C1_SCL)>;
-		input-enable;
-		bias-pull-up; 
-		drive-open-drain;
-	};
-
-	i2c1_sda_pa10_pull_up: i2c1_sda_pa10_pull_up {
-		pinmux = <MSP_PINMUX(21, I2C1_SDA)>;
-		input-enable;
-		bias-pull-up; 
-		drive-open-drain;
-	};
-
 	i2c1_sda_pa16_pull_up: i2c1_sda_pa16_pull_up {
 		pinmux = <MSP_PINMUX(38,I2C1_SDA)>;
 		input-enable;
