@@ -20,6 +20,7 @@ if(CONFIG_HAS_MSPM0_SDK)
 	source/ti/driverlib/dl_adc12.c
 	source/ti/driverlib/dl_vref.c
 	source/ti/driverlib/dl_mcan.c
+	source/ti/driverlib/dl_flashctl.c
 	source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.c
 	source/ti/driverlib/m0p/sysctl/dl_sysctl_mspm0l122x_l222x.c
 	)
