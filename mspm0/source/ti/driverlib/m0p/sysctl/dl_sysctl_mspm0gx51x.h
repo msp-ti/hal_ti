@@ -30,11 +30,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*!****************************************************************************
- *  @file       dl_sysctl_mspm0l122x_l222x.h
+ *  @file       dl_sysctl_mspm0gx51x.h
  *  @brief      System Control (SysCtl)
- *  @defgroup   SYSCTL_MSPM0L122X_L222X MSPM0L122X_L222X System Control (SYSCTL)
+ *  @defgroup   SYSCTL_mspm0gx51x mspm0gx51x System Control (SYSCTL)
  *
- *  @anchor ti_dl_m0p_mspm0l122x_l222x_dl_sysctl_Overview
+ *  @anchor ti_dl_m0p_mspm0gx51x_dl_sysctl_Overview
  *  # Overview
  *
  *  The System Control (SysCtl) module enables control over system wide
@@ -44,7 +44,7 @@
  *
  ******************************************************************************
  */
-/** @addtogroup SYSCTL_MSPM0L122X_L222X
+/** @addtogroup SYSCTL_mspm0gx51x
  * @{
  */
 #ifndef ti_dl_m0p_dl_sysctl_sysctl__include
@@ -105,6 +105,22 @@ extern "C" {
  #define DL_SYSCTL_RESET_BOOTLOADER_ENTRY                                      \
                                        (SYSCTL_RESETLEVEL_LEVEL_BOOTLOADERENTRY)
 
+
+/** @addtogroup DL_SYSCTL_NMI
+ *  @{
+ */
+/*! @brief  Non-maskable interrupt for SRAM Double Error Detect */
+#define DL_SYSCTL_NMI_SRAM_DED                      (SYSCTL_NMIISET_SRAMDED_SET)
+/*! @brief  Non-maskable interrupt for Flash Double Error Detect */
+#define DL_SYSCTL_NMI_FLASH_DED                    (SYSCTL_NMIISET_FLASHDED_SET)
+/*! @brief  Non-maskable interrupt for LFCLK Monitor Fail */
+#define DL_SYSCTL_NMI_LFCLK_FAIL                  (SYSCTL_NMIISET_LFCLKFAIL_SET)
+/*! @brief  Non-maskable interrupt for Watchdog 1 Fault */
+#define DL_SYSCTL_NMI_WWDT1_FAULT                     (SYSCTL_NMIISET_WWDT1_SET)
+/*! @brief  Non-maskable interrupt for Watchdog 0 Fault */
+#define DL_SYSCTL_NMI_WWDT0_FAULT                     (SYSCTL_NMIISET_WWDT0_SET)
+/*! @brief  Non-maskable interrupt for early BOR */
+#define DL_SYSCTL_NMI_BORLVL                         (SYSCTL_NMIISET_BORLVL_SET)
 /** @}*/
 
 /** @addtogroup DL_SYSCTL_INTERRUPT
@@ -114,30 +130,33 @@ extern "C" {
 #define DL_SYSCTL_INTERRUPT_LFOSC_GOOD           (SYSCTL_IMASK_LFOSCGOOD_ENABLE)
 /*! @brief  Analog clocking consistency error */
 #define DL_SYSCTL_INTERRUPT_ANALOG_CLOCK_ERROR   (SYSCTL_IMASK_ANACLKERR_ENABLE)
+/*! @brief  Flash Single Error Correct */
+#define DL_SYSCTL_INTERRUPT_FLASH_SEC             (SYSCTL_IMASK_FLASHSEC_ENABLE)
 
-/** @}*/
+/*! @brief  SRAM Single Error Correct */
+#define DL_SYSCTL_INTERRUPT_SRAM_SEC               (SYSCTL_IMASK_SRAMSEC_ENABLE)
 
-/*! @enum DL_SYSCTL_IIDX */
-typedef enum {
-    /*! @brief  Low Frequency Oscillator is stabilized and ready to use */
-    DL_SYSCTL_IIDX_LFOSC_GOOD = SYSCTL_IIDX_STAT_LFOSCGOOD,
-    /*! @brief  Analog clocking consistency error */
-    DL_SYSCTL_IIDX_ANALOG_CLOCK_ERROR = SYSCTL_IIDX_STAT_ANACLKERR,
-} DL_SYSCTL_IIDX;
-
-
-/** @addtogroup DL_SYSCTL_NMI
- *  @{
- */
-/*! @brief  Non-maskable interrupt for Watchdog 0 Fault */
-#define DL_SYSCTL_NMI_WWDT0_FAULT                     (SYSCTL_NMIISET_WWDT0_SET)
-/*! @brief  Non-maskable interrupt for early BOR */
-#define DL_SYSCTL_NMI_BORLVL                         (SYSCTL_NMIISET_BORLVL_SET)
+/*! @brief  Low Frequency Crystal is stabilized and ready to use */
+#define DL_SYSCTL_INTERRUPT_LFXT_GOOD             (SYSCTL_IMASK_LFXTGOOD_ENABLE)
+/*! @brief  High Frequency Clock is stabilized and ready to use */
+#define DL_SYSCTL_INTERRUPT_HFCLK_GOOD           (SYSCTL_IMASK_HFCLKGOOD_ENABLE)
+/*! @brief  System PLL is stabilized and ready to use */
+#define DL_SYSCTL_INTERRUPT_SYSPLL_GOOD         (SYSCTL_IMASK_SYSPLLGOOD_ENABLE)
+/*! @brief  High Speed Clock is stabilized and ready to use */
+#define DL_SYSCTL_INTERRUPT_HSCLK_GOOD           (SYSCTL_IMASK_HSCLKGOOD_ENABLE)
 /** @}*/
 
 /** @addtogroup DL_SYSCTL_CLK_STATUS
  *  @{
  */
+/*! @brief Error with Anacomp High Speed CP Clock Generation - SYSOSC must not
+ *         run at 4MHz */
+#define DL_SYSCTL_CLK_STATUS_ANACOMP_ERROR (SYSCTL_CLKSTATUS_ACOMPHSCLKERR_TRUE)
+/*! @brief Error with OPAMP Clock Generation */
+#define DL_SYSCTL_CLK_STATUS_OPAMP_ERROR     (SYSCTL_CLKSTATUS_OPAMPCLKERR_TRUE)
+/*! @brief Writes to SYSPLLCFG0-1, SYSPLLPARAM0-1 are blocked */
+#define DL_SYSCTL_CLK_STATUS_SYSPLL_CONFIG_BLOCKED                             \
+                                            (SYSCTL_CLKSTATUS_SYSPLLBLKUPD_TRUE)
 /*! @brief Writes to HFCLKCLKCFG are blocked */
 #define DL_SYSCTL_CLK_STATUS_HFCLK_CONFIG_BLOCKED                              \
                                              (SYSCTL_CLKSTATUS_HFCLKBLKUPD_TRUE)
@@ -149,14 +168,18 @@ typedef enum {
 #define DL_SYSCTL_CLK_STATUS_HSCLK_GOOD        (SYSCTL_CLKSTATUS_HSCLKGOOD_TRUE)
 /*! @brief High Speed Clock Stuck Fault */
 #define DL_SYSCTL_CLK_STATUS_HSCLK_FAULT       (SYSCTL_CLKSTATUS_HSCLKDEAD_TRUE)
+/*! @brief SYSPLL is OFF or DEAD */
+#define DL_SYSCTL_CLK_STATUS_SYSPLL_OFF        (SYSCTL_CLKSTATUS_SYSPLLOFF_TRUE)
 /*! @brief HFCLKs is OFF or DEAD */
 #define DL_SYSCTL_CLK_STATUS_HFCLK_OFF          (SYSCTL_CLKSTATUS_HFCLKOFF_TRUE)
-/*! @brief All HFCLKs are OFF or DEAD */
+/*! @brief All PLLs, HFCLKs are OFF or DEAD */
 #define DL_SYSCTL_CLK_STATUS_HSCLK_OFF         (SYSCTL_CLKSTATUS_HSCLKSOFF_TRUE)
 /*! @brief LFOSC is Valid */
 #define DL_SYSCTL_CLK_STATUS_LFOSC_GOOD        (SYSCTL_CLKSTATUS_LFOSCGOOD_TRUE)
 /*! @brief LFXT is Valid */
 #define DL_SYSCTL_CLK_STATUS_LFXT_GOOD          (SYSCTL_CLKSTATUS_LFXTGOOD_TRUE)
+/*! @brief SYSTEM PLL ON */
+#define DL_SYSCTL_CLK_STATUS_SYSPLL_GOOD      (SYSCTL_CLKSTATUS_SYSPLLGOOD_TRUE)
 /*! @brief High Frequency Clock ON */
 #define DL_SYSCTL_CLK_STATUS_HFCLK_GOOD        (SYSCTL_CLKSTATUS_HFCLKGOOD_TRUE)
 /*! @brief MCLK now sourced from HSCLK, otherwise SYSOSC */
@@ -178,6 +201,9 @@ typedef enum {
 /*! @brief = SYSOSC is at the user-trimmed frequency (16 or 24MHz) */
 #define DL_SYSCTL_CLK_STATUS_SYSOSC_USERTRIM_FREQ                              \
                                         (SYSCTL_CLKSTATUS_SYSOSCFREQ_SYSOSCUSER)
+/*! @brief = HSCLK current sourced from the HFCLK */
+#define DL_SYSCTL_CLK_STATUS_HSCLK_SOURCE_HFCLK                                \
+                                            (SYSCTL_CLKSTATUS_CURHSCLKSEL_HFCLK)
 /** @}*/
 
 /** @addtogroup DL_SYSCTL_STATUS
@@ -197,8 +223,6 @@ typedef enum {
 #define DL_SYSCTL_STATUS_PMU_IFREF_GOOD      (SYSCTL_SYSSTATUS_PMUIREFGOOD_TRUE)
 /*! @brief VBOOST (Analog Charge Pump) started up properly */
 #define DL_SYSCTL_STATUS_VBOOST_GOOD        (SYSCTL_SYSSTATUS_ANACPUMPGOOD_TRUE)
-/*! @brief VBAT POWER good */
-#define DL_SYSCTL_STATUS_VBAT_GOOD          (SYSCTL_SYSSTATUS_VBATGOOD_TRUE)
 /*! @brief Brown Out Reset event status indicator */
 #define DL_SYSCTL_STATUS_BOR_EVENT                (SYSCTL_SYSSTATUS_BORLVL_TRUE)
 /*! @brief MCAN0 ready */
@@ -218,21 +242,114 @@ typedef enum {
 #define DL_SYSCTL_STATUS_BOR_LEVEL3 (SYSCTL_SYSSTATUS_BORCURTHRESHOLD_BORLEVEL3)
 /** @}*/
 
+/** @addtogroup DL_SYSCTL_SYSPLL_CLK2X
+ *  @{
+ */
+/*! @brief Enable CLK2x output */
+#define DL_SYSCTL_SYSPLL_CLK2X_ENABLE     (SYSCTL_SYSPLLCFG0_ENABLECLK2X_ENABLE)
+
+/*! @brief Disable CLK2x output */
+#define DL_SYSCTL_SYSPLL_CLK2X_DISABLE    (SYSCTL_SYSPLLCFG0_ENABLECLK2X_DISABLE)
+/** @}*/
+
+/** @addtogroup DL_SYSCTL_SYSPLL_CLK1
+ *  @{
+ */
+/*! @brief Enable CLK1 output */
+#define DL_SYSCTL_SYSPLL_CLK1_ENABLE       (SYSCTL_SYSPLLCFG0_ENABLECLK1_ENABLE)
+
+/*! @brief Disable CLK1 output */
+#define DL_SYSCTL_SYSPLL_CLK1_DISABLE     (SYSCTL_SYSPLLCFG0_ENABLECLK1_DISABLE)
+/** @}*/
+
+/** @addtogroup DL_SYSCTL_SYSPLL_CLK0
+ *  @{
+ */
+/*! @brief Enable CLK0 output */
+#define DL_SYSCTL_SYSPLL_CLK0_ENABLE       (SYSCTL_SYSPLLCFG0_ENABLECLK0_ENABLE)
+
+/*! @brief Disable CLK0 output */
+#define DL_SYSCTL_SYSPLL_CLK0_DISABLE     (SYSCTL_SYSPLLCFG0_ENABLECLK0_DISABLE)
+/** @}*/
+
 /* clang-format on */
+
+/*! @enum DL_SYSCTL_SYSPLL_MCLK */
+typedef enum {
+    /*! Use PLL CLK2x as source for MCLK */
+    DL_SYSCTL_SYSPLL_MCLK_CLK2X = SYSCTL_SYSPLLCFG0_MCLK2XVCO_ENABLE,
+    /*! Use PLL CLK0 as source for MCLK */
+    DL_SYSCTL_SYSPLL_MCLK_CLK0 = SYSCTL_SYSPLLCFG0_MCLK2XVCO_DISABLE,
+} DL_SYSCTL_SYSPLL_MCLK;
+
+/*! @enum DL_SYSCTL_SYSPLL_REF */
+typedef enum {
+    /*! Use SYSOSC as input source for SYSPLL */
+    DL_SYSCTL_SYSPLL_REF_SYSOSC = SYSCTL_SYSPLLCFG0_SYSPLLREF_SYSOSC,
+    /*! Use HFCLK as input source for SYSPLL */
+    DL_SYSCTL_SYSPLL_REF_HFCLK = SYSCTL_SYSPLLCFG0_SYSPLLREF_HFCLK,
+} DL_SYSCTL_SYSPLL_REF;
+
+/*! @enum DL_SYSCTL_SYSPLL_PDIV */
+typedef enum {
+    /*! Predivide input reference freq to PLL feedback loop by 1 */
+    DL_SYSCTL_SYSPLL_PDIV_1 = SYSCTL_SYSPLLCFG1_PDIV_REFDIV1,
+    /*! Predivide input reference freq to PLL feedback loop by 2 */
+    DL_SYSCTL_SYSPLL_PDIV_2 = SYSCTL_SYSPLLCFG1_PDIV_REFDIV2,
+    /*! Predivide input reference freq to PLL feedback loop by 4 */
+    DL_SYSCTL_SYSPLL_PDIV_4 = SYSCTL_SYSPLLCFG1_PDIV_REFDIV4,
+    /*! Predivide input reference freq to PLL feedback loop by 8 */
+    DL_SYSCTL_SYSPLL_PDIV_8 = SYSCTL_SYSPLLCFG1_PDIV_REFDIV8,
+} DL_SYSCTL_SYSPLL_PDIV;
+
+/** @enum DL_SYSCTL_SYSPLL_INPUT_FREQ */
+typedef enum {
+    /*! PLL feedback loop input clock frequency [4MHz, 8MHz) */
+    DL_SYSCTL_SYSPLL_INPUT_FREQ_4_8_MHZ = 0x41C4001C,
+    /*! PLL feedback loop input clock frequency [8MHz, 16MHz) */
+    DL_SYSCTL_SYSPLL_INPUT_FREQ_8_16_MHZ = 0x41C40024,
+    /*! PLL feedback loop input clock frequency [16MHz, 32MHz) */
+    DL_SYSCTL_SYSPLL_INPUT_FREQ_16_32_MHZ = 0x41C4002C,
+    /*! PLL feedback loop input clock frequency [32MHz, 48MHz] */
+    DL_SYSCTL_SYSPLL_INPUT_FREQ_32_48_MHZ = 0x41C40034,
+} DL_SYSCTL_SYSPLL_INPUT_FREQ;
+
+/*! @brief  Configuration struct for @ref DL_SYSCTL_configSYSPLL. */
+typedef struct {
+    /*! Output divider for CLK2x. [0x0,0xF,0x1] => [/1,/16,1] */
+    uint32_t rDivClk2x;
+    /*! Output divider for CLK1. [0x0,0xF,0x1] => [/2,/32,2] */
+    uint32_t rDivClk1;
+    /*! Output divider for CLK0. [0x0,0xF,0x1] => [/2,/32,2] */
+    uint32_t rDivClk0;
+    /*! PLL CLK2x output enabled or not. @ref DL_SYSCTL_SYSPLL_CLK2X */
+    uint32_t enableCLK2x;
+    /*! PLL CLK2x output enabled or not. @ref DL_SYSCTL_SYSPLL_CLK1 */
+    uint32_t enableCLK1;
+    /*! PLL CLK2x output enabled or not. @ref DL_SYSCTL_SYSPLL_CLK0 */
+    uint32_t enableCLK0;
+    /*! Select which PLL output to use as source for MCLK. @ref DL_SYSCTL_SYSPLL_MCLK */
+    DL_SYSCTL_SYSPLL_MCLK sysPLLMCLK;
+    /*! SYSPLL reference clock source. @ref DL_SYSCTL_SYSPLL_REF */
+    DL_SYSCTL_SYSPLL_REF sysPLLRef;
+    /*! PLL feedback clock divider. [0x01,0x7E,1] => [/2,/127,1] */
+    uint32_t qDiv;
+    /*! PLL reference clock divider. @ref DL_SYSCTL_SYSPLL_PDIV */
+    DL_SYSCTL_SYSPLL_PDIV pDiv;
+    /*! PLL feedback loop input clock frequency. Affects startup time and power consumption. @ref DL_SYSCTL_SYSPLL_INPUT_FREQ */
+    DL_SYSCTL_SYSPLL_INPUT_FREQ inputFreq;
+} DL_SYSCTL_SYSPLLConfig;
 
 /*! @enum DL_SYSCTL_NMI_IIDX */
 typedef enum {
-    /*! @brief  NMI interrupt index for VBAT power on */
-    DL_SYSCTL_NMI_IIDX_VBAT_ON = SYSCTL_NMIIIDX_STAT_VBATUP,
-    /*! @brief  NMI interrupt index for VBAT power off  */
-    DL_SYSCTL_NMI_IIDX_VBAT_OFF = SYSCTL_NMIIIDX_STAT_VBATDN,
-
     /*! @brief  NMI interrupt index for SRAM Double Error Detect */
     DL_SYSCTL_NMI_IIDX_SRAM_DED = SYSCTL_NMIIIDX_STAT_SRAMDED,
     /*! @brief  NMI interrupt index for Flash Double Error Detect */
     DL_SYSCTL_NMI_IIDX_FLASH_DED = SYSCTL_NMIIIDX_STAT_FLASHDED,
     /*! @brief  NMI interrupt index for LFCLK Monitor Fail */
     DL_SYSCTL_NMI_IIDX_LFCLK_FAIL = SYSCTL_NMIIIDX_STAT_LFCLKFAIL,
+    /*! @brief  NMI interrupt index for Watchdog 1 Fault */
+    DL_SYSCTL_NMI_IIDX_WWDT1_FAULT = SYSCTL_NMIIIDX_STAT_WWDT1,
     /*! @brief  NMI interrupt index for Watchdog 0 Fault */
     DL_SYSCTL_NMI_IIDX_WWDT0_FAULT = SYSCTL_NMIIIDX_STAT_WWDT0,
     /*! @brief  NMI interrupt index for early BOR */
@@ -241,13 +358,36 @@ typedef enum {
     DL_SYSCTL_NMI_IIDX_NO_INT = SYSCTL_NMIIIDX_STAT_NO_INTR,
 } DL_SYSCTL_NMI_IIDX;
 
+/** @}*/
+
+/*! @enum DL_SYSCTL_IIDX */
+typedef enum {
+    /*! @brief  Low Frequency Oscillator is stabilized and ready to use */
+    DL_SYSCTL_IIDX_LFOSC_GOOD = SYSCTL_IIDX_STAT_LFOSCGOOD,
+    /*! @brief  Analog clocking consistency error */
+    DL_SYSCTL_IIDX_ANALOG_CLOCK_ERROR = SYSCTL_IIDX_STAT_ANACLKERR,
+    /*! @brief  Flash Single Error Correct */
+    DL_SYSCTL_IIDX_FLASH_SEC = SYSCTL_IIDX_STAT_FLASHSEC,
+
+    /*! @brief  SRAM Single Error Correct */
+    DL_SYSCTL_IIDX_SRAM_SEC = SYSCTL_IIDX_STAT_SRAMSEC,
+
+    /*! @brief  Low Frequency Crystal is stabilized and ready to use */
+    DL_SYSCTL_IIDX_LFXT_GOOD = SYSCTL_IIDX_STAT_LFXTGOOD,
+    /*! @brief  High Frequency Clock is stabilized and ready to use */
+    DL_SYSCTL_IIDX_HFCLK_GOOD = SYSCTL_IIDX_STAT_HFCLKGOOD,
+    /*! @brief  System PLL is stabilized and ready to use */
+    DL_SYSCTL_IIDX_SYSPLL_GOOD = SYSCTL_IIDX_STAT_SYSPLLGOOD,
+    /*! @brief  High Speed Clock is stabilized and ready to use */
+    DL_SYSCTL_IIDX_HSCLK_GOOD = SYSCTL_IIDX_STAT_HSCLKGOOD,
+} DL_SYSCTL_IIDX;
+
 /*! @enum DL_SYSCTL_ERROR_BEHAVIOR */
 typedef enum {
     /*! @brief  The error event will trigger a SYSRST */
     DL_SYSCTL_ERROR_BEHAVIOR_RESET = 0x0,
     /*! @brief  The error event will trigger an NMI */
     DL_SYSCTL_ERROR_BEHAVIOR_NMI = 0x1,
-
 } DL_SYSCTL_ERROR_BEHAVIOR;
 
 /*! @enum DL_SYSCTL_SYSOSC_FREQ */
@@ -283,6 +423,14 @@ typedef struct {
     /*! SYSOSC user trim frequency target */
     DL_SYSCTL_SYSOSC_USERTRIM_FREQ freq;
 } DL_SYSCTL_SYSOSCUserTrimConfig;
+
+/** @enum DL_SYSCTL_ULPCLK_DIV */
+typedef enum {
+    /*! ULPCLK is MCLK */
+    DL_SYSCTL_ULPCLK_DIV_1 = (SYSCTL_MCLKCFG_UDIV_NODIVIDE),
+    /*! ULPCLK is MCLK divided by 2 */
+    DL_SYSCTL_ULPCLK_DIV_2 = (SYSCTL_MCLKCFG_UDIV_DIVIDE2),
+} DL_SYSCTL_ULPCLK_DIV;
 
 /** @enum DL_SYSCTL_LFXT_DRIVE_STRENGTH */
 typedef enum {
@@ -323,8 +471,8 @@ typedef enum {
 
 /*! @enum DL_SYSCTL_HSCLK_SOURCE */
 typedef enum {
-    /*! Invalid source for HSCLK */
-    DL_SYSCTL_HSCLK_SOURCE_INVALID = 0x0,
+    /*! Use SYSPLL as input source for HSCLK */
+    DL_SYSCTL_HSCLK_SOURCE_SYSPLL = SYSCTL_HSCLKCFG_HSCLKSEL_SYSPLL,
     /*! Use HFLK as input source for HSCLK */
     DL_SYSCTL_HSCLK_SOURCE_HFCLK = SYSCTL_HSCLKCFG_HSCLKSEL_HFCLKCLK,
 } DL_SYSCTL_HSCLK_SOURCE;
@@ -333,7 +481,7 @@ typedef enum {
 typedef enum {
     /*! Use System Oscillator (SYSOSC) as MCLK source (default after reset) */
     DL_SYSCTL_MCLK_SOURCE_SYSOSC = SYSCTL_MCLKCFG_USEHSCLK_DISABLE,
-    /*! Use High Speed Clock (HSCLK) as MCLK source (HFCLK, ...) */
+    /*! Use High Speed Clock (HSCLK) as MCLK source (HFCLK, PLL,...) */
     DL_SYSCTL_MCLK_SOURCE_HSCLK = SYSCTL_MCLKCFG_USEHSCLK_ENABLE,
     /*! Use the Low Frequency Clock (LFCLK) as the clock source */
     DL_SYSCTL_MCLK_SOURCE_LFCLK = SYSCTL_MCLKCFG_USELFCLK_ENABLE,
@@ -381,16 +529,18 @@ typedef enum {
     DL_SYSCTL_CLK_OUT_SOURCE_SYSOSC = SYSCTL_GENCLKCFG_EXCLKSRC_SYSOSC,
     /*! Use Ultra Low Power Clock (ULPCLK) as CLK_OUT source.
       * @ref DL_SYSCTL_CLK_OUT_DIVIDE_DISABLE must not be selected for this
-      * configuration. */
+      * configuration.  */
     DL_SYSCTL_CLK_OUT_SOURCE_ULPCLK = SYSCTL_GENCLKCFG_EXCLKSRC_ULPCLK,
     /*! Use Low Frequency Clock (LFCLK) as CLK_OUT source */
     DL_SYSCTL_CLK_OUT_SOURCE_LFCLK = SYSCTL_GENCLKCFG_EXCLKSRC_LFCLK,
     /*! Use Middle Frequency Precision Clock (MFPCLK) as CLK_OUT source.
       * @ref DL_SYSCTL_CLK_OUT_DIVIDE_DISABLE must not be selected for this
-      * configuration. */
+      * configuration.  */
     DL_SYSCTL_CLK_OUT_SOURCE_MFPCLK = SYSCTL_GENCLKCFG_EXCLKSRC_MFPCLK,
     /*! Use High Frequency Clock (HFCLK) as CLK_OUT source */
     DL_SYSCTL_CLK_OUT_SOURCE_HFCLK = SYSCTL_GENCLKCFG_EXCLKSRC_HFCLK,
+    /*! Use System PLL Output 1 (SYSPLLOUT1) as CLK_OUT source */
+    DL_SYSCTL_CLK_OUT_SOURCE_SYSPLLOUT1 = SYSCTL_GENCLKCFG_EXCLKSRC_SYSPLLOUT1,
 } DL_SYSCTL_CLK_OUT_SOURCE;
 
 /** @enum DL_SYSCTL_CLK_OUT_DIVIDE */
@@ -493,6 +643,15 @@ typedef enum {
     DL_SYSCTL_FCC_CLOCK_SOURCE_HFCLK = SYSCTL_GENCLKCFG_FCCSELCLK_HFCLK,
     /*! FCC clock source to capture is CLK_OUT */
     DL_SYSCTL_FCC_CLOCK_SOURCE_CLK_OUT = SYSCTL_GENCLKCFG_FCCSELCLK_EXTCLK,
+    /*! FCC clock source to capture is SYSPLLCLK0 */
+    DL_SYSCTL_FCC_CLOCK_SOURCE_SYSPLLCLK0 =
+        SYSCTL_GENCLKCFG_FCCSELCLK_SYSPLLCLK0,
+    /*! FCC clock source to capture is SYSPLLCLK1 */
+    DL_SYSCTL_FCC_CLOCK_SOURCE_SYSPLLCLK1 =
+        SYSCTL_GENCLKCFG_FCCSELCLK_SYSPLLCLK1,
+    /*! FCC clock source to capture is SYSPLLCLK2X */
+    DL_SYSCTL_FCC_CLOCK_SOURCE_SYSPLLCLK2X =
+        SYSCTL_GENCLKCFG_FCCSELCLK_SYSPLLCLK2X,
     /*! FCC clock source to capture is FCC_IN */
     DL_SYSCTL_FCC_CLOCK_SOURCE_FCC_IN = SYSCTL_GENCLKCFG_FCCSELCLK_FCCIN,
 } DL_SYSCTL_FCC_CLOCK_SOURCE;
@@ -706,7 +865,8 @@ typedef enum {
     /*! BSL entry */
     DL_SYSCTL_RESET_CAUSE_SYSRST_BSL_ENTRY = SYSCTL_RSTCAUSE_ID_SYSBSLENTRY,
     /*! WWDT0 violation */
-    DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT0_VIOLATION = SYSCTL_RSTCAUSE_ID_SYSWWDT0,
+    DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT0_VIOLATION =
+        SYSCTL_RSTCAUSE_ID_BOOTWWDT0,
     /*! WWDT1 violation */
     DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT1_VIOLATION = SYSCTL_RSTCAUSE_ID_SYSWWDT1,
     /*! Uncorrectable flash ECC error */
@@ -724,6 +884,36 @@ typedef enum {
     /*! Software-triggered CPURST */
     DL_SYSCTL_RESET_CAUSE_CPURST_SW_TRIGGERED = SYSCTL_RSTCAUSE_ID_CPUSW,
 } DL_SYSCTL_RESET_CAUSE;
+
+/** @enum DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE */
+typedef enum {
+    /*! SRAM Bank 1 will be powered ON when in RUN mode */
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE_ON =
+        SYSCTL_SRAMCFG_BANKOFF1_TRUE,
+    /*! SRAM Bank 1 will be powered OFF when in RUN mode */
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE_OFF =
+        SYSCTL_SRAMCFG_BANKOFF1_FALSE,
+} DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE;
+
+/** @enum DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE */
+typedef enum {
+    /*! Data contents of SRAM Bank 1 will be retained when in STOP mode */
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE_RETAIN =
+        SYSCTL_SRAMCFG_BANKSTOP1_TRUE,
+    /*! SRAM Bank 1 will be powered OFF when in STOP mode */
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE_OFF =
+        SYSCTL_SRAMCFG_BANKSTOP1_FALSE,
+} DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE;
+
+/** @enum DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL */
+typedef enum {
+    /*! DATA Bank Read Write Protect Firewall both RW allowed */
+    DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL_RW_ENABLED = 0x0,
+    /*! DATA Bank Read Write Protect Firewall read only */
+    DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL_R_ONLY = 0x1,
+    /*! DATA Bank Read Write Protect Firewall both RW disabled */
+    DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL_RW_DISABLED = 0x2,
+} DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL;
 
 /**
  *  @brief  Enable sleep on exit
@@ -815,7 +1005,7 @@ __STATIC_INLINE bool DL_SYSCTL_isEventOnPendEnabled(void)
 /**
  *  @brief  Change MCLK source from SYSOSC to LFCLK
  *
- *  @pre    If disabling SYSOSC, high speed oscillators (HFXT,...) must be disabled beforehand.
+ *  @pre    If disabling SYSOSC, high speed oscillators (SYSPLL, HFXT...) must be disabled beforehand.
  *  @post   MCLK source is switched to LFCLK, function will busy-wait until confirmed.
  *
  *  @param[in] disableSYSOSC   Whether to leave SYSOSC running or not
@@ -832,7 +1022,7 @@ void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void);
 /**
  *  @brief  Change MCLK source from SYSOSC to HSCLK
  *
- *  @pre    The desired HSCLK source is enabled beforehand (HFXT, HFCLK_IN).
+ *  @pre    The desired HSCLK source is enabled beforehand (SYSPLL, HFXT, HFCLK_IN).
  *  @post   MCLK source is switched to HSCLK, function will busy-wait until confirmed.
  *
  *  @param[in] source   Desired high-speed clock source
@@ -842,7 +1032,7 @@ void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(DL_SYSCTL_HSCLK_SOURCE source);
 /**
  *  @brief  Change MCLK source from HSCLK to SYSOSC
  *
- *  @pre    MCLK is sourced from a valid, running HSCLK source (HFXT, HFCLK_IN)
+ *  @pre    MCLK is sourced from a valid, running HSCLK source (SYSPLL, HFXT, HFCLK_IN)
  *  @post   MCLK source is switched to SYSOSC, function will busy-wait until confirmed.
  *
  *  @note   No HSCLK sources are disabled by this function
@@ -852,8 +1042,8 @@ void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void);
 /**
  *  @brief     Set the RUN/SLEEP mode power policy to RUN0/SLEEP0
  *
- * In RUN0, the MCLK and the CPUCLK run from a fast clock source (SYSOSC, or
- * HFCLK).
+ * In RUN0, the MCLK and the CPUCLK run from a fast clock source (SYSOSC,
+ * HFCLK, or SYSPLL).
  *
  * Setting the RUN power policy will also set the SLEEP power policy.
  * The SLEEP mode behavior is always identical to RUN mode, just with the
@@ -1339,6 +1529,45 @@ __STATIC_INLINE void DL_SYSCTL_clearNonMaskableInterruptStatus(
 }
 
 /**
+ *  @brief  Set the behavior when a Flash ECC double error detect (DED) occurs
+ *
+ *  Configures whether a Flash ECC double error detect (DED) will trigger
+ *  a SYSRST or an NMI (non-maskable interrupt). By default, this error will
+ *  trigger a SYSRST.
+ *
+ *  @param[in] behavior The behavior when a Flash ECC DED error occurrs
+ *
+ *  @sa        DL_SYSCTL_enableNonMaskableInterrupt
+ */
+__STATIC_INLINE void DL_SYSCTL_setFlashDEDErrorBehavior(
+    DL_SYSCTL_ERROR_BEHAVIOR behavior)
+{
+    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSTEMCFG,
+        (((uint32_t) behavior << SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_OFS)) |
+            SYSCTL_SYSTEMCFG_KEY_VALUE,
+        (SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_MASK | SYSCTL_SYSTEMCFG_KEY_MASK));
+}
+
+/**
+ *  @brief  Get the behavior when a Flash ECC double error detect (DED) occurs
+ *
+ *  By default, this error will trigger a SYSRST.
+ *
+ *  @return The behavior when a Flash ECC DED error occurs
+ *
+ *  3@retval One of @ref DL_SYSCTL_ERROR_BEHAVIOR
+ */
+__STATIC_INLINE DL_SYSCTL_ERROR_BEHAVIOR DL_SYSCTL_getFlashDEDErrorBehavior(
+    void)
+{
+    uint32_t behavior =
+        (SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_MASK) >>
+        SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_OFS;
+
+    return (DL_SYSCTL_ERROR_BEHAVIOR)(behavior);
+}
+
+/**
  *  @brief  Set the behavior when a WWDT0 error occurs
  *
  *  Configures whether a WWDT0 error will trigger a BOOTRST or an NMI
@@ -1371,6 +1600,43 @@ __STATIC_INLINE DL_SYSCTL_ERROR_BEHAVIOR DL_SYSCTL_getWWDT0ErrorBehavior(void)
     uint32_t behavior =
         (SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_MASK) >>
         SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_OFS;
+
+    return (DL_SYSCTL_ERROR_BEHAVIOR)(behavior);
+}
+
+/**
+ *  @brief  Set the behavior when a WWDT1 error occurs
+ *
+ *  Configures whether a WWDT1 error will trigger a SYSRST or an NMI
+ * (non-maskable interrupt). By default, this error will trigger a SYSRST.
+ *
+ *  @param[in] behavior The behavior when a Flash ECC DED occurrs
+ *
+ *  @sa        DL_SYSCTL_enableNonMaskableInterrupt
+ */
+__STATIC_INLINE void DL_SYSCTL_setWWDT1ErrorBehavior(
+    DL_SYSCTL_ERROR_BEHAVIOR behavior)
+{
+    DL_Common_updateReg(&SYSCTL->SOCLOCK.SYSTEMCFG,
+        (((uint32_t) behavior << SYSCTL_SYSTEMCFG_WWDTLP1RSTDIS_OFS)) |
+            SYSCTL_SYSTEMCFG_KEY_VALUE,
+        (SYSCTL_SYSTEMCFG_WWDTLP1RSTDIS_MASK | SYSCTL_SYSTEMCFG_KEY_MASK));
+}
+
+/**
+ *  @brief  Get the behavior when a WWDT1 error occurs
+ *
+ *  By default, this error will trigger a SYSRST.
+ *
+ *  @return The behavior when a WWDT1 error occurs
+ *
+ *  @retval One of @ref DL_SYSCTL_ERROR_BEHAVIOR
+ */
+__STATIC_INLINE DL_SYSCTL_ERROR_BEHAVIOR DL_SYSCTL_getWWDT1ErrorBehavior(void)
+{
+    uint32_t behavior =
+        (SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_WWDTLP1RSTDIS_MASK) >>
+        SYSCTL_SYSTEMCFG_WWDTLP1RSTDIS_OFS;
 
     return (DL_SYSCTL_ERROR_BEHAVIOR)(behavior);
 }
@@ -1554,6 +1820,56 @@ __STATIC_INLINE void DL_SYSCTL_clearECCErrorStatus(void)
 }
 
 /**
+ *  @brief     Configure SYSPLL output frequencies
+ *
+ *  @pre    SYSPLL is disabled (SYSPLLOFF in CLKSTATUS)
+ *  @pre    SYSOSC is running at base frequency (32MHz) even if HFCLK is the
+ *          SYSPLL reference
+ *  @post   SYSPLL has completed startup and outputs chosen frequencies
+ *
+ *  @note   For practical purposes, it is not required to wait until SYSPLL
+ *          completes startup, but do not go into STOP/STANDBY or use SYSPLL
+ *          until completed.
+ *
+ *  @param[in]  config  Pointer to the SYSPLL configuration struct
+ *              @ref DL_SYSCTL_SYSPLLConfig. Elements sysPLLRef, pDiv, and
+ *              inputFreq control desired startup time versus power consumption.
+ */
+void DL_SYSCTL_configSYSPLL(DL_SYSCTL_SYSPLLConfig *config);
+
+/**
+ *  @brief     Set the divider for the Ultra Low Power Clock (ULPCLK)
+ *
+ *  The Ultra Low Power Clock (ULPCLK) is always sourced from the Main Clock
+ *  (MCLK) but can be divided down to a lower frequency. The ULPCLK should
+ *  always remain under 40MHz.
+ *
+ *  The ULPCLK can be used to drive some peripherals on the system.
+ *
+ *  @param[in] divider  Clock divider for Ultra Low Power Clock (ULPCLK). One
+ *                      of @ref DL_SYSCTL_ULPCLK_DIV.
+ */
+__STATIC_INLINE void DL_SYSCTL_setULPCLKDivider(DL_SYSCTL_ULPCLK_DIV divider)
+{
+    DL_Common_updateReg(&SYSCTL->SOCLOCK.MCLKCFG, (uint32_t) divider,
+        SYSCTL_MCLKCFG_UDIV_MASK);
+}
+
+/**
+ *  @brief   Get divider used for the Ultra Low Power Clock (ULPCLK)
+ *
+ *  @return  The divider used for Ultra Low Power Clock (ULPCLK)
+ *
+ *  @retval  One of @ref DL_SYSCTL_ULPCLK_DIV.
+ */
+__STATIC_INLINE DL_SYSCTL_ULPCLK_DIV DL_SYSCTL_getULPCLKDivider(void)
+{
+    uint32_t divider = SYSCTL->SOCLOCK.MCLKCFG & SYSCTL_MCLKCFG_UDIV_MASK;
+
+    return (DL_SYSCTL_ULPCLK_DIV)(divider);
+}
+
+/**
  *  @brief Change LFCLK source to external crystal LFXT
  *
  * LFOSC is the internal 32kHz oscillator and default LFCLK source after a BOR.
@@ -1667,21 +1983,18 @@ void DL_SYSCTL_setHFCLKSourceHFXTParams(
     DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable);
 
 /**
- *  @brief Change HFCLK source to external digital HFCLK_IN
+ *  @brief      Disable the SYSPLL
  *
- * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
- * frequency digital clock into the devce as HFCLK source instead of HFXT.
+ *  If SYSPLL is already enabled, application software should not disable the
+ *  SYSPLL until the SYSPLLGOOD or SYSPLOFF bit is set in the CLKSTATUS
+ *  register, indicating that the SYSPLL transitioned to a stable active or a
+ *  stable dead state.
  *
- * HFCLK_IN is a digital clock input compatible with digital square wave CMOS
- * clock inputs and should have typical duty cycle of 50%.
- *
- * Digital clock input must be valid and GPIO/IOMUX must be configured
- * separately on the appropriate pin before calling this function to enable
- * HFCLK_IN.
+ *  @sa DL_SYSCTL_getClockStatus
  */
-__STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
+__STATIC_INLINE void DL_SYSCTL_disableSYSPLL(void)
 {
-    SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
+    SYSCTL->SOCLOCK.HSCLKEN &= ~(SYSCTL_HSCLKEN_SYSPLLEN_MASK);
 }
 
 /**
@@ -1702,9 +2015,32 @@ __STATIC_INLINE void DL_SYSCTL_disableHFXT(void)
 }
 
 /**
+ *  @brief Change HFCLK source to external digital HFCLK_IN
+ *
+ * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
+ * frequency digital clock into the devce as HFCLK source instead of HFXT.
+ *
+ * HFCLK_IN is a digital clock input compatible with digital square wave CMOS
+ * clock inputs and should have typical duty cycle of 50%.
+ *
+ * Digital clock input must be valid and GPIO/IOMUX must be configured
+ * separately on the appropriate pin before calling this function to enable
+ * HFCLK_IN.
+ */
+__STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
+{
+    /* Some crystal configurations are retained in lower reset levels. Set
+     * default behavior of HFXT to keep a consistent behavior regardless of
+     * reset level. */
+    DL_SYSCTL_disableHFXT();
+
+    SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
+}
+
+/**
  *  @brief   Get the source of High Speed Clock (HSCLK)
  *
- * HSCLK can be sourced by HFCLK.
+ * HSCLK can be sourced by SYSPLL or HFCLK.
  * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
  *
  *  @return  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
@@ -1719,7 +2055,7 @@ __STATIC_INLINE DL_SYSCTL_HSCLK_SOURCE DL_SYSCTL_getHSCLKSource(void)
 /**
  *  @brief   Set the source of High Speed Clock (HSCLK)
  *
- * HSCLK can be sourced by HFCLK.
+ * HSCLK can be sourced by SYSPLL or HFCLK.
  * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
  *
  *  @param[in]  source  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
@@ -1860,7 +2196,7 @@ DL_SYSCTL_getHFCLKDividerForMFPCLK(void)
  *
  *  IOMUX setting for CLK_OUT must be configured before using this function.
  *
- *  CLK_OUT has a typical duty cycle of 50% if clock source is HFCLK,
+ *  CLK_OUT has a typical duty cycle of 50% if clock source is HFCLK, SYSPLLOUT1,
  *  SYSOSC, or LFCLK. If source is MCLK, ULPCLK, or MFCLK, duty cycle is not
  *  guaranteed to be 50%.
  *
@@ -1953,15 +2289,19 @@ __STATIC_INLINE void DL_SYSCTL_disableFastCPUEventHandling(void)
 }
 
 /**
- *  @brief  Set the SRAM boundary address to act as partition for read-execute
+ *  @brief  Set the lower SRAM boundary address to act as partition for read-execute
  *          permission
  *
- *  Specify the SRAM partition address to protect the code region of SRAM from
+ *  Specify the lower SRAM partition address to protect the code region of SRAM from
  *  being written to, and prevent the RW ("data") region of SRAM from being
  *  used for code execution.
- *  The SRAM partition address creates lower and higher partitions:
+ *  The lower SRAM partition address creates lower and higher partitions:
  *      - Lower partition is Read-Write only, no execute
  *      - Upper partition is Read-Execute only, no write
+ *  If the upper SRAM partition is also set it creates a middle partition:
+ *      - Lower partition is Read-Write only, no execute
+ *      - Middle partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
  *  A partition address of 0x0 is a special case and indicates that all SRAM is
  *  configured with RWX (read-write-execute) permissions. This is the default
  *  value.
@@ -1973,19 +2313,54 @@ __STATIC_INLINE void DL_SYSCTL_disableFastCPUEventHandling(void)
  *                        a valid 32-bit SRAM address. Only address bits [19:5]
  *                        i.e. bit 5 to bit 19 are used for the boundary address
  */
-__STATIC_INLINE void DL_SYSCTL_setSRAMBoundaryAddress(uint32_t address)
+__STATIC_INLINE void DL_SYSCTL_setLowerSRAMBoundaryAddress(uint32_t address)
 {
     SYSCTL->SOCLOCK.SRAMBOUNDARY =
         (((uint32_t) address) & SYSCTL_SRAMBOUNDARY_ADDR_MASK);
 }
 
 /**
- *  @brief  Get the SRAM boundary address
+ *  @brief  Set the upper SRAM boundary address to act as partition for read-execute
+ *          permission
  *
- *  Get the SRAM partition address
- *  The SRAM partition address creates lower and higher partitions:
+ *  Specify the upper SRAM partition address to protect the code region of SRAM from
+ *  being written to, and prevent the RW ("data") region of SRAM from being
+ *  used for code execution.
+ *  The upper SRAM partition address creates the upper partition:
+ *      - Lower partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
+ *  If the lower SRAM partition is also set it creates a middle partition:
+ *      - Lower partition is Read-Write only, no execute
+ *      - Middle partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
+ *  A partition address of 0x0 is a special case and indicates that all SRAM is
+ *  configured with RWX (read-write-execute) permissions. This is the default
+ *  value.
+ *
+ *  The address is set with a 32-byte resolution. The address written is the
+ *  system memory map address of the partition (0x200X_XXXX).
+ *
+ *  @param[in]  address   Address to act as the SRAM partition address. Value is
+ *                        a valid 32-bit SRAM address. Only address bits [19:5]
+ *                        i.e. bit 5 to bit 19 are used for the boundary address
+ */
+__STATIC_INLINE void DL_SYSCTL_setUpperSRAMBoundaryAddress(uint32_t address)
+{
+    SYSCTL->SOCLOCK.SRAMBOUNDARYHIGH =
+        (((uint32_t) address) & SYSCTL_SRAMBOUNDARYHIGH_ADDR_MASK);
+}
+
+/**
+ *  @brief  Get the lower SRAM boundary address
+ *
+ *  Get the lower SRAM partition address
+ *  The lower SRAM partition address creates lower and higher partitions:
  *      - Lower partition is Read-Write only, no execute
  *      - Upper partition is Read-Execute only, no write
+ *  If the upper SRAM partition is also set it creates a middle partition:
+ *      - Lower partition is Read-Write only, no execute
+ *      - Middle partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
  *  A partition address of 0x0 is a special case and indicates that all SRAM is
  *  configured with RWX (read-write-execute) permissions.
  *
@@ -1996,9 +2371,35 @@ __STATIC_INLINE void DL_SYSCTL_setSRAMBoundaryAddress(uint32_t address)
  *
  *  @retval     Value is range in [0x0, 0x000FFFE0]
  */
-__STATIC_INLINE uint32_t DL_SYSCTL_getSRAMBoundaryAddress(void)
+__STATIC_INLINE uint32_t DL_SYSCTL_getLowerSRAMBoundaryAddress(void)
 {
     return (SYSCTL->SOCLOCK.SRAMBOUNDARY);
+}
+
+/**
+ *  @brief  Get the upper SRAM boundary address
+ *
+ *  Get the upper SRAM partition address
+ *  The upper SRAM partition address creates lower and higher partitions:
+ *      - Lower partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
+ *  If the lower SRAM partition is also set it creates a middle partition:
+ *      - Lower partition is Read-Write only, no execute
+ *      - Middle partition is Read-Execute only, no write
+ *      - Upper partition is Read-Write only, no execute
+ *  A partition address of 0x0 is a special case and indicates that all SRAM is
+ *  configured with RWX (read-write-execute) permissions.
+ *
+ *  The address is set with a 32-byte granularity. The address written is the
+ *  system memory map address of the partition (0x200X_XXXX).
+ *
+ *  @return     The SRAM partition address offset from the SRAM base address
+ *
+ *  @retval     Value is range in [0x0, 0x000FFFE0]
+ */
+__STATIC_INLINE uint32_t DL_SYSCTL_getUpperSRAMBoundaryAddress(void)
+{
+    return (SYSCTL->SOCLOCK.SRAMBOUNDARYHIGH);
 }
 
 /**
@@ -2006,7 +2407,7 @@ __STATIC_INLINE uint32_t DL_SYSCTL_getSRAMBoundaryAddress(void)
  *
  *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
  *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from HFXT,
+ *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
  *  or HFCLK_IN.
  *
  *  Consult device specific datasheet for proper values.
@@ -2026,7 +2427,7 @@ __STATIC_INLINE void DL_SYSCTL_setFlashWaitState(
  *
  *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
  *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from HFXT,
+ *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
  *  or HFCLK_IN.
  *
  *  Consult device specific datasheet for proper values.
@@ -2087,7 +2488,10 @@ __STATIC_INLINE bool DL_SYSCTL_isFCCDone(void)
  *  reference source) to provide an estimation of the frequency of the source clock.
  *
  *  @param[in] trigLvl  Determines if active high level trigger or rising-edge
- *                      to rising-edge. One of @ref DL_SYSCTL_FCC_TRIG_TYPE .
+ *                      to rising-edge. One of @ref DL_SYSCTL_FCC_TRIG_TYPE.
+ *                      @sa DL_SYSCTL_setFCCPeriods must be called to configure
+ *                      number of rising-edge to rising-edge periods when
+ *                      DL_SYSCTL_FCC_TRIG_TYPE_RISE_RISE is selected.
  *  @param[in] trigSrc  Determines which clock source to trigger FCC from. One of
  *                      @ref DL_SYSCTL_FCC_TRIG_SOURCE.
  *  @param[in] clkSrc   Which clock source to capture and measure frequency of. One of
@@ -2153,8 +2557,7 @@ __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
 __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCLExternalResistor(void)
 {
     SYSCTL->SOCLOCK.SYSOSCFCLCTL =
-        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE |
-            SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_TRUE);
+        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
 }
 
 /**
@@ -2473,6 +2876,35 @@ __STATIC_INLINE void DL_SYSCTL_setWriteProtectFirewallAddrRange(
 __STATIC_INLINE uint32_t DL_SYSCTL_getWriteProtectFirewallAddrRange(void)
 {
     return (SYSCTL->SECCFG.FWEPROTMAIN);
+}
+
+/**
+ *  @brief  Set the Read Write Protect Firewall for the Flash DATA Bank
+ *
+ *  @note This bit can be written only before INITDONE. At INITDONE, this
+ *        configuration gets locked and stays locked until the next BOOTRST.
+ *
+ *  @param[in] protectionType The type of protection to set for the DATA Bank.
+ *                            One of @ref DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL
+ */
+__STATIC_INLINE void DL_SYSCTL_setDATABankRWProtectFirewallMode(
+    DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL protectionType)
+{
+    SYSCTL->SECCFG.FWPROTMAINDATA = (uint32_t) protectionType;
+}
+
+/**
+ *  @brief  Get the protection type for the Read Write Protect Firewall for the Flash DATA Bank
+ *
+ *  @return The protection type for the Read Write Protect Firewall for the Flash DATA Bank
+ *
+ *  @retval One of @ref DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL
+ */
+__STATIC_INLINE DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL
+DL_SYSCTL_getDATABankRWProtectFirewallMode(void)
+{
+    return (DL_SYSCTL_DATA_BANK_READ_WRITE_PROTECT_FIREWALL)(
+        SYSCTL->SECCFG.FWPROTMAINDATA);
 }
 
 /**
@@ -2896,39 +3328,63 @@ __STATIC_INLINE void DL_SYSCTL_issueINITDONE(void)
 }
 
 /**
- *  @brief  Enables super capacitor function
+ *  @brief  Set the power level for SRAM Bank 1 when in RUN mode
  *
- *  Allows battery backup system to be powered by a super capacitor
+ *  @param[in] powerLevel The power level to set SRAM Bank 1 to when in RUN mode.
+ *                        One of @ref DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE
+ *
  */
-__STATIC_INLINE void DL_SYSCTL_enableSuperCapacitor(void)
+__STATIC_INLINE void DL_SYSCTL_setSRAMBank1PowerLevelInRUN(
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE powerLevel)
 {
-    SYSCTL->SOCLOCK.SYSTEMCFG |=
-        SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE | SYSCTL_SYSTEMCFG_KEY_VALUE;
+    DL_Common_updateReg(&SYSCTL->SOCLOCK.SRAMCFG,
+        ((uint32_t) powerLevel | SYSCTL_SRAMCFG_KEY_VALUE),
+        (SYSCTL_SRAMCFG_BANKOFF1_MASK | SYSCTL_SRAMCFG_KEY_MASK));
 }
 
 /**
- *  @brief  Disables super capacitor function
+ *  @brief Get the power level SRAM Bank 1 power when in RUN mode
  *
- *  Prevents battery backup system from being powered by a super capacitor
+ *  @return The power level of SRAM Bank 1 when in RUN mode
+ *
+ *  @retval  One of @ref DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE
  */
-__STATIC_INLINE void DL_SYSCTL_disableSuperCapacitor(void)
+__STATIC_INLINE DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE
+DL_SYSCTL_getSRAMBank1PowerLevelInRUN(void)
 {
-    SYSCTL->SOCLOCK.SYSTEMCFG &=
-        (~(SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE) | SYSCTL_SYSTEMCFG_KEY_VALUE);
+    uint32_t powerLevel =
+        SYSCTL->SOCLOCK.SRAMCFG & SYSCTL_SRAMCFG_BANKOFF1_MASK;
+    return (DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_RUN_MODE)(powerLevel);
 }
 
 /**
- *  @brief  Checks if super capacitor function is enabled
+ *  @brief  Set the power level for SRAM Bank 1 when in STOP mode
  *
- *  @return returns the state of the super capacitor bit
+ *  @param[in] powerLevel The power level to set SRAM Bank 1 to when in STOP mode
+ *                        One of @ref DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE
  *
- *  @retval  true  The super capacitor function is enabled
- *  @retval  false The super capacitor function is disabled
  */
-__STATIC_INLINE bool DL_SYSCTL_isSuperCapacitorEnabled(void)
+__STATIC_INLINE void DL_SYSCTL_setSRAMBank1PowerLevelInSTOP(
+    DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE powerLevel)
 {
-    return ((SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_SUPERCAPEN_MASK) ==
-            SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE);
+    DL_Common_updateReg(&SYSCTL->SOCLOCK.SRAMCFG,
+        (uint32_t)(powerLevel | SYSCTL_SRAMCFG_KEY_VALUE),
+        (SYSCTL_SRAMCFG_BANKSTOP1_MASK | SYSCTL_SRAMCFG_KEY_MASK));
+}
+
+/**
+ *  @brief  Get the power level SRAM Bank 1 power when in STOP mode
+ *
+ *  @return The power level of SRAM Bank 1 when in STOP mode
+ *
+ *  @retval  One of @ref DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE
+ */
+__STATIC_INLINE DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE
+DL_SYSCTL_getSRAMBank1PowerLevelInSTOP(void)
+{
+    uint32_t powerLevel =
+        SYSCTL->SOCLOCK.SRAMCFG & SYSCTL_SRAMCFG_BANKSTOP1_MASK;
+    return (DL_SYSCTL_SRAM_BANK1_POWER_LEVEL_STOP_MODE)(powerLevel);
 }
 
 #ifdef __cplusplus

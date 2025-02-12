@@ -33,13 +33,24 @@
 #include <stdint.h>
 #include <ti/devices/DeviceFamily.h>
 
-#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0G1X0X_G3X0X)
+#if (DeviceFamily_PARENT == DeviceFamily_PARENT_MSPM0GX51X)
 
 #include <ti/driverlib/m0p/dl_core.h>
-#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0g1x0x_g3x0x.h>
+#include <ti/driverlib/m0p/sysctl/dl_sysctl_mspm0gx51x.h>
 
 void DL_SYSCTL_configSYSPLL(DL_SYSCTL_SYSPLLConfig *config)
 {
+    /*
+     * Before any configuration is done, a check is performed first to
+     * ensure that the trim table within SRAM has been initialized first.
+     * If it has not been initialized then the table within SRAM will be
+     * populated with values from the TRIM region of memory. Otherwise
+     * if the flag has been set the function will continue as normal.
+     */
+    if (!DL_FactoryRegion_isTrimTableInSram()) {
+        DL_FactoryRegion_initTrimTable();
+    }
+
     /* PLL configurations are retained in lower reset levels. Set default
      * behavior of disabling the PLL to keep a consistent behavior regardless
      * of reset level. */
@@ -200,6 +211,17 @@ void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void)
 
 void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 {
+    /*
+     * Before any configuration is done, a check is performed first to
+     * ensure that the trim table within SRAM has been initialized first.
+     * If it has not been initialized then the table within SRAM will be
+     * populated with values from the TRIM region of memory. Otherwise
+     * if the flag has been set the function will continue as normal.
+     */
+    if (!DL_FactoryRegion_isTrimTableInSram()) {
+        DL_FactoryRegion_initTrimTable();
+    }
+
     /* Some crystal configurations are retained in lower reset levels. Set
      * default behavior of HFXT to keep a consistent behavior regardless of
      * reset level. */
@@ -221,6 +243,17 @@ void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range)
 void DL_SYSCTL_setHFCLKSourceHFXTParams(
     DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable)
 {
+    /*
+     * Before any configuration is done, a check is performed first to
+     * ensure that the trim table within SRAM has been initialized first.
+     * If it has not been initialized then the table within SRAM will be
+     * populated with values from the TRIM region of memory. Otherwise
+     * if the flag has been set the function will continue as normal.
+     */
+    if (!DL_FactoryRegion_isTrimTableInSram()) {
+        DL_FactoryRegion_initTrimTable();
+    }
+
     /* Some crystal configurations are retained in lower reset levels. Set
      * default behavior of HFXT to keep a consistent behavior regardless of
      * reset level. */
@@ -317,4 +350,29 @@ DL_SYSCTL_POWER_POLICY_STANDBY DL_SYSCTL_getPowerPolicySTANDBY(void)
     return policy;
 }
 
-#endif /* DeviceFamily_PARENT_MSPM0G1X0X_G3X0X */
+bool DL_SYSCTL_initReadExecuteProtectFirewall(
+    uint32_t startAddr, uint32_t endAddr)
+{
+    bool status = false;
+    if (!DL_SYSCTL_isINITDONEIssued()) {
+        DL_SYSCTL_setReadExecuteProtectFirewallAddrStart(startAddr);
+        DL_SYSCTL_setReadExecuteProtectFirewallAddrEnd(endAddr);
+        DL_SYSCTL_enableReadExecuteProtectFirewall();
+        status = true;
+    }
+    return status;
+}
+
+bool DL_SYSCTL_initIPProtectFirewall(uint32_t startAddr, uint32_t endAddr)
+{
+    bool status = false;
+    if (!DL_SYSCTL_isINITDONEIssued()) {
+        DL_SYSCTL_setIPProtectFirewallAddrStart(startAddr);
+        DL_SYSCTL_setIPProtectFirewallAddrEnd(endAddr);
+        DL_SYSCTL_enableIPProtectFirewall();
+        status = true;
+    }
+    return status;
+}
+
+#endif /* DeviceFamily_PARENT_MSPM0GX51X */

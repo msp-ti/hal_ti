@@ -68,6 +68,17 @@ extern "C" {
 #define DEVICE_HAS_DMA_FULL_CHANNEL
 #endif
 
+#ifdef DMA_SYS_MMR_LLONG
+/*!
+ * @brief Device has support for DMA 128-bit access on all channels
+ */
+#define DEVICE_HAS_LLONG_ACCESS
+/*!
+ * @brief If device has LLONG support, it will also support AUTO reg and GATHER mode
+ */
+#define DEVICE_HAS_AUTO_AND_GATHER
+#endif
+
 /* clang-format off */
 
 /** @addtogroup DL_DMA_INTERRUPT
@@ -369,6 +380,12 @@ typedef enum {
     /*! Normal operation */
     DL_DMA_NORMAL_MODE = DMA_DMACTL_DMAEM_NORMAL,
 #ifdef DEVICE_HAS_DMA_FULL_CHANNEL
+#ifdef DEVICE_HAS_AUTO_AND_GATHER
+    /*! Available for FULL-channel configuration only. Reads data from
+     *  address table located at source address and transfers data to
+     *  destination address */
+    DL_DMA_FULL_CH_GATHER_MODE = DMA_DMACTL_DMAEM_GATHERMODE,
+#endif /* DEVICE_HAS_AUTO_AND_GATHER */
     /*! Available for FULL-channel configuration only. Fills the destination
      *  with a specific value */
     DL_DMA_FULL_CH_FILL_MODE = DMA_DMACTL_DMAEM_FILLMODE,
@@ -464,6 +481,10 @@ typedef enum {
     DL_DMA_WIDTH_WORD = DMA_DMACTL_DMASRCWDTH_WORD,
     /*! Long Acccess (64-bit) */
     DL_DMA_WIDTH_LONG = DMA_DMACTL_DMASRCWDTH_LONG,
+    #ifdef DEVICE_HAS_LLONG_ACCESS
+    /*! Long-long Acccess (128-bit) */
+    DL_DMA_WIDTH_LONG_LONG = DMA_DMACTL_DMASRCWDTH_LONGLONG,
+    #endif /* DEVICE_HAS_LLONG_ACCESS*/
 } DL_DMA_WIDTH;
 
 /*! @enum DL_DMA_EVENT_IIDX */
@@ -549,6 +570,20 @@ typedef enum {
     DL_DMA_SUBSCRIBER_INDEX_1 = 1
 } DL_DMA_SUBSCRIBER_INDEX;
 
+/*! @enum DL_DMA_AUTOEN */
+typedef enum {
+    /*! No automatic DMA enable */
+    DL_DMA_AUTOEN_DISABLE = DMA_DMACTL_DMAAUTOEN_DISABLE,
+    #ifdef DEVICE_HAS_AUTO_AND_GATHER
+    /*! Automatic DMA enable on DMASA register write */
+    DL_DMA_AUTOEN_DMASA = DMA_DMACTL_DMAAUTOEN_DMASA,
+    /*! Automatic DMA enable on DMADA register write */
+    DL_DMA_AUTOEN_DMADA = DMA_DMACTL_DMAAUTOEN_DMADA,
+    /*! Automatic DMA enable on DMASZ register write */
+    DL_DMA_AUTOEN_DMASZ = DMA_DMACTL_DMAAUTOEN_DMASZ,
+    #endif /* DEVICE_HAS_AUTO_AND_GATHER*/
+} DL_DMA_AUTOEN;
+
 /* clang-format on */
 
 /*!
@@ -615,22 +650,22 @@ void DL_DMA_initChannel(
  *  Configures the transfer settings for a DMA channel. The DMA channel is
  *  not enabled in this API.
  *
- *  @param[in]  dma           Pointer to the register overlay for the peripheral
- *  @param[in]  channelNum    DMA channel to operate on
- *  @param[in]  transferMode  The transfer mode to use. Refer to the device
- *                            datasheet to determine which modes are supported
- *                            in the selected channel. One of
- *                            @ref DL_DMA_TRANSFER_MODE.
- *  @param[in]  extendedMode  The extended mode to use. One of
- *                            @ref DL_DMA_EXTENDED_MODE.
- *  @param[in]  srcWidth      The width of the DMA source. One of
- *                            @ref DL_DMA_WIDTH.
- *  @param[in]  destWidth     The width of the DMA destination. One of
- *                            @ref DL_DMA_WIDTH.
- *  @param[in]  srcIncrement  Amount to increment/decrement the DMA source
- *                            address by. One of @ref DL_DMA_INCREMENT.
- *  @param[in]  destIncrement Amount to increment/decrement the DMA destination
- *                            address by. One of @ref DL_DMA_INCREMENT.
+ *  @param[in]  dma             Pointer to the register overlay for the peripheral
+ *  @param[in]  channelNum      DMA channel to operate on
+ *  @param[in]  transferMode    The transfer mode to use. Refer to the device
+ *                              datasheet to determine which modes are supported
+ *                              in the selected channel. One of
+ *                              @ref DL_DMA_TRANSFER_MODE.
+ *  @param[in]  extendedMode    The extended mode to use. One of
+ *                              @ref DL_DMA_EXTENDED_MODE.
+ *  @param[in]  srcWidth        The width of the DMA source. One of
+ *                              @ref DL_DMA_WIDTH.
+ *  @param[in]  destWidth       The width of the DMA destination. One of
+ *                              @ref DL_DMA_WIDTH.
+ *  @param[in]  srcIncrement    Amount to increment/decrement the DMA source
+ *                              address by. One of @ref DL_DMA_INCREMENT.
+ *  @param[in]  destIncrement   Amount to increment/decrement the DMA destination
+ *                              address by. One of @ref DL_DMA_INCREMENT.
  */
 __STATIC_INLINE void DL_DMA_configTransfer(DMA_Regs *dma, uint8_t channelNum,
     DL_DMA_TRANSFER_MODE transferMode, DL_DMA_EXTENDED_MODE extendedMode,
@@ -1555,6 +1590,52 @@ __STATIC_INLINE void DL_DMA_clearEventsStatus(
 {
     dma->GEN_EVENT.ICLR |= (eventMask);
 }
+
+#ifdef DEVICE_HAS_AUTO_AND_GATHER
+/**
+ *  @brief      Configure the DMA for auto-enable
+ *
+ *  @param[in]  dma             Pointer to the register overlay for the peripheral
+ *  @param[in]  mode            Enable auto-enable for DMA on a specified register write. One of @ref DL_DMA_AUTOEN
+ *  @param[in]  channelNum      DMA channel to operate on
+ */
+__STATIC_INLINE void DL_DMA_enableAutoEnable(
+    DMA_Regs *dma, DL_DMA_AUTOEN mode, uint8_t channelNum)
+{
+    dma->DMACHAN[channelNum].DMACTL |= mode;
+}
+
+/**
+ *  @brief      Disable auto-enable for DMA
+ *
+ *  @param[in]  dma             Pointer to the register overlay for the
+ *                              peripheral
+ *  @param[in]  channelNum      DMA channel to operate on
+ */
+__STATIC_INLINE void DL_DMA_disableAutoEnable(
+    DMA_Regs *dma, uint8_t channelNum)
+{
+    dma->DMACHAN[channelNum].DMACTL &= ~(DMA_DMACTL_DMAAUTOEN_MASK);
+}
+
+/**
+ *  @brief      Check if auto-enable is enabled for the DMA
+ *
+ *  @param[in]  dma  Pointer to the register overlay for the peripheral
+ *  @param[in]  channelNum  DMA channel to operate on
+ *
+ *  @return     The status of auto-enable
+ *
+ *  @retval     true    auto-enable is enabled
+ *  @retval     false   auto-enable is disabled
+ */
+__STATIC_INLINE bool DL_DMA_isAutoEnableEnabled(
+    DMA_Regs *dma, uint8_t channelNum)
+{
+    return ((dma->DMACHAN[channelNum].DMACTL & DMA_DMACTL_DMAAUTOEN_MASK) !=
+            DMA_DMACTL_DMAAUTOEN_DISABLE);
+}
+#endif /* DEVICE_HAS_AUTO_AND_GATHER*/
 
 #ifdef __cplusplus
 }

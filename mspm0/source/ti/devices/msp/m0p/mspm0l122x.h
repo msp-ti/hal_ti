@@ -131,8 +131,8 @@ typedef enum IRQn
 #define I2C2_INT_VECn           42    /* I2C2_INT Interrupt */
 #define AESADV_INT_VECn         44    /* AESADV_INT Interrupt */
 #define LFSS_INT_VECn           46    /* LFSS_INT Interrupt */
-#define RTC_A_INT_VECn          46,   /* RTC_A_INT Interrupt */
-#define TAMPERIO_INT_VECn       46,   /* TAMPERIO_INT Interrupt */
+#define RTC_A_INT_VECn          46    /* RTC_A_INT Interrupt */
+#define TAMPERIO_INT_VECn       46    /* TAMPERIO_INT Interrupt */
 #define DMA_INT_VECn            47    /* DMA_INT Interrupt */
 
 
@@ -194,7 +194,6 @@ typedef enum IRQn
 #include <ti/devices/msp/peripherals/hw_lfss.h>
 #include <ti/devices/msp/peripherals/hw_iomux.h>
 #include <ti/devices/msp/peripherals/hw_keystorectl.h>
-#include <ti/devices/msp/peripherals/hw_lfss.h>
 #include <ti/devices/msp/peripherals/hw_rtc.h>
 #include <ti/devices/msp/peripherals/hw_spi.h>
 #include <ti/devices/msp/peripherals/hw_trng.h>
@@ -226,7 +225,7 @@ typedef enum IRQn
 #define __MSPM0_HAS_LFSS__
 #define __MSPM0_HAS_SCRATCHPAD__
 #define __MSPM0_HAS_TIO__
-#define __MSPM0_HAS_WDT__
+#define  __MSPM0_HAS_IWDT__
 #define __MSPM0_HAS_ECC__
 
 

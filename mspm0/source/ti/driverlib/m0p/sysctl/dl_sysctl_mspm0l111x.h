@@ -30,11 +30,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*!****************************************************************************
- *  @file       dl_sysctl_mspm0l122x_l222x.h
+ *  @file       dl_sysctl_mspm0l111x.h
  *  @brief      System Control (SysCtl)
- *  @defgroup   SYSCTL_MSPM0L122X_L222X MSPM0L122X_L222X System Control (SYSCTL)
+ *  @defgroup   SYSCTL_MSPM0L111XMSPM0L111XSystem Control (SYSCTL)
  *
- *  @anchor ti_dl_m0p_mspm0l122x_l222x_dl_sysctl_Overview
+ *  @anchor ti_dl_m0p_mspm0l111x_dl_sysctl_Overview
  *  # Overview
  *
  *  The System Control (SysCtl) module enables control over system wide
@@ -44,7 +44,7 @@
  *
  ******************************************************************************
  */
-/** @addtogroup SYSCTL_MSPM0L122X_L222X
+/** @addtogroup SYSCTL_MSPM0L111X
  * @{
  */
 #ifndef ti_dl_m0p_dl_sysctl_sysctl__include
@@ -157,8 +157,6 @@ typedef enum {
 #define DL_SYSCTL_CLK_STATUS_LFOSC_GOOD        (SYSCTL_CLKSTATUS_LFOSCGOOD_TRUE)
 /*! @brief LFXT is Valid */
 #define DL_SYSCTL_CLK_STATUS_LFXT_GOOD          (SYSCTL_CLKSTATUS_LFXTGOOD_TRUE)
-/*! @brief High Frequency Clock ON */
-#define DL_SYSCTL_CLK_STATUS_HFCLK_GOOD        (SYSCTL_CLKSTATUS_HFCLKGOOD_TRUE)
 /*! @brief MCLK now sourced from HSCLK, otherwise SYSOSC */
 #define DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_HSCLK (SYSCTL_CLKSTATUS_HSCLKMUX_HSCLK)
 /*! @brief MCLK now sourced from LFCLK */
@@ -197,8 +195,6 @@ typedef enum {
 #define DL_SYSCTL_STATUS_PMU_IFREF_GOOD      (SYSCTL_SYSSTATUS_PMUIREFGOOD_TRUE)
 /*! @brief VBOOST (Analog Charge Pump) started up properly */
 #define DL_SYSCTL_STATUS_VBOOST_GOOD        (SYSCTL_SYSSTATUS_ANACPUMPGOOD_TRUE)
-/*! @brief VBAT POWER good */
-#define DL_SYSCTL_STATUS_VBAT_GOOD          (SYSCTL_SYSSTATUS_VBATGOOD_TRUE)
 /*! @brief Brown Out Reset event status indicator */
 #define DL_SYSCTL_STATUS_BOR_EVENT                (SYSCTL_SYSSTATUS_BORLVL_TRUE)
 /*! @brief MCAN0 ready */
@@ -222,13 +218,6 @@ typedef enum {
 
 /*! @enum DL_SYSCTL_NMI_IIDX */
 typedef enum {
-    /*! @brief  NMI interrupt index for VBAT power on */
-    DL_SYSCTL_NMI_IIDX_VBAT_ON = SYSCTL_NMIIIDX_STAT_VBATUP,
-    /*! @brief  NMI interrupt index for VBAT power off  */
-    DL_SYSCTL_NMI_IIDX_VBAT_OFF = SYSCTL_NMIIIDX_STAT_VBATDN,
-
-    /*! @brief  NMI interrupt index for SRAM Double Error Detect */
-    DL_SYSCTL_NMI_IIDX_SRAM_DED = SYSCTL_NMIIIDX_STAT_SRAMDED,
     /*! @brief  NMI interrupt index for Flash Double Error Detect */
     DL_SYSCTL_NMI_IIDX_FLASH_DED = SYSCTL_NMIIIDX_STAT_FLASHDED,
     /*! @brief  NMI interrupt index for LFCLK Monitor Fail */
@@ -308,26 +297,6 @@ typedef struct {
     /*! Drive strength and power consumption option */
     DL_SYSCTL_LFXT_DRIVE_STRENGTH xt1Drive;
 } DL_SYSCTL_LFCLKConfig;
-
-/** @enum DL_SYSCTL_HFXT_RANGE */
-typedef enum {
-    /*! HFXT frequency range between 4 and 8 MHz */
-    DL_SYSCTL_HFXT_RANGE_4_8_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE4TO8,
-    /*! HFXT frequency range between 8.01 and 16 MHz */
-    DL_SYSCTL_HFXT_RANGE_8_16_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE8TO16,
-    /*! HFXT frequency range between 16.01 and 32 MHz */
-    DL_SYSCTL_HFXT_RANGE_16_32_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE16TO32,
-    /*! HFXT frequency range between 32.01 and 48 MHz */
-    DL_SYSCTL_HFXT_RANGE_32_48_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE32TO48,
-} DL_SYSCTL_HFXT_RANGE;
-
-/*! @enum DL_SYSCTL_HSCLK_SOURCE */
-typedef enum {
-    /*! Invalid source for HSCLK */
-    DL_SYSCTL_HSCLK_SOURCE_INVALID = 0x0,
-    /*! Use HFLK as input source for HSCLK */
-    DL_SYSCTL_HSCLK_SOURCE_HFCLK = SYSCTL_HSCLKCFG_HSCLKSEL_HFCLKCLK,
-} DL_SYSCTL_HSCLK_SOURCE;
 
 /** @enum DL_SYSCTL_MCLK_SOURCE */
 typedef enum {
@@ -705,8 +674,6 @@ typedef enum {
     DL_SYSCTL_RESET_CAUSE_SYSRST_BSL_EXIT = SYSCTL_RSTCAUSE_ID_SYSBSLEXIT,
     /*! BSL entry */
     DL_SYSCTL_RESET_CAUSE_SYSRST_BSL_ENTRY = SYSCTL_RSTCAUSE_ID_SYSBSLENTRY,
-    /*! WWDT0 violation */
-    DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT0_VIOLATION = SYSCTL_RSTCAUSE_ID_SYSWWDT0,
     /*! WWDT1 violation */
     DL_SYSCTL_RESET_CAUSE_SYSRST_WWDT1_VIOLATION = SYSCTL_RSTCAUSE_ID_SYSWWDT1,
     /*! Uncorrectable flash ECC error */
@@ -832,17 +799,16 @@ void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void);
 /**
  *  @brief  Change MCLK source from SYSOSC to HSCLK
  *
- *  @pre    The desired HSCLK source is enabled beforehand (HFXT, HFCLK_IN).
+ *  @pre    The desired HSCLK source is enabled beforehand (HFCLK_IN).
  *  @post   MCLK source is switched to HSCLK, function will busy-wait until confirmed.
  *
- *  @param[in] source   Desired high-speed clock source
  */
-void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(DL_SYSCTL_HSCLK_SOURCE source);
+void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(void);
 
 /**
  *  @brief  Change MCLK source from HSCLK to SYSOSC
  *
- *  @pre    MCLK is sourced from a valid, running HSCLK source (HFXT, HFCLK_IN)
+ *  @pre    MCLK is sourced from a valid, running HSCLK source (HFCLK_IN)
  *  @post   MCLK source is switched to SYSOSC, function will busy-wait until confirmed.
  *
  *  @note   No HSCLK sources are disabled by this function
@@ -967,6 +933,7 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP0(void)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     SYSCTL->SOCLOCK.SYSOSCCFG &= ~(
         SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK | SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
+    SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
 }
 
 /**
@@ -991,6 +958,7 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP1(void)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK;
     SYSCTL->SOCLOCK.SYSOSCCFG &= ~(SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
+    SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
 }
 
 /**
@@ -1608,65 +1576,6 @@ __STATIC_INLINE void DL_SYSCTL_setLFCLKSourceEXLF(void)
 }
 
 /**
- *  @brief Change HFCLK source to external crystal HFXT with default parameters
- *
- * HFXT is a high frequency crystal oscillator which supports standard crystals
- * and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- * To use the HFXT, a crystal or resonator must be populated between HFXIN and HFXOUT
- * pins. Find more info in HFXT section of CKM Technical Reference Manual.
- *
- * GPIO/IOMUX must be configure HFXT functionality for HFXIN and HFXOUT before
- * calling this function.
- *
- * The HFXT startup time is set to ~0.512ms based on the TYP datasheet
- * recommendation. Additionally, the HFCLK startup monitor is enabled.
- *
- * This basic implementation will busy-wait until HFXT oscillator is stabilized.
- * But a more advanced implementation can do other things while the HFXT is
- * stabilizing. You can enable HFCLKGOOD interrupt, or check CLKSTATUS.HFCLKGOOD
- * when convenient, as long as you do not switch the source before HFCLKGOOD is set.
- *
- * To modify the default HFXT startup time or disable the startup monitor, use
- * @ref DL_SYSCTL_setHFCLKSourceHFXTParams instead of this API.
- *
- *  @param[in]  range   HFXT frequency range
- */
-void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range);
-
-/**
- *  @brief Change HFCLK source to external crystal HFXT with custom parameters
- *
- * HFXT is a high frequency crystal oscillator which supports standard crystals
- * and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- * To use the HFXT, a crystal or resonator must be populated between HFXIN and HFXOUT
- * pins. Find more info in HFXT section of CKM Technical Reference Manual.
- *
- * GPIO/IOMUX must be configure HFXT functionality for HFXIN and HFXOUT before
- * calling this function.
- *
- * If the HFCLK startup monitor is enabled, then the HFXT will be checked after
- * the amount of time specified by the startupTime parameter.
- * This basic implementation will busy-wait until HFXT oscillator is stabilized.
- * But a more advanced implementation can do other things while the HFXT is
- * stabilizing. You can enable HFCLKGOOD interrupt, or check CLKSTATUS.HFCLKGOOD
- * when convenient, as long as you do not switch the source before HFCLKGOOD is set.
- *
- * If the HFCLK startup monitor is disabled, then this implementation will not
- * check if the HFXT oscillator is stabilized.
- *
- *  @param[in]  range           HFXT frequency range
- *  @param[in]  startupTime     HFXT startup time
- *  @param[in]  monitorEnable   Whether to enable the HFCLK startup monitor
-
- */
-void DL_SYSCTL_setHFCLKSourceHFXTParams(
-    DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable);
-
-/**
  *  @brief Change HFCLK source to external digital HFCLK_IN
  *
  * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
@@ -1682,51 +1591,6 @@ void DL_SYSCTL_setHFCLKSourceHFXTParams(
 __STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
 {
     SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
-}
-
-/**
- *  @brief      Disable the HFXT
- *
- *  If HFXT is already enabled, application software must verify that either an
- *  HFCLKGOOD indication or an HFCLKOFF (off/dead) indication in the CLKSTATUS
- *  register was asserted by hardware before attempting to disable the HFXT
- *  by clearing HFXTEN. When disabling the HFXT by clearing HFXTEN, the HFXT
- *  must not be re-enabled again until the HFCLKOFF bit in the CLKSTATUS
- *  register is set by hardware.
- *
- *  @sa DL_SYSCTL_getClockStatus
- */
-__STATIC_INLINE void DL_SYSCTL_disableHFXT(void)
-{
-    SYSCTL->SOCLOCK.HSCLKEN &= ~(SYSCTL_HSCLKEN_HFXTEN_MASK);
-}
-
-/**
- *  @brief   Get the source of High Speed Clock (HSCLK)
- *
- * HSCLK can be sourced by HFCLK.
- * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
- *
- *  @return  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
- */
-__STATIC_INLINE DL_SYSCTL_HSCLK_SOURCE DL_SYSCTL_getHSCLKSource(void)
-{
-    uint32_t source = SYSCTL->SOCLOCK.HSCLKCFG & SYSCTL_HSCLKCFG_HSCLKSEL_MASK;
-
-    return (DL_SYSCTL_HSCLK_SOURCE)(source);
-}
-
-/**
- *  @brief   Set the source of High Speed Clock (HSCLK)
- *
- * HSCLK can be sourced by HFCLK.
- * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
- *
- *  @param[in]  source  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
- */
-__STATIC_INLINE void DL_SYSCTL_setHSCLKSource(DL_SYSCTL_HSCLK_SOURCE source)
-{
-    SYSCTL->SOCLOCK.HSCLKCFG = (uint32_t) source;
 }
 
 /**
@@ -2126,18 +1990,7 @@ __STATIC_INLINE DL_SYSCTL_FCC_TRIG_CNT DL_SYSCTL_getFCCPeriods(void)
 }
 
 /**
- *  @brief  Enable Frequency Correction Loop (FCL) in Internal Resistor Mode
- *
- *  Once FCL is enable, it cannot be disabled by software. A BOOTRST is required.
- */
-__STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
-{
-    SYSCTL->SOCLOCK.SYSOSCFCLCTL =
-        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
-}
-
-/**
- *  @brief  Enable Frequency Correction Loop (FCL) in External Resistor Mode
+ *  @brief  Enable Frequency Correction Loop (FCL)
  *
  *  Used to increase SYSOSC accuracy. An ROSC reference resistor which is suitable
  *  to meet application accuracy reqiurements must be placed between ROSC pin and
@@ -2150,11 +2003,30 @@ __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
  *  Settling time from startup to specified accuracy may also be longer.
  *  See device-specific datasheet for startup times.
  */
+__STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
+{
+    SYSCTL->SOCLOCK.SYSOSCFCLCTL =
+        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
+}
+
+/**
+ *  @brief  Enable Frequency Correction Loop (FCL) in External Resistor Mode
+ *
+ *  Used to increase SYSOSC accuracy. An ROSC reference resistor which meets
+ *  application accuracy reqiurements must be placed between ROSC pin and
+ *  device ground (VSS).
+ *
+ *  Once FCL is enabled, it cannot be disabled by software. A BOOTRST is required.
+ *
+ *  Power consumption of SYSOSC will be marginally higher with FCL enabled due to
+ *  reference current which flows through ROSC.
+ *  Settling time from startup to specified accuracy may also be longer.
+ *  See device-specific datasheet for startup times.
+ */
 __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCLExternalResistor(void)
 {
     SYSCTL->SOCLOCK.SYSOSCFCLCTL =
-        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE |
-            SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_TRUE);
+        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
 }
 
 /**
@@ -2310,89 +2182,6 @@ __STATIC_INLINE DL_SYSCTL_RESET_CAUSE DL_SYSCTL_getResetCause(void)
     uint32_t resetCause = SYSCTL->SOCLOCK.RSTCAUSE & SYSCTL_RSTCAUSE_ID_MASK;
 
     return (DL_SYSCTL_RESET_CAUSE)(resetCause);
-}
-
-/**
- *  @brief     Set the HFXT startup time
- *
- * Specify the HFXT startup time in 64us resolution. If the HFCLK startup
- * monitor is enabled (HFCLKFLTCHK), HFXT will be checked after this time
- * expires.
- *
- *  @param[in]  startupTime  The HFXT startup time to set in ~64us steps.
- *                           Value between [0x0 (~0s), 0xFF (~16.32ms)].
- */
-__STATIC_INLINE void DL_SYSCTL_setHFXTStartupTime(uint32_t startupTime)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.HFCLKCLKCFG, startupTime,
-        SYSCTL_HFCLKCLKCFG_HFXTTIME_MASK);
-}
-
-/**
- *  @brief   Get the HFXT startup time
- *
- *  @return  Returns the HFXT startup time in ~64us steps
- *
- *  @retval  Value between [0x0 (~0s), 0xFF (~16.32ms)]
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getHFXTStartupTime(void)
-{
-    return (SYSCTL->SOCLOCK.HFCLKCLKCFG & SYSCTL_HFCLKCLKCFG_HFXTTIME_MASK);
-}
-
-/**
- *  @brief     Set the HFXT frequency range
- *
- * The high frequency crystal oscillator (HFXT) can be used with standard
- * crystals and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- *  @param[in]  range  One of @ref DL_SYSCTL_HFXT_RANGE
- */
-__STATIC_INLINE void DL_SYSCTL_setHFXTFrequencyRange(
-    DL_SYSCTL_HFXT_RANGE range)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.HFCLKCLKCFG, ((uint32_t) range),
-        SYSCTL_HFCLKCLKCFG_HFXTRSEL_MASK);
-}
-
-/**
- *  @brief   Get the HFXT frequency range
- *
- *  @return  Returns the HFXT frequency range
- *
- *  @retval  One of @ref DL_SYSCTL_HFXT_RANGE
- */
-__STATIC_INLINE DL_SYSCTL_HFXT_RANGE DL_SYSCTL_getHFXTFrequencyRange(void)
-{
-    uint32_t range =
-        (SYSCTL->SOCLOCK.HFCLKCLKCFG & SYSCTL_HFCLKCLKCFG_HFXTRSEL_MASK) >>
-        SYSCTL_HFCLKCLKCFG_HFXTRSEL_OFS;
-
-    return (DL_SYSCTL_HFXT_RANGE)(range);
-}
-
-/**
- *  @brief  Enable the HFCLK startup monitor
- *
- * The HFXT takes time to start after being enabled. A startup monitor is
- * provided to indicate to the application software if the HFXT has successfully
- * started, at which point the HFCLK can be selected to source a variety of
- * system functions. The HFCLK startup monitor also supports checking the
- * HFCLK_IN digital clock input for a clock stuck fault.
- *
- */
-__STATIC_INLINE void DL_SYSCTL_enableHFCLKStartupMonitor(void)
-{
-    SYSCTL->SOCLOCK.HFCLKCLKCFG |= SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_ENABLE;
-}
-
-/**
- *  @brief  Disable the HFCLK startup monitor
- */
-__STATIC_INLINE void DL_SYSCTL_disableHFCLKStartupMonitor(void)
-{
-    SYSCTL->SOCLOCK.HFCLKCLKCFG &= ~(SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_MASK);
 }
 
 /**
@@ -2893,42 +2682,6 @@ __STATIC_INLINE void DL_SYSCTL_issueINITDONE(void)
 {
     SYSCTL->SECCFG.INITDONE |=
         (SYSCTL_INITDONE_PASS_TRUE | SYSCTL_INITDONE_KEY_VALUE);
-}
-
-/**
- *  @brief  Enables super capacitor function
- *
- *  Allows battery backup system to be powered by a super capacitor
- */
-__STATIC_INLINE void DL_SYSCTL_enableSuperCapacitor(void)
-{
-    SYSCTL->SOCLOCK.SYSTEMCFG |=
-        SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE | SYSCTL_SYSTEMCFG_KEY_VALUE;
-}
-
-/**
- *  @brief  Disables super capacitor function
- *
- *  Prevents battery backup system from being powered by a super capacitor
- */
-__STATIC_INLINE void DL_SYSCTL_disableSuperCapacitor(void)
-{
-    SYSCTL->SOCLOCK.SYSTEMCFG &=
-        (~(SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE) | SYSCTL_SYSTEMCFG_KEY_VALUE);
-}
-
-/**
- *  @brief  Checks if super capacitor function is enabled
- *
- *  @return returns the state of the super capacitor bit
- *
- *  @retval  true  The super capacitor function is enabled
- *  @retval  false The super capacitor function is disabled
- */
-__STATIC_INLINE bool DL_SYSCTL_isSuperCapacitorEnabled(void)
-{
-    return ((SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_SUPERCAPEN_MASK) ==
-            SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE);
 }
 
 #ifdef __cplusplus

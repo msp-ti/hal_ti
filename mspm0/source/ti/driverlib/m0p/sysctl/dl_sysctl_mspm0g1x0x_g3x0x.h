@@ -55,6 +55,7 @@
 
 #include <ti/devices/msp/msp.h>
 #include <ti/driverlib/dl_common.h>
+#include <ti/driverlib/m0p/dl_factoryregion.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,12 +66,18 @@ extern "C" {
 /** @addtogroup DL_SYSCTL_RESET
  *  @{
  */
+
 /*!
- * @brief Perform a CPU reset
+ * @brief Perform a SYSRST
  *
- * This clears the state of the CPU logic. Peripheral states are not affected
+ * This issues a SYSRST (CPU plus peripherals only)
  */
- #define DL_SYSCTL_RESET_CPU                       (SYSCTL_RESETLEVEL_LEVEL_CPU)
+ #define DL_SYSCTL_RESET_SYSRST                    (SYSCTL_RESETLEVEL_LEVEL_CPU)
+
+/*!
+ * @deprecated This API is deprecated. Please refer to @ref DL_SYSCTL_RESET_SYSRST.
+ */
+ #define DL_SYSCTL_RESET_CPU                            (DL_SYSCTL_RESET_SYSRST)
 
 /*!
  * @brief Perform a Boot reset
@@ -326,7 +333,7 @@ typedef struct {
     DL_SYSCTL_SYSPLL_MCLK sysPLLMCLK;
     /*! SYSPLL reference clock source. @ref DL_SYSCTL_SYSPLL_REF */
     DL_SYSCTL_SYSPLL_REF sysPLLRef;
-    /*! PLL feedback clock divider. [0x01,0x7F,1] => [/1,/127,1] */
+    /*! PLL feedback clock divider. [0x01,0x7E,1] => [/2,/127,1] */
     uint32_t qDiv;
     /*! PLL reference clock divider. @ref DL_SYSCTL_SYSPLL_PDIV */
     DL_SYSCTL_SYSPLL_PDIV pDiv;
@@ -1122,7 +1129,6 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP0(void)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     SYSCTL->SOCLOCK.SYSOSCCFG &= ~(
         SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK | SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
-    SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
 }
 
 /**
@@ -1147,7 +1153,6 @@ __STATIC_INLINE void DL_SYSCTL_setPowerPolicySTOP1(void)
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
     SYSCTL->SOCLOCK.SYSOSCCFG |= SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK;
     SYSCTL->SOCLOCK.SYSOSCCFG &= ~(SYSCTL_SYSOSCCFG_DISABLESTOP_MASK);
-    SYSCTL->SOCLOCK.MCLKCFG &= ~(SYSCTL_MCLKCFG_USELFCLK_MASK);
 }
 
 /**
@@ -2432,7 +2437,18 @@ __STATIC_INLINE DL_SYSCTL_FCC_TRIG_CNT DL_SYSCTL_getFCCPeriods(void)
 }
 
 /**
- *  @brief  Enable Frequency Correction Loop (FCL)
+ *  @brief  Enable Frequency Correction Loop (FCL) in Internal Resistor Mode
+ *
+ *  Once FCL is enable, it cannot be disabled by software. A BOOTRST is required.
+ */
+__STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
+{
+    SYSCTL->SOCLOCK.SYSOSCFCLCTL =
+        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
+}
+
+/**
+ *  @brief  Enable Frequency Correction Loop (FCL) in External Resistor Mode
  *
  *  Used to increase SYSOSC accuracy. An ROSC reference resistor which is suitable
  *  to meet application accuracy reqiurements must be placed between ROSC pin and
@@ -2445,10 +2461,11 @@ __STATIC_INLINE DL_SYSCTL_FCC_TRIG_CNT DL_SYSCTL_getFCCPeriods(void)
  *  Settling time from startup to specified accuracy may also be longer.
  *  See device-specific datasheet for startup times.
  */
-__STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
+__STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCLExternalResistor(void)
 {
     SYSCTL->SOCLOCK.SYSOSCFCLCTL =
-        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE);
+        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE |
+            SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_TRUE);
 }
 
 /**
@@ -2697,8 +2714,7 @@ __STATIC_INLINE void DL_SYSCTL_disableHFCLKStartupMonitor(void)
  */
 __STATIC_INLINE uint32_t DL_SYSCTL_getTempCalibrationConstant(void)
 {
-    // TODO replace hard coded temp cal address once available in device header file
-    return (*((uint32_t *) 0x41C4003C));
+    return DL_FactoryRegion_getTemperatureVoltage();
 }
 
 /**

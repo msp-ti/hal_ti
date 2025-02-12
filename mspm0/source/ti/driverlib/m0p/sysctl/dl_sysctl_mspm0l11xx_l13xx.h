@@ -30,11 +30,11 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 /*!****************************************************************************
- *  @file       dl_sysctl_mspm0l122x_l222x.h
+ *  @file       dl_sysctl_mspm0l11xx_l13xx.h
  *  @brief      System Control (SysCtl)
- *  @defgroup   SYSCTL_MSPM0L122X_L222X MSPM0L122X_L222X System Control (SYSCTL)
+ *  @defgroup   SYSCTL_MSPM0L11XX_L13XX MSPM0L11XX_L13XX System Control (SYSCTL)
  *
- *  @anchor ti_dl_m0p_mspm0l122x_l222x_dl_sysctl_Overview
+ *  @anchor ti_dl_m0p_mspm0l11xx_l13xx_dl_sysctl_Overview
  *  # Overview
  *
  *  The System Control (SysCtl) module enables control over system wide
@@ -44,7 +44,7 @@
  *
  ******************************************************************************
  */
-/** @addtogroup SYSCTL_MSPM0L122X_L222X
+/** @addtogroup SYSCTL_MSPM0L11XX_L13XX
  * @{
  */
 #ifndef ti_dl_m0p_dl_sysctl_sysctl__include
@@ -138,29 +138,12 @@ typedef enum {
 /** @addtogroup DL_SYSCTL_CLK_STATUS
  *  @{
  */
-/*! @brief Writes to HFCLKCLKCFG are blocked */
-#define DL_SYSCTL_CLK_STATUS_HFCLK_CONFIG_BLOCKED                              \
-                                             (SYSCTL_CLKSTATUS_HFCLKBLKUPD_TRUE)
+/*! @brief Error with OPAMP Clock Generation */
+#define DL_SYSCTL_CLK_STATUS_OPAMP_ERROR     (SYSCTL_CLKSTATUS_OPAMPCLKERR_TRUE)
 /*! @brief SYSOSC Frequency Correcting Loop Mode ON */
 #define DL_SYSCTL_CLK_STATUS_FCL_ON           (SYSCTL_CLKSTATUS_FCLMODE_ENABLED)
-/*! @brief Clock Fail for LFXT or EXLF clock source */
-#define DL_SYSCTL_CLK_STATUS_LFCLK_FAIL        (SYSCTL_CLKSTATUS_LFCLKFAIL_TRUE)
-/*! @brief High Speed Clock Good */
-#define DL_SYSCTL_CLK_STATUS_HSCLK_GOOD        (SYSCTL_CLKSTATUS_HSCLKGOOD_TRUE)
-/*! @brief High Speed Clock Stuck Fault */
-#define DL_SYSCTL_CLK_STATUS_HSCLK_FAULT       (SYSCTL_CLKSTATUS_HSCLKDEAD_TRUE)
-/*! @brief HFCLKs is OFF or DEAD */
-#define DL_SYSCTL_CLK_STATUS_HFCLK_OFF          (SYSCTL_CLKSTATUS_HFCLKOFF_TRUE)
-/*! @brief All HFCLKs are OFF or DEAD */
-#define DL_SYSCTL_CLK_STATUS_HSCLK_OFF         (SYSCTL_CLKSTATUS_HSCLKSOFF_TRUE)
 /*! @brief LFOSC is Valid */
 #define DL_SYSCTL_CLK_STATUS_LFOSC_GOOD        (SYSCTL_CLKSTATUS_LFOSCGOOD_TRUE)
-/*! @brief LFXT is Valid */
-#define DL_SYSCTL_CLK_STATUS_LFXT_GOOD          (SYSCTL_CLKSTATUS_LFXTGOOD_TRUE)
-/*! @brief High Frequency Clock ON */
-#define DL_SYSCTL_CLK_STATUS_HFCLK_GOOD        (SYSCTL_CLKSTATUS_HFCLKGOOD_TRUE)
-/*! @brief MCLK now sourced from HSCLK, otherwise SYSOSC */
-#define DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_HSCLK (SYSCTL_CLKSTATUS_HSCLKMUX_HSCLK)
 /*! @brief MCLK now sourced from LFCLK */
 #define DL_SYSCTL_CLK_STATUS_MCLK_SOURCE_LFCLK                                 \
                                              (SYSCTL_CLKSTATUS_CURMCLKSEL_LFCLK)
@@ -197,8 +180,6 @@ typedef enum {
 #define DL_SYSCTL_STATUS_PMU_IFREF_GOOD      (SYSCTL_SYSSTATUS_PMUIREFGOOD_TRUE)
 /*! @brief VBOOST (Analog Charge Pump) started up properly */
 #define DL_SYSCTL_STATUS_VBOOST_GOOD        (SYSCTL_SYSSTATUS_ANACPUMPGOOD_TRUE)
-/*! @brief VBAT POWER good */
-#define DL_SYSCTL_STATUS_VBAT_GOOD          (SYSCTL_SYSSTATUS_VBATGOOD_TRUE)
 /*! @brief Brown Out Reset event status indicator */
 #define DL_SYSCTL_STATUS_BOR_EVENT                (SYSCTL_SYSSTATUS_BORLVL_TRUE)
 /*! @brief MCAN0 ready */
@@ -222,17 +203,6 @@ typedef enum {
 
 /*! @enum DL_SYSCTL_NMI_IIDX */
 typedef enum {
-    /*! @brief  NMI interrupt index for VBAT power on */
-    DL_SYSCTL_NMI_IIDX_VBAT_ON = SYSCTL_NMIIIDX_STAT_VBATUP,
-    /*! @brief  NMI interrupt index for VBAT power off  */
-    DL_SYSCTL_NMI_IIDX_VBAT_OFF = SYSCTL_NMIIIDX_STAT_VBATDN,
-
-    /*! @brief  NMI interrupt index for SRAM Double Error Detect */
-    DL_SYSCTL_NMI_IIDX_SRAM_DED = SYSCTL_NMIIIDX_STAT_SRAMDED,
-    /*! @brief  NMI interrupt index for Flash Double Error Detect */
-    DL_SYSCTL_NMI_IIDX_FLASH_DED = SYSCTL_NMIIIDX_STAT_FLASHDED,
-    /*! @brief  NMI interrupt index for LFCLK Monitor Fail */
-    DL_SYSCTL_NMI_IIDX_LFCLK_FAIL = SYSCTL_NMIIIDX_STAT_LFCLKFAIL,
     /*! @brief  NMI interrupt index for Watchdog 0 Fault */
     DL_SYSCTL_NMI_IIDX_WWDT0_FAULT = SYSCTL_NMIIIDX_STAT_WWDT0,
     /*! @brief  NMI interrupt index for early BOR */
@@ -284,61 +254,6 @@ typedef struct {
     DL_SYSCTL_SYSOSC_USERTRIM_FREQ freq;
 } DL_SYSCTL_SYSOSCUserTrimConfig;
 
-/** @enum DL_SYSCTL_LFXT_DRIVE_STRENGTH */
-typedef enum {
-    /*! Lowest Drive and Current */
-    DL_SYSCTL_LFXT_DRIVE_STRENGTH_LOWEST =
-        (SYSCTL_LFCLKCFG_XT1DRIVE_LOWESTDRV),
-    /*! Lower Drive and Current */
-    DL_SYSCTL_LFXT_DRIVE_STRENGTH_LOWER = (SYSCTL_LFCLKCFG_XT1DRIVE_LOWERDRV),
-    /*! Higher Drive and Current */
-    DL_SYSCTL_LFXT_DRIVE_STRENGTH_HIGHER =
-        (SYSCTL_LFCLKCFG_XT1DRIVE_HIGHERDRV),
-    /*! Highest Drive and Current */
-    DL_SYSCTL_LFXT_DRIVE_STRENGTH_HIGHEST =
-        (SYSCTL_LFCLKCFG_XT1DRIVE_HIGHESTDRV),
-} DL_SYSCTL_LFXT_DRIVE_STRENGTH;
-
-/*! @brief  Configuration struct for @ref DL_SYSCTL_LFCLKConfig. */
-typedef struct {
-    /*! Enable if CAP is less than 3pF to reduce power consumption */
-    bool lowCap;
-    /*! Enable to use monitor for LFXT, EXLF failure */
-    bool monitor;
-    /*! Drive strength and power consumption option */
-    DL_SYSCTL_LFXT_DRIVE_STRENGTH xt1Drive;
-} DL_SYSCTL_LFCLKConfig;
-
-/** @enum DL_SYSCTL_HFXT_RANGE */
-typedef enum {
-    /*! HFXT frequency range between 4 and 8 MHz */
-    DL_SYSCTL_HFXT_RANGE_4_8_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE4TO8,
-    /*! HFXT frequency range between 8.01 and 16 MHz */
-    DL_SYSCTL_HFXT_RANGE_8_16_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE8TO16,
-    /*! HFXT frequency range between 16.01 and 32 MHz */
-    DL_SYSCTL_HFXT_RANGE_16_32_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE16TO32,
-    /*! HFXT frequency range between 32.01 and 48 MHz */
-    DL_SYSCTL_HFXT_RANGE_32_48_MHZ = SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE32TO48,
-} DL_SYSCTL_HFXT_RANGE;
-
-/*! @enum DL_SYSCTL_HSCLK_SOURCE */
-typedef enum {
-    /*! Invalid source for HSCLK */
-    DL_SYSCTL_HSCLK_SOURCE_INVALID = 0x0,
-    /*! Use HFLK as input source for HSCLK */
-    DL_SYSCTL_HSCLK_SOURCE_HFCLK = SYSCTL_HSCLKCFG_HSCLKSEL_HFCLKCLK,
-} DL_SYSCTL_HSCLK_SOURCE;
-
-/** @enum DL_SYSCTL_MCLK_SOURCE */
-typedef enum {
-    /*! Use System Oscillator (SYSOSC) as MCLK source (default after reset) */
-    DL_SYSCTL_MCLK_SOURCE_SYSOSC = SYSCTL_MCLKCFG_USEHSCLK_DISABLE,
-    /*! Use High Speed Clock (HSCLK) as MCLK source (HFCLK, ...) */
-    DL_SYSCTL_MCLK_SOURCE_HSCLK = SYSCTL_MCLKCFG_USEHSCLK_ENABLE,
-    /*! Use the Low Frequency Clock (LFCLK) as the clock source */
-    DL_SYSCTL_MCLK_SOURCE_LFCLK = SYSCTL_MCLKCFG_USELFCLK_ENABLE,
-} DL_SYSCTL_MCLK_SOURCE;
-
 /** @enum DL_SYSCTL_MCLK_DIVIDER */
 typedef enum {
     /*! Disable MCLK divider. Change SYSOSC freq only when MDIV is disabled */
@@ -389,8 +304,6 @@ typedef enum {
       * @ref DL_SYSCTL_CLK_OUT_DIVIDE_DISABLE must not be selected for this
       * configuration. */
     DL_SYSCTL_CLK_OUT_SOURCE_MFPCLK = SYSCTL_GENCLKCFG_EXCLKSRC_MFPCLK,
-    /*! Use High Frequency Clock (HFCLK) as CLK_OUT source */
-    DL_SYSCTL_CLK_OUT_SOURCE_HFCLK = SYSCTL_GENCLKCFG_EXCLKSRC_HFCLK,
 } DL_SYSCTL_CLK_OUT_SOURCE;
 
 /** @enum DL_SYSCTL_CLK_OUT_DIVIDE */
@@ -423,49 +336,15 @@ typedef enum {
                                   SYSCTL_GENCLKCFG_EXCLKDIVVAL_DIV16,
 } DL_SYSCTL_CLK_OUT_DIVIDE;
 
-/** @enum DL_SYSCTL_MFPCLK_SOURCE */
+/** @enum DL_SYSCTL_VBOOST */
 typedef enum {
-    /*! Use System Oscillator (SYSOSC) as MFPCLK source */
-    DL_SYSCTL_MFPCLK_SOURCE_SYSOSC = SYSCTL_GENCLKCFG_MFPCLKSRC_SYSOSC,
-    /*! Use High Frequency Clock (HFCLK) as MFPCLK source */
-    DL_SYSCTL_MFPCLK_SOURCE_HFCLK = SYSCTL_GENCLKCFG_MFPCLKSRC_HFCLK,
-} DL_SYSCTL_MFPCLK_SOURCE;
-
-/** @enum DL_SYSCTL_HFCLK_MFPCLK_DIVIDER */
-typedef enum {
-    /*! HFCLK is not divided before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_DISABLE = 0x0,
-    /*! Divide HFCLK by 2 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_2 = 0x1,
-    /*! Divide HFCLK by 3 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_3 = 0x2,
-    /*! Divide HFCLK by 4 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_4 = 0x3,
-    /*! Divide HFCLK by 5 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_5 = 0x4,
-    /*! Divide HFCLK by 6 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_6 = 0x5,
-    /*! Divide HFCLK by 7 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_7 = 0x6,
-    /*! Divide HFCLK by 8 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_8 = 0x7,
-    /*! Divide HFCLK by 9 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_9 = 0x8,
-    /*! Divide HFCLK by 10 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_10 = 0x9,
-    /*! Divide HFCLK by 11 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_11 = 0xA,
-    /*! Divide HFCLK by 12 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_12 = 0xB,
-    /*! Divide HFCLK by 13 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_13 = 0xC,
-    /*! Divide HFCLK by 14 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_14 = 0xD,
-    /*! Divide HFCLK by 15 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_15 = 0xE,
-    /*! Divide HFCLK by 16 before being used for MFPCLK */
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER_16 = 0xF,
-} DL_SYSCTL_HFCLK_MFPCLK_DIVIDER;
+    /*! VBOOST enabled only when COMP/OPA/GPAMP is enabled */
+    DL_SYSCTL_VBOOST_ONDEMAND = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONDEMAND,
+    /*! VBOOST enabled in RUN/SLEEP, and in STOP/STANDBY if COMP/OPA/GPAMP is enabled */
+    DL_SYSCTL_VBOOST_ONACTIVE = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONACTIVE,
+    /*! VBOOST enabled in all power modes except SHUTDOWN for fastest startup */
+    DL_SYSCTL_VBOOST_ONALWAYS = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONALWAYS,
+} DL_SYSCTL_VBOOST;
 
 /** @enum DL_SYSCTL_FCC_TRIG_TYPE */
 typedef enum {
@@ -489,8 +368,6 @@ typedef enum {
     DL_SYSCTL_FCC_CLOCK_SOURCE_MCLK = SYSCTL_GENCLKCFG_FCCSELCLK_MCLK,
     /*! FCC clock source to capture is SYSOSC */
     DL_SYSCTL_FCC_CLOCK_SOURCE_SYSOSC = SYSCTL_GENCLKCFG_FCCSELCLK_SYSOSC,
-    /*! FCC clock source to capture is HFCLK */
-    DL_SYSCTL_FCC_CLOCK_SOURCE_HFCLK = SYSCTL_GENCLKCFG_FCCSELCLK_HFCLK,
     /*! FCC clock source to capture is CLK_OUT */
     DL_SYSCTL_FCC_CLOCK_SOURCE_CLK_OUT = SYSCTL_GENCLKCFG_FCCSELCLK_EXTCLK,
     /*! FCC clock source to capture is FCC_IN */
@@ -596,16 +473,6 @@ typedef enum {
     DL_SYSCTL_FCC_TRIG_CNT_32 =
         ((uint32_t) 31 << SYSCTL_GENCLKCFG_FCCTRIGCNT_OFS),
 } DL_SYSCTL_FCC_TRIG_CNT;
-
-/** @enum DL_SYSCTL_VBOOST */
-typedef enum {
-    /*! VBOOST enabled only when COMP/OPA/GPAMP is enabled */
-    DL_SYSCTL_VBOOST_ONDEMAND = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONDEMAND,
-    /*! VBOOST enabled in RUN/SLEEP, and in STOP/STANDBY if COMP/OPA/GPAMP is enabled */
-    DL_SYSCTL_VBOOST_ONACTIVE = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONACTIVE,
-    /*! VBOOST enabled in all power modes except SHUTDOWN for fastest startup */
-    DL_SYSCTL_VBOOST_ONALWAYS = SYSCTL_GENCLKCFG_ANACPUMPCFG_ONALWAYS,
-} DL_SYSCTL_VBOOST;
 
 /** @enum DL_SYSCTL_FLASH_WAIT_STATE */
 typedef enum {
@@ -815,7 +682,7 @@ __STATIC_INLINE bool DL_SYSCTL_isEventOnPendEnabled(void)
 /**
  *  @brief  Change MCLK source from SYSOSC to LFCLK
  *
- *  @pre    If disabling SYSOSC, high speed oscillators (HFXT,...) must be disabled beforehand.
+ *  @pre    If disabling SYSOSC, high speed oscillators (SYSPLL, HFXT...) must be disabled beforehand.
  *  @post   MCLK source is switched to LFCLK, function will busy-wait until confirmed.
  *
  *  @param[in] disableSYSOSC   Whether to leave SYSOSC running or not
@@ -830,19 +697,9 @@ void DL_SYSCTL_switchMCLKfromSYSOSCtoLFCLK(bool disableSYSOSC);
 void DL_SYSCTL_switchMCLKfromLFCLKtoSYSOSC(void);
 
 /**
- *  @brief  Change MCLK source from SYSOSC to HSCLK
- *
- *  @pre    The desired HSCLK source is enabled beforehand (HFXT, HFCLK_IN).
- *  @post   MCLK source is switched to HSCLK, function will busy-wait until confirmed.
- *
- *  @param[in] source   Desired high-speed clock source
- */
-void DL_SYSCTL_switchMCLKfromSYSOSCtoHSCLK(DL_SYSCTL_HSCLK_SOURCE source);
-
-/**
  *  @brief  Change MCLK source from HSCLK to SYSOSC
  *
- *  @pre    MCLK is sourced from a valid, running HSCLK source (HFXT, HFCLK_IN)
+ *  @pre    MCLK is sourced from a valid, running HSCLK source (SYSPLL, HFXT, HFCLK_IN)
  *  @post   MCLK source is switched to SYSOSC, function will busy-wait until confirmed.
  *
  *  @note   No HSCLK sources are disabled by this function
@@ -852,8 +709,8 @@ void DL_SYSCTL_switchMCLKfromHSCLKtoSYSOSC(void);
 /**
  *  @brief     Set the RUN/SLEEP mode power policy to RUN0/SLEEP0
  *
- * In RUN0, the MCLK and the CPUCLK run from a fast clock source (SYSOSC, or
- * HFCLK).
+ * In RUN0, the MCLK and the CPUCLK run from a fast clock source (SYSOSC,
+ * HFCLK, or SYSPLL).
  *
  * Setting the RUN power policy will also set the SLEEP power policy.
  * The SLEEP mode behavior is always identical to RUN mode, just with the
@@ -1408,22 +1265,6 @@ __STATIC_INLINE DL_SYSCTL_MCLK_DIVIDER DL_SYSCTL_getMCLKDivider(void)
 }
 
 /**
- *  @brief   Get the source for the Main Clock (MCLK)
- *
- *  @return  The source for the Main Clock (MCLK)
- *
- *  @retval  One of @ref DL_SYSCTL_MCLK_SOURCE
- */
-__STATIC_INLINE DL_SYSCTL_MCLK_SOURCE DL_SYSCTL_getMCLKSource(void)
-{
-    uint32_t source =
-        SYSCTL->SOCLOCK.MCLKCFG &
-        (SYSCTL_MCLKCFG_USEHSCLK_MASK | SYSCTL_MCLKCFG_USELFCLK_MASK);
-
-    return (DL_SYSCTL_MCLK_SOURCE)(source);
-}
-
-/**
  *  @brief     Set the target frequency of the System Oscillator (SYSOSC)
  *
  *  Target/desired SYSOSC frequency may be different than current/actual SYSOSC
@@ -1554,214 +1395,6 @@ __STATIC_INLINE void DL_SYSCTL_clearECCErrorStatus(void)
 }
 
 /**
- *  @brief Change LFCLK source to external crystal LFXT
- *
- * LFOSC is the internal 32kHz oscillator and default LFCLK source after a BOR.
- * Once LFCLK source is changed, the change is locked, LFOSC is disabled to
- * save power, and LFCLK source cannot be selected again without BOR.
- *
- * LFXT is an ultra-low power crystal oscillator which supports driving a
- * standard 32.768kHz watch crystal.
- *
- * To use the LFXT, a watch crystal must be populated between LFXIN and LFXOUT
- * pins. Find more info in LFXT section of CKM Technical Reference Manual.
- *
- * GPIO/IOMUX must be configure LFXT functionality for LFXIN and LFXOUT before
- * calling this function.
- *
- * This basic implementation will busy-wait until LFXT oscillator is stabilized.
- * But a more advanced implementation can do other things while the LFXT is
- * stabilizing. You can enable LFXTGOOD interrupt, or check CLKSTATUS.LFXTGOOD
- * when convenient, as long as you do not switch the source via
- * SETUSELFXT until LFXTGOOD is set.
- *
- * LFCLK_IN and LFXT are mutually exclusive.
- * This function assumes LFCLK_IN is disabled (default).
- *
- *  @param[in]  config         Pointer to the LFCLK configuration struct
- *                             @ref DL_SYSCTL_LFCLKConfig.
- */
-void DL_SYSCTL_setLFCLKSourceLFXT(DL_SYSCTL_LFCLKConfig *config);
-
-/**
- *  @brief Change LFCLK source to external digital LFCLK_IN
- *
- * LFOSC is the internal 32kHz oscillator and default LFCLK source after a BOR.
- * Once LFCLK source is changed, the change is locked, LFOSC is disabled to
- * save power, and LFCLK source cannot be selected again without BOR.
- *
- * LFCLK_IN is a low frequency digital clock input compatible with 32.768kHz
- * typical frequency digital square wave CMOS clock inputs (typical duty
- * cycle of 50%).
- *
- * Digital clock input must be valid and GPIO/IOMUX must be configured
- * separately on the appropriate pin before calling this function to enable
- * LFCLK_IN.
- *
- * LFCLK_IN and LFXT are mutually exclusive.
- * This function assumes LFXT is disabled (default).
- */
-__STATIC_INLINE void DL_SYSCTL_setLFCLKSourceEXLF(void)
-{
-    SYSCTL->SOCLOCK.EXLFCTL =
-        (SYSCTL_EXLFCTL_KEY_VALUE | SYSCTL_EXLFCTL_SETUSEEXLF_TRUE);
-}
-
-/**
- *  @brief Change HFCLK source to external crystal HFXT with default parameters
- *
- * HFXT is a high frequency crystal oscillator which supports standard crystals
- * and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- * To use the HFXT, a crystal or resonator must be populated between HFXIN and HFXOUT
- * pins. Find more info in HFXT section of CKM Technical Reference Manual.
- *
- * GPIO/IOMUX must be configure HFXT functionality for HFXIN and HFXOUT before
- * calling this function.
- *
- * The HFXT startup time is set to ~0.512ms based on the TYP datasheet
- * recommendation. Additionally, the HFCLK startup monitor is enabled.
- *
- * This basic implementation will busy-wait until HFXT oscillator is stabilized.
- * But a more advanced implementation can do other things while the HFXT is
- * stabilizing. You can enable HFCLKGOOD interrupt, or check CLKSTATUS.HFCLKGOOD
- * when convenient, as long as you do not switch the source before HFCLKGOOD is set.
- *
- * To modify the default HFXT startup time or disable the startup monitor, use
- * @ref DL_SYSCTL_setHFCLKSourceHFXTParams instead of this API.
- *
- *  @param[in]  range   HFXT frequency range
- */
-void DL_SYSCTL_setHFCLKSourceHFXT(DL_SYSCTL_HFXT_RANGE range);
-
-/**
- *  @brief Change HFCLK source to external crystal HFXT with custom parameters
- *
- * HFXT is a high frequency crystal oscillator which supports standard crystals
- * and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- * To use the HFXT, a crystal or resonator must be populated between HFXIN and HFXOUT
- * pins. Find more info in HFXT section of CKM Technical Reference Manual.
- *
- * GPIO/IOMUX must be configure HFXT functionality for HFXIN and HFXOUT before
- * calling this function.
- *
- * If the HFCLK startup monitor is enabled, then the HFXT will be checked after
- * the amount of time specified by the startupTime parameter.
- * This basic implementation will busy-wait until HFXT oscillator is stabilized.
- * But a more advanced implementation can do other things while the HFXT is
- * stabilizing. You can enable HFCLKGOOD interrupt, or check CLKSTATUS.HFCLKGOOD
- * when convenient, as long as you do not switch the source before HFCLKGOOD is set.
- *
- * If the HFCLK startup monitor is disabled, then this implementation will not
- * check if the HFXT oscillator is stabilized.
- *
- *  @param[in]  range           HFXT frequency range
- *  @param[in]  startupTime     HFXT startup time
- *  @param[in]  monitorEnable   Whether to enable the HFCLK startup monitor
-
- */
-void DL_SYSCTL_setHFCLKSourceHFXTParams(
-    DL_SYSCTL_HFXT_RANGE range, uint32_t startupTime, bool monitorEnable);
-
-/**
- *  @brief Change HFCLK source to external digital HFCLK_IN
- *
- * HFCLK_IN can be used to bypass the HFXT circuit and bring 4-48MHz typical
- * frequency digital clock into the devce as HFCLK source instead of HFXT.
- *
- * HFCLK_IN is a digital clock input compatible with digital square wave CMOS
- * clock inputs and should have typical duty cycle of 50%.
- *
- * Digital clock input must be valid and GPIO/IOMUX must be configured
- * separately on the appropriate pin before calling this function to enable
- * HFCLK_IN.
- */
-__STATIC_INLINE void DL_SYSCTL_setHFCLKSourceHFCLKIN(void)
-{
-    SYSCTL->SOCLOCK.HSCLKEN |= SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE;
-}
-
-/**
- *  @brief      Disable the HFXT
- *
- *  If HFXT is already enabled, application software must verify that either an
- *  HFCLKGOOD indication or an HFCLKOFF (off/dead) indication in the CLKSTATUS
- *  register was asserted by hardware before attempting to disable the HFXT
- *  by clearing HFXTEN. When disabling the HFXT by clearing HFXTEN, the HFXT
- *  must not be re-enabled again until the HFCLKOFF bit in the CLKSTATUS
- *  register is set by hardware.
- *
- *  @sa DL_SYSCTL_getClockStatus
- */
-__STATIC_INLINE void DL_SYSCTL_disableHFXT(void)
-{
-    SYSCTL->SOCLOCK.HSCLKEN &= ~(SYSCTL_HSCLKEN_HFXTEN_MASK);
-}
-
-/**
- *  @brief   Get the source of High Speed Clock (HSCLK)
- *
- * HSCLK can be sourced by HFCLK.
- * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
- *
- *  @return  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
- */
-__STATIC_INLINE DL_SYSCTL_HSCLK_SOURCE DL_SYSCTL_getHSCLKSource(void)
-{
-    uint32_t source = SYSCTL->SOCLOCK.HSCLKCFG & SYSCTL_HSCLKCFG_HSCLKSEL_MASK;
-
-    return (DL_SYSCTL_HSCLK_SOURCE)(source);
-}
-
-/**
- *  @brief   Set the source of High Speed Clock (HSCLK)
- *
- * HSCLK can be sourced by HFCLK.
- * HSCLK is an optional source for MCLK alongside SYSOSC or LFCLK.
- *
- *  @param[in]  source  The source of HSCLK. One of @ref DL_SYSCTL_HSCLK_SOURCE.
- */
-__STATIC_INLINE void DL_SYSCTL_setHSCLKSource(DL_SYSCTL_HSCLK_SOURCE source)
-{
-    SYSCTL->SOCLOCK.HSCLKCFG = (uint32_t) source;
-}
-
-/**
- *  @brief   Get the source of Middle Frequency Precision Clock (MFPCLK)
- *
- *  MFPCLK is a continuous 4MHz to DAC module in RUN/SLEEP/STOP mode.
- *  Unlike MFCLK, MFPCLK is async to MCLK/ULPCLK, providing higher DAC precision and performance.
- *  MFPCLK is the only clock source for DAC.
- *
- *  @return  The source of MFPCLK. One of @ref DL_SYSCTL_MFPCLK_SOURCE.
- */
-__STATIC_INLINE DL_SYSCTL_MFPCLK_SOURCE DL_SYSCTL_getMFPCLKSource(void)
-{
-    uint32_t source =
-        SYSCTL->SOCLOCK.GENCLKCFG & SYSCTL_GENCLKCFG_MFPCLKSRC_MASK;
-
-    return (DL_SYSCTL_MFPCLK_SOURCE)(source);
-}
-
-/**
- *  @brief   Set the source of Middle Frequency Precision Clock (MFPCLK)
- *
- *  MFPCLK is a continuous 4MHz to DAC module in RUN/SLEEP/STOP mode.
- *  Unlike MFCLK, MFPCLK is async to MCLK/ULPCLK, providing higher DAC precision and performance.
- *  MFPCLK is the only clock source for DAC.
- *
- *  @param[in]  source  The source of MFPCLK. One of @ref DL_SYSCTL_MFPCLK_SOURCE.
- */
-__STATIC_INLINE void DL_SYSCTL_setMFPCLKSource(DL_SYSCTL_MFPCLK_SOURCE source)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.GENCLKCFG, (uint32_t) source,
-        SYSCTL_GENCLKCFG_MFPCLKSRC_MASK);
-}
-
-/**
  *  @brief  Enable the Medium Frequency Clock (MFCLK)
  *
  *  MFCLK provides a continuous 4MHz clock to drive certain peripherals on the system.
@@ -1796,63 +1429,6 @@ __STATIC_INLINE void DL_SYSCTL_disableMFCLK(void)
 }
 
 /**
- *  @brief  Enable the Middle Frequency Precision Clock (MFPCLK)
- *
- *  MFPCLK provides a continuous 4MHz clock to the DAC.
- *
- *  MFPCLK can be sources from either SYSOSC or HFCLK (HFXT or HFCLK_IN).
- *
- *  The DAC does not have a clock selection mux. Its clock source is selected
- *  by configuring MFPCLK.
- *
- *  @sa DL_SYSCTL_disableMFPCLK
- */
-__STATIC_INLINE void DL_SYSCTL_enableMFPCLK(void)
-{
-    SYSCTL->SOCLOCK.GENCLKEN |= SYSCTL_GENCLKEN_MFPCLKEN_ENABLE;
-}
-
-/**
- *  @brief  Disable the Middle Frequency Precision Clock (MFPCLK)
- *  @sa DL_SYSCTL_enableMFPCLK
- */
-__STATIC_INLINE void DL_SYSCTL_disableMFPCLK(void)
-{
-    SYSCTL->SOCLOCK.GENCLKEN &= ~(SYSCTL_GENCLKEN_MFPCLKEN_ENABLE);
-}
-
-/**
- *  @brief  Set the divider for HFCLK when HFCLK is used as the MFPCLK source
- *
- *  @param[in] divider   The divider of HFCLK for MFPCLK
- *                       One of @ref DL_SYSCTL_HFCLK_MFPCLK_DIVIDER.
- */
-__STATIC_INLINE void DL_SYSCTL_setHFCLKDividerForMFPCLK(
-    DL_SYSCTL_HFCLK_MFPCLK_DIVIDER divider)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.GENCLKCFG,
-        ((uint32_t) divider << SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_OFS),
-        SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_MASK);
-}
-
-/**
- *  @brief   Get the divider for HFCLK when HFCLK is used as the MFPCLK source
- *
- *  @return  Returns the divider for HFCLK for MFPCLK
- *
- *  @retval  One of @ref DL_SYSCTL_HFCLK_MFPCLK_DIVIDER
- */
-__STATIC_INLINE DL_SYSCTL_HFCLK_MFPCLK_DIVIDER
-DL_SYSCTL_getHFCLKDividerForMFPCLK(void)
-{
-    uint32_t divider =
-        (SYSCTL->SOCLOCK.GENCLKCFG & SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_MASK) >>
-        SYSCTL_GENCLKCFG_HFCLK4MFPCLKDIV_OFS;
-
-    return (DL_SYSCTL_HFCLK_MFPCLK_DIVIDER)(divider);
-}
-
-/**
  *  @brief  Enable the External Clock (CLK_OUT)
  *
  *  CLK_OUT is provided for pushing out digital clocks to external circuits, such
@@ -1860,7 +1436,7 @@ DL_SYSCTL_getHFCLKDividerForMFPCLK(void)
  *
  *  IOMUX setting for CLK_OUT must be configured before using this function.
  *
- *  CLK_OUT has a typical duty cycle of 50% if clock source is HFCLK,
+ *  CLK_OUT has a typical duty cycle of 50% if clock source is HFCLK, SYSPLLOUT1,
  *  SYSOSC, or LFCLK. If source is MCLK, ULPCLK, or MFCLK, duty cycle is not
  *  guaranteed to be 50%.
  *
@@ -1902,6 +1478,27 @@ __STATIC_INLINE void DL_SYSCTL_disableExternalClock(void)
 __STATIC_INLINE void DL_SYSCTL_disableExternalClockDivider(void)
 {
     SYSCTL->SOCLOCK.GENCLKCFG &= ~(SYSCTL_GENCLKCFG_EXCLKDIVEN_ENABLE);
+}
+
+/**
+ *  @brief  Enable the Middle Frequency Precision Clock (MFPCLK)
+ *
+ *  MFPCLK provides a continuous fixed 4MHz clock to some analog peripherals.
+ *
+ *  @sa DL_SYSCTL_disableMFPCLK
+ */
+__STATIC_INLINE void DL_SYSCTL_enableMFPCLK(void)
+{
+    SYSCTL->SOCLOCK.GENCLKEN |= SYSCTL_GENCLKEN_MFPCLKEN_ENABLE;
+}
+
+/**
+ *  @brief  Disable the Middle Frequency Precision Clock (MFPCLK)
+ *  @sa DL_SYSCTL_enableMFPCLK
+ */
+__STATIC_INLINE void DL_SYSCTL_disableMFPCLK(void)
+{
+    SYSCTL->SOCLOCK.GENCLKEN &= ~(SYSCTL_GENCLKEN_MFPCLKEN_ENABLE);
 }
 
 /**
@@ -2006,7 +1603,7 @@ __STATIC_INLINE uint32_t DL_SYSCTL_getSRAMBoundaryAddress(void)
  *
  *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
  *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from HFXT,
+ *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
  *  or HFCLK_IN.
  *
  *  Consult device specific datasheet for proper values.
@@ -2026,7 +1623,7 @@ __STATIC_INLINE void DL_SYSCTL_setFlashWaitState(
  *
  *  @note Flash wait states are managed automatically by SYSCTL when MCLK is
  *  running from SYSOSC or LFCLK.
- *  @note This wait state is only applied if MCLK running from HFXT,
+ *  @note This wait state is only applied if MCLK running from SYSPLL, HFXT,
  *  or HFCLK_IN.
  *
  *  Consult device specific datasheet for proper values.
@@ -2126,9 +1723,11 @@ __STATIC_INLINE DL_SYSCTL_FCC_TRIG_CNT DL_SYSCTL_getFCCPeriods(void)
 }
 
 /**
- *  @brief  Enable Frequency Correction Loop (FCL) in Internal Resistor Mode
+ *  @brief  Enable Frequency Correction Loop (FCL)
  *
- *  Once FCL is enable, it cannot be disabled by software. A BOOTRST is required.
+ *  FCL for this device is using the external resistor by default.
+ *
+ *  This API calls @ref DL_SYSCTL_enableSYSOSCFCLExternalResistor
  */
 __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
 {
@@ -2152,9 +1751,7 @@ __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCL(void)
  */
 __STATIC_INLINE void DL_SYSCTL_enableSYSOSCFCLExternalResistor(void)
 {
-    SYSCTL->SOCLOCK.SYSOSCFCLCTL =
-        (SYSCTL_SYSOSCFCLCTL_KEY_VALUE | SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE |
-            SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_TRUE);
+    DL_SYSCTL_enableSYSOSCFCL();
 }
 
 /**
@@ -2313,89 +1910,6 @@ __STATIC_INLINE DL_SYSCTL_RESET_CAUSE DL_SYSCTL_getResetCause(void)
 }
 
 /**
- *  @brief     Set the HFXT startup time
- *
- * Specify the HFXT startup time in 64us resolution. If the HFCLK startup
- * monitor is enabled (HFCLKFLTCHK), HFXT will be checked after this time
- * expires.
- *
- *  @param[in]  startupTime  The HFXT startup time to set in ~64us steps.
- *                           Value between [0x0 (~0s), 0xFF (~16.32ms)].
- */
-__STATIC_INLINE void DL_SYSCTL_setHFXTStartupTime(uint32_t startupTime)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.HFCLKCLKCFG, startupTime,
-        SYSCTL_HFCLKCLKCFG_HFXTTIME_MASK);
-}
-
-/**
- *  @brief   Get the HFXT startup time
- *
- *  @return  Returns the HFXT startup time in ~64us steps
- *
- *  @retval  Value between [0x0 (~0s), 0xFF (~16.32ms)]
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getHFXTStartupTime(void)
-{
-    return (SYSCTL->SOCLOCK.HFCLKCLKCFG & SYSCTL_HFCLKCLKCFG_HFXTTIME_MASK);
-}
-
-/**
- *  @brief     Set the HFXT frequency range
- *
- * The high frequency crystal oscillator (HFXT) can be used with standard
- * crystals and resonators in the 4-48MHz range to generate a stable high-speed
- * reference clock for the system.
- *
- *  @param[in]  range  One of @ref DL_SYSCTL_HFXT_RANGE
- */
-__STATIC_INLINE void DL_SYSCTL_setHFXTFrequencyRange(
-    DL_SYSCTL_HFXT_RANGE range)
-{
-    DL_Common_updateReg(&SYSCTL->SOCLOCK.HFCLKCLKCFG, ((uint32_t) range),
-        SYSCTL_HFCLKCLKCFG_HFXTRSEL_MASK);
-}
-
-/**
- *  @brief   Get the HFXT frequency range
- *
- *  @return  Returns the HFXT frequency range
- *
- *  @retval  One of @ref DL_SYSCTL_HFXT_RANGE
- */
-__STATIC_INLINE DL_SYSCTL_HFXT_RANGE DL_SYSCTL_getHFXTFrequencyRange(void)
-{
-    uint32_t range =
-        (SYSCTL->SOCLOCK.HFCLKCLKCFG & SYSCTL_HFCLKCLKCFG_HFXTRSEL_MASK) >>
-        SYSCTL_HFCLKCLKCFG_HFXTRSEL_OFS;
-
-    return (DL_SYSCTL_HFXT_RANGE)(range);
-}
-
-/**
- *  @brief  Enable the HFCLK startup monitor
- *
- * The HFXT takes time to start after being enabled. A startup monitor is
- * provided to indicate to the application software if the HFXT has successfully
- * started, at which point the HFCLK can be selected to source a variety of
- * system functions. The HFCLK startup monitor also supports checking the
- * HFCLK_IN digital clock input for a clock stuck fault.
- *
- */
-__STATIC_INLINE void DL_SYSCTL_enableHFCLKStartupMonitor(void)
-{
-    SYSCTL->SOCLOCK.HFCLKCLKCFG |= SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_ENABLE;
-}
-
-/**
- *  @brief  Disable the HFCLK startup monitor
- */
-__STATIC_INLINE void DL_SYSCTL_disableHFCLKStartupMonitor(void)
-{
-    SYSCTL->SOCLOCK.HFCLKCLKCFG &= ~(SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_MASK);
-}
-
-/**
  *  @brief  Retrieves the calibration constant of the temperature sensor to be
  *          used in temperature calculation.
  *
@@ -2407,447 +1921,15 @@ __STATIC_INLINE uint32_t DL_SYSCTL_getTempCalibrationConstant(void)
 }
 
 /**
- *  @brief  Initializes the Read Execute (RX) Protect Firewall
- *
- *  The firewall security configuration can only be configured if INITDONE has
- *  not been issued by the CSC.
- *  This API checks if INITDONE has been issued. If it has not been issued,
- *  then the start and end addresses are set, and then it enables the firewall.
- *  If INITDONE has been issused, then the API immediately returns.
- *
- *  @param[in] startAddr  The start address of the read execute protect firewall
- *  @param[in] endAddr    The end address of the read execute protect firewall
- *
- *  @return  If the Read Execute Protect Firewall was configured
- *
- *  @retval  true  If INITDONE was not issued and the firewall was configured
- *  @retval  false If INITDONE was issued and the firewall was not configured
- */
-bool DL_SYSCTL_initReadExecuteProtectFirewall(
-    uint32_t startAddr, uint32_t endAddr);
-
-/**
- *  @brief  Initializes the IP Protect Firewall
- *
- *  The firewall security configuration can only be configured if INITDONE has
- *  not been issued by the CSC.
- *  This API checks if INITDONE has been issued. If it has not been issued,
- *  then the start and end addresses are set, and then it enables the firewall.
- *  If INITDONE has been issused, then the API immediately returns.
- *
- *  @param[in] startAddr  The start address of the IP protect firewall
- *  @param[in] endAddr    The end address of the IP protect firewall
- *
- *  @return  If the IP Protect Firewall was configured
- *
- *  @retval  true  If INITDONE was not issued and the firewall was configured
- *  @retval  false If INITDONE was issued and the firewall was not configured
- */
-bool DL_SYSCTL_initIPProtectFirewall(uint32_t startAddr, uint32_t endAddr);
-
-/**
- *  @brief  Set the address range of the Write Protect Firewall
- *
- *  Set Write Protection starting at 0x0 of flash, for the first
- *  32KB at 1KB granularity.
- *  Setting a bit to 1 enables write protection, and setting a bit to 0
- *  allows write.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST.
- *
- *  @param[in] addrMask The mask to set the address range for the Write Protect
- *                      Firewall
- */
-__STATIC_INLINE void DL_SYSCTL_setWriteProtectFirewallAddrRange(
-    uint32_t addrMask)
-{
-    SYSCTL->SECCFG.FWEPROTMAIN = addrMask;
-}
-
-/**
- *  @brief  Get the address range of the Write Protect Firewall
- *
- *  @retval The address range for the Write Protect Firewall
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getWriteProtectFirewallAddrRange(void)
-{
-    return (SYSCTL->SECCFG.FWEPROTMAIN);
-}
-
-/**
- *  @brief  Set the start address of the Read Execute (RX) Protect Firewall
- *
- *  Set the start of the range of Flash MAIN memory that needs to be guarded
- *  from both read and execute accesses. The firewall is configured as an
- *  address range.
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *  If the start address is equal to the end address, then one sector is RX
- *  protected. If the end address is equal to the start address + 1, then two
- *  sectors are protected, and so on. If the end address is less than the start
- *  address, the no sectors are RX protected. The hardware does not perform any
- *  checks on the addresses.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST.
- *
- *  @param[in] startAddr  The start address of the read execute protect
- *                        firewall. The 6 LSBs are don't cares.
- */
-__STATIC_INLINE void DL_SYSCTL_setReadExecuteProtectFirewallAddrStart(
-    uint32_t startAddr)
-{
-    SYSCTL->SECCFG.FRXPROTMAINSTART =
-        (startAddr & SYSCTL_FRXPROTMAINSTART_ADDR_MASK);
-}
-
-/**
- *  @brief  Get the start address of the Read Execute (RX) Protect Firewall
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *
- *  @return  The start address of the read execute protect firewall
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getReadExecuteProtectFirewallAddrStart(void)
-{
-    return (SYSCTL->SECCFG.FRXPROTMAINSTART);
-}
-
-/**
- *  @brief  Set the end address of the Read Execute (RX) Protect Firewall
- *
- *  Set the end of the range of Flash MAIN memory that needs to be guarded
- *  from both read and execute accesses. The firewall is configured as an
- *  address range.
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *  If the start address is equal to the end address, then one sector is RX
- *  protected. If the end address is equal to the start address + 1, then two
- *  sectors are protected, and so on. If the end address is less than the start
- *  address, the no sectors are RX protected. The hardware does not perform any
- *  checks on the addresses.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST.
- *
- *  @param[in] endAddr  The end address of the read execute protect firewall.
- *                      The 6 LSBs are don't cares.
- */
-__STATIC_INLINE void DL_SYSCTL_setReadExecuteProtectFirewallAddrEnd(
-    uint32_t endAddr)
-{
-    SYSCTL->SECCFG.FRXPROTMAINEND =
-        (endAddr & SYSCTL_FRXPROTMAINEND_ADDR_MASK);
-}
-
-/**
- *  @brief  Get the end address of the Read Execute (RX) Protect Firewall
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *
- *  @return  The end address of the Read Execute Protect Firewall
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getReadExecuteProtectFirewallAddrEnd(void)
-{
-    return (SYSCTL->SECCFG.FRXPROTMAINEND);
-}
-
-/**
- *  @brief  Set the start address of the IP Protect Firewall
- *
- *  Set the end of the range of Flash MAIN memory that needs to be guarded
- *  from read access, allowing only execute accesses. The firewall is configured
- *  as an address range.
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *  If the start address is equal to the end address, then one sector is IP
- *  protected. If the end address is equal to the start address + 1, then two
- *  sectors are protected, and so on. If the end address is less than the start
- *  address, the no sectors are IP protected. The hardware does not perform any
- *  checks on the addresses.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST.
- *
- *  @param[in] startAddr  The start address of the IP Protect Firewall
- */
-__STATIC_INLINE void DL_SYSCTL_setIPProtectFirewallAddrStart(
-    uint32_t startAddr)
-{
-    SYSCTL->SECCFG.FIPPROTMAINSTART =
-        (startAddr & SYSCTL_FIPPROTMAINSTART_ADDR_MASK);
-}
-
-/**
- *  @brief  Get the start address of the IP Protect Firewall
- *
- *  @return  The start address of the IP Protect Firewall
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getIPProtectFirewallAddrStart(void)
-{
-    return (SYSCTL->SECCFG.FIPPROTMAINSTART);
-}
-
-/**
- *  @brief  Set the end address of the IP Protect firewall
- *
- *  Set the end of the range of Flash MAIN memory that needs to be guarded
- *  from read access, allowing only execute accesses. The firewall is configured
- *  as an address range.
- *
- *  The start and end addresses are specified at 64B sector granularity, so
- *  the 6 LSBs are don't cares.
- *  If the start address is equal to the end address, then one sector is IP
- *  protected. If the end address is equal to the start address + 1, then two
- *  sectors are protected, and so on. If the end address is less than the start
- *  address, the no sectors are IP protected. The hardware does not perform any
- *  checks on the addresses.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST.
- *
- *  @param[in] endAddr  The end address of the IP Protect firewall
- */
-__STATIC_INLINE void DL_SYSCTL_setIPProtectFirewallAddrEnd(uint32_t endAddr)
-{
-    SYSCTL->SECCFG.FIPPROTMAINSTART =
-        (endAddr & SYSCTL_FIPPROTMAINEND_ADDR_MASK);
-}
-
-/**
- *  @brief  Get the end address of the IP Protect Firewall
- *
- *  @return  The end address of the IP Protect Firewall
- */
-__STATIC_INLINE uint32_t DL_SYSCTL_getIPProtectFirewallAddrEnd(void)
-{
-    return (SYSCTL->SECCFG.FIPPROTMAINSTART);
-}
-
-/**
- *  @brief  Enable the policy to allow flash bank swapping
- *
- *  The bank swap policy needs to be configured ahead of any bank swapping or
- *  firewall configurations. In dual/quad-bank devices, this policy can be set
- *  to either
- *      - CSC allows bank swapping
- *      - CSC does not allow bank swapping
- *
- *  By default, bank swapping is enabled to ensure a high security state if the
- *  system boot execution was glitched. Defaulting the system as allowing bank
- *  swapping ensures that firewall protections get mirrored to both flash banks.
- *  Additionally, when bank swapping is enabled, SYSCTL enforces write-excute
- *  mutual exclusion across the two banks (or bank-pairs).
- *
- *  @note This is a write-once bit. This bit can only be written to before
- *        INITDONE. At INITDONE, this bit becomes a read-only bit until next
- *        BOOTRST.
- */
-__STATIC_INLINE void DL_SYSCTL_enableFlashBankSwap(void)
-{
-    SYSCTL->SECCFG.FLBANKSWPPOLICY &= (~(SYSCTL_FLBANKSWPPOLICY_DISABLE_MASK) |
-                                       SYSCTL_FLBANKSWPPOLICY_KEY_VALUE);
-}
-
-/**
- *  @brief  Disable the policy to allow flash bank swapping
- *
- *  The bank swap policy needs to be configured ahead of any bank swapping or
- *  firewall configurations. In dual/quad-bank devices, this policy can be set
- *  to either
- *      - CSC allows bank swapping
- *      - CSC does not allow bank swapping
- *
- *  By default, bank swapping is enabled to ensure a high security state if the
- *  system boot execution was glitched. Defaulting the system as allowing bank
- *  swapping ensures that firewall protections get mirrored to both flash banks.
- *  Additionally, when bank swapping is enabled, SYSCTL enforces write-excute
- *  mutual exclusion across the two banks (or bank-pairs).
- *
- *  @note This is a write-once bit. This bit can only be written to before
- *        INITDONE. At INITDONE, this bit becomes a read-only bit until next
- *        BOOTRST.
- */
-__STATIC_INLINE void DL_SYSCTL_disableFlashBankSwap(void)
-{
-    SYSCTL->SECCFG.FLBANKSWPPOLICY = (SYSCTL_FLBANKSWPPOLICY_DISABLE_TRUE |
-                                      SYSCTL_FLBANKSWPPOLICY_KEY_VALUE);
-}
-
-/**
- *  @brief      Perform bank swap and execute from the Upper Flash Bank
- *
- *  The upper physical bank maps to logical 0x0, and gets RX permission.
- *  The lower physical bank gets RW permission.
- *
- *  @note This bit can only be written to before INITDONE. At INITDONE, this bit
- *  becomes a read-only bit until next BOOTRST.
- *
- *  @pre  DL_SYSCTL_enableFlashBankSwap
- */
-__STATIC_INLINE void DL_SYSCTL_executeFromUpperFlashBank(void)
-{
-    SYSCTL->SECCFG.FLBANKSWP |=
-        (SYSCTL_FLBANKSWP_USEUPPER_ENABLE | SYSCTL_FLBANKSWP_KEY_VALUE);
-}
-
-/**
- *  @brief      Perform bank swap and execute from the Lower Flash Bank
- *
- *  The lower physical bank maps to logical 0x0, and gets RX permission.
- *  The upper physical bank gets RW permission.
- *
- *  @note This bit can only be written to before INITDONE. At INITDONE, this bit
- *  becomes a read-only bit until next BOOTRST.
- *
- *  @pre  DL_SYSCTL_enableFlashBankSwap
- */
-__STATIC_INLINE void DL_SYSCTL_executeFromLowerFlashBank(void)
-{
-    SYSCTL->SECCFG.FLBANKSWP &=
-        (~(SYSCTL_FLBANKSWP_USEUPPER_MASK) | SYSCTL_FLBANKSWP_KEY_VALUE);
-}
-
-/**
- *  @brief      Enable Read Execute (RX) Protect Firewall
- *
- *  Enables the Read Execute Protect Firewall before INITDONE.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST
- */
-__STATIC_INLINE void DL_SYSCTL_enableReadExecuteProtectFirewall(void)
-{
-    SYSCTL->SECCFG.FWENABLE |=
-        (SYSCTL_FWENABLE_FLRXPROT_ENABLE | SYSCTL_FWENABLE_KEY_VALUE);
-}
-
-/**
- *  @brief      Enable IP Protect Firewall
- *
- *  Enables the IP Protect Firewall before INITDONE. After INITDONE,
- *  this configuration gets locked until the next BOOTRST.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST
- */
-__STATIC_INLINE void DL_SYSCTL_enableIPProtectFirewall(void)
-{
-    SYSCTL->SECCFG.FWENABLE |=
-        (SYSCTL_SECSTATUS_FLIPPROT_ENABLED | SYSCTL_FWENABLE_KEY_VALUE);
-}
-
-/**
- *  @brief      Enable SRAM Boundary Lock
- *
- *  When SRAM Boundary Lock is enabled, the SRAMBOUNDARY register is only
- *  writeable only until INITDONE. After INITDONE, the SRAMBOUNDARY register
- *  cannot be written.
- *
- *  When disabled, the SRAMBOUNDARY register is writeable throughout the
- *  application, even after INITDONE.
- *
- *  @note This bit can be written only before INITDONE. At INITDONE, this
- *        configuration gets locked and stays locked until the next BOOTRST
- *
- *  @sa DL_SYSCTL_setSRAMBoundaryAddress
- */
-__STATIC_INLINE void DL_SYSCTL_enableSRAMBoundaryLock(void)
-{
-    SYSCTL->SECCFG.FWENABLE |=
-        (SYSCTL_FWENABLE_SRAMBOUNDARYLOCK_ENABLE | SYSCTL_FWENABLE_KEY_VALUE);
-}
-
-/**
- *  @brief  Checks if INITDONE has been issued by the CSC
- *
- *  @return Whether INITDONE has been issued or not
- *
- *  @retval  true  If INITDONE has been issued
- *  @retval  false If INITDONE has not been issued
- */
-__STATIC_INLINE bool DL_SYSCTL_isINITDONEIssued(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_INITDONE_YES) ==
-            SYSCTL_SECSTATUS_INITDONE_YES);
-}
-
-/**
- *  @brief  Checks if Customer Startup Code (CSC) exists in system
- *
- *  @return Whether CSC exists in system
- *
- *  @retval  true  If CSC exists in system
- *  @retval  false If CSC does not exist in system
- */
-__STATIC_INLINE bool DL_SYSCTL_ifCSCExists(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_CSCEXISTS_YES) ==
-            SYSCTL_SECSTATUS_CSCEXISTS_YES);
-}
-
-/**
- *  @brief  Checks if Read Execute (RX) Protect Firewall is enabled
- *
- *  @return Whether Read Execute Protect Firewall is enabled
- *
- *  @retval  true  If Read Execute Protect Firewall is enabled
- *  @retval  false If Read Execute Protect Firewall is not enabled
- */
-__STATIC_INLINE bool DL_SYSCTL_isReadExecuteProtectFirewallEnabled(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_FLRXPROT_ENABLED) ==
-            SYSCTL_SECSTATUS_FLRXPROT_ENABLED);
-}
-
-/**
- *  @brief  Checks if IP Protect Firewall is enabled
- *
- *  @return Whether IP Protect Firewall is enabled
- *
- *  @retval  true  If IP Protect Firewall is enabled
- *  @retval  false If IP Protect Firewall is not enabled
- */
-__STATIC_INLINE bool DL_SYSCTL_isIPProtectFirewallEnabled(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_FLIPPROT_ENABLED) ==
-            SYSCTL_SECSTATUS_FLIPPROT_ENABLED);
-}
-
-/**
- *  @brief  Checks if SRAM Boundary Lock is enabled
- *
- *  @return Whether SRAM Boundary Lock is enabled
- *
- *  @retval  true  If SRAM Boundary Lock is enabled
- *  @retval  false If SRAM Boundary Lock is not enabled
- */
-__STATIC_INLINE bool DL_SYSCTL_isSRAMBoundaryLocked(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS &
-                SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_ENABLED) ==
-            SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_ENABLED);
-}
-
-/**
  *  @brief  Checks if Flash Bank swapping is enabled
  *
  *  @return Whether Flash Bank swap is enabled
  *
- *  @retval  true  If Flash Bank swap is enabled
- *  @retval  false If Flash Bank swap is not enabled
+ *  @retval  false  This is not a multi-bank device
  */
 __STATIC_INLINE bool DL_SYSCTL_isFlashBankSwapEnabled(void)
 {
-    return ((SYSCTL->SECCFG.SECSTATUS &
-                SYSCTL_SECSTATUS_FLBANKSWPPOLICY_ENABLED) ==
-            SYSCTL_SECSTATUS_FLBANKSWPPOLICY_ENABLED);
+    return false;
 }
 
 /**
@@ -2855,80 +1937,11 @@ __STATIC_INLINE bool DL_SYSCTL_isFlashBankSwapEnabled(void)
  *
  *  @return Whether executing from upper flash bank
  *
- *  @retval  true  If executing from upper flash bank
- *  @retval  false If not executing from upper flash bank
+ *  @retval  false  This is not a multi-bank device.
  */
 __STATIC_INLINE bool DL_SYSCTL_isExecuteFromUpperFlashBank(void)
 {
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_FLBANKSWP_MASK) ==
-            SYSCTL_SECSTATUS_FLBANKSWP_MASK);
-}
-
-/**
- *  @brief  Checks if executing from lower flash bank
- *
- *  @return Whether executing from lower flash bank
- *
- *  @retval  true  If executing from lower flash bank
- *  @retval  false If not executing from lower flash bank
- */
-__STATIC_INLINE bool DL_SYSCTL_isExecuteFromLowerFlashBank(void)
-{
-    return ((SYSCTL->SECCFG.SECSTATUS & SYSCTL_SECSTATUS_FLBANKSWP_MASK) !=
-            SYSCTL_SECSTATUS_FLBANKSWP_MASK);
-}
-
-/**
- *  @brief  Indicate that INIT is done
- *
- *  After INITDONE is issued, the security configuration is locked and enforced.
- *  A SYSRST will occur, restarting startup code execution, and the main
- *  application is launched.
- *
- *  There is no hardware support to enforce a timeout if INITDONE is not issued
- *  in a reasonable period of time. It is recommended that the CSC use a
- *  watchdog to ensure that INITDONE is issued in a timely manner.
- */
-__STATIC_INLINE void DL_SYSCTL_issueINITDONE(void)
-{
-    SYSCTL->SECCFG.INITDONE |=
-        (SYSCTL_INITDONE_PASS_TRUE | SYSCTL_INITDONE_KEY_VALUE);
-}
-
-/**
- *  @brief  Enables super capacitor function
- *
- *  Allows battery backup system to be powered by a super capacitor
- */
-__STATIC_INLINE void DL_SYSCTL_enableSuperCapacitor(void)
-{
-    SYSCTL->SOCLOCK.SYSTEMCFG |=
-        SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE | SYSCTL_SYSTEMCFG_KEY_VALUE;
-}
-
-/**
- *  @brief  Disables super capacitor function
- *
- *  Prevents battery backup system from being powered by a super capacitor
- */
-__STATIC_INLINE void DL_SYSCTL_disableSuperCapacitor(void)
-{
-    SYSCTL->SOCLOCK.SYSTEMCFG &=
-        (~(SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE) | SYSCTL_SYSTEMCFG_KEY_VALUE);
-}
-
-/**
- *  @brief  Checks if super capacitor function is enabled
- *
- *  @return returns the state of the super capacitor bit
- *
- *  @retval  true  The super capacitor function is enabled
- *  @retval  false The super capacitor function is disabled
- */
-__STATIC_INLINE bool DL_SYSCTL_isSuperCapacitorEnabled(void)
-{
-    return ((SYSCTL->SOCLOCK.SYSTEMCFG & SYSCTL_SYSTEMCFG_SUPERCAPEN_MASK) ==
-            SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE);
+    return false;
 }
 
 #ifdef __cplusplus

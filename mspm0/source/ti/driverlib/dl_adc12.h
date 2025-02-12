@@ -50,11 +50,13 @@
 #ifndef ti_dl_dl_adc12__include
 #define ti_dl_dl_adc12__include
 
+#include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 
 #include <ti/devices/msp/msp.h>
 #include <ti/driverlib/dl_common.h>
+#include <ti/driverlib/m0p/dl_factoryregion.h>
 
 #ifdef __MSPM0_HAS_ADC12__
 
@@ -71,9 +73,9 @@ extern "C" {
 #define DEVICE_HAS_GREATER_THAN_16_INPUT_CHAN
 #endif
 
- /** @addtogroup DL_ADC12_SEQ_END_ADDR
- * @{
- */
+/** @addtogroup DL_ADC12_SEQ_END_ADDR
+* @{
+*/
 
 /*!
  * @brief Sequence end address set to 00
@@ -520,18 +522,45 @@ extern "C" {
 /*!
  * @brief ADC12 voltage reference VDDA
  */
-#define DL_ADC12_REFERENCE_VOLTAGE_VDDA                (ADC12_MEMCTL_VRSEL_VDDA)
+#define DL_ADC12_REFERENCE_VOLTAGE_VDDA                (ADC12_MEMCTL_VRSEL_VDDA_VSSA)
 
 /*!
  * @brief ADC12 voltage reference external
  */
-#define DL_ADC12_REFERENCE_VOLTAGE_EXTREF            (ADC12_MEMCTL_VRSEL_EXTREF)
+#define DL_ADC12_REFERENCE_VOLTAGE_EXTREF            (ADC12_MEMCTL_VRSEL_EXTREF_VREFM)
 
 /*!
  * @brief ADC12 voltage reference internal
  */
-#define DL_ADC12_REFERENCE_VOLTAGE_INTREF            (ADC12_MEMCTL_VRSEL_INTREF)
+#define DL_ADC12_REFERENCE_VOLTAGE_INTREF            (ADC12_MEMCTL_VRSEL_INTREF_VSSA)
 
+#if defined(ti_devices_msp_m0p_mspm0h321x__include) || defined(ti_devices_msp_m0p_mspm0g351x__include)
+/*!
+ * @brief ADC12 voltage reference VDDA
+ */
+#define DL_ADC12_REFERENCE_VOLTAGE_VDDA_VSSA               (ADC12_MEMCTL_VRSEL_VDDA_VSSA)
+
+/*!
+ * @brief ADC12 voltage reference external
+ */
+#define DL_ADC12_REFERENCE_VOLTAGE_EXTREF_VREFM            (ADC12_MEMCTL_VRSEL_EXTREF_VREFM)
+
+/*!
+ * @brief ADC12 voltage reference internal
+ */
+#define DL_ADC12_REFERENCE_VOLTAGE_INTREF_VSSA            (ADC12_MEMCTL_VRSEL_INTREF_VSSA)
+
+/*!
+ * @brief ADC12 voltage reference VDDA and VREFM connected to VREF+
+ */
+#define DL_ADC12_REFERENCE_VOLTAGE_VDDA_VREFM            (ADC12_MEMCTL_VRSEL_VDDA_VREFM)
+
+/*!
+ * @brief ADC12 voltage reference INTREF and VREFM connected to VREF+ and VREF-
+ */
+#define DL_ADC12_REFERENCE_VOLTAGE_INTREF_VREFM            (ADC12_MEMCTL_VRSEL_INTREF_VREFM)
+
+#endif
 /** @}*/
 
 /** @addtogroup DL_ADC12_SAMPLE_TIMER_SOURCE
@@ -857,7 +886,21 @@ extern "C" {
 
 /*!
  * @brief  This is an internal macro is used to resolve the offset to ADC12 SVT
- *         aperture
+ *
+ * The offset from ADC12 base to ADC12 SVT is 0x556000. However the FIFODATA
+ * and MEMRES registers within SVT are offset by an additional 0x1000. For example,
+ * the FIFODATA register from ADC12 base has offset 0x1160. The same register
+ * in ADC12 SVT has offset 0x0160.
+ *
+ * This 0x1000 difference is taken in to consideration by DL_ADC12_SVT_OFFSET.
+ * Formula: (ADC12 SVT - ADC12 BASE) - 0x1000
+ *
+ * Used by the following APIs:
+ *  @ref DL_ADC12_getFIFOData
+ *  @ref DL_ADC12_getFIFOAddress
+ *  @ref DL_ADC12_getMemResult
+ *  @ref DL_ADC12_getMemResultAddress
+ *
  */
 #define DL_ADC12_SVT_OFFSET                  ((uint32_t)0x555000 >> (uint32_t)2)
 
@@ -2237,6 +2280,73 @@ __STATIC_INLINE void DL_ADC12_clearDMATriggerStatus(
 {
     adc12->ULLMEM.DMA_TRIG.ICLR |= (dmaMask);
 }
+
+#ifdef __MSPM0_HAS_ADC12_SH_CAP_DISCH__
+/**
+ *  @brief Enables sample and hold capacitor discharge
+ *
+ *  Sample and hold capacitor is discharged at end of conversion.
+ *
+ *  @param[in] adc12    Pointer to the register overlay for the peripheral
+ */
+__STATIC_INLINE void DL_ADC12_enableSAMPCAP(ADC12_Regs *adc12)
+{
+    adc12->ULLMEM.CTL2 |= (ADC12_CTL2_RSTSAMPCAPEN_ENABLE);
+}
+
+/**
+ *  @brief Disables sample and hold capacitor discharge
+ *
+ *  Sample and hold capacitor is discharged at end of conversion. This incurs one additional clock cycle.
+ *
+ *  @param[in] adc12    Pointer to the register overlay for the peripheral
+ *
+ */
+__STATIC_INLINE void DL_ADC12_disableSAMPCAP(ADC12_Regs *adc12)
+{
+    adc12->ULLMEM.CTL2 &= ~(ADC12_CTL2_RSTSAMPCAPEN_ENABLE);
+}
+
+/**
+ *  @brief Checks if sample and hold capacitor discharge is enabled
+ *
+ *  @param[in] adc12    Pointer to the register overlay for the peripheral
+ *
+ *  @return If sample and hold capacitor discharge enabled
+ *
+ *  @retval  true  sample and hold capacitor discharge is enabled
+ *  @retval  false sample and hold capacitor discharge is disabled
+ *
+ */
+__STATIC_INLINE bool DL_ADC12_isSAMPCAPEnabled(ADC12_Regs *adc12)
+{
+    return ((adc12->ULLMEM.CTL2 & ADC12_CTL2_RSTSAMPCAPEN_MASK) ==
+            ADC12_CTL2_RSTSAMPCAPEN_ENABLE);
+}
+#endif /* ADC HAS SAMPLE AND HOLD CAPACITOR DISCHARGE*/
+
+#ifdef __MSPM0C110X_ADC_ERR_06__
+/**
+ *  @brief Get calibration ADC offset value
+ *
+ *  Workaround for errata on MSPM0C110x devices: ADC_ERR_06
+ *
+ *  Offset needs to be calibrated each time @ref DL_ADC12_configConversionMem
+ *  is configured with a new voltage reference.
+ *
+ *  User needs to add calibrated offset to the result of @ref DL_ADC12_getMemResult
+ *  to get correct ADC value.
+ *
+ *  @param[in] userRef  Reference voltage
+ *
+ *  @return Calibrated ADC offset value
+ */
+__STATIC_INLINE int16_t DL_ADC12_getADCOffsetCalibration(float userRef)
+{
+    float adcBuff = DL_FactoryRegion_getADCOffset() * (3.3 / userRef);
+    return (int16_t)(round(adcBuff));
+}
+#endif
 
 #ifdef __cplusplus
 }

@@ -32,12 +32,12 @@
 
 *****************************************************************************/
 
-#ifndef ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l122x_l222x__include
-#define ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l122x_l222x__include
+#ifndef ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include
+#define ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include
 
-/* Filename: hw_sysctl_mspm0l122x_l222x.h */
-/* Revised: 2024-07-23 05:33:15 */
-/* Revision: 55f00f769aba3999215901043e1008f15794550c */
+/* Filename: hw_sysctl_mspm0c110x.h */
+/* Revised: 2024-11-18 03:51:42 */
+/* Revision: 71ad117d0ac260e84eba242c6eff6a9062e15e6c */
 
 #ifndef __CORTEX_M
   #ifdef __cplusplus
@@ -68,33 +68,8 @@
 /******************************************************************************
 * SYSCTL Registers
 ******************************************************************************/
-#define SYSCTL_SECCFG_OFS                        ((uint32_t)0x00003000U)
 #define SYSCTL_SOCLOCK_OFS                       ((uint32_t)0x00001000U)
 
-
-/** @addtogroup SYSCTL_SECCFG
-  @{
-*/
-
-typedef struct {
-  __IO uint32_t FWEPROTMAIN;                       /* !< (@ 0x00003000) 1 Sector Write-Erase per bit starting at address
-                                                      0x0 of flash */
-       uint32_t RESERVED0[5];
-  __IO uint32_t FRXPROTMAINSTART;                  /* !< (@ 0x00003018) Flash RX Protection Start Address */
-  __IO uint32_t FRXPROTMAINEND;                    /* !< (@ 0x0000301C) Flash RX Protection End Address */
-  __IO uint32_t FIPPROTMAINSTART;                  /* !< (@ 0x00003020) Flash IP Protection Start Address */
-  __IO uint32_t FIPPROTMAINEND;                    /* !< (@ 0x00003024) Flash IP Protection End Address */
-       uint32_t RESERVED1[4];
-  __O  uint32_t FLBANKSWPPOLICY;                   /* !< (@ 0x00003038) Flash Bank Swap Policy */
-  __O  uint32_t FLBANKSWP;                         /* !< (@ 0x0000303C) Flash MAIN bank address swap */
-       uint32_t RESERVED2;
-  __O  uint32_t FWENABLE;                          /* !< (@ 0x00003044) Security Firewall Enable Register */
-  __I  uint32_t SECSTATUS;                         /* !< (@ 0x00003048) Security Configuration  status */
-       uint32_t RESERVED3[5];
-  __O  uint32_t INITDONE;                          /* !< (@ 0x00003060) INITCODE PASS */
-} SYSCTL_SECCFG_Regs;
-
-/*@}*/ /* end of group SYSCTL_SECCFG */
 
 /** @addtogroup SYSCTL_SOCLOCK
   @{
@@ -125,28 +100,23 @@ typedef struct {
   __IO uint32_t SYSOSCCFG;                         /* !< (@ 0x00001100) SYSOSC configuration */
   __IO uint32_t MCLKCFG;                           /* !< (@ 0x00001104) Main clock (MCLK) configuration */
   __IO uint32_t HSCLKEN;                           /* !< (@ 0x00001108) High-speed clock (HSCLK) source enable/disable */
-  __IO uint32_t HSCLKCFG;                          /* !< (@ 0x0000110C) High-speed clock (HSCLK) source selection */
-  __IO uint32_t HFCLKCLKCFG;                       /* !< (@ 0x00001110) High-frequency clock (HFCLK) configuration */
-  __IO uint32_t LFCLKCFG;                          /* !< (@ 0x00001114) Low frequency crystal oscillator (LFXT)
-                                                      configuration */
-       uint32_t RESERVED11[8];
+       uint32_t RESERVED11[11];
   __IO uint32_t GENCLKCFG;                         /* !< (@ 0x00001138) General clock configuration */
   __IO uint32_t GENCLKEN;                          /* !< (@ 0x0000113C) General clock enable control */
   __IO uint32_t PMODECFG;                          /* !< (@ 0x00001140) Power mode configuration */
        uint32_t RESERVED12[3];
   __I  uint32_t FCC;                               /* !< (@ 0x00001150) Frequency clock counter (FCC) count */
-       uint32_t RESERVED13[7];
-  __IO uint32_t SYSOSCTRIMUSER;                    /* !< (@ 0x00001170) SYSOSC user-specified trim */
-       uint32_t RESERVED14;
+       uint32_t RESERVED13[9];
   __IO uint32_t SRAMBOUNDARY;                      /* !< (@ 0x00001178) SRAM Write Boundary */
-       uint32_t RESERVED15;
+       uint32_t RESERVED14;
   __IO uint32_t SYSTEMCFG;                         /* !< (@ 0x00001180) System configuration */
-       uint32_t RESERVED16[31];
+       uint32_t RESERVED15[3];
+  __IO uint32_t BEEPCFG;                           /* !< (@ 0x00001190) BEEPER Configuration */
+       uint32_t RESERVED16[27];
   __IO uint32_t WRITELOCK;                         /* !< (@ 0x00001200) SYSCTL register write lockout */
   __I  uint32_t CLKSTATUS;                         /* !< (@ 0x00001204) Clock module (CKM) status */
   __I  uint32_t SYSSTATUS;                         /* !< (@ 0x00001208) System status information */
-  __I  uint32_t DEDERRADDR;                        /* !< (@ 0x0000120C) Memory DED Address */
-       uint32_t RESERVED17[4];
+       uint32_t RESERVED17[5];
   __I  uint32_t RSTCAUSE;                          /* !< (@ 0x00001220) Reset cause */
        uint32_t RESERVED18[55];
   __IO uint32_t RESETLEVEL;                        /* !< (@ 0x00001300) Reset level for application-triggered reset
@@ -155,14 +125,14 @@ typedef struct {
   __IO uint32_t BORTHRESHOLD;                      /* !< (@ 0x00001308) BOR threshold selection */
   __O  uint32_t BORCLRCMD;                         /* !< (@ 0x0000130C) Set the BOR threshold */
   __O  uint32_t SYSOSCFCLCTL;                      /* !< (@ 0x00001310) SYSOSC frequency correction loop (FCL) ROSC enable */
-  __O  uint32_t LFXTCTL;                           /* !< (@ 0x00001314) LFXT and LFCLK control */
+       uint32_t RESERVED19;
   __O  uint32_t EXLFCTL;                           /* !< (@ 0x00001318) LFCLK_IN and LFCLK control */
   __O  uint32_t SHDNIOREL;                         /* !< (@ 0x0000131C) SHUTDOWN IO release control */
   __O  uint32_t EXRSTPIN;                          /* !< (@ 0x00001320) Disable the reset function of the NRST pin */
   __O  uint32_t SYSSTATUSCLR;                      /* !< (@ 0x00001324) Clear sticky bits of SYSSTATUS */
   __O  uint32_t SWDCFG;                            /* !< (@ 0x00001328) Disable the SWD function on the SWD pins */
   __O  uint32_t FCCCMD;                            /* !< (@ 0x0000132C) Frequency clock counter start capture */
-       uint32_t RESERVED19[52];
+       uint32_t RESERVED20[52];
   __IO uint32_t SHUTDNSTORE0;                      /* !< (@ 0x00001400) Shutdown storage memory (byte 0) */
   __IO uint32_t SHUTDNSTORE1;                      /* !< (@ 0x00001404) Shutdown storage memory (byte 1) */
   __IO uint32_t SHUTDNSTORE2;                      /* !< (@ 0x00001408) Shutdown storage memory (byte 2) */
@@ -178,8 +148,6 @@ typedef struct {
 typedef struct {
        uint32_t RESERVED0[1024];
   SYSCTL_SOCLOCK_Regs  SOCLOCK;                           /* !< (@ 0x00001000) SYSCTL SOCLOCK Region */
-       uint32_t RESERVED1[1788];
-  SYSCTL_SECCFG_Regs  SECCFG;                            /* !< (@ 0x00003000) SYSCTL SECCFG Region */
 } SYSCTL_Regs;
 
 /*@}*/ /* end of group SYSCTL */
@@ -194,137 +162,10 @@ typedef struct {
 * SYSCTL Register Control Bits
 ******************************************************************************/
 
-/* SYSCTL_FWEPROTMAIN Bits */
-/* SYSCTL_FWEPROTMAIN[DATA] Bits */
-#define SYSCTL_FWEPROTMAIN_DATA_OFS              (0)                             /* !< DATA Offset */
-#define SYSCTL_FWEPROTMAIN_DATA_MASK             ((uint32_t)0xFFFFFFFFU)         /* !< 1 Sector Write Erase protection 1:
-                                                                                    prohibits write-erase, 0: allows */
-
-/* SYSCTL_FRXPROTMAINSTART Bits */
-/* SYSCTL_FRXPROTMAINSTART[ADDR] Bits */
-#define SYSCTL_FRXPROTMAINSTART_ADDR_OFS         (6)                             /* !< ADDR Offset */
-#define SYSCTL_FRXPROTMAINSTART_ADDR_MASK        ((uint32_t)0x003FFFC0U)         /* !< Flash RX Protection Start Address
-                                                                                    64B granularity */
-
-/* SYSCTL_FRXPROTMAINEND Bits */
-/* SYSCTL_FRXPROTMAINEND[ADDR] Bits */
-#define SYSCTL_FRXPROTMAINEND_ADDR_OFS           (6)                             /* !< ADDR Offset */
-#define SYSCTL_FRXPROTMAINEND_ADDR_MASK          ((uint32_t)0x003FFFC0U)         /* !< Flash RX Protection End Address 64B
-                                                                                    granularity */
-
-/* SYSCTL_FIPPROTMAINSTART Bits */
-/* SYSCTL_FIPPROTMAINSTART[ADDR] Bits */
-#define SYSCTL_FIPPROTMAINSTART_ADDR_OFS         (6)                             /* !< ADDR Offset */
-#define SYSCTL_FIPPROTMAINSTART_ADDR_MASK        ((uint32_t)0x003FFFC0U)         /* !< Flash IP Protection Start Address
-                                                                                    64B granularity */
-
-/* SYSCTL_FIPPROTMAINEND Bits */
-/* SYSCTL_FIPPROTMAINEND[ADDR] Bits */
-#define SYSCTL_FIPPROTMAINEND_ADDR_OFS           (6)                             /* !< ADDR Offset */
-#define SYSCTL_FIPPROTMAINEND_ADDR_MASK          ((uint32_t)0x003FFFC0U)         /* !< Flash IP Protection End Address 64B
-                                                                                    granularity */
-
-/* SYSCTL_FLBANKSWPPOLICY Bits */
-/* SYSCTL_FLBANKSWPPOLICY[KEY] Bits */
-#define SYSCTL_FLBANKSWPPOLICY_KEY_OFS           (24)                            /* !< KEY Offset */
-#define SYSCTL_FLBANKSWPPOLICY_KEY_MASK          ((uint32_t)0xFF000000U)         /* !< Must have KEY==0xCA(202) for write */
-#define SYSCTL_FLBANKSWPPOLICY_KEY_VALUE         ((uint32_t)0xCA000000U)         /* !< Write Key */
-/* SYSCTL_FLBANKSWPPOLICY[DISABLE] Bits */
-#define SYSCTL_FLBANKSWPPOLICY_DISABLE_OFS       (0)                             /* !< DISABLE Offset */
-#define SYSCTL_FLBANKSWPPOLICY_DISABLE_MASK      ((uint32_t)0x00000001U)         /* !< 1: Disables Policy To Allow Flash
-                                                                                    Bank Swapping */
-#define SYSCTL_FLBANKSWPPOLICY_DISABLE_TRUE      ((uint32_t)0x00000001U)         /* !< Disallow Bank Swap */
-
-/* SYSCTL_FLBANKSWP Bits */
-/* SYSCTL_FLBANKSWP[KEY] Bits */
-#define SYSCTL_FLBANKSWP_KEY_OFS                 (24)                            /* !< KEY Offset */
-#define SYSCTL_FLBANKSWP_KEY_MASK                ((uint32_t)0xFF000000U)         /* !< The key value of 58h (88) must be
-                                                                                    written with USEUPPER to change the
-                                                                                    bank swap configuration. */
-#define SYSCTL_FLBANKSWP_KEY_VALUE               ((uint32_t)0x58000000U)         /* !< Issue write */
-/* SYSCTL_FLBANKSWP[USEUPPER] Bits */
-#define SYSCTL_FLBANKSWP_USEUPPER_OFS            (0)                             /* !< USEUPPER Offset */
-#define SYSCTL_FLBANKSWP_USEUPPER_MASK           ((uint32_t)0x00000001U)         /* !< 1: Use Upper Bank as Logical 0 */
-#define SYSCTL_FLBANKSWP_USEUPPER_DISABLE        ((uint32_t)0x00000000U)         /* !< Normal (default) memory map
-                                                                                    addressing scheme */
-#define SYSCTL_FLBANKSWP_USEUPPER_ENABLE         ((uint32_t)0x00000001U)         /* !< Flash upper region address space
-                                                                                    swapped with lower region */
-
-/* SYSCTL_FWENABLE Bits */
-/* SYSCTL_FWENABLE[KEY] Bits */
-#define SYSCTL_FWENABLE_KEY_OFS                  (24)                            /* !< KEY Offset */
-#define SYSCTL_FWENABLE_KEY_MASK                 ((uint32_t)0xFF000000U)         /* !< Must have KEY==0x76(118) for write */
-#define SYSCTL_FWENABLE_KEY_VALUE                ((uint32_t)0x76000000U)         /* !< Write Key */
-/* SYSCTL_FWENABLE[FLIPPROT] Bits */
-#define SYSCTL_FWENABLE_FLIPPROT_OFS             (6)                             /* !< FLIPPROT Offset */
-#define SYSCTL_FWENABLE_FLIPPROT_MASK            ((uint32_t)0x00000040U)         /* !< 1: Flash Read IP ProtectionActive */
-#define SYSCTL_FWENABLE_FLIPPROT_ENABLE          ((uint32_t)0x00000040U)         /* !< Turn On Flash IP Protection */
-/* SYSCTL_FWENABLE[SRAMBOUNDARYLOCK] Bits */
-#define SYSCTL_FWENABLE_SRAMBOUNDARYLOCK_OFS     (8)                             /* !< SRAMBOUNDARYLOCK Offset */
-#define SYSCTL_FWENABLE_SRAMBOUNDARYLOCK_MASK    ((uint32_t)0x00000100U)         /* !< 1: Blocks Writes from Changing
-                                                                                    SRAMBOUNDARY MMR */
-#define SYSCTL_FWENABLE_SRAMBOUNDARYLOCK_ENABLE  ((uint32_t)0x00000100U)         /* !< SRAMBOUNDARY MMR Locked */
-/* SYSCTL_FWENABLE[FLRXPROT] Bits */
-#define SYSCTL_FWENABLE_FLRXPROT_OFS             (4)                             /* !< FLRXPROT Offset */
-#define SYSCTL_FWENABLE_FLRXPROT_MASK            ((uint32_t)0x00000010U)         /* !< 1: Flash Read Execute Protection
-                                                                                    Active */
-#define SYSCTL_FWENABLE_FLRXPROT_ENABLE          ((uint32_t)0x00000010U)         /* !< Turn On Flash Read-eXecute
-                                                                                    Protection */
-
-/* SYSCTL_SECSTATUS Bits */
-/* SYSCTL_SECSTATUS[FLBANKSWPPOLICY] Bits */
-#define SYSCTL_SECSTATUS_FLBANKSWPPOLICY_OFS     (10)                            /* !< FLBANKSWPPOLICY Offset */
-#define SYSCTL_SECSTATUS_FLBANKSWPPOLICY_MASK    ((uint32_t)0x00000400U)         /* !< 1: Upper and Lower Banks allowed to
-                                                                                    be swapped */
-#define SYSCTL_SECSTATUS_FLBANKSWPPOLICY_DISABLED ((uint32_t)0x00000000U)
-#define SYSCTL_SECSTATUS_FLBANKSWPPOLICY_ENABLED ((uint32_t)0x00000400U)
-/* SYSCTL_SECSTATUS[FLIPPROT] Bits */
-#define SYSCTL_SECSTATUS_FLIPPROT_OFS            (6)                             /* !< FLIPPROT Offset */
-#define SYSCTL_SECSTATUS_FLIPPROT_MASK           ((uint32_t)0x00000040U)         /* !< 1: Flash IP Protection Active */
-#define SYSCTL_SECSTATUS_FLIPPROT_DISABLED       ((uint32_t)0x00000000U)
-#define SYSCTL_SECSTATUS_FLIPPROT_ENABLED        ((uint32_t)0x00000040U)
-/* SYSCTL_SECSTATUS[FLBANKSWP] Bits */
-#define SYSCTL_SECSTATUS_FLBANKSWP_OFS           (12)                            /* !< FLBANKSWP Offset */
-#define SYSCTL_SECSTATUS_FLBANKSWP_MASK          ((uint32_t)0x00001000U)         /* !< 1: Upper and Lower Banks have been
-                                                                                    swapped */
-/* SYSCTL_SECSTATUS[SRAMBOUNDARYLOCK] Bits */
-#define SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_OFS    (8)                             /* !< SRAMBOUNDARYLOCK Offset */
-#define SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_MASK   ((uint32_t)0x00000100U)         /* !< 1: SRAM Boundary MMR Locked */
-#define SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_DISABLED ((uint32_t)0x00000000U)
-#define SYSCTL_SECSTATUS_SRAMBOUNDARYLOCK_ENABLED ((uint32_t)0x00000100U)
-/* SYSCTL_SECSTATUS[FLRXPROT] Bits */
-#define SYSCTL_SECSTATUS_FLRXPROT_OFS            (4)                             /* !< FLRXPROT Offset */
-#define SYSCTL_SECSTATUS_FLRXPROT_MASK           ((uint32_t)0x00000010U)         /* !< 1: Flash Read Execute Protection
-                                                                                    Active */
-#define SYSCTL_SECSTATUS_FLRXPROT_DISABLED       ((uint32_t)0x00000000U)
-#define SYSCTL_SECSTATUS_FLRXPROT_ENABLED        ((uint32_t)0x00000010U)
-/* SYSCTL_SECSTATUS[INITDONE] Bits */
-#define SYSCTL_SECSTATUS_INITDONE_OFS            (0)                             /* !< INITDONE Offset */
-#define SYSCTL_SECSTATUS_INITDONE_MASK           ((uint32_t)0x00000001U)         /* !< 1: CSC has been completed */
-#define SYSCTL_SECSTATUS_INITDONE_NO             ((uint32_t)0x00000000U)         /* !< INIT is not yet done */
-#define SYSCTL_SECSTATUS_INITDONE_YES            ((uint32_t)0x00000001U)         /* !< INIT is done */
-/* SYSCTL_SECSTATUS[CSCEXISTS] Bits */
-#define SYSCTL_SECSTATUS_CSCEXISTS_OFS           (2)                             /* !< CSCEXISTS Offset */
-#define SYSCTL_SECSTATUS_CSCEXISTS_MASK          ((uint32_t)0x00000004U)         /* !< 1: CSC Exists in the system */
-#define SYSCTL_SECSTATUS_CSCEXISTS_NO            ((uint32_t)0x00000000U)         /* !< System does not have a CSC */
-#define SYSCTL_SECSTATUS_CSCEXISTS_YES           ((uint32_t)0x00000004U)         /* !< System does have a CSC */
-
-/* SYSCTL_INITDONE Bits */
-/* SYSCTL_INITDONE[KEY] Bits */
-#define SYSCTL_INITDONE_KEY_OFS                  (24)                            /* !< KEY Offset */
-#define SYSCTL_INITDONE_KEY_MASK                 ((uint32_t)0xFF000000U)         /* !< Must have KEY==0x9D(157) for write */
-#define SYSCTL_INITDONE_KEY_VALUE                ((uint32_t)0x9D000000U)         /* !< Issue Reset */
-/* SYSCTL_INITDONE[PASS] Bits */
-#define SYSCTL_INITDONE_PASS_OFS                 (0)                             /* !< PASS Offset */
-#define SYSCTL_INITDONE_PASS_MASK                ((uint32_t)0x00000001U)         /* !< INITCODE writes 1 for PASS, left
-                                                                                    unwritten a timeout will occur if not
-                                                                                    blocked */
-#define SYSCTL_INITDONE_PASS_TRUE                ((uint32_t)0x00000001U)         /* !< INITCODE PASS */
-
 /* SYSCTL_IIDX Bits */
 /* SYSCTL_IIDX[STAT] Bits */
 #define SYSCTL_IIDX_STAT_OFS                     (0)                             /* !< STAT Offset */
-#define SYSCTL_IIDX_STAT_MASK                    ((uint32_t)0x00000007U)         /* !< The SYSCTL interrupt index (IIDX)
+#define SYSCTL_IIDX_STAT_MASK                    ((uint32_t)0x00000003U)         /* !< The SYSCTL interrupt index (IIDX)
                                                                                     register generates a value
                                                                                     corresponding to the highest priority
                                                                                     pending interrupt source.  This value
@@ -337,11 +178,6 @@ typedef struct {
 #define SYSCTL_IIDX_STAT_NO_INTR                 ((uint32_t)0x00000000U)         /* !< No interrupt pending */
 #define SYSCTL_IIDX_STAT_LFOSCGOOD               ((uint32_t)0x00000001U)         /* !< LFOSCGOOD interrupt pending */
 #define SYSCTL_IIDX_STAT_ANACLKERR               ((uint32_t)0x00000002U)
-#define SYSCTL_IIDX_STAT_FLASHSEC                ((uint32_t)0x00000003U)
-#define SYSCTL_IIDX_STAT_SRAMSEC                 ((uint32_t)0x00000004U)
-#define SYSCTL_IIDX_STAT_LFXTGOOD                ((uint32_t)0x00000005U)
-#define SYSCTL_IIDX_STAT_HFCLKGOOD               ((uint32_t)0x00000006U)
-#define SYSCTL_IIDX_STAT_HSCLKGOOD               ((uint32_t)0x00000007U)
 
 /* SYSCTL_IMASK Bits */
 /* SYSCTL_IMASK[LFOSCGOOD] Bits */
@@ -351,36 +187,11 @@ typedef struct {
                                                                                     the LFOSC has started successfully. */
 #define SYSCTL_IMASK_LFOSCGOOD_DISABLE           ((uint32_t)0x00000000U)         /* !< Interrupt disabled */
 #define SYSCTL_IMASK_LFOSCGOOD_ENABLE            ((uint32_t)0x00000001U)         /* !< Interrupt enabled */
-/* SYSCTL_IMASK[HFCLKGOOD] Bits */
-#define SYSCTL_IMASK_HFCLKGOOD_OFS               (5)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_IMASK_HFCLKGOOD_MASK              ((uint32_t)0x00000020U)         /* !< HFCLK GOOD */
-#define SYSCTL_IMASK_HFCLKGOOD_DISABLE           ((uint32_t)0x00000000U)
-#define SYSCTL_IMASK_HFCLKGOOD_ENABLE            ((uint32_t)0x00000020U)
-/* SYSCTL_IMASK[SRAMSEC] Bits */
-#define SYSCTL_IMASK_SRAMSEC_OFS                 (3)                             /* !< SRAMSEC Offset */
-#define SYSCTL_IMASK_SRAMSEC_MASK                ((uint32_t)0x00000008U)         /* !< SRAM Single Error Correct */
-#define SYSCTL_IMASK_SRAMSEC_DISABLE             ((uint32_t)0x00000000U)
-#define SYSCTL_IMASK_SRAMSEC_ENABLE              ((uint32_t)0x00000008U)
-/* SYSCTL_IMASK[HSCLKGOOD] Bits */
-#define SYSCTL_IMASK_HSCLKGOOD_OFS               (6)                             /* !< HSCLKGOOD Offset */
-#define SYSCTL_IMASK_HSCLKGOOD_MASK              ((uint32_t)0x00000040U)         /* !< HSCLK GOOD */
-#define SYSCTL_IMASK_HSCLKGOOD_DISABLE           ((uint32_t)0x00000000U)
-#define SYSCTL_IMASK_HSCLKGOOD_ENABLE            ((uint32_t)0x00000040U)
 /* SYSCTL_IMASK[ANACLKERR] Bits */
 #define SYSCTL_IMASK_ANACLKERR_OFS               (1)                             /* !< ANACLKERR Offset */
 #define SYSCTL_IMASK_ANACLKERR_MASK              ((uint32_t)0x00000002U)         /* !< Analog Clocking Consistency Error */
 #define SYSCTL_IMASK_ANACLKERR_DISABLE           ((uint32_t)0x00000000U)
 #define SYSCTL_IMASK_ANACLKERR_ENABLE            ((uint32_t)0x00000002U)
-/* SYSCTL_IMASK[FLASHSEC] Bits */
-#define SYSCTL_IMASK_FLASHSEC_OFS                (2)                             /* !< FLASHSEC Offset */
-#define SYSCTL_IMASK_FLASHSEC_MASK               ((uint32_t)0x00000004U)         /* !< Flash Single Error Correct */
-#define SYSCTL_IMASK_FLASHSEC_DISABLE            ((uint32_t)0x00000000U)
-#define SYSCTL_IMASK_FLASHSEC_ENABLE             ((uint32_t)0x00000004U)
-/* SYSCTL_IMASK[LFXTGOOD] Bits */
-#define SYSCTL_IMASK_LFXTGOOD_OFS                (4)                             /* !< LFXTGOOD Offset */
-#define SYSCTL_IMASK_LFXTGOOD_MASK               ((uint32_t)0x00000010U)         /* !< LFXT GOOD */
-#define SYSCTL_IMASK_LFXTGOOD_DISABLE            ((uint32_t)0x00000000U)
-#define SYSCTL_IMASK_LFXTGOOD_ENABLE             ((uint32_t)0x00000010U)
 
 /* SYSCTL_RIS Bits */
 /* SYSCTL_RIS[LFOSCGOOD] Bits */
@@ -389,36 +200,11 @@ typedef struct {
                                                                                     interrupt. */
 #define SYSCTL_RIS_LFOSCGOOD_FALSE               ((uint32_t)0x00000000U)         /* !< No interrupt pending */
 #define SYSCTL_RIS_LFOSCGOOD_TRUE                ((uint32_t)0x00000001U)         /* !< Interrupt pending */
-/* SYSCTL_RIS[HFCLKGOOD] Bits */
-#define SYSCTL_RIS_HFCLKGOOD_OFS                 (5)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_RIS_HFCLKGOOD_MASK                ((uint32_t)0x00000020U)         /* !< HFCLK GOOD */
-#define SYSCTL_RIS_HFCLKGOOD_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_RIS_HFCLKGOOD_TRUE                ((uint32_t)0x00000020U)
-/* SYSCTL_RIS[SRAMSEC] Bits */
-#define SYSCTL_RIS_SRAMSEC_OFS                   (3)                             /* !< SRAMSEC Offset */
-#define SYSCTL_RIS_SRAMSEC_MASK                  ((uint32_t)0x00000008U)         /* !< SRAM Single Error Correct */
-#define SYSCTL_RIS_SRAMSEC_FALSE                 ((uint32_t)0x00000000U)
-#define SYSCTL_RIS_SRAMSEC_TRUE                  ((uint32_t)0x00000008U)
-/* SYSCTL_RIS[HSCLKGOOD] Bits */
-#define SYSCTL_RIS_HSCLKGOOD_OFS                 (6)                             /* !< HSCLKGOOD Offset */
-#define SYSCTL_RIS_HSCLKGOOD_MASK                ((uint32_t)0x00000040U)         /* !< HSCLK GOOD */
-#define SYSCTL_RIS_HSCLKGOOD_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_RIS_HSCLKGOOD_TRUE                ((uint32_t)0x00000040U)
 /* SYSCTL_RIS[ANACLKERR] Bits */
 #define SYSCTL_RIS_ANACLKERR_OFS                 (1)                             /* !< ANACLKERR Offset */
 #define SYSCTL_RIS_ANACLKERR_MASK                ((uint32_t)0x00000002U)         /* !< Analog Clocking Consistency Error */
 #define SYSCTL_RIS_ANACLKERR_FALSE               ((uint32_t)0x00000000U)
 #define SYSCTL_RIS_ANACLKERR_TRUE                ((uint32_t)0x00000002U)
-/* SYSCTL_RIS[FLASHSEC] Bits */
-#define SYSCTL_RIS_FLASHSEC_OFS                  (2)                             /* !< FLASHSEC Offset */
-#define SYSCTL_RIS_FLASHSEC_MASK                 ((uint32_t)0x00000004U)         /* !< Flash Single Error Correct */
-#define SYSCTL_RIS_FLASHSEC_FALSE                ((uint32_t)0x00000000U)
-#define SYSCTL_RIS_FLASHSEC_TRUE                 ((uint32_t)0x00000004U)
-/* SYSCTL_RIS[LFXTGOOD] Bits */
-#define SYSCTL_RIS_LFXTGOOD_OFS                  (4)                             /* !< LFXTGOOD Offset */
-#define SYSCTL_RIS_LFXTGOOD_MASK                 ((uint32_t)0x00000010U)         /* !< LFXT GOOD */
-#define SYSCTL_RIS_LFXTGOOD_FALSE                ((uint32_t)0x00000000U)
-#define SYSCTL_RIS_LFXTGOOD_TRUE                 ((uint32_t)0x00000010U)
 
 /* SYSCTL_MIS Bits */
 /* SYSCTL_MIS[LFOSCGOOD] Bits */
@@ -427,36 +213,11 @@ typedef struct {
                                                                                     interrupt. */
 #define SYSCTL_MIS_LFOSCGOOD_FALSE               ((uint32_t)0x00000000U)         /* !< No interrupt pending */
 #define SYSCTL_MIS_LFOSCGOOD_TRUE                ((uint32_t)0x00000001U)         /* !< Interrupt pending */
-/* SYSCTL_MIS[HFCLKGOOD] Bits */
-#define SYSCTL_MIS_HFCLKGOOD_OFS                 (5)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_MIS_HFCLKGOOD_MASK                ((uint32_t)0x00000020U)         /* !< HFCLK GOOD */
-#define SYSCTL_MIS_HFCLKGOOD_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_MIS_HFCLKGOOD_TRUE                ((uint32_t)0x00000020U)
-/* SYSCTL_MIS[SRAMSEC] Bits */
-#define SYSCTL_MIS_SRAMSEC_OFS                   (3)                             /* !< SRAMSEC Offset */
-#define SYSCTL_MIS_SRAMSEC_MASK                  ((uint32_t)0x00000008U)         /* !< SRAM Single Error Correct */
-#define SYSCTL_MIS_SRAMSEC_FALSE                 ((uint32_t)0x00000000U)
-#define SYSCTL_MIS_SRAMSEC_TRUE                  ((uint32_t)0x00000008U)
-/* SYSCTL_MIS[HSCLKGOOD] Bits */
-#define SYSCTL_MIS_HSCLKGOOD_OFS                 (6)                             /* !< HSCLKGOOD Offset */
-#define SYSCTL_MIS_HSCLKGOOD_MASK                ((uint32_t)0x00000040U)         /* !< HSCLK GOOD */
-#define SYSCTL_MIS_HSCLKGOOD_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_MIS_HSCLKGOOD_TRUE                ((uint32_t)0x00000040U)
 /* SYSCTL_MIS[ANACLKERR] Bits */
 #define SYSCTL_MIS_ANACLKERR_OFS                 (1)                             /* !< ANACLKERR Offset */
 #define SYSCTL_MIS_ANACLKERR_MASK                ((uint32_t)0x00000002U)         /* !< Analog Clocking Consistency Error */
 #define SYSCTL_MIS_ANACLKERR_FALSE               ((uint32_t)0x00000000U)
 #define SYSCTL_MIS_ANACLKERR_TRUE                ((uint32_t)0x00000002U)
-/* SYSCTL_MIS[FLASHSEC] Bits */
-#define SYSCTL_MIS_FLASHSEC_OFS                  (2)                             /* !< FLASHSEC Offset */
-#define SYSCTL_MIS_FLASHSEC_MASK                 ((uint32_t)0x00000004U)         /* !< Flash Single Error Correct */
-#define SYSCTL_MIS_FLASHSEC_FALSE                ((uint32_t)0x00000000U)
-#define SYSCTL_MIS_FLASHSEC_TRUE                 ((uint32_t)0x00000004U)
-/* SYSCTL_MIS[LFXTGOOD] Bits */
-#define SYSCTL_MIS_LFXTGOOD_OFS                  (4)                             /* !< LFXTGOOD Offset */
-#define SYSCTL_MIS_LFXTGOOD_MASK                 ((uint32_t)0x00000010U)         /* !< LFXT GOOD */
-#define SYSCTL_MIS_LFXTGOOD_FALSE                ((uint32_t)0x00000000U)
-#define SYSCTL_MIS_LFXTGOOD_TRUE                 ((uint32_t)0x00000010U)
 
 /* SYSCTL_ISET Bits */
 /* SYSCTL_ISET[LFOSCGOOD] Bits */
@@ -464,36 +225,11 @@ typedef struct {
 #define SYSCTL_ISET_LFOSCGOOD_MASK               ((uint32_t)0x00000001U)         /* !< Set the LFOSCGOOD interrupt. */
 #define SYSCTL_ISET_LFOSCGOOD_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0h hs no effect */
 #define SYSCTL_ISET_LFOSCGOOD_SET                ((uint32_t)0x00000001U)         /* !< Set interrupt */
-/* SYSCTL_ISET[HFCLKGOOD] Bits */
-#define SYSCTL_ISET_HFCLKGOOD_OFS                (5)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_ISET_HFCLKGOOD_MASK               ((uint32_t)0x00000020U)         /* !< HFCLK GOOD */
-#define SYSCTL_ISET_HFCLKGOOD_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_ISET_HFCLKGOOD_SET                ((uint32_t)0x00000020U)
-/* SYSCTL_ISET[SRAMSEC] Bits */
-#define SYSCTL_ISET_SRAMSEC_OFS                  (3)                             /* !< SRAMSEC Offset */
-#define SYSCTL_ISET_SRAMSEC_MASK                 ((uint32_t)0x00000008U)         /* !< SRAM Single Error Correct */
-#define SYSCTL_ISET_SRAMSEC_NO_EFFECT            ((uint32_t)0x00000000U)
-#define SYSCTL_ISET_SRAMSEC_SET                  ((uint32_t)0x00000008U)
-/* SYSCTL_ISET[HSCLKGOOD] Bits */
-#define SYSCTL_ISET_HSCLKGOOD_OFS                (6)                             /* !< HSCLKGOOD Offset */
-#define SYSCTL_ISET_HSCLKGOOD_MASK               ((uint32_t)0x00000040U)         /* !< HSCLK GOOD */
-#define SYSCTL_ISET_HSCLKGOOD_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_ISET_HSCLKGOOD_SET                ((uint32_t)0x00000040U)
 /* SYSCTL_ISET[ANACLKERR] Bits */
 #define SYSCTL_ISET_ANACLKERR_OFS                (1)                             /* !< ANACLKERR Offset */
 #define SYSCTL_ISET_ANACLKERR_MASK               ((uint32_t)0x00000002U)         /* !< Analog Clocking Consistency Error */
 #define SYSCTL_ISET_ANACLKERR_NO_EFFECT          ((uint32_t)0x00000000U)
 #define SYSCTL_ISET_ANACLKERR_SET                ((uint32_t)0x00000002U)
-/* SYSCTL_ISET[FLASHSEC] Bits */
-#define SYSCTL_ISET_FLASHSEC_OFS                 (2)                             /* !< FLASHSEC Offset */
-#define SYSCTL_ISET_FLASHSEC_MASK                ((uint32_t)0x00000004U)         /* !< Flash Single Error Correct */
-#define SYSCTL_ISET_FLASHSEC_NO_EFFECT           ((uint32_t)0x00000000U)
-#define SYSCTL_ISET_FLASHSEC_SET                 ((uint32_t)0x00000004U)
-/* SYSCTL_ISET[LFXTGOOD] Bits */
-#define SYSCTL_ISET_LFXTGOOD_OFS                 (4)                             /* !< LFXTGOOD Offset */
-#define SYSCTL_ISET_LFXTGOOD_MASK                ((uint32_t)0x00000010U)         /* !< LFXT GOOD */
-#define SYSCTL_ISET_LFXTGOOD_NO_EFFECT           ((uint32_t)0x00000000U)
-#define SYSCTL_ISET_LFXTGOOD_SET                 ((uint32_t)0x00000010U)
 
 /* SYSCTL_ICLR Bits */
 /* SYSCTL_ICLR[LFOSCGOOD] Bits */
@@ -501,41 +237,16 @@ typedef struct {
 #define SYSCTL_ICLR_LFOSCGOOD_MASK               ((uint32_t)0x00000001U)         /* !< Clear the LFOSCGOOD interrupt. */
 #define SYSCTL_ICLR_LFOSCGOOD_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0h has no effect */
 #define SYSCTL_ICLR_LFOSCGOOD_CLR                ((uint32_t)0x00000001U)         /* !< Clear interrupt */
-/* SYSCTL_ICLR[HFCLKGOOD] Bits */
-#define SYSCTL_ICLR_HFCLKGOOD_OFS                (5)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_ICLR_HFCLKGOOD_MASK               ((uint32_t)0x00000020U)         /* !< HFCLK GOOD */
-#define SYSCTL_ICLR_HFCLKGOOD_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_ICLR_HFCLKGOOD_CLR                ((uint32_t)0x00000020U)
-/* SYSCTL_ICLR[SRAMSEC] Bits */
-#define SYSCTL_ICLR_SRAMSEC_OFS                  (3)                             /* !< SRAMSEC Offset */
-#define SYSCTL_ICLR_SRAMSEC_MASK                 ((uint32_t)0x00000008U)         /* !< SRAM Single Error Correct */
-#define SYSCTL_ICLR_SRAMSEC_NO_EFFECT            ((uint32_t)0x00000000U)
-#define SYSCTL_ICLR_SRAMSEC_CLR                  ((uint32_t)0x00000008U)
-/* SYSCTL_ICLR[HSCLKGOOD] Bits */
-#define SYSCTL_ICLR_HSCLKGOOD_OFS                (6)                             /* !< HSCLKGOOD Offset */
-#define SYSCTL_ICLR_HSCLKGOOD_MASK               ((uint32_t)0x00000040U)         /* !< HSCLK GOOD */
-#define SYSCTL_ICLR_HSCLKGOOD_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_ICLR_HSCLKGOOD_CLR                ((uint32_t)0x00000040U)
 /* SYSCTL_ICLR[ANACLKERR] Bits */
 #define SYSCTL_ICLR_ANACLKERR_OFS                (1)                             /* !< ANACLKERR Offset */
 #define SYSCTL_ICLR_ANACLKERR_MASK               ((uint32_t)0x00000002U)         /* !< Analog Clocking Consistency Error */
 #define SYSCTL_ICLR_ANACLKERR_NO_EFFECT          ((uint32_t)0x00000000U)
 #define SYSCTL_ICLR_ANACLKERR_CLR                ((uint32_t)0x00000002U)
-/* SYSCTL_ICLR[FLASHSEC] Bits */
-#define SYSCTL_ICLR_FLASHSEC_OFS                 (2)                             /* !< FLASHSEC Offset */
-#define SYSCTL_ICLR_FLASHSEC_MASK                ((uint32_t)0x00000004U)         /* !< Flash Single Error Correct */
-#define SYSCTL_ICLR_FLASHSEC_NO_EFFECT           ((uint32_t)0x00000000U)
-#define SYSCTL_ICLR_FLASHSEC_CLR                 ((uint32_t)0x00000004U)
-/* SYSCTL_ICLR[LFXTGOOD] Bits */
-#define SYSCTL_ICLR_LFXTGOOD_OFS                 (4)                             /* !< LFXTGOOD Offset */
-#define SYSCTL_ICLR_LFXTGOOD_MASK                ((uint32_t)0x00000010U)         /* !< LFXT GOOD */
-#define SYSCTL_ICLR_LFXTGOOD_NO_EFFECT           ((uint32_t)0x00000000U)
-#define SYSCTL_ICLR_LFXTGOOD_CLR                 ((uint32_t)0x00000010U)
 
 /* SYSCTL_NMIIIDX Bits */
 /* SYSCTL_NMIIIDX[STAT] Bits */
 #define SYSCTL_NMIIIDX_STAT_OFS                  (0)                             /* !< STAT Offset */
-#define SYSCTL_NMIIIDX_STAT_MASK                 ((uint32_t)0x00000007U)         /* !< The NMI interrupt index (NMIIIDX)
+#define SYSCTL_NMIIIDX_STAT_MASK                 ((uint32_t)0x00000003U)         /* !< The NMI interrupt index (NMIIIDX)
                                                                                     register generates a value
                                                                                     corresponding to the highest priority
                                                                                     pending NMI source.  This value may
@@ -548,135 +259,44 @@ typedef struct {
 #define SYSCTL_NMIIIDX_STAT_NO_INTR              ((uint32_t)0x00000000U)         /* !< No NMI pending */
 #define SYSCTL_NMIIIDX_STAT_BORLVL               ((uint32_t)0x00000001U)         /* !< BOR Threshold NMI pending */
 #define SYSCTL_NMIIIDX_STAT_WWDT0                ((uint32_t)0x00000002U)
-#define SYSCTL_NMIIIDX_STAT_LFCLKFAIL            ((uint32_t)0x00000003U)
-#define SYSCTL_NMIIIDX_STAT_FLASHDED             ((uint32_t)0x00000004U)
-#define SYSCTL_NMIIIDX_STAT_SRAMDED              ((uint32_t)0x00000005U)
-#define SYSCTL_NMIIIDX_STAT_VBATDN               ((uint32_t)0x00000006U)
-#define SYSCTL_NMIIIDX_STAT_VBATUP               ((uint32_t)0x00000007U)
 
 /* SYSCTL_NMIRIS Bits */
-/* SYSCTL_NMIRIS[SRAMDED] Bits */
-#define SYSCTL_NMIRIS_SRAMDED_OFS                (4)                             /* !< SRAMDED Offset */
-#define SYSCTL_NMIRIS_SRAMDED_MASK               ((uint32_t)0x00000010U)         /* !< SRAM Double Error Detect */
-#define SYSCTL_NMIRIS_SRAMDED_FALSE              ((uint32_t)0x00000000U)
-#define SYSCTL_NMIRIS_SRAMDED_TRUE               ((uint32_t)0x00000010U)
 /* SYSCTL_NMIRIS[BORLVL] Bits */
 #define SYSCTL_NMIRIS_BORLVL_OFS                 (0)                             /* !< BORLVL Offset */
 #define SYSCTL_NMIRIS_BORLVL_MASK                ((uint32_t)0x00000001U)         /* !< Raw status of the BORLVL NMI */
 #define SYSCTL_NMIRIS_BORLVL_FALSE               ((uint32_t)0x00000000U)         /* !< No interrupt pending */
 #define SYSCTL_NMIRIS_BORLVL_TRUE                ((uint32_t)0x00000001U)         /* !< Interrupt pending */
-/* SYSCTL_NMIRIS[VBATDN] Bits */
-#define SYSCTL_NMIRIS_VBATDN_OFS                 (5)                             /* !< VBATDN Offset */
-#define SYSCTL_NMIRIS_VBATDN_MASK                ((uint32_t)0x00000020U)         /* !< VBAT Power Off */
-#define SYSCTL_NMIRIS_VBATDN_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_NMIRIS_VBATDN_TRUE                ((uint32_t)0x00000020U)
-/* SYSCTL_NMIRIS[FLASHDED] Bits */
-#define SYSCTL_NMIRIS_FLASHDED_OFS               (3)                             /* !< FLASHDED Offset */
-#define SYSCTL_NMIRIS_FLASHDED_MASK              ((uint32_t)0x00000008U)         /* !< Flash Double Error Detect */
-#define SYSCTL_NMIRIS_FLASHDED_FALSE             ((uint32_t)0x00000000U)
-#define SYSCTL_NMIRIS_FLASHDED_TRUE              ((uint32_t)0x00000008U)
 /* SYSCTL_NMIRIS[WWDT0] Bits */
 #define SYSCTL_NMIRIS_WWDT0_OFS                  (1)                             /* !< WWDT0 Offset */
 #define SYSCTL_NMIRIS_WWDT0_MASK                 ((uint32_t)0x00000002U)         /* !< Watch Dog 0 Fault */
 #define SYSCTL_NMIRIS_WWDT0_FALSE                ((uint32_t)0x00000000U)
 #define SYSCTL_NMIRIS_WWDT0_TRUE                 ((uint32_t)0x00000002U)
-/* SYSCTL_NMIRIS[VBATUP] Bits */
-#define SYSCTL_NMIRIS_VBATUP_OFS                 (6)                             /* !< VBATUP Offset */
-#define SYSCTL_NMIRIS_VBATUP_MASK                ((uint32_t)0x00000040U)         /* !< VBAT Power On */
-#define SYSCTL_NMIRIS_VBATUP_FALSE               ((uint32_t)0x00000000U)
-#define SYSCTL_NMIRIS_VBATUP_TRUE                ((uint32_t)0x00000040U)
-/* SYSCTL_NMIRIS[LFCLKFAIL] Bits */
-#define SYSCTL_NMIRIS_LFCLKFAIL_OFS              (2)                             /* !< LFCLKFAIL Offset */
-#define SYSCTL_NMIRIS_LFCLKFAIL_MASK             ((uint32_t)0x00000004U)         /* !< LFXT-EXLF Monitor Fail */
-#define SYSCTL_NMIRIS_LFCLKFAIL_FALSE            ((uint32_t)0x00000000U)
-#define SYSCTL_NMIRIS_LFCLKFAIL_TRUE             ((uint32_t)0x00000004U)
 
 /* SYSCTL_NMIISET Bits */
-/* SYSCTL_NMIISET[SRAMDED] Bits */
-#define SYSCTL_NMIISET_SRAMDED_OFS               (4)                             /* !< SRAMDED Offset */
-#define SYSCTL_NMIISET_SRAMDED_MASK              ((uint32_t)0x00000010U)         /* !< SRAM Double Error Detect */
-#define SYSCTL_NMIISET_SRAMDED_NO_EFFECT         ((uint32_t)0x00000000U)
-#define SYSCTL_NMIISET_SRAMDED_SET               ((uint32_t)0x00000010U)
 /* SYSCTL_NMIISET[BORLVL] Bits */
 #define SYSCTL_NMIISET_BORLVL_OFS                (0)                             /* !< BORLVL Offset */
 #define SYSCTL_NMIISET_BORLVL_MASK               ((uint32_t)0x00000001U)         /* !< Set the BORLVL NMI */
 #define SYSCTL_NMIISET_BORLVL_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0h hs no effect */
 #define SYSCTL_NMIISET_BORLVL_SET                ((uint32_t)0x00000001U)         /* !< Set interrupt */
-/* SYSCTL_NMIISET[VBATDN] Bits */
-#define SYSCTL_NMIISET_VBATDN_OFS                (5)                             /* !< VBATDN Offset */
-#define SYSCTL_NMIISET_VBATDN_MASK               ((uint32_t)0x00000020U)         /* !< VBAT Power Off */
-#define SYSCTL_NMIISET_VBATDN_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_NMIISET_VBATDN_SET                ((uint32_t)0x00000020U)
-/* SYSCTL_NMIISET[FLASHDED] Bits */
-#define SYSCTL_NMIISET_FLASHDED_OFS              (3)                             /* !< FLASHDED Offset */
-#define SYSCTL_NMIISET_FLASHDED_MASK             ((uint32_t)0x00000008U)         /* !< Flash Double Error Detect */
-#define SYSCTL_NMIISET_FLASHDED_NO_EFFECT        ((uint32_t)0x00000000U)
-#define SYSCTL_NMIISET_FLASHDED_SET              ((uint32_t)0x00000008U)
 /* SYSCTL_NMIISET[WWDT0] Bits */
 #define SYSCTL_NMIISET_WWDT0_OFS                 (1)                             /* !< WWDT0 Offset */
 #define SYSCTL_NMIISET_WWDT0_MASK                ((uint32_t)0x00000002U)         /* !< Watch Dog 0 Fault */
 #define SYSCTL_NMIISET_WWDT0_NO_EFFECT           ((uint32_t)0x00000000U)
 #define SYSCTL_NMIISET_WWDT0_SET                 ((uint32_t)0x00000002U)
-/* SYSCTL_NMIISET[VBATUP] Bits */
-#define SYSCTL_NMIISET_VBATUP_OFS                (6)                             /* !< VBATUP Offset */
-#define SYSCTL_NMIISET_VBATUP_MASK               ((uint32_t)0x00000040U)         /* !< VBAT Power On */
-#define SYSCTL_NMIISET_VBATUP_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_NMIISET_VBATUP_SET                ((uint32_t)0x00000040U)
-/* SYSCTL_NMIISET[LFCLKFAIL] Bits */
-#define SYSCTL_NMIISET_LFCLKFAIL_OFS             (2)                             /* !< LFCLKFAIL Offset */
-#define SYSCTL_NMIISET_LFCLKFAIL_MASK            ((uint32_t)0x00000004U)         /* !< LFXT-EXLF Monitor Fail */
-#define SYSCTL_NMIISET_LFCLKFAIL_NO_EFFECT       ((uint32_t)0x00000000U)
-#define SYSCTL_NMIISET_LFCLKFAIL_SET             ((uint32_t)0x00000004U)
 
 /* SYSCTL_NMIICLR Bits */
-/* SYSCTL_NMIICLR[SRAMDED] Bits */
-#define SYSCTL_NMIICLR_SRAMDED_OFS               (4)                             /* !< SRAMDED Offset */
-#define SYSCTL_NMIICLR_SRAMDED_MASK              ((uint32_t)0x00000010U)         /* !< SRAM Double Error Detect */
-#define SYSCTL_NMIICLR_SRAMDED_NO_EFFECT         ((uint32_t)0x00000000U)
-#define SYSCTL_NMIICLR_SRAMDED_CLR               ((uint32_t)0x00000010U)
 /* SYSCTL_NMIICLR[BORLVL] Bits */
 #define SYSCTL_NMIICLR_BORLVL_OFS                (0)                             /* !< BORLVL Offset */
 #define SYSCTL_NMIICLR_BORLVL_MASK               ((uint32_t)0x00000001U)         /* !< Clr the BORLVL NMI */
 #define SYSCTL_NMIICLR_BORLVL_NO_EFFECT          ((uint32_t)0x00000000U)         /* !< Writing 0h hs no effect */
 #define SYSCTL_NMIICLR_BORLVL_CLR                ((uint32_t)0x00000001U)         /* !< Clear interrupt */
-/* SYSCTL_NMIICLR[VBATDN] Bits */
-#define SYSCTL_NMIICLR_VBATDN_OFS                (5)                             /* !< VBATDN Offset */
-#define SYSCTL_NMIICLR_VBATDN_MASK               ((uint32_t)0x00000020U)         /* !< VBAT Power Off */
-#define SYSCTL_NMIICLR_VBATDN_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_NMIICLR_VBATDN_CLR                ((uint32_t)0x00000020U)
-/* SYSCTL_NMIICLR[FLASHDED] Bits */
-#define SYSCTL_NMIICLR_FLASHDED_OFS              (3)                             /* !< FLASHDED Offset */
-#define SYSCTL_NMIICLR_FLASHDED_MASK             ((uint32_t)0x00000008U)         /* !< Flash Double Error Detect */
-#define SYSCTL_NMIICLR_FLASHDED_NO_EFFECT        ((uint32_t)0x00000000U)
-#define SYSCTL_NMIICLR_FLASHDED_CLR              ((uint32_t)0x00000008U)
 /* SYSCTL_NMIICLR[WWDT0] Bits */
 #define SYSCTL_NMIICLR_WWDT0_OFS                 (1)                             /* !< WWDT0 Offset */
 #define SYSCTL_NMIICLR_WWDT0_MASK                ((uint32_t)0x00000002U)         /* !< Watch Dog 0 Fault */
 #define SYSCTL_NMIICLR_WWDT0_NO_EFFECT           ((uint32_t)0x00000000U)
 #define SYSCTL_NMIICLR_WWDT0_CLR                 ((uint32_t)0x00000002U)
-/* SYSCTL_NMIICLR[VBATUP] Bits */
-#define SYSCTL_NMIICLR_VBATUP_OFS                (6)                             /* !< VBATUP Offset */
-#define SYSCTL_NMIICLR_VBATUP_MASK               ((uint32_t)0x00000040U)         /* !< VBAT Power On */
-#define SYSCTL_NMIICLR_VBATUP_NO_EFFECT          ((uint32_t)0x00000000U)
-#define SYSCTL_NMIICLR_VBATUP_CLR                ((uint32_t)0x00000040U)
-/* SYSCTL_NMIICLR[LFCLKFAIL] Bits */
-#define SYSCTL_NMIICLR_LFCLKFAIL_OFS             (2)                             /* !< LFCLKFAIL Offset */
-#define SYSCTL_NMIICLR_LFCLKFAIL_MASK            ((uint32_t)0x00000004U)         /* !< LFXT-EXLF Monitor Fail */
-#define SYSCTL_NMIICLR_LFCLKFAIL_NO_EFFECT       ((uint32_t)0x00000000U)
-#define SYSCTL_NMIICLR_LFCLKFAIL_CLR             ((uint32_t)0x00000004U)
 
 /* SYSCTL_SYSOSCCFG Bits */
-/* SYSCTL_SYSOSCCFG[USE4MHZSTOP] Bits */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_OFS         (8)                             /* !< USE4MHZSTOP Offset */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_MASK        ((uint32_t)0x00000100U)         /* !< USE4MHZSTOP sets the SYSOSC stop
-                                                                                    mode frequency policy.  When entering
-                                                                                    STOP mode, the SYSOSC frequency may
-                                                                                    be automatically switched to 4MHz to
-                                                                                    reduce SYSOSC power consumption. */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_DISABLE     ((uint32_t)0x00000000U)         /* !< Do not gear shift the SYSOSC to
-                                                                                    4MHz in STOP mode */
-#define SYSCTL_SYSOSCCFG_USE4MHZSTOP_ENABLE      ((uint32_t)0x00000100U)         /* !< Gear shift SYSOSC to 4MHz in STOP
-                                                                                    mode */
 /* SYSCTL_SYSOSCCFG[DISABLESTOP] Bits */
 #define SYSCTL_SYSOSCCFG_DISABLESTOP_OFS         (9)                             /* !< DISABLESTOP Offset */
 #define SYSCTL_SYSOSCCFG_DISABLESTOP_MASK        ((uint32_t)0x00000200U)         /* !< DISABLESTOP sets the SYSOSC stop
@@ -792,16 +412,6 @@ typedef struct {
 #define SYSCTL_MCLKCFG_STOPCLKSTBY_ENABLE        ((uint32_t)0x00200000U)         /* !< ULPCLK/LFCLK is disabled to all
                                                                                     peripherals in STANDBY mode except
                                                                                     TIMG0 and TIMG1 */
-/* SYSCTL_MCLKCFG[FLASHWAIT] Bits */
-#define SYSCTL_MCLKCFG_FLASHWAIT_OFS             (8)                             /* !< FLASHWAIT Offset */
-#define SYSCTL_MCLKCFG_FLASHWAIT_MASK            ((uint32_t)0x00000F00U)         /* !< FLASHWAIT specifies the number of
-                                                                                    flash wait states when MCLK is
-                                                                                    sourced from HSCLK.  FLASHWAIT has no
-                                                                                    effect when MCLK is sourced from
-                                                                                    SYSOSC or LFCLK. */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT0           ((uint32_t)0x00000000U)         /* !< No flash wait states are applied */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT1           ((uint32_t)0x00000100U)         /* !< One flash wait state is applied */
-#define SYSCTL_MCLKCFG_FLASHWAIT_WAIT2           ((uint32_t)0x00000200U)         /* !< 2 flash wait states are applied */
 /* SYSCTL_MCLKCFG[MCLKDEADCHK] Bits */
 #define SYSCTL_MCLKCFG_MCLKDEADCHK_OFS           (22)                            /* !< MCLKDEADCHK Offset */
 #define SYSCTL_MCLKCFG_MCLKDEADCHK_MASK          ((uint32_t)0x00400000U)         /* !< MCLKDEADCHK enables or disables the
@@ -814,12 +424,6 @@ typedef struct {
                                                                                     enabled */
 
 /* SYSCTL_HSCLKEN Bits */
-/* SYSCTL_HSCLKEN[HFXTEN] Bits */
-#define SYSCTL_HSCLKEN_HFXTEN_OFS                (0)                             /* !< HFXTEN Offset */
-#define SYSCTL_HSCLKEN_HFXTEN_MASK               ((uint32_t)0x00000001U)         /* !< HFXTEN enables or disables the high
-                                                                                    frequency crystal oscillator (HFXT). */
-#define SYSCTL_HSCLKEN_HFXTEN_DISABLE            ((uint32_t)0x00000000U)         /* !< Disable the HFXT */
-#define SYSCTL_HSCLKEN_HFXTEN_ENABLE             ((uint32_t)0x00000001U)         /* !< Enable the HFXT */
 /* SYSCTL_HSCLKEN[USEEXTHFCLK] Bits */
 #define SYSCTL_HSCLKEN_USEEXTHFCLK_OFS           (16)                            /* !< USEEXTHFCLK Offset */
 #define SYSCTL_HSCLKEN_USEEXTHFCLK_MASK          ((uint32_t)0x00010000U)         /* !< USEEXTHFCLK selects the HFCLK_IN
@@ -831,72 +435,6 @@ typedef struct {
 #define SYSCTL_HSCLKEN_USEEXTHFCLK_DISABLE       ((uint32_t)0x00000000U)         /* !< Use HFXT as the HFCLK source */
 #define SYSCTL_HSCLKEN_USEEXTHFCLK_ENABLE        ((uint32_t)0x00010000U)         /* !< Use the HFCLK_IN digital clock
                                                                                     input as the HFCLK source */
-
-/* SYSCTL_HSCLKCFG Bits */
-/* SYSCTL_HSCLKCFG[HSCLKSEL] Bits */
-#define SYSCTL_HSCLKCFG_HSCLKSEL_OFS             (0)                             /* !< HSCLKSEL Offset */
-#define SYSCTL_HSCLKCFG_HSCLKSEL_MASK            ((uint32_t)0x00000001U)         /* !< HSCLKSEL selects the HSCLK source
-                                                                                    (SYSPLL or HFCLK). */
-#define SYSCTL_HSCLKCFG_HSCLKSEL_HFCLKCLK        ((uint32_t)0x00000001U)         /* !< HSCLK is sourced from the HFCLK */
-
-/* SYSCTL_HFCLKCLKCFG Bits */
-/* SYSCTL_HFCLKCLKCFG[HFXTTIME] Bits */
-#define SYSCTL_HFCLKCLKCFG_HFXTTIME_OFS          (0)                             /* !< HFXTTIME Offset */
-#define SYSCTL_HFCLKCLKCFG_HFXTTIME_MASK         ((uint32_t)0x000000FFU)         /* !< HFXTTIME specifies the HFXT startup
-                                                                                    time in 64us resolution.  If the
-                                                                                    HFCLK startup monitor is enabled
-                                                                                    (HFCLKFLTCHK), HFXT will be checked
-                                                                                    after this time expires. */
-#define SYSCTL_HFCLKCLKCFG_HFXTTIME_MINSTARTTIME ((uint32_t)0x00000000U)         /* !< Minimum startup time (approximatly
-                                                                                    zero) */
-#define SYSCTL_HFCLKCLKCFG_HFXTTIME_MAXSTARTTIME ((uint32_t)0x000000FFU)         /* !< Maximum startup time (approximatly
-                                                                                    16.32ms) */
-/* SYSCTL_HFCLKCLKCFG[HFCLKFLTCHK] Bits */
-#define SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_OFS       (28)                            /* !< HFCLKFLTCHK Offset */
-#define SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_MASK      ((uint32_t)0x10000000U)         /* !< HFCLKFLTCHK enables or disables the
-                                                                                    HFCLK startup monitor. */
-#define SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_DISABLE   ((uint32_t)0x00000000U)         /* !< HFCLK startup is not checked */
-#define SYSCTL_HFCLKCLKCFG_HFCLKFLTCHK_ENABLE    ((uint32_t)0x10000000U)         /* !< HFCLK startup is checked */
-/* SYSCTL_HFCLKCLKCFG[HFXTRSEL] Bits */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_OFS          (12)                            /* !< HFXTRSEL Offset */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_MASK         ((uint32_t)0x00003000U)         /* !< HFXT Range Select */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE4TO8    ((uint32_t)0x00000000U)         /* !< 4MHz &lt;= HFXT frequency &lt;=
-                                                                                    8MHz */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE8TO16   ((uint32_t)0x00001000U)         /* !< 8MHz &lt; HFXT frequency &lt;=
-                                                                                    16MHz */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE16TO32  ((uint32_t)0x00002000U)         /* !< 16MHz &lt; HFXT frequency &lt;=
-                                                                                    32MHz */
-#define SYSCTL_HFCLKCLKCFG_HFXTRSEL_RANGE32TO48  ((uint32_t)0x00003000U)         /* !< 32MHz &lt; HFXT frequency &lt;=
-                                                                                    48MHz */
-
-/* SYSCTL_LFCLKCFG Bits */
-/* SYSCTL_LFCLKCFG[XT1DRIVE] Bits */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_OFS             (0)                             /* !< XT1DRIVE Offset */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_MASK            ((uint32_t)0x00000003U)         /* !< XT1DRIVE selects the low frequency
-                                                                                    crystal oscillator (LFXT) drive
-                                                                                    strength. */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_LOWESTDRV       ((uint32_t)0x00000000U)         /* !< Lowest drive and current */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_LOWERDRV        ((uint32_t)0x00000001U)         /* !< Lower drive and current */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_HIGHERDRV       ((uint32_t)0x00000002U)         /* !< Higher drive and current */
-#define SYSCTL_LFCLKCFG_XT1DRIVE_HIGHESTDRV      ((uint32_t)0x00000003U)         /* !< Highest drive and current */
-/* SYSCTL_LFCLKCFG[MONITOR] Bits */
-#define SYSCTL_LFCLKCFG_MONITOR_OFS              (4)                             /* !< MONITOR Offset */
-#define SYSCTL_LFCLKCFG_MONITOR_MASK             ((uint32_t)0x00000010U)         /* !< MONITOR enables or disables the
-                                                                                    LFCLK monitor, which continuously
-                                                                                    checks LFXT or LFCLK_IN for a clock
-                                                                                    stuck fault. */
-#define SYSCTL_LFCLKCFG_MONITOR_DISABLE          ((uint32_t)0x00000000U)         /* !< Clock monitor is disabled */
-#define SYSCTL_LFCLKCFG_MONITOR_ENABLE           ((uint32_t)0x00000010U)         /* !< Clock monitor is enabled */
-/* SYSCTL_LFCLKCFG[LOWCAP] Bits */
-#define SYSCTL_LFCLKCFG_LOWCAP_OFS               (8)                             /* !< LOWCAP Offset */
-#define SYSCTL_LFCLKCFG_LOWCAP_MASK              ((uint32_t)0x00000100U)         /* !< LOWCAP controls the low-power LFXT
-                                                                                    mode.  When the LFXT load capacitance
-                                                                                    is less than 3pf, LOWCAP may be set
-                                                                                    for reduced power consumption. */
-#define SYSCTL_LFCLKCFG_LOWCAP_DISABLE           ((uint32_t)0x00000000U)         /* !< LFXT low capacitance mode is
-                                                                                    disabled */
-#define SYSCTL_LFCLKCFG_LOWCAP_ENABLE            ((uint32_t)0x00000100U)         /* !< LFXT low capacitance mode is
-                                                                                    enabled */
 
 /* SYSCTL_GENCLKCFG Bits */
 /* SYSCTL_GENCLKCFG[HFCLK4MFPCLKDIV] Bits */
@@ -1052,35 +590,6 @@ typedef struct {
 #define SYSCTL_FCC_DATA_MASK                     ((uint32_t)0x003FFFFFU)         /* !< Frequency clock counter (FCC) count
                                                                                     value. */
 
-/* SYSCTL_SYSOSCTRIMUSER Bits */
-/* SYSCTL_SYSOSCTRIMUSER[RESCOARSE] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RESCOARSE_OFS      (8)                             /* !< RESCOARSE Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RESCOARSE_MASK     ((uint32_t)0x00003F00U)         /* !< RESCOARSE specifies the resister
-                                                                                    coarse trim.  This value changes with
-                                                                                    the target frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[RESFINE] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RESFINE_OFS        (16)                            /* !< RESFINE Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RESFINE_MASK       ((uint32_t)0x000F0000U)         /* !< RESFINE specifies the resister fine
-                                                                                    trim.  This value changes with the
-                                                                                    target frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[RDIV] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_RDIV_OFS           (20)                            /* !< RDIV Offset */
-#define SYSCTL_SYSOSCTRIMUSER_RDIV_MASK          ((uint32_t)0x1FF00000U)         /* !< RDIV specifies the frequency
-                                                                                    correction loop (FCL) resistor trim.
-                                                                                    This value changes with the target
-                                                                                    frequency. */
-/* SYSCTL_SYSOSCTRIMUSER[FREQ] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_OFS           (0)                             /* !< FREQ Offset */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_MASK          ((uint32_t)0x00000003U)         /* !< FREQ specifies the target
-                                                                                    user-trimmed frequency for SYSOSC. */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC16M     ((uint32_t)0x00000001U)         /* !< 16MHz user frequency */
-#define SYSCTL_SYSOSCTRIMUSER_FREQ_SYSOSC24M     ((uint32_t)0x00000002U)         /* !< 24MHz user frequency */
-/* SYSCTL_SYSOSCTRIMUSER[CAP] Bits */
-#define SYSCTL_SYSOSCTRIMUSER_CAP_OFS            (4)                             /* !< CAP Offset */
-#define SYSCTL_SYSOSCTRIMUSER_CAP_MASK           ((uint32_t)0x00000070U)         /* !< CAP specifies the SYSOSC capacitor
-                                                                                    trim.  This value changes with the
-                                                                                    target frequency. */
-
 /* SYSCTL_SRAMBOUNDARY Bits */
 /* SYSCTL_SRAMBOUNDARY[ADDR] Bits */
 #define SYSCTL_SRAMBOUNDARY_ADDR_OFS             (5)                             /* !< ADDR Offset */
@@ -1103,13 +612,6 @@ typedef struct {
                                                                                     written to KEY together with contents
                                                                                     to be updated. Reads as 0 */
 #define SYSCTL_SYSTEMCFG_KEY_VALUE               ((uint32_t)0x1B000000U)         /* !< Issue write */
-/* SYSCTL_SYSTEMCFG[FLASHECCRSTDIS] Bits */
-#define SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_OFS      (2)                             /* !< FLASHECCRSTDIS Offset */
-#define SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_MASK     ((uint32_t)0x00000004U)         /* !< FLASHECCRSTDIS specifies whether a
-                                                                                    flash ECC double error detect (DED)
-                                                                                    will trigger a SYSRST or an NMI. */
-#define SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_FALSE    ((uint32_t)0x00000000U)         /* !< Flash ECC DED will trigger a SYSRST */
-#define SYSCTL_SYSTEMCFG_FLASHECCRSTDIS_TRUE     ((uint32_t)0x00000004U)         /* !< Flash ECC DED will trigger a NMI */
 /* SYSCTL_SYSTEMCFG[WWDTLP0RSTDIS] Bits */
 #define SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_OFS       (0)                             /* !< WWDTLP0RSTDIS Offset */
 #define SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_MASK      ((uint32_t)0x00000001U)         /* !< WWDTLP0RSTDIS specifies whether a
@@ -1119,13 +621,21 @@ typedef struct {
                                                                                     BOOTRST */
 #define SYSCTL_SYSTEMCFG_WWDTLP0RSTDIS_TRUE      ((uint32_t)0x00000001U)         /* !< WWDTLP0 Error Event will trigger an
                                                                                     NMI */
-/* SYSCTL_SYSTEMCFG[SUPERCAPEN] Bits */
-#define SYSCTL_SYSTEMCFG_SUPERCAPEN_OFS          (8)                             /* !< SUPERCAPEN Offset */
-#define SYSCTL_SYSTEMCFG_SUPERCAPEN_MASK         ((uint32_t)0x00000100U)         /* !< SUPERCAP specifies whether the
-                                                                                    battery backup system can be powered
-                                                                                    by a SUPERCAP */
-#define SYSCTL_SYSTEMCFG_SUPERCAPEN_FALSE        ((uint32_t)0x00000000U)         /* !< SUPERCAP Function is not enabled */
-#define SYSCTL_SYSTEMCFG_SUPERCAPEN_TRUE         ((uint32_t)0x00000100U)         /* !< SUPERCAP Function is not enabled */
+
+/* SYSCTL_BEEPCFG Bits */
+/* SYSCTL_BEEPCFG[FREQ] Bits */
+#define SYSCTL_BEEPCFG_FREQ_OFS                  (4)                             /* !< FREQ Offset */
+#define SYSCTL_BEEPCFG_FREQ_MASK                 ((uint32_t)0x00000030U)         /* !< Beeper Output Frequency
+                                                                                    Configuration */
+#define SYSCTL_BEEPCFG_FREQ_8KHZ                 ((uint32_t)0x00000000U)         /* !< Beeper runs at 8KHz */
+#define SYSCTL_BEEPCFG_FREQ_4KHZ                 ((uint32_t)0x00000010U)         /* !< Beeper runs at 4KHz */
+#define SYSCTL_BEEPCFG_FREQ_2KHZ                 ((uint32_t)0x00000020U)         /* !< Beeper runs at 2KHz */
+#define SYSCTL_BEEPCFG_FREQ_1KHZ                 ((uint32_t)0x00000030U)         /* !< Beeper runs at 1KHz */
+/* SYSCTL_BEEPCFG[EN] Bits */
+#define SYSCTL_BEEPCFG_EN_OFS                    (0)                             /* !< EN Offset */
+#define SYSCTL_BEEPCFG_EN_MASK                   ((uint32_t)0x00000001U)         /* !< Beeper Output Enable */
+#define SYSCTL_BEEPCFG_EN_DISABLE                ((uint32_t)0x00000000U)         /* !< Beeper Output Disabled */
+#define SYSCTL_BEEPCFG_EN_ENABLE                 ((uint32_t)0x00000001U)         /* !< Beeper Output Enabled */
 
 /* SYSCTL_WRITELOCK Bits */
 /* SYSCTL_WRITELOCK[ACTIVE] Bits */
@@ -1145,55 +655,6 @@ typedef struct {
                                                                                     is ready for use. */
 #define SYSCTL_CLKSTATUS_LFOSCGOOD_FALSE         ((uint32_t)0x00000000U)         /* !< LFOSC is not ready */
 #define SYSCTL_CLKSTATUS_LFOSCGOOD_TRUE          ((uint32_t)0x00000800U)         /* !< LFOSC is ready */
-/* SYSCTL_CLKSTATUS[HFCLKGOOD] Bits */
-#define SYSCTL_CLKSTATUS_HFCLKGOOD_OFS           (8)                             /* !< HFCLKGOOD Offset */
-#define SYSCTL_CLKSTATUS_HFCLKGOOD_MASK          ((uint32_t)0x00000100U)         /* !< HFCLKGOOD indicates that the HFCLK
-                                                                                    started correctly.  When the HFXT is
-                                                                                    started or HFCLK_IN is selected as
-                                                                                    the HFCLK source,  this bit will be
-                                                                                    set by hardware if a valid HFCLK is
-                                                                                    detected, and cleared if HFCLK is not
-                                                                                    operating within the expected range. */
-#define SYSCTL_CLKSTATUS_HFCLKGOOD_FALSE         ((uint32_t)0x00000000U)         /* !< HFCLK did not start correctly */
-#define SYSCTL_CLKSTATUS_HFCLKGOOD_TRUE          ((uint32_t)0x00000100U)         /* !< HFCLK started correctly */
-/* SYSCTL_CLKSTATUS[HSCLKDEAD] Bits */
-#define SYSCTL_CLKSTATUS_HSCLKDEAD_OFS           (20)                            /* !< HSCLKDEAD Offset */
-#define SYSCTL_CLKSTATUS_HSCLKDEAD_MASK          ((uint32_t)0x00100000U)         /* !< HSCLKDEAD is set by hardware if the
-                                                                                    selected source for HSCLK was started
-                                                                                    but did not start successfully. */
-#define SYSCTL_CLKSTATUS_HSCLKDEAD_FALSE         ((uint32_t)0x00000000U)         /* !< The HSCLK source was not started or
-                                                                                    started correctly */
-#define SYSCTL_CLKSTATUS_HSCLKDEAD_TRUE          ((uint32_t)0x00100000U)         /* !< The HSCLK source did not start
-                                                                                    correctly */
-/* SYSCTL_CLKSTATUS[HFCLKOFF] Bits */
-#define SYSCTL_CLKSTATUS_HFCLKOFF_OFS            (13)                            /* !< HFCLKOFF Offset */
-#define SYSCTL_CLKSTATUS_HFCLKOFF_MASK           ((uint32_t)0x00002000U)         /* !< HFCLKOFF indicates if the HFCLK is
-                                                                                    disabled or was dead at startup.
-                                                                                    When the HFCLK is started, HFCLKOFF
-                                                                                    is cleared by hardware.  Following
-                                                                                    startup of the HFCLK, if the HFCLK
-                                                                                    startup monitor determines that the
-                                                                                    HFCLK was not started correctly,
-                                                                                    HFCLKOFF is set. */
-#define SYSCTL_CLKSTATUS_HFCLKOFF_FALSE          ((uint32_t)0x00000000U)         /* !< HFCLK started correctly and is
-                                                                                    enabled */
-#define SYSCTL_CLKSTATUS_HFCLKOFF_TRUE           ((uint32_t)0x00002000U)         /* !< HFCLK is disabled or was dead at
-                                                                                    startup */
-/* SYSCTL_CLKSTATUS[HFCLKBLKUPD] Bits */
-#define SYSCTL_CLKSTATUS_HFCLKBLKUPD_OFS         (28)                            /* !< HFCLKBLKUPD Offset */
-#define SYSCTL_CLKSTATUS_HFCLKBLKUPD_MASK        ((uint32_t)0x10000000U)         /* !< HFCLKBLKUPD indicates when writes
-                                                                                    to the HFCLKCLKCFG register are
-                                                                                    blocked. */
-#define SYSCTL_CLKSTATUS_HFCLKBLKUPD_FALSE       ((uint32_t)0x00000000U)         /* !< Writes to HFCLKCLKCFG are allowed */
-#define SYSCTL_CLKSTATUS_HFCLKBLKUPD_TRUE        ((uint32_t)0x10000000U)         /* !< Writes to HFCLKCLKCFG are blocked */
-/* SYSCTL_CLKSTATUS[HSCLKGOOD] Bits */
-#define SYSCTL_CLKSTATUS_HSCLKGOOD_OFS           (21)                            /* !< HSCLKGOOD Offset */
-#define SYSCTL_CLKSTATUS_HSCLKGOOD_MASK          ((uint32_t)0x00200000U)         /* !< HSCLKGOOD is set by hardware if the
-                                                                                    selected clock source for HSCLK
-                                                                                    started successfully. */
-#define SYSCTL_CLKSTATUS_HSCLKGOOD_FALSE         ((uint32_t)0x00000000U)         /* !< The HSCLK source did not start
-                                                                                    correctly */
-#define SYSCTL_CLKSTATUS_HSCLKGOOD_TRUE          ((uint32_t)0x00200000U)         /* !< The HSCLK source started correctly */
 /* SYSCTL_CLKSTATUS[ANACLKERR] Bits */
 #define SYSCTL_CLKSTATUS_ANACLKERR_OFS           (31)                            /* !< ANACLKERR Offset */
 #define SYSCTL_CLKSTATUS_ANACLKERR_MASK          ((uint32_t)0x80000000U)         /* !< ANACLKERR is set when the device
@@ -1231,29 +692,6 @@ typedef struct {
 #define SYSCTL_CLKSTATUS_SYSOSCFREQ_SYSOSCUSER   ((uint32_t)0x00000002U)         /* !< SYSOSC is at the user-trimmed
                                                                                     frequency (16 or 24MHz) */
 #define SYSCTL_CLKSTATUS_SYSOSCFREQ_SYSOSCTURBO  ((uint32_t)0x00000003U)         /* !< Reserved */
-/* SYSCTL_CLKSTATUS[LFXTGOOD] Bits */
-#define SYSCTL_CLKSTATUS_LFXTGOOD_OFS            (10)                            /* !< LFXTGOOD Offset */
-#define SYSCTL_CLKSTATUS_LFXTGOOD_MASK           ((uint32_t)0x00000400U)         /* !< LFXTGOOD indicates if the LFXT
-                                                                                    started correctly.  When the LFXT is
-                                                                                    started, LFXTGOOD is cleared by
-                                                                                    hardware.  After the startup settling
-                                                                                    time has expired, the LFXT status is
-                                                                                    tested.  If the LFXT started
-                                                                                    successfully the LFXTGOOD bit is set,
-                                                                                    else it is left cleared. */
-#define SYSCTL_CLKSTATUS_LFXTGOOD_FALSE          ((uint32_t)0x00000000U)         /* !< LFXT did not start correctly */
-#define SYSCTL_CLKSTATUS_LFXTGOOD_TRUE           ((uint32_t)0x00000400U)         /* !< LFXT started correctly */
-/* SYSCTL_CLKSTATUS[HSCLKSOFF] Bits */
-#define SYSCTL_CLKSTATUS_HSCLKSOFF_OFS           (12)                            /* !< HSCLKSOFF Offset */
-#define SYSCTL_CLKSTATUS_HSCLKSOFF_MASK          ((uint32_t)0x00001000U)         /* !< HSCLKSOFF is set when the high
-                                                                                    speed clock sources (SYSPLL, HFCLK)
-                                                                                    are disabled or dead.  It is the
-                                                                                    logical AND of HFCLKOFF and
-                                                                                    SYSPLLOFF. */
-#define SYSCTL_CLKSTATUS_HSCLKSOFF_FALSE         ((uint32_t)0x00000000U)         /* !< SYSPLL, HFCLK, or both were started
-                                                                                    correctly and remain enabled */
-#define SYSCTL_CLKSTATUS_HSCLKSOFF_TRUE          ((uint32_t)0x00001000U)         /* !< SYSPLL and HFCLK are both either
-                                                                                    off or dead */
 /* SYSCTL_CLKSTATUS[FCLMODE] Bits */
 #define SYSCTL_CLKSTATUS_FCLMODE_OFS             (24)                            /* !< FCLMODE Offset */
 #define SYSCTL_CLKSTATUS_FCLMODE_MASK            ((uint32_t)0x01000000U)         /* !< FCLMODE indicates if the SYSOSC
@@ -1261,14 +699,6 @@ typedef struct {
                                                                                     enabled. */
 #define SYSCTL_CLKSTATUS_FCLMODE_DISABLED        ((uint32_t)0x00000000U)         /* !< SYSOSC FCL is disabled */
 #define SYSCTL_CLKSTATUS_FCLMODE_ENABLED         ((uint32_t)0x01000000U)         /* !< SYSOSC FCL is enabled */
-/* SYSCTL_CLKSTATUS[CURHSCLKSEL] Bits */
-#define SYSCTL_CLKSTATUS_CURHSCLKSEL_OFS         (16)                            /* !< CURHSCLKSEL Offset */
-#define SYSCTL_CLKSTATUS_CURHSCLKSEL_MASK        ((uint32_t)0x00010000U)         /* !< CURHSCLKSEL indicates the current
-                                                                                    clock source for HSCLK. */
-#define SYSCTL_CLKSTATUS_CURHSCLKSEL_SYSPLL      ((uint32_t)0x00000000U)         /* !< HSCLK is currently sourced from the
-                                                                                    SYSPLL */
-#define SYSCTL_CLKSTATUS_CURHSCLKSEL_HFCLK       ((uint32_t)0x00010000U)         /* !< HSCLK is currently sourced from the
-                                                                                    HFCLK */
 /* SYSCTL_CLKSTATUS[CURMCLKSEL] Bits */
 #define SYSCTL_CLKSTATUS_CURMCLKSEL_OFS          (17)                            /* !< CURMCLKSEL Offset */
 #define SYSCTL_CLKSTATUS_CURMCLKSEL_MASK         ((uint32_t)0x00020000U)         /* !< CURMCLKSEL indicates if MCLK is
@@ -1281,13 +711,6 @@ typedef struct {
                                                                                     clock counter capture is complete. */
 #define SYSCTL_CLKSTATUS_FCCDONE_NOTDONE         ((uint32_t)0x00000000U)         /* !< FCC capture is not done */
 #define SYSCTL_CLKSTATUS_FCCDONE_DONE            ((uint32_t)0x02000000U)         /* !< FCC capture is done */
-/* SYSCTL_CLKSTATUS[LFCLKFAIL] Bits */
-#define SYSCTL_CLKSTATUS_LFCLKFAIL_OFS           (23)                            /* !< LFCLKFAIL Offset */
-#define SYSCTL_CLKSTATUS_LFCLKFAIL_MASK          ((uint32_t)0x00800000U)         /* !< LFCLKFAIL indicates when the
-                                                                                    continous LFCLK monitor detects a
-                                                                                    LFXT or LFCLK_IN clock stuck failure. */
-#define SYSCTL_CLKSTATUS_LFCLKFAIL_FALSE         ((uint32_t)0x00000000U)         /* !< No LFCLK fault detected */
-#define SYSCTL_CLKSTATUS_LFCLKFAIL_TRUE          ((uint32_t)0x00800000U)         /* !< LFCLK stuck fault detected */
 
 /* SYSCTL_SYSSTATUS Bits */
 /* SYSCTL_SYSSTATUS[SHDNIOLOCK] Bits */
@@ -1303,12 +726,6 @@ typedef struct {
                                                                                     reset pin */
 #define SYSCTL_SYSSTATUS_EXTRSTPINDIS_FALSE      ((uint32_t)0x00000000U)         /* !< External Reset Pin Enabled */
 #define SYSCTL_SYSSTATUS_EXTRSTPINDIS_TRUE       ((uint32_t)0x00001000U)         /* !< External Reset Pin Disabled */
-/* SYSCTL_SYSSTATUS[VBATGOOD] Bits */
-#define SYSCTL_SYSSTATUS_VBATGOOD_OFS            (7)                             /* !< VBATGOOD Offset */
-#define SYSCTL_SYSSTATUS_VBATGOOD_MASK           ((uint32_t)0x00000080U)         /* !< VBATGOOD is set by hardware when
-                                                                                    the VBAT Power Domain is valid. */
-#define SYSCTL_SYSSTATUS_VBATGOOD_FALSE          ((uint32_t)0x00000000U)         /* !< VBAT Power Domain is not valid */
-#define SYSCTL_SYSSTATUS_VBATGOOD_TRUE           ((uint32_t)0x00000080U)         /* !< VBAT Power Domain is valid */
 /* SYSCTL_SYSSTATUS[PMUIREFGOOD] Bits */
 #define SYSCTL_SYSSTATUS_PMUIREFGOOD_OFS         (6)                             /* !< PMUIREFGOOD Offset */
 #define SYSCTL_SYSSTATUS_PMUIREFGOOD_MASK        ((uint32_t)0x00000040U)         /* !< PMUIREFGOOD is set by hardware when
@@ -1341,22 +758,6 @@ typedef struct {
 #define SYSCTL_SYSSTATUS_BORLVL_FALSE            ((uint32_t)0x00000000U)         /* !< No BOR violation occured */
 #define SYSCTL_SYSSTATUS_BORLVL_TRUE             ((uint32_t)0x00000010U)         /* !< A BOR violation occured and the BOR
                                                                                     threshold was switched to BOR0 */
-/* SYSCTL_SYSSTATUS[FLASHDED] Bits */
-#define SYSCTL_SYSSTATUS_FLASHDED_OFS            (0)                             /* !< FLASHDED Offset */
-#define SYSCTL_SYSSTATUS_FLASHDED_MASK           ((uint32_t)0x00000001U)         /* !< FLASHDED indicates if a flash ECC
-                                                                                    double bit error was detected (DED). */
-#define SYSCTL_SYSSTATUS_FLASHDED_FALSE          ((uint32_t)0x00000000U)         /* !< No flash ECC double bit error
-                                                                                    detected */
-#define SYSCTL_SYSSTATUS_FLASHDED_TRUE           ((uint32_t)0x00000001U)         /* !< Flash ECC double bit error detected */
-/* SYSCTL_SYSSTATUS[FLASHSEC] Bits */
-#define SYSCTL_SYSSTATUS_FLASHSEC_OFS            (1)                             /* !< FLASHSEC Offset */
-#define SYSCTL_SYSSTATUS_FLASHSEC_MASK           ((uint32_t)0x00000002U)         /* !< FLASHSEC indicates if a flash ECC
-                                                                                    single bit error was detected and
-                                                                                    corrected (SEC). */
-#define SYSCTL_SYSSTATUS_FLASHSEC_FALSE          ((uint32_t)0x00000000U)         /* !< No flash ECC single bit error
-                                                                                    detected */
-#define SYSCTL_SYSSTATUS_FLASHSEC_TRUE           ((uint32_t)0x00000002U)         /* !< Flash ECC single bit error was
-                                                                                    detected and corrected */
 /* SYSCTL_SYSSTATUS[BORCURTHRESHOLD] Bits */
 #define SYSCTL_SYSSTATUS_BORCURTHRESHOLD_OFS     (2)                             /* !< BORCURTHRESHOLD Offset */
 #define SYSCTL_SYSSTATUS_BORCURTHRESHOLD_MASK    ((uint32_t)0x0000000CU)         /* !< BORCURTHRESHOLD indicates the
@@ -1370,11 +771,6 @@ typedef struct {
                                                                                     BORLVL interrupt */
 #define SYSCTL_SYSSTATUS_BORCURTHRESHOLD_BORLEVEL3 ((uint32_t)0x0000000CU)         /* !< A BOR3- violation generates a
                                                                                     BORLVL interrupt */
-
-/* SYSCTL_DEDERRADDR Bits */
-/* SYSCTL_DEDERRADDR[ADDR] Bits */
-#define SYSCTL_DEDERRADDR_ADDR_OFS               (0)                             /* !< ADDR Offset */
-#define SYSCTL_DEDERRADDR_ADDR_MASK              ((uint32_t)0xFFFFFFFFU)         /* !< Address of MEMORY DED Error. */
 
 /* SYSCTL_RSTCAUSE Bits */
 /* SYSCTL_RSTCAUSE[ID] Bits */
@@ -1481,39 +877,6 @@ typedef struct {
                                                                                     Once enabled, this state is locked
                                                                                     until the next BOOTRST. */
 #define SYSCTL_SYSOSCFCLCTL_SETUSEFCL_TRUE       ((uint32_t)0x00000001U)         /* !< Enable the SYSOSC FCL */
-/* SYSCTL_SYSOSCFCLCTL[SETUSEEXRES] Bits */
-#define SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_OFS      (1)                             /* !< SETUSEEXRES Offset */
-#define SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_MASK     ((uint32_t)0x00000002U)         /* !< Set SETUSEEXRES to specify that an
-                                                                                    external resistor will be used for
-                                                                                    the FCL.  An appropriate resistor
-                                                                                    must be populated on the ROSC pin.
-                                                                                    This state is locked until the next
-                                                                                    BOOTRST. */
-#define SYSCTL_SYSOSCFCLCTL_SETUSEEXRES_TRUE     ((uint32_t)0x00000002U)         /* !< Enable the SYSOSC external Resistor */
-
-/* SYSCTL_LFXTCTL Bits */
-/* SYSCTL_LFXTCTL[KEY] Bits */
-#define SYSCTL_LFXTCTL_KEY_OFS                   (24)                            /* !< KEY Offset */
-#define SYSCTL_LFXTCTL_KEY_MASK                  ((uint32_t)0xFF000000U)         /* !< The key value of 91h (145) must be
-                                                                                    written to KEY together with either
-                                                                                    STARTLFXT or SETUSELFXT to set the
-                                                                                    corresponding bit. */
-#define SYSCTL_LFXTCTL_KEY_VALUE                 ((uint32_t)0x91000000U)         /* !< Issue command */
-/* SYSCTL_LFXTCTL[SETUSELFXT] Bits */
-#define SYSCTL_LFXTCTL_SETUSELFXT_OFS            (1)                             /* !< SETUSELFXT Offset */
-#define SYSCTL_LFXTCTL_SETUSELFXT_MASK           ((uint32_t)0x00000002U)         /* !< Set SETUSELFXT to switch LFCLK to
-                                                                                    LFXT.  Once set, SETUSELFXT remains
-                                                                                    set until the next BOOTRST. */
-#define SYSCTL_LFXTCTL_SETUSELFXT_FALSE          ((uint32_t)0x00000000U)
-#define SYSCTL_LFXTCTL_SETUSELFXT_TRUE           ((uint32_t)0x00000002U)         /* !< Use LFXT as the LFCLK source */
-/* SYSCTL_LFXTCTL[STARTLFXT] Bits */
-#define SYSCTL_LFXTCTL_STARTLFXT_OFS             (0)                             /* !< STARTLFXT Offset */
-#define SYSCTL_LFXTCTL_STARTLFXT_MASK            ((uint32_t)0x00000001U)         /* !< Set STARTLFXT to start the low
-                                                                                    frequency crystal oscillator (LFXT).
-                                                                                    Once set, STARTLFXT remains set until
-                                                                                    the next BOOTRST. */
-#define SYSCTL_LFXTCTL_STARTLFXT_FALSE           ((uint32_t)0x00000000U)         /* !< LFXT not started */
-#define SYSCTL_LFXTCTL_STARTLFXT_TRUE            ((uint32_t)0x00000001U)         /* !< Start LFXT */
 
 /* SYSCTL_EXLFCTL Bits */
 /* SYSCTL_EXLFCTL[KEY] Bits */
@@ -1625,4 +988,4 @@ typedef struct {
 }
 #endif
 
-#endif /* ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0l122x_l222x__include */
+#endif /* ti_devices_msp_peripherals_m0p_hw_sysctl_mspm0c110x__include */

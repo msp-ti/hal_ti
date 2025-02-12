@@ -243,6 +243,11 @@ typedef enum {
 #define DL_UART_DMA_INTERRUPT_RX              (UART_DMA_TRIG_RX_IMASK_RXINT_SET)
 
 /*!
+ * @brief UART interrupt indicating DMA is done with the RX
+ */
+#define DL_UART_DMA_DONE_INTERRUPT_RX         (UART_CPU_INT_IMASK_DMA_DONE_RX_SET)
+
+/*!
  * @brief UART interrupt for enabling UART receive timeout as DMA trigger
  */
 #define DL_UART_DMA_INTERRUPT_RX_TIMEOUT      (UART_DMA_TRIG_RX_IMASK_RTOUT_SET)
@@ -253,6 +258,11 @@ typedef enum {
  * @brief UART interrupt for enabling UART transmit as DMA trigger
  */
 #define DL_UART_DMA_INTERRUPT_TX              (UART_DMA_TRIG_TX_IMASK_TXINT_SET)
+
+/*!
+ * @brief UART interrupt indicating DMA is done with the TX
+ */
+#define DL_UART_DMA_DONE_INTERRUPT_TX         (UART_CPU_INT_IMASK_DMA_DONE_TX_SET)
 
 /** @addtogroup DL_UART_ERROR
  *  @{
@@ -1143,7 +1153,7 @@ __STATIC_INLINE void DL_UART_disableTransmitPinManualControl(UART_Regs *uart)
  *  @post If @ref DL_UART_changeConfig was called, then the UART must be
  *        re-enabled by calling @ref DL_UART_enable
  *
- *  @sa          DL_UART_disableTransmit
+ *  @sa          DL_UART_disableTransmitPinManualControl
  *  @sa          DL_UART_enableTransmitPinManualControl
  */
 __STATIC_INLINE void DL_UART_setTransmitPinManualOutput(
@@ -1443,9 +1453,10 @@ __STATIC_INLINE bool DL_UART_isParityEnabled(UART_Regs *uart)
  *
  *  For 9-bit UART mode transmissions, the parity mode affects the address
  *  byte and data byte indication (9th bit). If DL_UART_PARITY_EVEN or
- *  DL_UART_PARITY_STICK_ZERO is enabled, then the transferred byte is a data
- *  byte.  If DL_UART_PARITY_EVEN or DL_UART_PARITY_STICK_ZERO is not enabled,
- *  then the transferred byte is an address byte.
+ *  DL_UART_PARITY_STICK_ZERO is enabled, then the transferred byte is an
+ *  address byte with Parity bit '1'. If DL_UART_PARITY_EVEN or
+ *  DL_UART_PARITY_STICK_ZERO is not enabled, then the transferred byte is an
+ *  address byte with Parity bit '0'.
  *
  *  @param[in]  uart    Pointer to the register overlay for the peripheral
  *  @param[in]  parity  Parity mode to set UART to.

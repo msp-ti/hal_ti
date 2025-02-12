@@ -345,6 +345,48 @@ extern "C" {
 #define DL_TIMER_CC_OCTL_SRC_CNTDIR                (GPTIMER_OCTL_01_CCPO_CNTDIR)
 /** @}*/
 
+/** @addtogroup DL_TIMER_CC_SWFRCACT_CMPL
+ *  @{
+ */
+
+/*!
+ * @brief The CCP complimentary output value is unaffected by the event.
+ */
+#define DL_TIMER_CC_SWFRCACT_CMPL_DISABLED           (GPTIMER_CCACT_01_SWFRCACT_CMPL_DISABLED)
+
+/*!
+ * @brief CCP complimentary output value is set high.
+ */
+#define DL_TIMER_CC_SWFRCACT_CMPL_HIGH               (GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_HIGH)
+
+/*!
+ * @brief CCP complimentary output value is set low.
+ */
+#define DL_TIMER_CC_SWFRCACT_CMPL_LOW                 (GPTIMER_CCACT_01_SWFRCACT_CMPL_CCP_LOW)
+
+/** @}*/
+
+/** @addtogroup DL_TIMER_CC_SWFRCACT
+ *  @{
+ */
+
+/*!
+ * @brief The CCP output value is unaffected by the event.
+ */
+#define DL_TIMER_CC_SWFRCACT_DISABLED           (GPTIMER_CCACT_01_SWFRCACT_DISABLED)
+
+/*!
+ * @brief CCP output value is set high.
+ */
+#define DL_TIMER_CC_SWFRCACT_HIGH               (GPTIMER_CCACT_01_SWFRCACT_CCP_HIGH)
+
+/*!
+ * @brief CCP output value is set low.
+ */
+#define DL_TIMER_CC_SWFRCACT_LOW                 (GPTIMER_CCACT_01_SWFRCACT_CCP_LOW)
+
+/** @}*/
+
 /** @addtogroup DL_TIMER_CC_FEXACT
  *  @{
  */
@@ -408,6 +450,60 @@ extern "C" {
  */
 #define DL_TIMER_CC_FENACT_HIGHZ           (GPTIMER_CCACT_01_FENACT_CCP_HIGHZ)
 
+
+/** @}*/
+
+/** @addtogroup DL_TIMER_CC_CC2UACT
+ *  @{
+ */
+
+/*!
+ * @brief The CCP output value is unaffected by the event.
+ */
+#define DL_TIMER_CC_CC2UACT_DISABLED           (GPTIMER_CCACT_01_CC2UACT_DISABLED)
+
+/*!
+ * @brief CCP output value is set high.
+ */
+#define DL_TIMER_CC_CC2UACT_CCP_HIGH           (GPTIMER_CCACT_01_CC2UACT_CCP_HIGH)
+
+/*!
+ * @brief CCP output value is set low
+ */
+#define DL_TIMER_CC_CC2UACT_CCP_LOW             (GPTIMER_CCACT_01_CC2UACT_CCP_LOW)
+
+/*!
+ * @brief CCP output value is toggled.
+ */
+#define DL_TIMER_CC_CC2UACT_CCP_TOGGLE      \
+                                            (GPTIMER_CCACT_01_CC2UACT_CCP_TOGGLE)
+
+/** @}*/
+
+/** @addtogroup DL_TIMER_CC_CC2DACT
+ *  @{
+ */
+
+/*!
+ * @brief The CCP output value is unaffected by the event.
+ */
+#define DL_TIMER_CC_CC2DACT_DISABLED           (GPTIMER_CCACT_01_CC2DACT_DISABLED)
+
+/*!
+ * @brief CCP output value is set high.
+ */
+#define DL_TIMER_CC_CC2DACT_CCP_HIGH           (GPTIMER_CCACT_01_CC2DACT_CCP_HIGH)
+
+/*!
+ * @brief CCP output value is set low
+ */
+#define DL_TIMER_CC_CC2DACT_CCP_LOW             (GPTIMER_CCACT_01_CC2DACT_CCP_LOW)
+
+/*!
+ * @brief CCP output value is toggled.
+ */
+#define DL_TIMER_CC_CC2DACT_CCP_TOGGLE      \
+                                            (GPTIMER_CCACT_01_CC2DACT_CCP_TOGGLE)
 
 /** @}*/
 
@@ -557,27 +653,27 @@ extern "C" {
 /*!
  * @brief subscriber 0 event as input source
  */
-#define DL_TIMER_CC_IN_SEL_FSUB0      (GPTIMER_IFCTL_01_ISEL_CCP_FSUB0)
+#define DL_TIMER_CC_IN_SEL_FSUB0      (GPTIMER_IFCTL_01_ISEL_FSUB0)
 
 /*!
  * @brief subscriber 1 event as input source
  */
-#define DL_TIMER_CC_IN_SEL_FSUB1      (GPTIMER_IFCTL_01_ISEL_CCP_FSUB1)
+#define DL_TIMER_CC_IN_SEL_FSUB1      (GPTIMER_IFCTL_01_ISEL_FSUB1)
 
 /*!
  * @brief Comparator 0 output
  */
-#define DL_TIMER_CC_IN_SEL_COMP0      (GPTIMER_IFCTL_01_ISEL_CCP_COMP0)
+#define DL_TIMER_CC_IN_SEL_COMP0      (GPTIMER_IFCTL_01_ISEL_COMP0)
 
 /*!
  * @brief Comparator 1 output
  */
-#define DL_TIMER_CC_IN_SEL_COMP1      (GPTIMER_IFCTL_01_ISEL_CCP_COMP1)
+#define DL_TIMER_CC_IN_SEL_COMP1      (GPTIMER_IFCTL_01_ISEL_COMP1)
 
 /*!
  * @brief Comparator 2 output.
  */
-#define DL_TIMER_CC_IN_SEL_COMP2      (GPTIMER_IFCTL_01_ISEL_CCP_COMP2)
+#define DL_TIMER_CC_IN_SEL_COMP2      (GPTIMER_IFCTL_01_ISEL_COMP2)
 
 
 
@@ -1518,6 +1614,10 @@ typedef enum {
      * @note <b> Please refer the Timer TRM to determine TIMG instances which
      * support this feature. </b> */
     DL_TIMER_IIDX_DIR_CHANGE = GPTIMER_CPU_INT_IIDX_STAT_DC,
+    /*! Timer interrupt index for QEI incorrect state transition
+     * @note <b> Please refer the Timer TRM to determine TIMG instances which
+     * support this feature. </b> */
+    DL_TIMER_IIDX_QEIERR = GPTIMER_CPU_INT_IIDX_STAT_QEIERR,
 } DL_TIMER_IIDX;
 
 /*! @enum DL_TIMER_PUBLISHER_INDEX */
@@ -1830,7 +1930,7 @@ typedef struct {
     /*! Counter value when intermediate interrupt should be generated. This
      * member must be set to 0 when
      * @ref genIntermInt == DL_TIMER_INTERM_INT_DISABLED */
-    uint16_t counterVal;
+    uint32_t counterVal;
 } DL_Timer_TimerConfig;
 
 /*!
@@ -1862,7 +1962,7 @@ typedef struct {
     DL_TIMER_CAPTURE_MODE captureMode;
     /*! Specifies the capture period. period_actual=(period +1) * T_TIMCLK
      * where T_TIMCLK is the period of the timer source clock. */
-    uint16_t period;
+    uint32_t period;
     /*! Start timer after configuration. One of @ref DL_TIMER */
     DL_TIMER startTimer;
 } DL_Timer_CaptureTriggerConfig;
@@ -1894,8 +1994,8 @@ typedef struct {
     /*! Specifies the intial count value. In edge count mode this value will
      *  decrease everytime the configured edge detection mode is detected.
      *  The counter will be reset to this value after the reaching zero.
-     *  Valid range [0-65535]. */
-    uint16_t count;
+     */
+    uint32_t count;
     /*! Specifies the edge detection mode. One of
         @ref DL_TIMER_CAPTURE_EDGE_DETECTION_MODE*/
     DL_TIMER_COMPARE_EDGE_DETECTION_MODE edgeDetectMode;
@@ -1917,8 +2017,8 @@ typedef struct {
     /*! Specifies the intial count value. In edge count mode this value will
      *  decrease everytime the configured edge detection mode is detected.
      *  The counter will be reset to this value after the reaching zero.
-     *  Valid range [0-65535]. */
-    uint16_t count;
+     */
+    uint32_t count;
     /*! Specifies the edge detection mode. One of
         @ref DL_TIMER_CAPTURE_EDGE_DETECTION_MODE*/
     DL_TIMER_COMPARE_EDGE_DETECTION_MODE edgeDetectMode;
@@ -1939,6 +2039,10 @@ typedef struct {
     uint32_t period;
     /*! Specifies the PWM Mode. One of @ref DL_TIMER_PWM_MODE */
     DL_TIMER_PWM_MODE pwmMode;
+    /*! Specifies if this is a counter with four capture compare registers.
+        Please refer to the device datasheet to determine if Timer instance
+        supports four capture compare registers */
+    bool isTimerWithFourCC;
     /*! Start timer after configuration @ref DL_TIMER */
     DL_TIMER startTimer;
 } DL_Timer_PWMConfig;
@@ -1994,24 +2098,46 @@ typedef struct {
     uint32_t cc0Val;
     /*! Timer Capture or Compare 1 value */
     uint32_t cc1Val;
+    /*! Timer Capture or Compare 2 value */
+    uint32_t cc2Val;
+    /*! Timer Capture or Compare 3 value */
+    uint32_t cc3Val;
     /*! Timer Capture or Compare Control Register 0 */
     uint32_t cc0Ctl;
     /*! Timer Capture or Compare Control Register 1 */
     uint32_t cc1Ctl;
+    /*! Timer Capture or Compare Control Register 2 */
+    uint32_t cc2Ctl;
+    /*! Timer Capture or Compare Control Register 3 */
+    uint32_t cc3Ctl;
     /*! Timer Capture or Compare Output Control Register 0 */
     uint32_t cc0OutCtl;
     /*! Timer Capture or Compare Output Control Register 1 */
     uint32_t cc1OutCtl;
+    /*! Timer Capture or Compare Output Control Register 2 */
+    uint32_t cc2OutCtl;
+    /*! Timer Capture or Compare Output Control Register 3 */
+    uint32_t cc3OutCtl;
     /*! Timer Capture or Compare Signal Generator Action Control Register 0 */
     uint32_t cc0ActCtl;
     /*! Timer Capture or Compare Signal Generator Action Control Register 1 */
     uint32_t cc1ActCtl;
+    /*! Timer Capture or Compare Signal Generator Action Control Register 2 */
+    uint32_t cc2ActCtl;
+    /*! Timer Capture or Compare Signal Generator Action Control Register 3 */
+    uint32_t cc3ActCtl;
     /*! Timer Capture or Compare Input Filter and Inversion Control
      *  Register 0 */
     uint32_t in0FiltCtl;
     /*! Timer Capture or Compare Input Filter and Inversion Control
      *  Register 1 */
     uint32_t in1FiltCtl;
+    /*! Timer Capture or Compare Input Filter and Inversion Control
+     *  Register 2 */
+    uint32_t in2FiltCtl;
+    /*! Timer Capture or Compare Input Filter and Inversion Control
+     *  Register 3 */
+    uint32_t in3FiltCtl;
     /*! Boolean flag indicating whether or not a valid configuration structure
      *  exists. Should not be modified by the user. */
     bool backupRdy;
@@ -2837,14 +2963,21 @@ void DL_Timer_initCompareTriggerMode(
  * @brief Configure timer in Pulse Width Modulation Mode
  *  Initializes all the common configurable options for the TIMx peripheral when
  *  used in PWM mode. Any other custom configuration can be done after calling
- *  this API.
+ *  this API. Configures the top two CC blocks and then configures the bottom
+ *  two CC blocks.
  *
  * @param gptimer              Pointer to the register overlay for the
  *                             peripheral
  * @param config               Pointer to the mode configuration struct
  *                             @ref DL_Timer_PWMConfig.
  */
-void DL_Timer_initPWMMode(GPTIMER_Regs *gptimer, DL_Timer_PWMConfig *config);
+void DL_Timer_initFourCCPWMMode(
+    GPTIMER_Regs *gptimer, DL_Timer_PWMConfig *config);
+
+/*!
+ * @brief Redirects to common @ref DL_Timer_initFourCCPWMMode
+ */
+#define DL_Timer_initPWMMode DL_Timer_initFourCCPWMMode
 
 /**
  *  @brief      Reset register controlling counter operation
@@ -3063,6 +3196,8 @@ uint32_t DL_Timer_getCaptureCompareOutCtl(
  *  @param[in] gptimer       Pointer to the register overlay for the
  *                           peripheral
  *  @param[in] actionsMask   Bit mask of signal generator actions. Bitwise OR of
+ *                           @ref DL_TIMER_CC_SWFRCACT_CMPL, @ref DL_TIMER_CC_SWFRCACT,
+ *                           @ref DL_TIMER_CC_CC2UACT, @ref DL_TIMER_CC_CC2DACT,
  *                           @ref DL_TIMER_CC_FEXACT, @ref DL_TIMER_CC_FENACT,
  *                           @ref DL_TIMER_CC_CUACT, @ref DL_TIMER_CC_CDACT,
  *                           @ref DL_TIMER_CC_LACT, @ref DL_TIMER_CC_ZACT,
@@ -3081,7 +3216,9 @@ void DL_Timer_setCaptureCompareAction(
  *  @param[in]  ccIndex        Index associated to capture compare register
  *                             @ref DL_TIMER_CC_INDEX.
  *
- *  @return Bitwise OR of @ref DL_TIMER_CC_FEXACT, @ref DL_TIMER_CC_FENACT,
+ *  @return Bitwise OR of @ref DL_TIMER_CC_SWFRCACT_CMPL, @ref DL_TIMER_CC_SWFRCACT,
+ *          @ref DL_TIMER_CC_CC2UACT, @ref DL_TIMER_CC_CC2DACT,
+ *          @ref DL_TIMER_CC_FEXACT, @ref DL_TIMER_CC_FENACT,
  *          @ref DL_TIMER_CC_CUACT, @ref DL_TIMER_CC_CDACT,
  *          @ref DL_TIMER_CC_LACT, @ref DL_TIMER_CC_ZACT.
  *
@@ -3486,7 +3623,7 @@ __STATIC_INLINE bool DL_Timer_isPhaseLoadEnabled(GPTIMER_Regs *gptimer)
  *
  */
 __STATIC_INLINE void DL_Timer_setPhaseLoadValue(
-    GPTIMER_Regs *gptimer, uint16_t value)
+    GPTIMER_Regs *gptimer, uint32_t value)
 {
     gptimer->COUNTERREGS.PL = (value);
 }
@@ -3499,9 +3636,9 @@ __STATIC_INLINE void DL_Timer_setPhaseLoadValue(
  *
  *  @return Phase load value
  */
-__STATIC_INLINE uint16_t DL_Timer_getPhaseLoadValue(GPTIMER_Regs *gptimer)
+__STATIC_INLINE uint32_t DL_Timer_getPhaseLoadValue(GPTIMER_Regs *gptimer)
 {
-    return ((uint16_t)(gptimer->COUNTERREGS.PL & GPTIMER_PL_PHASE_MASK));
+    return ((uint32_t)(gptimer->COUNTERREGS.PL & GPTIMER_PL_PHASE_MASK));
 }
 
 /**
@@ -4175,7 +4312,7 @@ bool DL_Timer_restoreConfiguration(
  *
  *  @param[in]  gptimer  Pointer to the register overlay for the peripheral
  *
- *  @param[in]  haltMode Timer halt behavvior. One of @ref DL_TIMER_CORE_HALT.
+ *  @param[in]  haltMode Timer halt behavior. One of @ref DL_TIMER_CORE_HALT.
  *
  */
 __STATIC_INLINE void DL_Timer_setCoreHaltBehavior(
